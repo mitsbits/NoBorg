@@ -1,0 +1,81 @@
+﻿@using Timesheets.Web.Auth
+@using Timesheets.Web.Features.Workers
+@model Borg.Infra.Collections.IPagedResult<Timesheets.Web.Features.Workers.WorkerRowViewModel>
+
+@{
+    var searchterm = ViewContext.HttpContext.Request.Query["searchterm"];
+}
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form role="form" asp-controller="Workers" asp-action="Index" method="get">
+            <div class="box box-default">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="input-group margin">
+                            <input id="searchterm" name="searchterm" class="form-control" type="search" value="@searchterm" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info pull-right">Search</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class=" box-body table-responsive no-padding">
+                <table class="table table-condensed table-hover">
+                    @*<tr>
+                            <th></th>
+                            <th></th>
+                            <th>Team</th>
+                            <th>Last Entry</th>
+                            <th>Roles</th>
+                        </tr>*@
+                    @foreach (var w in Model.Records)
+                    {
+                        <tr>
+                            <td style="width: 10px;">
+                                @if (w.LockoutEnabled)
+                                {
+                                    <i class="fa fa-lock text-danger"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-check text-success"></i>
+                                }
+                            </td>
+                            <td>
+                                @if (UserSession.IsAdminOrManager())
+                                {
+                                    <a asp-controller="Workers" asp-action="Worker" asp-route-email="@w.Email" title="@w.Email">
+                                        @w.Name()
+                                    </a>
+                                }
+                                else
+                                {
+                                    @w.Email
+                                }
+                            </td>
+
+                            <td>
+                                <a asp-controller="Teams" asp-action="Teams" asp-route-team="@w.Team">
+                                    @w.Team
+                                </a>
+                            </td>
+
+                            <td>
+                                <concat-text data="@w.Roles.Where(x => x != Roles.Employee).Select(x => x.ToString())"></concat-text>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="box-footer"><pagination class="pull-right" model="Model"></pagination></div>
+        </div>
+    </div>
+</div>

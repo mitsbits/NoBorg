@@ -1,0 +1,52 @@
+﻿@using Web.Features.UserSession
+@model UserSessionViewModel
+
+<form method="post" asp-controller="UserSession" asp-action="Settings">
+    <h3 class="control-sidebar-heading">User session</h3>
+    <div class="form-group">
+        <p>
+            Session started at @Model.SessionStart.ToLocalTime().ToString("f")
+            <input type="hidden" asp-for="RedirectUrl" Value="@Orchestrator.Device.Path" />
+        </p>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <label class="control-sidebar-subheading" asp-for="MenuIsCollapsed"></label>
+                </div>
+                <div class="pull-right">
+                    <input type="checkbox" class="pull-right" asp-for="MenuIsCollapsed">
+                </div>
+            </div>
+        </div>
+
+
+        <p>
+            Control if the left menu is expanded or collapsed when pages load.
+        </p>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-sidebar-subheading" asp-for="RowsPerPage"></label>
+
+        <input type="text" class="pull-right form-control" asp-for="RowsPerPage">
+
+
+
+
+        <p>
+            Control how many rows will be displayed on a grid.
+        </p>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+    </div>
+
+</form>

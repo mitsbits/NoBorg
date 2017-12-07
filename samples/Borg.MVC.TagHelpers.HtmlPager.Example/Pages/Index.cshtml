@@ -1,0 +1,54 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Birthday</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.Data)
+                {
+                    <tr>
+                        <td>@p.Name</td>
+                        <td>@p.Email</td>
+                        <td>@p.Birthday</td>
+                        <td>@p.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12">
+        <strong>1. </strong>  @Pagination.DisplayFormat.MinimalWithPages  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.MinimalWithPages"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>2. </strong>   @Pagination.DisplayFormat.PageNumbersOnly  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.PageNumbersOnly"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>3. </strong>   @Pagination.DisplayFormat.DefaultPager  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.DefaultPager"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>4. </strong>   @Pagination.DisplayFormat.DefaultPlusFirstAndLast  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.DefaultPlusFirstAndLast"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>5. </strong>   @Pagination.DisplayFormat.Minimal  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.Minimal"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>6. </strong>    @Pagination.DisplayFormat.MinimalWithItemCountText  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.MinimalWithItemCountText"></pagination>
+    </div>
+    <div class="col-md-12">
+        <strong>7. </strong>    @Pagination.DisplayFormat.MinimalWithPageCountText  <pagination class="pull-right" model="@Model.Data" display-style="@Pagination.DisplayFormat.MinimalWithPageCountText"></pagination>
+    </div>
+</div>

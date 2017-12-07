@@ -1,0 +1,103 @@
+﻿@*@using Borg.Framework.UserNotifications
+@using Borg.Infra.Messaging
+@model UserNotificationsViewModel
+@{
+
+    Func<ResponseStatus, string> _iconClass = (msg) =>
+    {
+        var result = string.Empty;
+        switch (msg)
+        {
+
+            case ResponseStatus.Info:
+                result = "fa fa-info";
+                break;
+            case ResponseStatus.Warning:
+                result = "fa fa-warning";
+                break;
+            case ResponseStatus.Error:
+                result = "fa fa-ban";
+                break;
+            case ResponseStatus.Success:
+                result = "fa fa-check";
+                break;
+
+        }
+        return result;
+    };
+
+    Func<ResponseStatus, string> _textClass = (msg) =>
+    {
+        var result = string.Empty;
+        switch (msg)
+        {
+
+            case ResponseStatus.Info:
+                result = "alert alert-info";
+                break;
+            case ResponseStatus.Warning:
+                result = "alert alert-warning";
+                break;
+            case ResponseStatus.Error:
+                result = "alert alert-danger";
+                break;
+            case ResponseStatus.Success:
+                result = "alert alert-success";
+                break;
+
+        }
+        return result;
+    };
+
+    Func<ResponseStatus, string> _btnClass = (msg) =>
+    {
+        var result = string.Empty;
+        switch (msg)
+        {
+
+            case ResponseStatus.Info:
+                result = "btn btn-xs btn-flat btn-info";
+                break;
+            case ResponseStatus.Warning:
+                result = "btn btn-xs btn-flat btn-warning";
+                break;
+            case ResponseStatus.Error:
+                result = "btn btn-xs btn-flat btn-danger";
+                break;
+            case ResponseStatus.Success:
+                result = "btn btn-xs btn-flat btn-success";
+                break;
+
+        }
+        return result;
+    };
+
+}*@
+@*
+    <li class="dropdown notifications-menu">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bell-o"></i>
+            @if (Model.UserNotifications.Length > 0)
+            {
+                <span class="label label-warning">@Model.UserNotifications.Length</span>
+            }
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header">You have @Model.UserNotifications.Length notifications</li>
+            <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                    @foreach (var notification in Model.UserNotifications)
+                    {
+                        <li>
+                            <div data-id="@notification.NotificationIdentifier" class="@_textClass(notification.ResponseStatus) margin-bottom-none">
+                                <i class="@_iconClass(notification.ResponseStatus)"></i> <span class="h6" title="@notification.Message"> @notification.Title</span>
+                                <button class="@_btnClass(notification.ResponseStatus) pull-right" type="button" title="Aknowledge">x</button>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li class="footer"><a asp-controller="UserNotifications" asp-action="Index" data-id="">View all</a></li>
+        </ul>
+    </li>*@

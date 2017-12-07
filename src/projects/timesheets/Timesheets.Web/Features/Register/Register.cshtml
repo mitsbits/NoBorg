@@ -1,0 +1,86 @@
+﻿@using Timesheets.Web.Features.Register
+@using Timesheets.Web.Domain
+    @model Timesheets.Web.Features.Register.RegisterViewModel
+    @*@{
+            Layout = "_EmptyLayout";
+        }*@
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <img src="https://d3kdj0p3ajn4xa.cloudfront.net/assets/resources/timesheets/timesheets-922dedd704c0ffddeacf702971ce82bb4c1c07b65d63534ed7790bb621fa5a10.png" class="img-responsive center-block margin-bottom" alt="logo" style="max-width:150px; margin-top:25px;" />
+
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+
+            <div class="box">
+                <form asp-controller="Register" asp-action="Register" asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div class="box-header">
+                        <h3 class="box-title">Register for a new account</h3>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Password" class="form-control" type="password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="FirstName" class="form-control" type="text" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LastName" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="LastName" class="form-control" type="text" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Team" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="Team" asp-items="Html.GetEnumSelectList<TeamCoutries>()" class="select2 full-width"></select>
+                                <span asp-validation-for="Team" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger box-footer"></div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Register</button>
+                    </div>
+                    <div class="box-footer">
+                        <p>
+                            <a asp-controller="Login" asp-action="Login" asp-route-returnurl="@Model.ReturnUrl">Registerd user? Go to log in.</a>
+                        </p>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

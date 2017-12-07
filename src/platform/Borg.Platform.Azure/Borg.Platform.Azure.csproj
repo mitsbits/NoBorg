@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.0.1-beta</Version>
+    <Authors>mitsbits@gmail.com</Authors>
+    <Company>mitsbits@gmail.com</Company>
+    <Description>Borg package for integrating with Azure services</Description>
+    <Copyright>mitsbits@gmail.com</Copyright>
+    <PackageProjectUrl>https://github.com/mitsbits/Borg.Infra</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mitsbits/Borg.Infra</RepositoryUrl>
+    <PackageIconUrl>http://icons.iconarchive.com/icons/icons8/windows-8/128/Cinema-Borg-Head-icon.png</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Borg</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WindowsAzure.Storage" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\infra\Borg.Infra\Borg.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

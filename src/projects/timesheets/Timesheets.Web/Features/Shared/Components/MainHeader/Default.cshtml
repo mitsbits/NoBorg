@@ -1,0 +1,9 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Timesheets.Web.ViewComponents
+
+<header class="main-header">
+
+    @await Component.InvokeAsync(typeof(MainHeaderLogoViewComponent))
+
+    @await Component.InvokeAsync(typeof(MainHeaderNavBarViewComponent))
+</header>

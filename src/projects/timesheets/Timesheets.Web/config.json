@@ -1,0 +1,33 @@
+﻿{
+  "ConnectionStrings": {
+    "AuthSql": "Server=.\\sql2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;",
+    "TmesheetsSql": "Server=.\\sql2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;"
+  },
+  "BuildInUser": {
+    "UserName": "timesheets@futuradefence.com",
+    "Password": "Passw0rd",
+    "Locked": false
+  },
+  "Borg": {
+    "Storage": {
+      "Folder": "storage"
+    },
+    "PaginationInfoStyle": {
+      "OutputTagElement": "ul",
+      "OutputItemTagElement": "li",
+      "ItemSliceAndTotalFormat": "{0} to {1} of {2}",
+      "PageCountAndLocationFormat": "{0} of {1}",
+      "NextDisplay": ">",
+      "LastDisplay": ">>",
+      "PreviousDisplay": "<",
+      "FirstDisplay": "<<",
+      "PageDisplayFormat": "{0}",
+      "PageVariableName": "p",
+      "ElementClass": "pagination",
+      "CurrentClass": "active",
+      "UnavailableClass": "disabled",
+      "ArrowClass": "",
+      "Ellipses": "xxx"
+    }
+  }
+}

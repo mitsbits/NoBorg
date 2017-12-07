@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Timesheets.Web.ViewComponents
+<!DOCTYPE html>
+@{
+    var collapseClass = UserSession.MenuIsCollapsed() ? "sidebar-collapse" : "";
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Orchestrator.Page.Title</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    @Html.Partial("_HeadScriptsPartial")
+    @RenderSection("headscripts", required: false)
+</head>
+<body class="hold-transition skin-black-light sidebar-mini @collapseClass">
+    <div class="wrapper">
+
+        @await Component.InvokeAsync(typeof(MainHeaderViewComponent))
+
+        <aside class="main-sidebar">
+            @await Component.InvokeAsync(typeof(NavigationViewComponent))
+        </aside>
+
+        <div class="content-wrapper">
+
+            <section class="content-header">
+                @if (IsSectionDefined("contentheader"))
+                {
+                    @RenderSection("contentheader", required: false)
+                }
+                else
+                {
+                    @Html.Partial("_PageTitle")
+                    @await Component.InvokeAsync(typeof(BreadcrumpsViewComponent))
+                }
+            </section>
+
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+    @await Component.InvokeAsync(typeof(MainFooterViewComponent))
+    @await Component.InvokeAsync(typeof(HiddenSidebarViewComponent))
+    @Html.Partial("_BottomScriptsPartial")
+    @RenderSection("bottomscripts", required: false)
+    @await Component.InvokeAsync(typeof(ServerFeedbackViewComponent))
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@using System.Threading.Tasks
+@using Web.Features.Workers
+@model Web.Features.Workers.WorkerNameAndTeamViewModel
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Name & Team</h3>
+    </div>
+    <form role="form" asp-controller="Workers" asp-action="SetNameAndTeam" method="post" asp-route-redirecturl="@Orchestrator.Device.Path">
+
+
+        <input asp-for="Email" type="hidden" />
+        <div class="box-body">
+
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input type="text" class="form-control" asp-for="FirstName" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label asp-for="LaststName"></label>
+                <input type="text" class="form-control" asp-for="LaststName" />
+                <span asp-validation-for="LaststName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Team"></label>
+                <select asp-items="@Model.TeamOptions()" asp-for="Team" class="select2 form-control"></select>
+                <span asp-validation-for="Team" class="text-danger"></span>
+            </div>
+        </div>
+
+        @if (UserSession.IsAdminOrManager() || Model.Email.Equals(UserSession.UserName))
+        {
+
+            <div class="box-footer">
+
+
+                <button type="submit" class="btn btn-default pull-right">Save</button>
+
+
+            </div>
+
+        }
+    </form>
+</div>

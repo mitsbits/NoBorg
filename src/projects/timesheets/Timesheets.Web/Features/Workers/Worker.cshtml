@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Web.Features.Workers
+@model Web.Features.Workers.WorkerViewModel
+
+@section contentheader
+    {
+    <h1>
+    @Model.LaststName, @Model.FirstName
+        <small>
+            <a asp-controller="Teams" asp-action="Teams" asp-route-team="@Model.TeamId">@Model.TeamId</a> - @Model.Email
+        </small>
+</h1>
+    @await Component.InvokeAsync(typeof(BreadcrumpsViewComponent))
+    }
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("NameAndTeam", new WorkerNameAndTeamViewModel(Model))
+    </div>
+    <div class="col-md-3">
+        @Html.Partial("LockedStatus")
+    </div>
+    <div class="col-md-5">
+        @await Component.InvokeAsync( "WorkerCallendar", new{ workerId = Model.Email})
+    </div>
+
+</div>

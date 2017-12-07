@@ -1,0 +1,248 @@
+﻿@using System.Globalization
+@using Timesheets.Web.Features.Workers
+@model WorkerCallendarViewModel
+@{
+    var id = Guid.NewGuid().ToString();
+    var calUrl = Url.Action("callendar", "Workers");
+    var wUrl = Url.Action("WorkingDay", "Workers");
+    var sUrl = Url.Action("UpdateWorkingDay", "Workers");
+}
+
+<div class="box box-default">
+    <div class="box-body">
+        <div id="@id"></div>
+    </div>
+</div>
+
+<div class="modal modal-info fade" id="modal-@id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <section id="modalapp-@id">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" v-html="longdate"></h4><small v-html="subtitle"></small>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="newTaxonomy">Taxonomy</label>
+                            <input type="text" v-model="newassingment.taxonomy" class="form-control" name="newTaxonomy" id="newTaxonomy" />
+                            <label for="newSpan">Span</label>
+                            <input type="text" v-model="newassingment.span" class="form-control" name="newSpan" id="newSpan" />
+                            <button type="button" class="btn btn-flat" v-on:click="addNewAssigment">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-body table-responsive bg-primary" style="min-height: 300px;">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Taxonomy</th>
+                                <th class="text-right">Hours</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tr v-for="(item, index) in assingments">
+                            <td class="text-left">{{item.taxonomy}}</td>
+                            <td class="text-right">{{item.span}}</td>
+                            <td class="text-right">
+                                <button class="btn btn-xs btn-flat" @@click="remove(index)">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-right "> <strong> {{dayspan}}</strong></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline" @@click="save">Save changes</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script device src="https://unpkg.com/vue" id="vuejs" script-position="Bottom" weight="110"></script>
+
+<script device id="vueappjs" script-position="Bottom" weight="105">
+
+    var vm;
+    var modelLoading = false;
+
+    function Assignment(taxonomy, span) {
+        this.taxonomy = taxonomy;
+        this.span = span;
+    }
+
+    var storage = {
+        fetch: function (date, workerId) {
+            var url = '@wUrl';
+            var postdata = { date: date.format(), workerId: workerId};
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: postdata,
+                success: function (data) {
+
+                    var elems = new Array();
+                    $.each(data.assigments,
+                        function (indx, val) {
+                           elems.push(new Assignment(val.taxonomy, val.span));
+                        });
+
+                    if (vm == null) {
+                        vm = ANewVue(data.date, data.workerId, data.displayName, data.team, elems).$mount('#modalapp-@id');
+         
+                    } else {
+                        modelLoading = true;
+                        vm.workerId = data.workerId;
+                        vm.date = moment(data.date);
+                        vm.newassingment = new Assignment("", 8);
+                        vm.displayname = data.displayName ;
+                        vm.assingments = elems;
+
+
+                        modelLoading = false;
+                    }
+
+                    $('#modal-@id').modal('show');
+                }
+
+            });
+
+        },
+        save: function (date, workerId, assingments) {
+
+            if (modelLoading) return;
+            var url = '@sUrl';
+            var postdata = { date: date.format(),  workerId,  assingments };
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: postdata,
+                success: function (data) {
+                    $('#@id').fullCalendar('refetchEvents');
+                    $('#modal-@id').modal('hide');
+ 
+                }
+
+            });
+
+        }
+    }
+
+    function ANewVue(date, workerId, displayname, team, elems) {
+        return new Vue({
+
+            data: {
+                date: moment(date),
+                workerId: workerId,
+                team: team,
+                displayname: displayname,
+                assingments : elems,
+                newassingment: new Assignment("", 8),
+            },
+            methods: {
+                addNewAssigment: function (event) {
+                    this.assingments.push(new Assignment(this.newassingment.taxonomy, this.newassingment.span));
+                    this.newassingment = new Assignment("", 8);
+                },
+                remove: function(index) {
+                    this.assingments.splice(index, 1);
+                },
+                save: function () {
+
+                    storage.save(this.date, this.workerId, this.assingments);
+                }
+            },
+            computed: {
+                dayspan: function () {
+                    var sum = 0;
+                    $.each(this.assingments,
+                        function(indx, val) {
+                            sum = sum + new Number(val.span);
+                        });
+                    return sum;
+                },
+                longdate: function() {
+                    return this.date.format('dddd, MMMM D, YYYY');
+                },
+                subtitle : function() {
+                    if (this.displayname.length > 0) {
+                        return this.displayname + " - " + this.team;
+                    }
+                    return this.workerId;
+                }
+            },
+            created: function () {
+
+            },
+            destroyed: function() {
+
+            }
+
+        });
+    }
+</script>
+
+<script device script-position="Bottom" weight="100" id="worker callendar">
+    $(function () {
+
+        $('#@id').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,listWeek'
+            },
+            buttonText: {
+                today: 't',
+                month: 'm',
+                week: 'w',
+                listWeek: 'w',
+                day: 'd'
+            },
+            themeSystem: 'bootstrap3',
+            firstDay: 1,
+            defaultView: 'month',
+            locale: '@CultureInfo.DefaultThreadCurrentCulture.IetfLanguageTag',
+            eventSources: [
+                // your event source
+                {
+                    url: '@calUrl',
+                    type: 'POST',
+                    data: function() { // a function that returns an object
+                        var data = { workerId: '@Model.WorkerId' };
+                        return data;
+                    },
+                    error: function() {
+                        alert('there was an error while fetching events! ' + '@Model.WorkerId');
+                    },
+                    color: 'yellow',   // a non-ajax option
+                    textColor: 'red' // a non-ajax option
+
+                }
+
+                // any other sources...
+
+            ],
+
+            editable: false,
+            navLinks: true,
+            navLinkDayClick: function (date, jsEvent) {
+                console.log('day', date.format()); // date is a moment
+                console.log('coords', jsEvent.pageX, jsEvent.pageY);
+                storage.fetch(date, '@Model.WorkerId');
+            }
+        });
+
+    });
+</script>

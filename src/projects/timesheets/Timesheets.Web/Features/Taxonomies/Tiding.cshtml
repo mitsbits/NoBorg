@@ -1,0 +1,28 @@
+﻿@model Borg.Infra.DTO.Tiding
+
+@{
+    var url = Url.Action("Index", "Taxonomies");
+}
+
+<li >
+    <a data-id="@Model.Key" href="@url/@Model.Key ">
+        <span>   @Model.Value</span>
+        @if (Model.Children.Count > 0)
+        {
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        }
+    </a>
+    @if (Model.Children.Count > 0)
+    {
+        <ul>
+            @foreach (var t in Model.Children)
+            {
+                @Html.Partial("Tiding", t)
+            }
+        </ul>
+    }
+
+
+</li>

@@ -1,0 +1,6 @@
+﻿@using Timesheets.Web.Features.Teams
+@model TeamViewModel
+<div class="col-md-3">
+    @Html.Partial("TeamMembers", Model.TeamMembers)
+    @Html.Partial("BankHolidays", Model.BankHolidays)
+</div>

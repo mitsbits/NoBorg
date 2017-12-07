@@ -1,0 +1,75 @@
+﻿@using Timesheets.Web.Features.Teams
+@model Timesheets.Web.Features.Teams.TeamYearViewModel
+
+
+@section contentheader
+    {
+    <h1>
+        <a asp-controller="Teams" asp-action="Teams" asp-route-team="@Model.TeamId">@Model.TeamId</a> : @Model.Year
+
+    </h1>
+    @await Component.InvokeAsync(typeof(BreadcrumpsViewComponent))
+}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-3">
+
+        @if (UserSession.IsAdminOrManager())
+        {
+            <div class="box box-default">
+                <div class="box-header">
+                    <h3 class="box-title">Bank Holidays</h3>
+                </div>
+
+                <div class="box-body">
+                    <form asp-controller="Teams" asp-action="AddBankHoliday" method="post" asp-route-redirecturl="@(Orchestrator.Device.Path + ViewContext.HttpContext.Request.QueryString)">
+                        <input type="hidden" name="team" id="team" value="@Model.TeamId" />
+                        <input type="hidden" name="year" id="year" value="@Model.Year" />
+                        <div class="form-group">
+                            <input type="text" class="datepickernullable form-control" id="date" name="date" />
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="description" id="description" class="form-control" title="description" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-flat">Add</button>
+                            </span>
+                        </div>
+                    </form>
+
+                </div>
+                @if (Model.BankHolidays.Any())
+                {
+                <div class="box-body table-responsive">
+                    <table class="table table-condensed table-hover">
+                        @foreach (var b in Model.BankHolidays.OrderBy(x => x.Date))
+                        {
+                            <tr>
+                                <td>
+                                    <form asp-controller="Teams" asp-action="RemoveBankHoliday" method="post" asp-route-redirecturl="@(Orchestrator.Device.Path + ViewContext.HttpContext.Request.QueryString)">
+                                        <input type="hidden" value="@b.TeamId" id="team" name="team" />
+                                        <input type="hidden" value="@b.Date" id="date" name="date" />
+                                        <span title="@b.Description">@b.Date.ToString("dd/MM")</span>
+                                        @if (!string.IsNullOrWhiteSpace(b.Description))
+                                        {
+                                            <span> - @b.Description</span>
+                                        }
+                                        <button type="submit" class="btn btn-danger btn-flat btn-xs pull-right">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+                }
+            </div>
+        }
+
+
+
+    </div>
+    <div class="col-md-5"></div>
+</div>

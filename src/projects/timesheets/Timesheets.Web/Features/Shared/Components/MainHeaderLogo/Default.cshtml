@@ -1,0 +1,6 @@
+﻿@using Timesheets.Web.ViewComponents
+@model  Timesheets.Web.ViewComponents.MainHeaderLogoViewModel
+<a  asp-controller="Home" asp-action="Home" class="logo">
+    <span class="logo-mini"> <img src="@Model.Logo" style="width: 20px; height: 20px;"/>  </span>
+    <span class="logo-lg"><img src="@Model.Logo" style="width: 20px; height: 20px; margin-bottom: 5px;" /> @Model.Title</span>
+</a>

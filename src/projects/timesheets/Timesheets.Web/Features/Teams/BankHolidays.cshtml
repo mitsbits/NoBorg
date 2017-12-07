@@ -1,0 +1,65 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model System.Collections.Generic.IDictionary<int, int>
+@{
+    object _teamId = string.Empty;
+    ViewContext.RouteData.Values.TryGetValue("team", out _teamId);
+    var _yearItems =
+        Enumerable.Range(DateTime.Now.AddYears(-10).Year, 25)
+        .Select(x => new SelectListItem() { Selected = DateTime.Now.Year == x, Value = x.ToString(), Text = x.ToString() });
+}
+
+
+<div class="box ">
+    <div class="box-header ">
+        <h3 class="box-title">Bank Holidays</h3>
+    </div>
+
+
+        @if (UserSession.IsAdminOrManager())
+        {
+            <div class="box-body">
+                <form asp-controller="Teams" method="get" asp-action="Year" asp-route-team="@_teamId.ToString()">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <select asp-items="@_yearItems" name="year" id="year" class="form-control"></select>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="submit" class="btn btn-default pull-right">Post</button>
+                            </div>
+                        </div>                                       
+                    </div>
+                </form>
+            </div>
+        }
+        
+    @if (Model != null && Model.Any())
+    {
+        <div class="box-body">
+
+            <ul class="list-group ">
+                @foreach (var member in Model.Keys)
+                {
+                    <li class="list-group-item justify-content-between">
+                        @if (UserSession.IsAdminOrManager())
+                        {
+                            <a asp-action="Year" asp-controller="Teams" asp-route-team="@_teamId" asp-route-year="@member">@member</a>
+                        }
+                        else
+                        {
+                            @member
+                        }
+                        
+                        <span class="badge badge-default badge-pill">@Model[member]</span>
+
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+    }
+  
+</div>

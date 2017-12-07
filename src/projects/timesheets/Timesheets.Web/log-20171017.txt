@@ -1,0 +1,1622 @@
+2017-10-17 16:04:21.789 +03:00 [Information] User profile is available. Using '"C:\Users\dbitsanis.FUTURA\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2017-10-17 16:04:21.834 +03:00 [Debug] Reading data from file '"C:\Users\dbitsanis.FUTURA\AppData\Local\ASP.NET\DataProtection-Keys\key-2fc7fb99-bad9-4da7-8383-2c586851df30.xml"'.
+2017-10-17 16:04:21.842 +03:00 [Debug] Reading data from file '"C:\Users\dbitsanis.FUTURA\AppData\Local\ASP.NET\DataProtection-Keys\key-4af6c394-1438-4878-8e38-1e203d18b873.xml"'.
+2017-10-17 16:04:21.843 +03:00 [Debug] Reading data from file '"C:\Users\dbitsanis.FUTURA\AppData\Local\ASP.NET\DataProtection-Keys\key-8fcd953a-0739-4018-bad4-0073cf3535d7.xml"'.
+2017-10-17 16:04:21.844 +03:00 [Debug] Reading data from file '"C:\Users\dbitsanis.FUTURA\AppData\Local\ASP.NET\DataProtection-Keys\key-c586c0da-bccd-414d-be5a-dd5b48f73f7f.xml"'.
+2017-10-17 16:04:21.848 +03:00 [Debug] Found key {2fc7fb99-bad9-4da7-8383-2c586851df30}.
+2017-10-17 16:04:21.852 +03:00 [Debug] Found key {4af6c394-1438-4878-8e38-1e203d18b873}.
+2017-10-17 16:04:21.852 +03:00 [Debug] Found key {8fcd953a-0739-4018-bad4-0073cf3535d7}.
+2017-10-17 16:04:21.852 +03:00 [Debug] Found key {c586c0da-bccd-414d-be5a-dd5b48f73f7f}.
+2017-10-17 16:04:21.857 +03:00 [Debug] Considering key {8fcd953a-0739-4018-bad4-0073cf3535d7} with expiration date 2018-01-07 07:21:11Z as default key.
+2017-10-17 16:04:21.858 +03:00 [Debug] Forwarded activator type request from "Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" to "Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60"
+2017-10-17 16:04:21.859 +03:00 [Debug] Decrypting secret element using Windows DPAPI.
+2017-10-17 16:04:21.860 +03:00 [Debug] Forwarded activator type request from "Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" to "Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60"
+2017-10-17 16:04:21.860 +03:00 [Debug] Opening CNG algorithm '"AES"' from provider 'null' with chaining mode CBC.
+2017-10-17 16:04:21.862 +03:00 [Debug] Opening CNG algorithm '"SHA256"' from provider 'null' with HMAC.
+2017-10-17 16:04:21.864 +03:00 [Debug] Using key {8fcd953a-0739-4018-bad4-0073cf3535d7} as the default key.
+2017-10-17 16:04:21.865 +03:00 [Debug] Key ring with default key {8fcd953a-0739-4018-bad4-0073cf3535d7} was loaded during application startup.
+2017-10-17 16:04:21.985 +03:00 [Debug] An 'IServiceProvider' was created for internal use by Entity Framework.
+2017-10-17 16:04:22.080 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:22.094 +03:00 [Debug] Migrating using database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.097 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.158 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.158 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.159 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.159 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.160 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.165 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.172 +03:00 [Information] Executed DbCommand ("9"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.173 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.173 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.174 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.174 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.174 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.176 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.176 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.176 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];"
+2017-10-17 16:04:22.178 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];"
+2017-10-17 16:04:22.178 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.178 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.178 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.183 +03:00 [Information] No migrations were applied. The database is already up to date.
+2017-10-17 16:04:22.186 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:22.215 +03:00 [Debug] Compiling query model: "
+"'"(from IdentityRole r in DbSet<IdentityRole>
+where [r].NormalizedName == __normalizedName_0
+select [r]).FirstOrDefault()"'
+2017-10-17 16:04:22.224 +03:00 [Debug] Optimized query model: "
+"'"(from IdentityRole r in DbSet<IdentityRole>
+where [r].NormalizedName == __normalizedName_0
+select [r]).FirstOrDefault()"'
+2017-10-17 16:04:22.258 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<IdentityRole> _InterceptExceptions(
+    source: IAsyncEnumerable<IdentityRole> _TrackEntities(
+        results: IAsyncEnumerable<IdentityRole> _ToSequence(Task<IdentityRole> FirstOrDefault(
+                source: IAsyncEnumerable<IdentityRole> _ShapedQuery(
+                    queryContext: queryContext, 
+                    shaperCommandContext: SelectExpression: 
+                        SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+                        FROM [AspNetRoles] AS [r]
+                        WHERE [r].[NormalizedName] = @__normalizedName_0, 
+                    shaper: UnbufferedEntityShaper<IdentityRole>), 
+                cancellationToken: queryContext.CancellationToken)), 
+        queryContext: queryContext, 
+        entityTrackingInfos: { itemType: IdentityRole }, 
+        entityAccessors: List<Func<IdentityRole, object>> 
+        { 
+            Func<IdentityRole, IdentityRole>, 
+        }
+    ), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:22.270 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.270 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.286 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.313 +03:00 [Information] Executed DbCommand ("27"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.328 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.328 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.328 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.328 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:22.329 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.329 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.329 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.331 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.331 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.331 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.331 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.332 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:22.332 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.332 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.332 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.333 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:22.333 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.333 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.333 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.339 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:22.342 +03:00 [Debug] Compiling query model: "
+"'"(from ApplicationUser u in DbSet<ApplicationUser>
+where [u].NormalizedUserName == __normalizedUserName_0
+select [u]).FirstOrDefault()"'
+2017-10-17 16:04:22.342 +03:00 [Debug] Optimized query model: "
+"'"(from ApplicationUser u in DbSet<ApplicationUser>
+where [u].NormalizedUserName == __normalizedUserName_0
+select [u]).FirstOrDefault()"'
+2017-10-17 16:04:22.347 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<ApplicationUser> _InterceptExceptions(
+    source: IAsyncEnumerable<ApplicationUser> _TrackEntities(
+        results: IAsyncEnumerable<ApplicationUser> _ToSequence(Task<ApplicationUser> FirstOrDefault(
+                source: IAsyncEnumerable<ApplicationUser> _ShapedQuery(
+                    queryContext: queryContext, 
+                    shaperCommandContext: SelectExpression: 
+                        SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+                        FROM [AspNetUsers] AS [u]
+                        WHERE [u].[NormalizedUserName] = @__normalizedUserName_0, 
+                    shaper: UnbufferedEntityShaper<ApplicationUser>), 
+                cancellationToken: queryContext.CancellationToken)), 
+        queryContext: queryContext, 
+        entityTrackingInfos: { itemType: ApplicationUser }, 
+        entityAccessors: List<Func<ApplicationUser, object>> 
+        { 
+            Func<ApplicationUser, ApplicationUser>, 
+        }
+    ), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:22.347 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.347 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.347 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2017-10-17 16:04:22.350 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2017-10-17 16:04:22.359 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.359 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.359 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.376 +03:00 [Debug] An 'IServiceProvider' was created for internal use by Entity Framework.
+2017-10-17 16:04:22.414 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"TimesheetsDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "SensitiveDataLoggingEnabled MaxPoolSize=128 "
+2017-10-17 16:04:22.414 +03:00 [Debug] Migrating using database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.414 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.414 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.415 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.415 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.415 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.415 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.415 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.415 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.416 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.416 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.416 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT OBJECT_ID(N'__EFMigrationsHistory');"
+2017-10-17 16:04:22.416 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.417 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.417 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.417 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.417 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];"
+2017-10-17 16:04:22.417 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];"
+2017-10-17 16:04:22.417 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.417 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.417 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.418 +03:00 [Information] No migrations were applied. The database is already up to date.
+2017-10-17 16:04:22.423 +03:00 [Debug] Compiling query model: "
+"'"(from Team x in DbSet<Team>
+where bool [x].Id.Equals(
+    value: __ToString_0, 
+    comparisonType: OrdinalIgnoreCase)
+select [x]).FirstOrDefault()"'
+2017-10-17 16:04:22.425 +03:00 [Debug] Optimized query model: "
+"'"(from Team x in DbSet<Team>
+where bool [x].Id.Equals(
+    value: __ToString_0, 
+    comparisonType: OrdinalIgnoreCase)
+select [x]).FirstOrDefault()"'
+2017-10-17 16:04:22.430 +03:00 [Warning] The LINQ expression '"where [x].Id.Equals(__ToString_0, OrdinalIgnoreCase)"' could not be translated and will be evaluated locally.
+2017-10-17 16:04:22.434 +03:00 [Warning] The LINQ expression '"FirstOrDefault()"' could not be translated and will be evaluated locally.
+2017-10-17 16:04:22.439 +03:00 [Debug] "(QueryContext queryContext) => IEnumerable<Team> _InterceptExceptions(
+    source: IEnumerable<Team> _TrackEntities(
+        results: IEnumerable<Team> _ToSequence(Team FirstOrDefault(IEnumerable<Team> _Where(
+                    source: IEnumerable<Team> _ShapedQuery(
+                        queryContext: queryContext, 
+                        shaperCommandContext: SelectExpression: 
+                            SELECT [x].[Id], [x].[TimeZoneInfoId]
+                            FROM [Teams] AS [x], 
+                        shaper: UnbufferedEntityShaper<Team>), 
+                    predicate: (Team x) => bool x.Id.Equals(
+                        value: string GetParameterValue(
+                            queryContext: queryContext, 
+                            parameterName: \"__ToString_0\"), 
+                        comparisonType: OrdinalIgnoreCase)))), 
+        queryContext: queryContext, 
+        entityTrackingInfos: { itemType: Team }, 
+        entityAccessors: List<Func<Team, object>> 
+        { 
+            Func<Team, Team>, 
+        }
+    ), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:22.441 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.441 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.442 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.444 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.450 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.450 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.450 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.453 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.453 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.453 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.453 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.453 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.453 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.453 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.455 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.455 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.455 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.455 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[TimeZoneInfoId]
+FROM [Teams] AS [x]"
+2017-10-17 16:04:22.455 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:22.455 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.455 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:22.460 +03:00 [Debug] Hosting starting
+2017-10-17 16:04:22.498 +03:00 [Debug] Hosting started
+2017-10-17 16:04:22.499 +03:00 [Debug] Loaded hosting startup assembly "Timesheets.Web"
+2017-10-17 16:04:22.499 +03:00 [Debug] Loaded hosting startup assembly "Microsoft.AspNetCore.ApplicationInsights.HostingStartup"
+2017-10-17 16:04:22.499 +03:00 [Debug] Loaded hosting startup assembly "Microsoft.AspNetCore.Server.IISIntegration"
+2017-10-17 16:04:22.519 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" started.
+2017-10-17 16:04:22.560 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/  
+2017-10-17 16:04:22.572 +03:00 [Debug] The request path "/" does not match a supported file type
+2017-10-17 16:04:22.584 +03:00 [Debug] AuthenticationScheme: "Identity.Application" was not authenticated.
+2017-10-17 16:04:22.648 +03:00 [Debug] Request successfully matched the route with name 'null' and template '""'.
+2017-10-17 16:04:22.664 +03:00 [Debug] Executing action "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)"
+2017-10-17 16:04:22.669 +03:00 [Information] Authorization failed for user: null.
+2017-10-17 16:04:22.670 +03:00 [Information] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'.
+2017-10-17 16:04:22.672 +03:00 [Information] Executing ChallengeResult with authentication schemes ([]).
+2017-10-17 16:04:22.678 +03:00 [Information] AuthenticationScheme: "Identity.Application" was challenged.
+2017-10-17 16:04:22.681 +03:00 [Information] Executed action "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)" in 13.5677ms
+2017-10-17 16:04:22.684 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:22.685 +03:00 [Information] Request finished in 125.8608ms 302 
+2017-10-17 16:04:22.699 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/login?ReturnUrl=%2F  
+2017-10-17 16:04:22.700 +03:00 [Debug] The request path "/login" does not match a supported file type
+2017-10-17 16:04:22.700 +03:00 [Debug] AuthenticationScheme: "Identity.Application" was not authenticated.
+2017-10-17 16:04:22.700 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Login"'.
+2017-10-17 16:04:22.704 +03:00 [Debug] Action '"Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)"' with id '"7cbb24e5-15b7-49b4-b35f-ce74d7023105"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-10-17 16:04:22.718 +03:00 [Debug] Executing action "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)"
+2017-10-17 16:04:22.744 +03:00 [Information] Executing action method "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)" with arguments (["/"]) - ModelState is Valid
+2017-10-17 16:04:22.789 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.ViewResult".
+2017-10-17 16:04:22.826 +03:00 [Debug] View lookup cache miss for view '"Login"' in controller '"Login"'.
+2017-10-17 16:04:23.601 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Login\Login.cshtml"' started.
+2017-10-17 16:04:24.839 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Login\Login.cshtml"' completed in 1238.2538ms.
+2017-10-17 16:04:24.893 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\_ViewStart.cshtml"' started.
+2017-10-17 16:04:24.945 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\_ViewStart.cshtml"' completed in 51.8517ms.
+2017-10-17 16:04:24.949 +03:00 [Debug] The view '"Login"' was found.
+2017-10-17 16:04:24.949 +03:00 [Information] Executing ViewResult, running view at path "/Features/Login/Login.cshtml".
+2017-10-17 16:04:25.063 +03:00 [Debug] A new antiforgery cookie token was created.
+2017-10-17 16:04:25.094 +03:00 [Debug] View lookup cache miss for view '"_EmptyLayout"' in controller '"Login"'.
+2017-10-17 16:04:25.135 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_EmptyLayout.cshtml"' started.
+2017-10-17 16:04:25.255 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_EmptyLayout.cshtml"' completed in 120.0581ms.
+2017-10-17 16:04:25.261 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:25.261 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:25.265 +03:00 [Debug] View lookup cache miss for view '"_HeadScriptsPartial"' in controller '"Login"'.
+2017-10-17 16:04:25.309 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_HeadScriptsPartial.cshtml"' started.
+2017-10-17 16:04:25.349 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_HeadScriptsPartial.cshtml"' completed in 40.4942ms.
+2017-10-17 16:04:25.370 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:25.370 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:25.372 +03:00 [Debug] View lookup cache miss for view '"_BottomScriptsPartial"' in controller '"Login"'.
+2017-10-17 16:04:25.415 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_BottomScriptsPartial.cshtml"' started.
+2017-10-17 16:04:25.465 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_BottomScriptsPartial.cshtml"' completed in 49.2409ms.
+2017-10-17 16:04:25.483 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" with arguments ([]).
+2017-10-17 16:04:25.488 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" in 1.1885ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:25.489 +03:00 [Debug] View lookup cache miss for view '"Components/ServerFeedback/Default"' in controller '"Login"'.
+2017-10-17 16:04:25.551 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\ServerFeedback\Default.cshtml"' started.
+2017-10-17 16:04:25.731 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\ServerFeedback\Default.cshtml"' completed in 180.0968ms.
+2017-10-17 16:04:25.743 +03:00 [Information] Executed action "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)" in 3025.4717ms
+2017-10-17 16:04:25.767 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:25.767 +03:00 [Information] Request finished in 3068.0617ms 200 text/html; charset=utf-8
+2017-10-17 16:04:25.825 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap/dist/css/bootstrap.css  
+2017-10-17 16:04:25.827 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap/dist/css/bootstrap.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap\dist\css\bootstrap.css"'
+2017-10-17 16:04:25.829 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" started.
+2017-10-17 16:04:25.829 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" started.
+2017-10-17 16:04:25.834 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/dist/css/skins/_all-skins.css  
+2017-10-17 16:04:25.834 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/datatables.net-bs/css/dataTables.bootstrap.css  
+2017-10-17 16:04:25.834 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" started.
+2017-10-17 16:04:25.834 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/dist/css/skins/_all-skins.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\dist\css\skins\_all-skins.css"'
+2017-10-17 16:04:25.834 +03:00 [Information] Sending file. Request path: '"/lib/datatables.net-bs/css/dataTables.bootstrap.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\datatables.net-bs\css\dataTables.bootstrap.css"'
+2017-10-17 16:04:25.843 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:25.843 +03:00 [Information] Request finished in 9.5678ms 200 text/css
+2017-10-17 16:04:25.843 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:25.843 +03:00 [Information] Request finished in 9.7004ms 200 text/css
+2017-10-17 16:04:25.844 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:25.844 +03:00 [Information] Request finished in 18.446ms 200 text/css
+2017-10-17 16:04:25.844 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/css/site.css  
+2017-10-17 16:04:25.844 +03:00 [Information] Sending file. Request path: '"/css/site.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\css\site.css"'
+2017-10-17 16:04:25.846 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:25.846 +03:00 [Information] Request finished in 1.56ms 200 text/css
+2017-10-17 16:04:25.854 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" started.
+2017-10-17 16:04:25.859 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/morris.js/morris.css  
+2017-10-17 16:04:25.859 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/dist/css/AdminLTE.css  
+2017-10-17 16:04:25.859 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/dist/css/AdminLTE.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\dist\css\AdminLTE.css"'
+2017-10-17 16:04:25.859 +03:00 [Information] Sending file. Request path: '"/lib/morris.js/morris.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\morris.js\morris.css"'
+2017-10-17 16:04:25.861 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap-daterangepicker/daterangepicker.css  
+2017-10-17 16:04:25.861 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap-daterangepicker/daterangepicker.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap-daterangepicker\daterangepicker.css"'
+2017-10-17 16:04:25.861 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/all.css  
+2017-10-17 16:04:25.862 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/all.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\all.css"'
+2017-10-17 16:04:25.862 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" started.
+2017-10-17 16:04:25.863 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css  
+2017-10-17 16:04:25.863 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap-datepicker\dist\css\bootstrap-datepicker.css"'
+2017-10-17 16:04:25.866 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:25.866 +03:00 [Information] Request finished in 7.0131ms 200 text/css
+2017-10-17 16:04:25.867 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:25.867 +03:00 [Information] Request finished in 5.9482ms 200 text/css
+2017-10-17 16:04:25.868 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:25.868 +03:00 [Information] Request finished in 6.9058ms 200 text/css
+2017-10-17 16:04:25.869 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:25.870 +03:00 [Information] Request finished in 6.7796ms 200 text/css
+2017-10-17 16:04:25.885 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:25.885 +03:00 [Information] Request finished in 26.5994ms 200 text/css
+2017-10-17 16:04:25.898 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/select2/dist/css/select2.css  
+2017-10-17 16:04:25.898 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/fullcalendar/dist/fullcalendar.css  
+2017-10-17 16:04:25.898 +03:00 [Information] Sending file. Request path: '"/lib/select2/dist/css/select2.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\select2\dist\css\select2.css"'
+2017-10-17 16:04:25.898 +03:00 [Information] Sending file. Request path: '"/lib/fullcalendar/dist/fullcalendar.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\fullcalendar\dist\fullcalendar.css"'
+2017-10-17 16:04:25.900 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:25.900 +03:00 [Information] Request finished in 2.2935ms 200 text/css
+2017-10-17 16:04:25.901 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/jquery/dist/jquery.js  
+2017-10-17 16:04:25.902 +03:00 [Information] Sending file. Request path: '"/lib/jquery/dist/jquery.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\jquery\dist\jquery.js"'
+2017-10-17 16:04:25.919 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:25.920 +03:00 [Information] Request finished in 20.9107ms 200 text/css
+2017-10-17 16:04:25.921 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/jquery-ui/jquery-ui.js  
+2017-10-17 16:04:25.922 +03:00 [Information] Sending file. Request path: '"/lib/jquery-ui/jquery-ui.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\jquery-ui\jquery-ui.js"'
+2017-10-17 16:04:25.933 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/jquery-validation/dist/jquery.validate.js  
+2017-10-17 16:04:25.933 +03:00 [Information] Sending file. Request path: '"/lib/jquery-validation/dist/jquery.validate.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\jquery-validation\dist\jquery.validate.js"'
+2017-10-17 16:04:25.951 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:25.951 +03:00 [Information] Request finished in 17.5357ms 200 application/javascript
+2017-10-17 16:04:25.965 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:25.965 +03:00 [Information] Request finished in 64.092ms 200 application/javascript
+2017-10-17 16:04:25.980 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js  
+2017-10-17 16:04:25.981 +03:00 [Information] Sending file. Request path: '"/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js"'
+2017-10-17 16:04:25.981 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap/dist/js/bootstrap.js  
+2017-10-17 16:04:25.981 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap/dist/js/bootstrap.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap\dist\js\bootstrap.js"'
+2017-10-17 16:04:25.983 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:25.983 +03:00 [Information] Request finished in 2.8397ms 200 application/javascript
+2017-10-17 16:04:25.991 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:25.991 +03:00 [Information] Request finished in 10.5976ms 200 application/javascript
+2017-10-17 16:04:25.998 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/morris.js/morris.js  
+2017-10-17 16:04:25.999 +03:00 [Information] Sending file. Request path: '"/lib/morris.js/morris.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\morris.js\morris.js"'
+2017-10-17 16:04:26.005 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/datatables.net/js/jquery.dataTables.js  
+2017-10-17 16:04:26.005 +03:00 [Information] Sending file. Request path: '"/lib/datatables.net/js/jquery.dataTables.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\datatables.net\js\jquery.dataTables.js"'
+2017-10-17 16:04:26.019 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:26.019 +03:00 [Information] Request finished in 20.794ms 200 application/javascript
+2017-10-17 16:04:26.021 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:26.072 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/moment/moment.js  
+2017-10-17 16:04:26.072 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/datatables.net-bs/js/dataTables.bootstrap.js  
+2017-10-17 16:04:26.095 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:26.109 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap-datepicker/js/bootstrap-datepicker.js  
+2017-10-17 16:04:26.158 +03:00 [Information] Request finished in 237.0302ms 200 application/javascript
+2017-10-17 16:04:26.159 +03:00 [Information] Sending file. Request path: '"/lib/moment/moment.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\moment\moment.js"'
+2017-10-17 16:04:26.159 +03:00 [Information] Sending file. Request path: '"/lib/datatables.net-bs/js/dataTables.bootstrap.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\datatables.net-bs\js\dataTables.bootstrap.js"'
+2017-10-17 16:04:26.159 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap-daterangepicker/daterangepicker.js  
+2017-10-17 16:04:26.159 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap-daterangepicker/daterangepicker.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap-daterangepicker\daterangepicker.js"'
+2017-10-17 16:04:26.160 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap-datepicker\js\bootstrap-datepicker.js"'
+2017-10-17 16:04:26.160 +03:00 [Information] Request finished in 154.9063ms 200 application/javascript
+2017-10-17 16:04:26.161 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:26.161 +03:00 [Information] Request finished in 51.913ms 200 application/javascript
+2017-10-17 16:04:26.161 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:26.162 +03:00 [Information] Request finished in 90.3266ms 200 application/javascript
+2017-10-17 16:04:26.168 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:26.168 +03:00 [Information] Request finished in 9.5489ms 200 application/javascript
+2017-10-17 16:04:26.170 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/icheck.js  
+2017-10-17 16:04:26.170 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/icheck.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\icheck.js"'
+2017-10-17 16:04:26.173 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:26.173 +03:00 [Information] Request finished in 3.76ms 200 application/javascript
+2017-10-17 16:04:26.174 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:26.174 +03:00 [Information] Request finished in 102.0001ms 200 application/javascript
+2017-10-17 16:04:26.195 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/select2/dist/js/select2.full.js  
+2017-10-17 16:04:26.196 +03:00 [Information] Sending file. Request path: '"/lib/select2/dist/js/select2.full.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\select2\dist\js\select2.full.js"'
+2017-10-17 16:04:26.203 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/dist/js/app.js  
+2017-10-17 16:04:26.203 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/fullcalendar/dist/fullcalendar.js  
+2017-10-17 16:04:26.203 +03:00 [Information] Sending file. Request path: '"/lib/fullcalendar/dist/fullcalendar.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\fullcalendar\dist\fullcalendar.js"'
+2017-10-17 16:04:26.203 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/dist/js/app.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\dist\js\app.js"'
+2017-10-17 16:04:26.207 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:26.207 +03:00 [Information] Request finished in 3.5124ms 200 application/javascript
+2017-10-17 16:04:26.210 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/js/site.js  
+2017-10-17 16:04:26.211 +03:00 [Information] Sending file. Request path: '"/js/site.js"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\js\site.js"'
+2017-10-17 16:04:26.213 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:26.213 +03:00 [Information] Request finished in 6.4697ms 200 application/javascript
+2017-10-17 16:04:26.215 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:26.216 +03:00 [Information] Request finished in 12.9249ms 200 application/javascript
+2017-10-17 16:04:26.235 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:26.235 +03:00 [Information] Request finished in 40.0484ms 200 application/javascript
+2017-10-17 16:04:26.377 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/minimal/_all.css  
+2017-10-17 16:04:26.377 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/minimal/_all.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\minimal\_all.css"'
+2017-10-17 16:04:26.379 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:26.379 +03:00 [Information] Request finished in 2.0924ms 200 text/css
+2017-10-17 16:04:26.380 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/square/_all.css  
+2017-10-17 16:04:26.380 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/square/_all.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\square\_all.css"'
+2017-10-17 16:04:26.380 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/flat/_all.css  
+2017-10-17 16:04:26.380 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/polaris/polaris.css  
+2017-10-17 16:04:26.380 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/flat/_all.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\flat\_all.css"'
+2017-10-17 16:04:26.380 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/polaris/polaris.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\polaris\polaris.css"'
+2017-10-17 16:04:26.382 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:26.382 +03:00 [Information] Request finished in 1.9154ms 200 text/css
+2017-10-17 16:04:26.382 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:26.382 +03:00 [Information] Request finished in 2.3275ms 200 text/css
+2017-10-17 16:04:26.383 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:26.383 +03:00 [Information] Request finished in 2.4925ms 200 text/css
+2017-10-17 16:04:26.383 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/line/_all.css  
+2017-10-17 16:04:26.383 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/line/_all.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\line\_all.css"'
+2017-10-17 16:04:26.389 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:26.389 +03:00 [Information] Request finished in 6.0131ms 200 text/css
+2017-10-17 16:04:26.391 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/futurico/futurico.css  
+2017-10-17 16:04:26.391 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/futurico/futurico.css"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\futurico\futurico.css"'
+2017-10-17 16:04:26.393 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:26.393 +03:00 [Information] Request finished in 1.7787ms 200 text/css
+2017-10-17 16:04:27.110 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/favicon.ico  
+2017-10-17 16:04:27.111 +03:00 [Information] Sending file. Request path: '"/favicon.ico"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\favicon.ico"'
+2017-10-17 16:04:27.112 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:27.112 +03:00 [Information] Request finished in 1.715ms 200 image/x-icon
+2017-10-17 16:04:32.624 +03:00 [Information] Request starting HTTP/1.1 POST http://localhost:51257/Login?returnurl=%2F application/x-www-form-urlencoded 235
+2017-10-17 16:04:32.625 +03:00 [Debug] "POST" requests are not supported
+2017-10-17 16:04:32.625 +03:00 [Debug] AuthenticationScheme: "Identity.Application" was not authenticated.
+2017-10-17 16:04:32.625 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Login"'.
+2017-10-17 16:04:32.625 +03:00 [Debug] Action '"Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)"' with id '"41ce5c81-d798-412e-9458-7018510ab357"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-10-17 16:04:32.633 +03:00 [Debug] Executing action "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)"
+2017-10-17 16:04:32.639 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"", Request id ""0HL8LBUAVM73I:00000006"": started reading request body.
+2017-10-17 16:04:32.640 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"", Request id ""0HL8LBUAVM73I:00000006"": done reading request body.
+2017-10-17 16:04:32.641 +03:00 [Debug] Antiforgery successfully validated a request.
+2017-10-17 16:04:32.648 +03:00 [Information] Executing action method "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)" with arguments (["Timesheets.Web.Features.Login.LoginViewModel", "/"]) - ModelState is Valid
+2017-10-17 16:04:32.651 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:32.651 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.651 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.651 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2017-10-17 16:04:32.652 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2017-10-17 16:04:32.652 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.652 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.652 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.676 +03:00 [Debug] Compiling query model: "
+"'"from IdentityUserClaim<string> uc in DbSet<IdentityUserClaim<string>>
+where bool [uc].UserId.Equals(__user_Id_0)
+select Claim [uc].ToClaim()"'
+2017-10-17 16:04:32.677 +03:00 [Debug] Optimized query model: "
+"'"from IdentityUserClaim<string> uc in DbSet<IdentityUserClaim<string>>
+where bool [uc].UserId.Equals(__user_Id_0)
+select Claim [uc].ToClaim()"'
+2017-10-17 16:04:32.681 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Claim> _InterceptExceptions(
+    source: IAsyncEnumerable<Claim> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+            FROM [AspNetUserClaims] AS [uc]
+            WHERE [uc].[UserId] = @__user_Id_0, 
+        shaper: TypedProjectionShaper<UnbufferedOffsetEntityShaper<IdentityUserClaim<string>>, IdentityUserClaim<string>, Claim>), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:32.681 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.681 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.682 +03:00 [Debug] Executing DbCommand [Parameters=["@__user_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2017-10-17 16:04:32.683 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__user_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2017-10-17 16:04:32.683 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.683 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.683 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.695 +03:00 [Debug] Compiling query model: "
+"'"from IdentityUserRole<string> userRole in DbSet<IdentityUserRole<string>>
+join IdentityRole role in DbSet<IdentityRole>
+on [userRole].RoleId equals [role].Id
+where bool [userRole].UserId.Equals(__userId_0)
+select [role].Name"'
+2017-10-17 16:04:32.696 +03:00 [Debug] Optimized query model: "
+"'"from IdentityUserRole<string> userRole in DbSet<IdentityUserRole<string>>
+join IdentityRole role in DbSet<IdentityRole>
+on [userRole].RoleId equals [role].Id
+where bool [userRole].UserId.Equals(__userId_0)
+select [role].Name"'
+2017-10-17 16:04:32.702 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<string> _InterceptExceptions(
+    source: IAsyncEnumerable<string> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [role].[Name]
+            FROM [AspNetUserRoles] AS [userRole]
+            INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+            WHERE [userRole].[UserId] = @__userId_0, 
+        shaper: TypedProjectionShaper<TypedCompositeShaper<ValueBufferShaper, ValueBuffer, ValueBufferShaper, ValueBuffer, TransparentIdentifier<ValueBuffer, ValueBuffer>>, TransparentIdentifier<ValueBuffer, ValueBuffer>, string>), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:32.703 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.703 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.703 +03:00 [Debug] Executing DbCommand [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2017-10-17 16:04:32.705 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2017-10-17 16:04:32.706 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.707 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.707 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.707 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.707 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.707 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.707 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.707 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.707 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.707 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.713 +03:00 [Debug] Compiling query model: "
+"'"from IdentityRoleClaim<string> rc in DbSet<IdentityRoleClaim<string>>
+where bool [rc].RoleId.Equals(__role_Id_0)
+select new Claim(
+    [rc].ClaimType, 
+    [rc].ClaimValue
+)"'
+2017-10-17 16:04:32.713 +03:00 [Debug] Optimized query model: "
+"'"from IdentityRoleClaim<string> rc in DbSet<IdentityRoleClaim<string>>
+where bool [rc].RoleId.Equals(__role_Id_0)
+select new Claim(
+    [rc].ClaimType, 
+    [rc].ClaimValue
+)"'
+2017-10-17 16:04:32.716 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Claim> _InterceptExceptions(
+    source: IAsyncEnumerable<Claim> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [rc].[ClaimType], [rc].[ClaimValue]
+            FROM [AspNetRoleClaims] AS [rc]
+            WHERE [rc].[RoleId] = @__role_Id_0, 
+        shaper: TypedProjectionShaper<ValueBufferShaper, ValueBuffer, Claim>), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:32.716 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.716 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.716 +03:00 [Debug] Executing DbCommand [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.718 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.718 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.718 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.718 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.718 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.718 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.718 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.718 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.719 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.719 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.719 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.719 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.719 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.719 +03:00 [Debug] Executing DbCommand [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.719 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.719 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.720 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.720 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.720 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.720 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.720 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.720 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2017-10-17 16:04:32.720 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.720 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.720 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.721 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.721 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.721 +03:00 [Debug] Executing DbCommand [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.721 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__role_Id_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2017-10-17 16:04:32.721 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:32.721 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.721 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:32.724 +03:00 [Information] AuthenticationScheme: "Identity.Application" signed in.
+2017-10-17 16:04:32.724 +03:00 [Information] User logged in.
+2017-10-17 16:04:32.725 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.RedirectResult".
+2017-10-17 16:04:32.725 +03:00 [Information] Executing RedirectResult, redirecting to "/".
+2017-10-17 16:04:32.726 +03:00 [Information] Executed action "Timesheets.Web.Features.Login.LoginController.Login (Timesheets.Web)" in 92.8731ms
+2017-10-17 16:04:32.726 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:32.726 +03:00 [Information] Request finished in 102.1688ms 302 
+2017-10-17 16:04:32.732 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/  
+2017-10-17 16:04:32.732 +03:00 [Debug] The request path "/" does not match a supported file type
+2017-10-17 16:04:32.734 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:32.734 +03:00 [Debug] Request successfully matched the route with name 'null' and template '""'.
+2017-10-17 16:04:32.734 +03:00 [Debug] Executing action "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)"
+2017-10-17 16:04:32.735 +03:00 [Information] Authorization was successful for user: "mitsbits@futuradefence.com".
+2017-10-17 16:04:32.735 +03:00 [Information] Executing action method "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)" with arguments (null) - ModelState is Valid
+2017-10-17 16:04:32.736 +03:00 [Information] this is the Timesheets.Web.Features.Home.HomeController
+2017-10-17 16:04:32.736 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.ViewResult".
+2017-10-17 16:04:32.736 +03:00 [Debug] View lookup cache miss for view '"Home"' in controller '"Home"'.
+2017-10-17 16:04:32.771 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Home\Home.cshtml"' started.
+2017-10-17 16:04:32.798 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Home\Home.cshtml"' completed in 26.4666ms.
+2017-10-17 16:04:32.799 +03:00 [Debug] The view '"Home"' was found.
+2017-10-17 16:04:32.799 +03:00 [Information] Executing ViewResult, running view at path "/Features/Home/Home.cshtml".
+2017-10-17 16:04:32.811 +03:00 [Debug] Executing view component "Timesheets.Web.Features.Workers.WorkerCallendarViewComponent" with arguments (["mitsbits@futuradefence.com"]).
+2017-10-17 16:04:32.812 +03:00 [Debug] Executed view component "Timesheets.Web.Features.Workers.WorkerCallendarViewComponent" in 0.8282ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:32.812 +03:00 [Debug] View lookup cache miss for view '"Components/WorkerCallendar/Default"' in controller '"Home"'.
+2017-10-17 16:04:32.851 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\WorkerCallendar\Default.cshtml"' started.
+2017-10-17 16:04:32.904 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\WorkerCallendar\Default.cshtml"' completed in 52.8297ms.
+2017-10-17 16:04:32.916 +03:00 [Debug] View lookup cache miss for view '"_Layout"' in controller '"Home"'.
+2017-10-17 16:04:32.952 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_Layout.cshtml"' started.
+2017-10-17 16:04:32.989 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_Layout.cshtml"' completed in 36.2835ms.
+2017-10-17 16:04:32.994 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:32.994 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:32.995 +03:00 [Debug] View lookup cache miss for view '"_HeadScriptsPartial"' in controller '"Home"'.
+2017-10-17 16:04:32.997 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:32.997 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:33.001 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" with arguments ([]).
+2017-10-17 16:04:33.002 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" in 0.2506ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.002 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeader/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.041 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeader\Default.cshtml"' started.
+2017-10-17 16:04:33.069 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeader\Default.cshtml"' completed in 27.9658ms.
+2017-10-17 16:04:33.077 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" with arguments ([]).
+2017-10-17 16:04:33.077 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" in 0.4131ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.077 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderLogo/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.111 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeaderLogo\Default.cshtml"' started.
+2017-10-17 16:04:33.139 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeaderLogo\Default.cshtml"' completed in 27.3151ms.
+2017-10-17 16:04:33.146 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" with arguments ([]).
+2017-10-17 16:04:33.147 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" in 0.6681ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.147 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderNavBar/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.189 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeaderNavBar\Default.cshtml"' started.
+2017-10-17 16:04:33.220 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainHeaderNavBar\Default.cshtml"' completed in 30.2851ms.
+2017-10-17 16:04:33.228 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:33.231 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.NavigationViewComponent" with arguments ([]).
+2017-10-17 16:04:33.231 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.NavigationViewComponent" in 0.1361ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.231 +03:00 [Debug] View lookup cache miss for view '"Components/Navigation/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.268 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\Navigation\Default.cshtml"' started.
+2017-10-17 16:04:33.295 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\Navigation\Default.cshtml"' completed in 27.0496ms.
+2017-10-17 16:04:33.301 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" with arguments ([]).
+2017-10-17 16:04:33.301 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" in 0.129ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.301 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarSearchForm/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.341 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\SidebarSearchForm\Default.cshtml"' started.
+2017-10-17 16:04:33.368 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\SidebarSearchForm\Default.cshtml"' completed in 27.1444ms.
+2017-10-17 16:04:33.375 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" with arguments ([]).
+2017-10-17 16:04:33.375 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" in 0.1492ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.376 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarMenu/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.420 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\SidebarMenu\Default.cshtml"' started.
+2017-10-17 16:04:33.575 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\SidebarMenu\Default.cshtml"' completed in 154.4408ms.
+2017-10-17 16:04:33.598 +03:00 [Debug] View lookup cache miss for view '"_PageTitle"' in controller '"Home"'.
+2017-10-17 16:04:33.646 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_PageTitle.cshtml"' started.
+2017-10-17 16:04:33.685 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\_PageTitle.cshtml"' completed in 38.7403ms.
+2017-10-17 16:04:33.693 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" with arguments ([]).
+2017-10-17 16:04:33.693 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" in 0.6433ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.693 +03:00 [Debug] View lookup cache miss for view '"Components/Breadcrumps/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.731 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\Breadcrumps\Default.cshtml"' started.
+2017-10-17 16:04:33.759 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\Breadcrumps\Default.cshtml"' completed in 27.814ms.
+2017-10-17 16:04:33.764 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" with arguments ([]).
+2017-10-17 16:04:33.764 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" in 0.1622ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.764 +03:00 [Debug] View lookup cache miss for view '"Components/MainFooter/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.809 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainFooter\Default.cshtml"' started.
+2017-10-17 16:04:33.835 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\MainFooter\Default.cshtml"' completed in 25.6582ms.
+2017-10-17 16:04:33.840 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" with arguments ([]).
+2017-10-17 16:04:33.840 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" in 0.1721ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.840 +03:00 [Debug] View lookup cache miss for view '"Components/HiddenSidebar/Default"' in controller '"Home"'.
+2017-10-17 16:04:33.880 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\HiddenSidebar\Default.cshtml"' started.
+2017-10-17 16:04:33.905 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\HiddenSidebar\Default.cshtml"' completed in 25.7885ms.
+2017-10-17 16:04:33.911 +03:00 [Debug] Executing view component "Web.Features.UserSession.UserSessionViewComponent" with arguments (["~/Features/Shared/Components/HiddenSidebar/UserSession.cshtml"]).
+2017-10-17 16:04:33.935 +03:00 [Debug] Executed view component "Web.Features.UserSession.UserSessionViewComponent" in 23.8833ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:33.976 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\HiddenSidebar\UserSession.cshtml"' started.
+2017-10-17 16:04:34.019 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Shared\Components\HiddenSidebar\UserSession.cshtml"' completed in 43.3662ms.
+2017-10-17 16:04:34.025 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:34.044 +03:00 [Debug] View lookup cache miss for view '"_BottomScriptsPartial"' in controller '"Home"'.
+2017-10-17 16:04:34.048 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" with arguments ([]).
+2017-10-17 16:04:34.048 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" in 0.0367ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:34.048 +03:00 [Debug] View lookup cache miss for view '"Components/ServerFeedback/Default"' in controller '"Home"'.
+2017-10-17 16:04:34.049 +03:00 [Information] Executed action "Timesheets.Web.Features.Home.HomeController.Home (Timesheets.Web)" in 1314.3885ms
+2017-10-17 16:04:34.049 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:34.049 +03:00 [Information] Request finished in 1317.3077ms 200 text/html; charset=utf-8
+2017-10-17 16:04:34.072 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user2-160x160.jpg  
+2017-10-17 16:04:34.072 +03:00 [Debug] The request path "/dist/img/user2-160x160.jpg" does not match an existing file
+2017-10-17 16:04:34.073 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user3-128x128.jpg  
+2017-10-17 16:04:34.073 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:34.073 +03:00 [Debug] The request path "/dist/img/user3-128x128.jpg" does not match an existing file
+2017-10-17 16:04:34.073 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:34.073 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user4-128x128.jpg  
+2017-10-17 16:04:34.074 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:34.074 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:34.074 +03:00 [Debug] The request path "/dist/img/user4-128x128.jpg" does not match an existing file
+2017-10-17 16:04:34.074 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:34.075 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:34.075 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:34.076 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:34.076 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:34.076 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:34.076 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:34.076 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:34.076 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:34.076 +03:00 [Information] Request finished in 3.856ms 404 
+2017-10-17 16:04:34.076 +03:00 [Information] Request finished in 4.9559ms 404 
+2017-10-17 16:04:34.077 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:34.077 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:34.077 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:34.077 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:34.077 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:34.078 +03:00 [Information] Request finished in 4.3872ms 404 
+2017-10-17 16:04:34.134 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2  
+2017-10-17 16:04:34.134 +03:00 [Information] Sending file. Request path: '"/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2"'
+2017-10-17 16:04:34.152 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:34.152 +03:00 [Information] Request finished in 17.944ms 200 font/woff2
+2017-10-17 16:04:35.031 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/lib/admin-lte/plugins/iCheck/minimal/grey.png  
+2017-10-17 16:04:35.032 +03:00 [Information] Sending file. Request path: '"/lib/admin-lte/plugins/iCheck/minimal/grey.png"'. Physical path: '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\wwwroot\lib\admin-lte\plugins\iCheck\minimal\grey.png"'
+2017-10-17 16:04:35.049 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:35.049 +03:00 [Information] Request finished in 17.69ms 200 image/png
+2017-10-17 16:04:35.058 +03:00 [Information] Request starting HTTP/1.1 POST http://localhost:51257/Workers/jfeed/v1/callendar application/x-www-form-urlencoded; charset=UTF-8 69
+2017-10-17 16:04:35.058 +03:00 [Debug] "POST" requests are not supported
+2017-10-17 16:04:35.059 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:35.059 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Workers/jfeed/v1/callendar"'.
+2017-10-17 16:04:35.063 +03:00 [Debug] Executing action "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)"
+2017-10-17 16:04:35.064 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"", Request id ""0HL8LBUAVM73G:00000005"": started reading request body.
+2017-10-17 16:04:35.064 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"", Request id ""0HL8LBUAVM73G:00000005"": done reading request body.
+2017-10-17 16:04:35.065 +03:00 [Information] Executing action method "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)" with arguments (["mitsbits@futuradefence.com", "25/09/2017 00:00:00 +03:00", "06/11/2017 00:00:00 +02:00"]) - ModelState is Valid
+2017-10-17 16:04:35.067 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2017-10-17 16:04:35.069 +03:00 [Debug] No information found on request to perform content negotiation.
+2017-10-17 16:04:35.069 +03:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-10-17 16:04:35.069 +03:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-10-17 16:04:35.113 +03:00 [Information] Executed action "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)" in 50.0053ms
+2017-10-17 16:04:35.113 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:35.113 +03:00 [Information] Request finished in 54.7219ms 200 application/json; charset=utf-8
+2017-10-17 16:04:42.469 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Workers  
+2017-10-17 16:04:42.469 +03:00 [Debug] The request path "/Workers" does not match a supported file type
+2017-10-17 16:04:42.469 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:42.469 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Workers/{searchterm?}"'.
+2017-10-17 16:04:42.473 +03:00 [Debug] Executing action "Timesheets.Web.Features.Workers.WorkersController.Index (Timesheets.Web)"
+2017-10-17 16:04:42.475 +03:00 [Information] Executing action method "Timesheets.Web.Features.Workers.WorkersController.Index (Timesheets.Web)" with arguments (["Timesheets.Web.Infrastructure.UserSession", "", "1"]) - ModelState is Valid
+2017-10-17 16:04:42.478 +03:00 [Debug] The temp data cookie ".AspNetCore.Mvc.CookieTempDataProvider" was not found.
+2017-10-17 16:04:42.632 +03:00 [Debug] Compiling query model: "
+"'"(from Worker x in DbSet<Worker>
+where True
+select [x]).Count()"'
+2017-10-17 16:04:42.632 +03:00 [Debug] Optimized query model: "
+"'"(from Worker x in DbSet<Worker>
+where True
+select [x]).Count()"'
+2017-10-17 16:04:42.636 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<int> _InterceptExceptions(
+    source: IAsyncEnumerable<int> _ToSequence(Task<int> GetResult(
+            valueBuffers: IAsyncEnumerable<ValueBuffer> _Query(
+                queryContext: queryContext, 
+                shaperCommandContext: SelectExpression: 
+                    SELECT COUNT(*)
+                    FROM [Workers] AS [x]), 
+            throwOnNullResult: False, 
+            cancellationToken: queryContext.CancellationToken)), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:42.647 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.647 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.647 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*)
+FROM [Workers] AS [x]"
+2017-10-17 16:04:42.648 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*)
+FROM [Workers] AS [x]"
+2017-10-17 16:04:42.649 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:42.649 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.649 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.664 +03:00 [Debug] Compiling query model: "
+"'"from <>f__AnonymousType21<AspUser, Worker> x in 
+    (from Worker x in 
+        (from Worker <generated>_3 in DbSet<Worker>
+        select [<generated>_3]).AsNoTracking()
+    where True
+    join AspUser a in 
+        (from AspUser <generated>_1 in DbSet<AspUser>
+        select [<generated>_1]).AsNoTracking()
+    on [x].Id equals [a].Email
+    order by [x].LastName asc, [x].FirstName asc, [x].Id asc
+    select new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ))
+    .Skip(__p_0)
+    .Take(__p_1)
+select new WorkerRowViewModel{ 
+    Email = [x].W.Id, 
+    LockoutEnabled = [x].A.LockoutEnabled, 
+    FirstName = [x].W.FirstName, 
+    LastName = [x].W.LastName, 
+    Team = [x].W.TeamId 
+}
+"'
+2017-10-17 16:04:42.667 +03:00 [Debug] Optimized query model: "
+"'"(from Worker x in DbSet<Worker>
+where True
+join AspUser a in DbSet<AspUser>
+on [x].Id equals [a].Email
+order by [x].LastName asc, [x].FirstName asc, [x].Id asc
+select new WorkerRowViewModel{ 
+    Email = new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ).W.Id, 
+    LockoutEnabled = new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ).A.LockoutEnabled, 
+    FirstName = new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ).W.FirstName, 
+    LastName = new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ).W.LastName, 
+    Team = new <>f__AnonymousType21<AspUser, Worker>(
+        [a], 
+        [x]
+    ).W.TeamId 
+}
+)
+.Skip(__p_0)
+.Take(__p_1)"'
+2017-10-17 16:04:42.677 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<WorkerRowViewModel> _InterceptExceptions(
+    source: IAsyncEnumerable<WorkerRowViewModel> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId], [a].[Id], [a].[Email], [a].[LockoutEnabled], [a].[LockoutEnd]
+            FROM [Workers] AS [x]
+            INNER JOIN [AspNetUsers] AS [a] ON [x].[Id] = [a].[Email]
+            ORDER BY [x].[LastName], [x].[FirstName], [x].[Id]
+            OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY, 
+        shaper: TypedProjectionShaper<TypedCompositeShaper<BufferedOffsetEntityShaper<Worker>, Worker, BufferedOffsetEntityShaper<AspUser>, AspUser, TransparentIdentifier<Worker, AspUser>>, TransparentIdentifier<Worker, AspUser>, WorkerRowViewModel>), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:42.677 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.677 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.678 +03:00 [Warning] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2017-10-17 16:04:42.678 +03:00 [Debug] Executing DbCommand [Parameters=["@__p_0='0', @__p_1='10'"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId], [a].[Id], [a].[Email], [a].[LockoutEnabled], [a].[LockoutEnd]
+FROM [Workers] AS [x]
+INNER JOIN [AspNetUsers] AS [a] ON [x].[Id] = [a].[Email]
+ORDER BY [x].[LastName], [x].[FirstName], [x].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY"
+2017-10-17 16:04:42.680 +03:00 [Information] Executed DbCommand ("2"ms) [Parameters=["@__p_0='0', @__p_1='10'"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId], [a].[Id], [a].[Email], [a].[LockoutEnabled], [a].[LockoutEnd]
+FROM [Workers] AS [x]
+INNER JOIN [AspNetUsers] AS [a] ON [x].[Id] = [a].[Email]
+ORDER BY [x].[LastName], [x].[FirstName], [x].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY"
+2017-10-17 16:04:42.688 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:42.688 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.688 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.694 +03:00 [Debug] Compiling query model: "
+"'"(from AspUser w in DbSet<AspUser>
+join AspUserRole ur in DbSet<AspUserRole>
+on [w].Id equals [ur].UserId
+join AspRole r in DbSet<AspRole>
+on [ur].RoleId equals [r].Id
+where 
+    (from string <generated>_1 in __emails_0
+    select [<generated>_1]).Contains([w].Email)
+select new <>f__AnonymousType24<string, string>(
+    [w].Email, 
+    [r].Name
+)).AsNoTracking()"'
+2017-10-17 16:04:42.694 +03:00 [Debug] Optimized query model: "
+"'"from AspUser w in DbSet<AspUser>
+join AspUserRole ur in DbSet<AspUserRole>
+on [w].Id equals [ur].UserId
+join AspRole r in DbSet<AspRole>
+on [ur].RoleId equals [r].Id
+where 
+    (from string <generated>_1 in __emails_0
+    select [<generated>_1]).Contains([w].Email)
+select new <>f__AnonymousType24<string, string>(
+    [w].Email, 
+    [r].Name
+)"'
+2017-10-17 16:04:42.701 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<<>f__AnonymousType24<string, string>> _InterceptExceptions(
+    source: IAsyncEnumerable<<>f__AnonymousType24<string, string>> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [w].[Email], [r].[Name] AS [Role]
+            FROM [AspNetUsers] AS [w]
+            INNER JOIN [AspNetUserRoles] AS [ur] ON [w].[Id] = [ur].[UserId]
+            INNER JOIN [AspNetRoles] AS [r] ON [ur].[RoleId] = [r].[Id]
+            WHERE 0 = 1, 
+        shaper: TypedProjectionShaper<TypedCompositeShaper<TypedCompositeShaper<ValueBufferShaper, ValueBuffer, ValueBufferShaper, ValueBuffer, TransparentIdentifier<ValueBuffer, ValueBuffer>>, TransparentIdentifier<ValueBuffer, ValueBuffer>, ValueBufferShaper, ValueBuffer, TransparentIdentifier<TransparentIdentifier<ValueBuffer, ValueBuffer>, ValueBuffer>>, TransparentIdentifier<TransparentIdentifier<ValueBuffer, ValueBuffer>, ValueBuffer>, <>f__AnonymousType24<string, string>>), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:42.701 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.701 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.701 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [w].[Email], [r].[Name] AS [Role]
+FROM [AspNetUsers] AS [w]
+INNER JOIN [AspNetUserRoles] AS [ur] ON [w].[Id] = [ur].[UserId]
+INNER JOIN [AspNetRoles] AS [r] ON [ur].[RoleId] = [r].[Id]
+WHERE [w].[Email] IN (N'mitsbits@futuradefence.com')"
+2017-10-17 16:04:42.703 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [w].[Email], [r].[Name] AS [Role]
+FROM [AspNetUsers] AS [w]
+INNER JOIN [AspNetUserRoles] AS [ur] ON [w].[Id] = [ur].[UserId]
+INNER JOIN [AspNetRoles] AS [r] ON [ur].[RoleId] = [r].[Id]
+WHERE [w].[Email] IN (N'mitsbits@futuradefence.com')"
+2017-10-17 16:04:42.705 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:42.705 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.705 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:42.711 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Workers.WorkersController.Index (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.ViewResult".
+2017-10-17 16:04:42.711 +03:00 [Debug] View lookup cache miss for view '"Index"' in controller '"Workers"'.
+2017-10-17 16:04:42.755 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Index.cshtml"' started.
+2017-10-17 16:04:42.810 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Index.cshtml"' completed in 54.8826ms.
+2017-10-17 16:04:42.812 +03:00 [Debug] The view '"Index"' was found.
+2017-10-17 16:04:42.812 +03:00 [Information] Executing ViewResult, running view at path "/Features/Workers/Index.cshtml".
+2017-10-17 16:04:42.836 +03:00 [Debug] View lookup cache miss for view '"_Layout"' in controller '"Workers"'.
+2017-10-17 16:04:42.836 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:42.836 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:42.836 +03:00 [Debug] View lookup cache miss for view '"_HeadScriptsPartial"' in controller '"Workers"'.
+2017-10-17 16:04:42.837 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:42.837 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:42.837 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" with arguments ([]).
+2017-10-17 16:04:42.837 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" in 0.0084ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.837 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeader/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.838 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" with arguments ([]).
+2017-10-17 16:04:42.838 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" in 0.0074ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.838 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderLogo/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.838 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" with arguments ([]).
+2017-10-17 16:04:42.839 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" in 0.0137ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.839 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderNavBar/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.839 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:42.839 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.NavigationViewComponent" with arguments ([]).
+2017-10-17 16:04:42.840 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.NavigationViewComponent" in 0.0058ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.840 +03:00 [Debug] View lookup cache miss for view '"Components/Navigation/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.840 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" with arguments ([]).
+2017-10-17 16:04:42.840 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" in 0.0053ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.840 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarSearchForm/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.841 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" with arguments ([]).
+2017-10-17 16:04:42.841 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" in 0.0094ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.841 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarMenu/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.842 +03:00 [Debug] View lookup cache miss for view '"_PageTitle"' in controller '"Workers"'.
+2017-10-17 16:04:42.843 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" with arguments ([]).
+2017-10-17 16:04:42.843 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" in 0.0097ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.843 +03:00 [Debug] View lookup cache miss for view '"Components/Breadcrumps/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.843 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" with arguments ([]).
+2017-10-17 16:04:42.843 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" in 0.0038ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.844 +03:00 [Debug] View lookup cache miss for view '"Components/MainFooter/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.844 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" with arguments ([]).
+2017-10-17 16:04:42.844 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" in 0.0053ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.844 +03:00 [Debug] View lookup cache miss for view '"Components/HiddenSidebar/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.845 +03:00 [Debug] Executing view component "Web.Features.UserSession.UserSessionViewComponent" with arguments (["~/Features/Shared/Components/HiddenSidebar/UserSession.cshtml"]).
+2017-10-17 16:04:42.845 +03:00 [Debug] Executed view component "Web.Features.UserSession.UserSessionViewComponent" in 0.0827ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.845 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:42.846 +03:00 [Debug] View lookup cache miss for view '"_BottomScriptsPartial"' in controller '"Workers"'.
+2017-10-17 16:04:42.846 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" with arguments ([]).
+2017-10-17 16:04:42.846 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" in 0.0104ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:42.847 +03:00 [Debug] View lookup cache miss for view '"Components/ServerFeedback/Default"' in controller '"Workers"'.
+2017-10-17 16:04:42.848 +03:00 [Information] Executed action "Timesheets.Web.Features.Workers.WorkersController.Index (Timesheets.Web)" in 374.3498ms
+2017-10-17 16:04:42.848 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:42.848 +03:00 [Information] Request finished in 379.5952ms 200 text/html; charset=utf-8
+2017-10-17 16:04:42.874 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user2-160x160.jpg  
+2017-10-17 16:04:42.875 +03:00 [Debug] The request path "/dist/img/user2-160x160.jpg" does not match an existing file
+2017-10-17 16:04:42.876 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:42.876 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:42.876 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:42.876 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:42.876 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:42.876 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:42.876 +03:00 [Information] Request finished in 2.2761ms 404 
+2017-10-17 16:04:42.879 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user3-128x128.jpg  
+2017-10-17 16:04:42.879 +03:00 [Debug] The request path "/dist/img/user3-128x128.jpg" does not match an existing file
+2017-10-17 16:04:42.880 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:42.880 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:42.880 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:42.880 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:42.880 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:42.881 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:42.881 +03:00 [Information] Request finished in 2.0515ms 404 
+2017-10-17 16:04:42.881 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user4-128x128.jpg  
+2017-10-17 16:04:42.881 +03:00 [Debug] The request path "/dist/img/user4-128x128.jpg" does not match an existing file
+2017-10-17 16:04:42.882 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:42.883 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:42.883 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:42.883 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:42.883 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:42.883 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:42.883 +03:00 [Information] Request finished in 1.9537ms 404 
+2017-10-17 16:04:45.172 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Workers/mitsbits@futuradefence.com  
+2017-10-17 16:04:45.173 +03:00 [Debug] The request path "/Workers/mitsbits@futuradefence.com" does not match a supported file type
+2017-10-17 16:04:45.173 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:45.173 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Workers/{email}"'.
+2017-10-17 16:04:45.176 +03:00 [Debug] Executing action "Timesheets.Web.Features.Workers.WorkersController.Worker (Timesheets.Web)"
+2017-10-17 16:04:45.177 +03:00 [Information] Executing action method "Timesheets.Web.Features.Workers.WorkersController.Worker (Timesheets.Web)" with arguments (["Timesheets.Web.Infrastructure.UserSession", "mitsbits@futuradefence.com"]) - ModelState is Valid
+2017-10-17 16:04:45.182 +03:00 [Information] Entity Framework Core "2.0.0-rtm-26452" initialized '"AuthDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2017-10-17 16:04:45.182 +03:00 [Debug] Compiling query model: "
+"'"(from ApplicationUser u in DbSet<ApplicationUser>
+where [u].NormalizedEmail == __normalizedEmail_0
+select [u]).FirstOrDefault()"'
+2017-10-17 16:04:45.183 +03:00 [Debug] Optimized query model: "
+"'"(from ApplicationUser u in DbSet<ApplicationUser>
+where [u].NormalizedEmail == __normalizedEmail_0
+select [u]).FirstOrDefault()"'
+2017-10-17 16:04:45.186 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<ApplicationUser> _InterceptExceptions(
+    source: IAsyncEnumerable<ApplicationUser> _TrackEntities(
+        results: IAsyncEnumerable<ApplicationUser> _ToSequence(Task<ApplicationUser> FirstOrDefault(
+                source: IAsyncEnumerable<ApplicationUser> _ShapedQuery(
+                    queryContext: queryContext, 
+                    shaperCommandContext: SelectExpression: 
+                        SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+                        FROM [AspNetUsers] AS [u]
+                        WHERE [u].[NormalizedEmail] = @__normalizedEmail_0, 
+                    shaper: UnbufferedEntityShaper<ApplicationUser>), 
+                cancellationToken: queryContext.CancellationToken)), 
+        queryContext: queryContext, 
+        entityTrackingInfos: { itemType: ApplicationUser }, 
+        entityAccessors: List<Func<ApplicationUser, object>> 
+        { 
+            Func<ApplicationUser, ApplicationUser>, 
+        }
+    ), 
+    contextType: Timesheets.Web.Auth.AuthDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:45.186 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.186 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.187 +03:00 [Debug] Executing DbCommand [Parameters=["@__normalizedEmail_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedEmail] = @__normalizedEmail_0"
+2017-10-17 16:04:45.188 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__normalizedEmail_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedEmail] = @__normalizedEmail_0"
+2017-10-17 16:04:45.188 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:45.188 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.188 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.189 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.189 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.189 +03:00 [Debug] Executing DbCommand [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2017-10-17 16:04:45.189 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__userId_0='?' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2017-10-17 16:04:45.190 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:45.190 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.190 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.198 +03:00 [Debug] Compiling query model: "
+"'"(from Worker x in 
+    (from Worker <generated>_2 in DbSet<Worker>
+    select [<generated>_2]).AsNoTracking()
+where bool [x].Id.Equals(__message_Email_0)
+select [x]).Count()"'
+2017-10-17 16:04:45.199 +03:00 [Debug] Optimized query model: "
+"'"(from Worker x in DbSet<Worker>
+where bool [x].Id.Equals(__message_Email_0)
+select [x]).Count()"'
+2017-10-17 16:04:45.201 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<int> _InterceptExceptions(
+    source: IAsyncEnumerable<int> _ToSequence(Task<int> GetResult(
+            valueBuffers: IAsyncEnumerable<ValueBuffer> _Query(
+                queryContext: queryContext, 
+                shaperCommandContext: SelectExpression: 
+                    SELECT COUNT(*)
+                    FROM [Workers] AS [x]
+                    WHERE [x].[Id] = @__message_Email_0), 
+            throwOnNullResult: False, 
+            cancellationToken: queryContext.CancellationToken)), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:45.201 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.201 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.201 +03:00 [Debug] Executing DbCommand [Parameters=["@__message_Email_0='MITSBITS@FUTURADEFENCE.COM' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*)
+FROM [Workers] AS [x]
+WHERE [x].[Id] = @__message_Email_0"
+2017-10-17 16:04:45.202 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=["@__message_Email_0='MITSBITS@FUTURADEFENCE.COM' (Size = 450)"], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*)
+FROM [Workers] AS [x]
+WHERE [x].[Id] = @__message_Email_0"
+2017-10-17 16:04:45.202 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:45.202 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.202 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.205 +03:00 [Debug] Compiling query model: "
+"'"(from Worker x in 
+    (from Worker <generated>_3 in DbSet<Worker>
+    select [<generated>_3]).AsNoTracking()
+where bool [x].Id.Equals(__message_Email_0)
+select [x])
+.Skip(__p_1)
+.Take(__p_2)"'
+2017-10-17 16:04:45.206 +03:00 [Warning] Query: '"(from Worker x in DbSet<Worker> where bool [x].Id.Equals(__message_Email_0) select [x]).Skip(__p_1)...."' uses a row limiting operation (Skip/Take) without OrderBy which may lead to unpredictable results.
+2017-10-17 16:04:45.206 +03:00 [Debug] Optimized query model: "
+"'"(from Worker x in DbSet<Worker>
+where bool [x].Id.Equals(__message_Email_0)
+select [x])
+.Skip(__p_1)
+.Take(__p_2)"'
+2017-10-17 16:04:45.208 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Worker> _InterceptExceptions(
+    source: IAsyncEnumerable<Worker> _ShapedQuery(
+        queryContext: queryContext, 
+        shaperCommandContext: SelectExpression: 
+            SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId]
+            FROM [Workers] AS [x]
+            WHERE [x].[Id] = @__message_Email_0
+            ORDER BY (SELECT 1)
+            OFFSET @__p_1 ROWS FETCH NEXT @__p_2 ROWS ONLY, 
+        shaper: UnbufferedEntityShaper<Worker>), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:45.209 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.209 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.209 +03:00 [Debug] Executing DbCommand [Parameters=["@__message_Email_0='MITSBITS@FUTURADEFENCE.COM' (Size = 450), @__p_1='0', @__p_2='1'"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId]
+FROM [Workers] AS [x]
+WHERE [x].[Id] = @__message_Email_0
+ORDER BY (SELECT 1)
+OFFSET @__p_1 ROWS FETCH NEXT @__p_2 ROWS ONLY"
+2017-10-17 16:04:45.210 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=["@__message_Email_0='MITSBITS@FUTURADEFENCE.COM' (Size = 450), @__p_1='0', @__p_2='1'"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[FirstName], [x].[LastName], [x].[TeamId]
+FROM [Workers] AS [x]
+WHERE [x].[Id] = @__message_Email_0
+ORDER BY (SELECT 1)
+OFFSET @__p_1 ROWS FETCH NEXT @__p_2 ROWS ONLY"
+2017-10-17 16:04:45.210 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:45.210 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.210 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:45.212 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Workers.WorkersController.Worker (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.ViewResult".
+2017-10-17 16:04:45.212 +03:00 [Debug] View lookup cache miss for view '"Worker"' in controller '"Workers"'.
+2017-10-17 16:04:45.256 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Worker.cshtml"' started.
+2017-10-17 16:04:45.289 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Worker.cshtml"' completed in 33.433ms.
+2017-10-17 16:04:45.291 +03:00 [Debug] The view '"Worker"' was found.
+2017-10-17 16:04:45.291 +03:00 [Information] Executing ViewResult, running view at path "/Features/Workers/Worker.cshtml".
+2017-10-17 16:04:45.295 +03:00 [Debug] View lookup cache miss for view '"NameAndTeam"' in controller '"Workers"'.
+2017-10-17 16:04:45.347 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\NameAndTeam.cshtml"' started.
+2017-10-17 16:04:45.404 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\NameAndTeam.cshtml"' completed in 57.1115ms.
+2017-10-17 16:04:45.411 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:45.435 +03:00 [Debug] View lookup cache miss for view '"LockedStatus"' in controller '"Workers"'.
+2017-10-17 16:04:45.478 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\LockedStatus.cshtml"' started.
+2017-10-17 16:04:45.553 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\LockedStatus.cshtml"' completed in 74.9533ms.
+2017-10-17 16:04:45.561 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:45.576 +03:00 [Debug] View lookup cache miss for view '"Roles"' in controller '"Workers"'.
+2017-10-17 16:04:45.625 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Roles.cshtml"' started.
+2017-10-17 16:04:45.714 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Workers\Roles.cshtml"' completed in 88.6355ms.
+2017-10-17 16:04:45.719 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:45.737 +03:00 [Debug] Executing view component "Timesheets.Web.Features.Workers.WorkerCallendarViewComponent" with arguments (["MITSBITS@FUTURADEFENCE.COM"]).
+2017-10-17 16:04:45.737 +03:00 [Debug] Executed view component "Timesheets.Web.Features.Workers.WorkerCallendarViewComponent" in 0.0143ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.737 +03:00 [Debug] View lookup cache miss for view '"Components/WorkerCallendar/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.738 +03:00 [Debug] View lookup cache hit for view '"_Layout"' in controller '"Workers"'.
+2017-10-17 16:04:45.738 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:45.738 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:45.738 +03:00 [Debug] View lookup cache hit for view '"_HeadScriptsPartial"' in controller '"Workers"'.
+2017-10-17 16:04:45.738 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:45.738 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:45.738 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" with arguments ([]).
+2017-10-17 16:04:45.738 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" in 0.0068ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.738 +03:00 [Debug] View lookup cache hit for view '"Components/MainHeader/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.738 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" with arguments ([]).
+2017-10-17 16:04:45.738 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" in 0.0053ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.738 +03:00 [Debug] View lookup cache hit for view '"Components/MainHeaderLogo/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.738 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" with arguments ([]).
+2017-10-17 16:04:45.738 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" in 0.0043ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.738 +03:00 [Debug] View lookup cache hit for view '"Components/MainHeaderNavBar/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.739 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:45.739 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.NavigationViewComponent" with arguments ([]).
+2017-10-17 16:04:45.739 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.NavigationViewComponent" in 0.0038ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.739 +03:00 [Debug] View lookup cache hit for view '"Components/Navigation/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.739 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" with arguments ([]).
+2017-10-17 16:04:45.739 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" in 0.0043ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.739 +03:00 [Debug] View lookup cache hit for view '"Components/SidebarSearchForm/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.739 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" with arguments ([]).
+2017-10-17 16:04:45.739 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" in 0.0035ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.739 +03:00 [Debug] View lookup cache hit for view '"Components/SidebarMenu/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.743 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" with arguments ([]).
+2017-10-17 16:04:45.743 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" in 0.0071ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.743 +03:00 [Debug] View lookup cache hit for view '"Components/Breadcrumps/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.743 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" with arguments ([]).
+2017-10-17 16:04:45.743 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" in 0.0033ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.743 +03:00 [Debug] View lookup cache hit for view '"Components/MainFooter/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.743 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" with arguments ([]).
+2017-10-17 16:04:45.743 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" in 0.0033ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.743 +03:00 [Debug] View lookup cache hit for view '"Components/HiddenSidebar/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.744 +03:00 [Debug] Executing view component "Web.Features.UserSession.UserSessionViewComponent" with arguments (["~/Features/Shared/Components/HiddenSidebar/UserSession.cshtml"]).
+2017-10-17 16:04:45.744 +03:00 [Debug] Executed view component "Web.Features.UserSession.UserSessionViewComponent" in 0.0309ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.744 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:45.744 +03:00 [Debug] View lookup cache hit for view '"_BottomScriptsPartial"' in controller '"Workers"'.
+2017-10-17 16:04:45.744 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" with arguments ([]).
+2017-10-17 16:04:45.745 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" in 0.0074ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:45.745 +03:00 [Debug] View lookup cache hit for view '"Components/ServerFeedback/Default"' in controller '"Workers"'.
+2017-10-17 16:04:45.746 +03:00 [Information] Executed action "Timesheets.Web.Features.Workers.WorkersController.Worker (Timesheets.Web)" in 569.0401ms
+2017-10-17 16:04:45.746 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:45.746 +03:00 [Information] Request finished in 573.3387ms 200 text/html; charset=utf-8
+2017-10-17 16:04:45.775 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Workers/dist/img/user2-160x160.jpg  
+2017-10-17 16:04:45.775 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Workers/dist/img/user3-128x128.jpg  
+2017-10-17 16:04:45.775 +03:00 [Debug] The request path "/Workers/dist/img/user3-128x128.jpg" does not match an existing file
+2017-10-17 16:04:45.776 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:45.776 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:45.776 +03:00 [Debug] The request path "/Workers/dist/img/user2-160x160.jpg" does not match an existing file
+2017-10-17 16:04:45.776 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:45.776 +03:00 [Information] Request finished in 1.3931ms 404 
+2017-10-17 16:04:45.776 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:45.777 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:45.777 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:45.777 +03:00 [Information] Request finished in 1.8203ms 404 
+2017-10-17 16:04:45.777 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Workers/dist/img/user4-128x128.jpg  
+2017-10-17 16:04:45.778 +03:00 [Debug] The request path "/Workers/dist/img/user4-128x128.jpg" does not match an existing file
+2017-10-17 16:04:45.779 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:45.779 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:45.779 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" completed keep alive response.
+2017-10-17 16:04:45.780 +03:00 [Information] Request finished in 2.3172ms 404 
+2017-10-17 16:04:46.543 +03:00 [Information] Request starting HTTP/1.1 POST http://localhost:51257/Workers/jfeed/v1/callendar application/x-www-form-urlencoded; charset=UTF-8 69
+2017-10-17 16:04:46.544 +03:00 [Debug] "POST" requests are not supported
+2017-10-17 16:04:46.544 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:46.544 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Workers/jfeed/v1/callendar"'.
+2017-10-17 16:04:46.544 +03:00 [Debug] Executing action "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)"
+2017-10-17 16:04:46.544 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"", Request id ""0HL8LBUAVM73F:0000000A"": started reading request body.
+2017-10-17 16:04:46.544 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"", Request id ""0HL8LBUAVM73F:0000000A"": done reading request body.
+2017-10-17 16:04:46.545 +03:00 [Information] Executing action method "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)" with arguments (["MITSBITS@FUTURADEFENCE.COM", "25/09/2017 00:00:00 +03:00", "06/11/2017 00:00:00 +02:00"]) - ModelState is Valid
+2017-10-17 16:04:46.545 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult".
+2017-10-17 16:04:46.545 +03:00 [Debug] No information found on request to perform content negotiation.
+2017-10-17 16:04:46.545 +03:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-10-17 16:04:46.545 +03:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-10-17 16:04:46.545 +03:00 [Information] Executed action "Timesheets.Web.Features.Workers.WorkersController.Callendar (Timesheets.Web)" in 1.0853ms
+2017-10-17 16:04:46.545 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" completed keep alive response.
+2017-10-17 16:04:46.546 +03:00 [Information] Request finished in 2.0812ms 200 application/json; charset=utf-8
+2017-10-17 16:04:48.931 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/Taxonomies  
+2017-10-17 16:04:48.931 +03:00 [Debug] The request path "/Taxonomies" does not match a supported file type
+2017-10-17 16:04:48.931 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:48.931 +03:00 [Debug] Request successfully matched the route with name 'null' and template '"Taxonomies/{id?}"'.
+2017-10-17 16:04:48.937 +03:00 [Debug] Executing action "Timesheets.Web.Features.Taxonomies.TaxonomiesController.Taxonomy (Timesheets.Web)"
+2017-10-17 16:04:48.937 +03:00 [Information] Executing action method "Timesheets.Web.Features.Taxonomies.TaxonomiesController.Taxonomy (Timesheets.Web)" with arguments (["Timesheets.Web.Features.Taxonomies.Services.TaxonomyService", ""]) - ModelState is Valid
+2017-10-17 16:04:48.948 +03:00 [Debug] Compiling query model: "
+"'"(from Taxonomy x in 
+    (from Taxonomy <generated>_1 in DbSet<Taxonomy>
+    select [<generated>_1]).AsNoTracking()
+where bool [x].Id.Equals((object)__8__locals1_message_Id_0)
+select [x]).FirstOrDefault()"'
+2017-10-17 16:04:48.948 +03:00 [Debug] Optimized query model: "
+"'"(from Taxonomy x in DbSet<Taxonomy>
+where bool [x].Id.Equals((object)__8__locals1_message_Id_0)
+select [x]).FirstOrDefault()"'
+2017-10-17 16:04:48.951 +03:00 [Debug] Compiling query model: "
+"'"from Tag tag in DbSet<Tag>
+join TaxonomyTag taxonomyTag in DbSet<TaxonomyTag>
+on [tag].Id equals [taxonomyTag].TagId
+join Taxonomy taxonomy in DbSet<Taxonomy>
+on [taxonomyTag].TaxonomyId equals [taxonomy].Id
+where bool [taxonomy].Id.Equals((object)__8__locals1_message_Id_0)
+select [tag]"'
+2017-10-17 16:04:48.951 +03:00 [Debug] Optimized query model: "
+"'"from Tag tag in DbSet<Tag>
+join TaxonomyTag taxonomyTag in DbSet<TaxonomyTag>
+on [tag].Id equals [taxonomyTag].TagId
+join Taxonomy taxonomy in DbSet<Taxonomy>
+on [taxonomyTag].TaxonomyId equals [taxonomy].Id
+where bool [taxonomy].Id.Equals((object)__8__locals1_message_Id_0)
+select [tag]"'
+2017-10-17 16:04:48.952 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Taxonomy> _InterceptExceptions(
+    source: IAsyncEnumerable<Taxonomy> _ToSequence(Task<Taxonomy> FirstOrDefault(
+            source: IAsyncEnumerable<Taxonomy> _ShapedQuery(
+                queryContext: queryContext, 
+                shaperCommandContext: SelectExpression: 
+                    SELECT TOP(1) [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+                    FROM [Taxonomies] AS [x]
+                    WHERE [x].[Id] = @__8__locals1_message_Id_0, 
+                shaper: UnbufferedEntityShaper<Taxonomy>), 
+            cancellationToken: queryContext.CancellationToken)), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:48.952 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.952 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.952 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+FROM [Taxonomies] AS [x]
+WHERE [x].[Id] IS NULL"
+2017-10-17 16:04:48.953 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+FROM [Taxonomies] AS [x]
+WHERE [x].[Id] IS NULL"
+2017-10-17 16:04:48.953 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:48.953 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.953 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.960 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Tag> _InterceptExceptions(
+    source: IAsyncEnumerable<Tag> _TrackEntities(
+        results: IAsyncEnumerable<Tag> _ShapedQuery(
+            queryContext: queryContext, 
+            shaperCommandContext: SelectExpression: 
+                SELECT [tag].[Id], [tag].[IsEnabled], [tag].[Value]
+                FROM [Tags] AS [tag]
+                INNER JOIN [TaxonomiesTags] AS [taxonomyTag] ON [tag].[Id] = [taxonomyTag].[TagId]
+                INNER JOIN [Taxonomies] AS [taxonomy] ON [taxonomyTag].[TaxonomyId] = [taxonomy].[Id]
+                WHERE [taxonomy].[Id] = @__8__locals1_message_Id_0, 
+            shaper: BufferedOffsetEntityShaper<Tag>), 
+        queryContext: queryContext, 
+        entityTrackingInfos: { itemType: Tag }, 
+        entityAccessors: List<Func<Tag, object>> 
+        { 
+            Func<Tag, Tag>, 
+        }
+    ), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: queryContext)"
+2017-10-17 16:04:48.961 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.961 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.961 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [tag].[Id], [tag].[IsEnabled], [tag].[Value]
+FROM [Tags] AS [tag]
+INNER JOIN [TaxonomiesTags] AS [taxonomyTag] ON [tag].[Id] = [taxonomyTag].[TagId]
+INNER JOIN [Taxonomies] AS [taxonomy] ON [taxonomyTag].[TaxonomyId] = [taxonomy].[Id]
+WHERE [taxonomy].[Id] IS NULL"
+2017-10-17 16:04:48.962 +03:00 [Information] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [tag].[Id], [tag].[IsEnabled], [tag].[Value]
+FROM [Tags] AS [tag]
+INNER JOIN [TaxonomiesTags] AS [taxonomyTag] ON [tag].[Id] = [taxonomyTag].[TagId]
+INNER JOIN [Taxonomies] AS [taxonomy] ON [taxonomyTag].[TaxonomyId] = [taxonomy].[Id]
+WHERE [taxonomy].[Id] IS NULL"
+2017-10-17 16:04:48.962 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:48.962 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.962 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.965 +03:00 [Debug] Cache populates
+2017-10-17 16:04:48.974 +03:00 [Debug] Compiling query model: "
+"'"(from Taxonomy x in 
+    (from Taxonomy <generated>_1 in DbSet<Taxonomy>
+    select [<generated>_1]).AsNoTracking()
+where True
+select [x]).Include(\"Tags\")"'
+2017-10-17 16:04:48.974 +03:00 [Debug] Including navigation: '"[x].Tags"'
+2017-10-17 16:04:48.983 +03:00 [Debug] Optimized query model: "
+"'"from Taxonomy x in DbSet<Taxonomy>
+where True
+order by Property([x], \"Id\") asc
+select Task<Taxonomy> _IncludeAsync(
+    queryContext: queryContext, 
+    entity: [x], 
+    included: new object[]{ }, 
+    fixup: (QueryContext queryContext | Taxonomy entity | Object[] included | CancellationToken ct) => 
+    {
+        return Task queryContext.QueryBuffer.IncludeCollectionAsync(
+            includeId: 0, 
+            navigation: Taxonomy.Tags, 
+            inverseNavigation: TaxonomyTag.Taxonomy, 
+            targetEntityType: EntityType: TaxonomyTag, 
+            clrCollectionAccessor: ClrICollectionAccessor<Taxonomy, ICollection<TaxonomyTag>, TaxonomyTag>, 
+            inverseClrPropertySetter: ClrPropertySetter<TaxonomyTag, Taxonomy>, 
+            tracking: False, 
+            instance: entity, 
+            valuesFactory: (Func<IAsyncEnumerable<object>>)() => 
+                from TaxonomyTag x.Tags in DbSet<TaxonomyTag>
+                join AnonymousObject _x in 
+                    from Taxonomy x in DbSet<Taxonomy>
+                    where True
+                    select new AnonymousObject(new object[]{ (object)EF.Property(?[x]?, \"Id\") })
+                on Property([x.Tags], \"TaxonomyId\") equals (Nullable<Guid>)object [_x].GetValue(0)
+                order by object [_x].GetValue(0) asc
+                select [x.Tags], 
+            cancellationToken: ct)
+    }
+    , 
+    cancellationToken: ct).Result"'
+2017-10-17 16:04:48.997 +03:00 [Debug] "(QueryContext queryContext) => IAsyncEnumerable<Taxonomy> _InterceptExceptions(
+    source: IAsyncEnumerable<Taxonomy> _SelectAsync(
+        source: IAsyncEnumerable<Taxonomy> _ShapedQuery(
+            queryContext: queryContext, 
+            shaperCommandContext: SelectExpression: 
+                SELECT [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+                FROM [Taxonomies] AS [x]
+                ORDER BY [x].[Id], 
+            shaper: BufferedEntityShaper<Taxonomy>), 
+        selector: (Taxonomy x | CancellationToken ct) => Task<Taxonomy> _ExecuteAsync(
+            taskFactories: new Func<Task<object>>[]{ () => Task<object> _ToObjectTask(Task<Taxonomy> _IncludeAsync(
+                        queryContext: queryContext, 
+                        entity: x, 
+                        included: new object[]{ }, 
+                        fixup: (QueryContext queryContext | Taxonomy entity | Object[] included | CancellationToken ct) => 
+                        {
+                            return Task queryContext.QueryBuffer.IncludeCollectionAsync(
+                                includeId: 0, 
+                                navigation: Taxonomy.Tags, 
+                                inverseNavigation: TaxonomyTag.Taxonomy, 
+                                targetEntityType: EntityType: TaxonomyTag, 
+                                clrCollectionAccessor: ClrICollectionAccessor<Taxonomy, ICollection<TaxonomyTag>, TaxonomyTag>, 
+                                inverseClrPropertySetter: ClrPropertySetter<TaxonomyTag, Taxonomy>, 
+                                tracking: False, 
+                                instance: entity, 
+                                valuesFactory: (Func<IAsyncEnumerable<object>>)() => IAsyncEnumerable<TaxonomyTag> _ShapedQuery(
+                                    queryContext: queryContext, 
+                                    shaperCommandContext: SelectExpression: 
+                                        SELECT [x.Tags].[TaxonomyId], [x.Tags].[TagId]
+                                        FROM [TaxonomiesTags] AS [x.Tags]
+                                        INNER JOIN (
+                                            SELECT [x0].[Id]
+                                            FROM [Taxonomies] AS [x0]
+                                        ) AS [t] ON [x.Tags].[TaxonomyId] = [t].[Id]
+                                        ORDER BY [t].[Id], 
+                                    shaper: BufferedEntityShaper<TaxonomyTag>), 
+                                cancellationToken: ct)
+                        }
+                        , 
+                        cancellationToken: Unhandled parameter: ct)) }, 
+            selector: (Object[] results) => (Taxonomy)results[0])), 
+    contextType: Timesheets.Web.Domain.TimesheetsDbContext, 
+    logger: DiagnosticsLogger<Query>, 
+    queryContext: Unhandled parameter: queryContext)"
+2017-10-17 16:04:48.999 +03:00 [Debug] Opening connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.999 +03:00 [Debug] Opened connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:48.999 +03:00 [Debug] Executing DbCommand [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+FROM [Taxonomies] AS [x]
+ORDER BY [x].[Id]"
+2017-10-17 16:04:49.000 +03:00 [Information] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Id], [x].[DisplayName], [x].[IsEnabled], [x].[ParentId]
+FROM [Taxonomies] AS [x]
+ORDER BY [x].[Id]"
+2017-10-17 16:04:49.001 +03:00 [Debug] A data reader was disposed.
+2017-10-17 16:04:49.001 +03:00 [Debug] Closing connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:49.001 +03:00 [Debug] Closed connection to database '"timesheets"' on server '".\sql2016"'.
+2017-10-17 16:04:49.003 +03:00 [Debug] Cache populated, ellapsed : 00:00:00.0384447
+2017-10-17 16:04:49.004 +03:00 [Debug] Executed action method "Timesheets.Web.Features.Taxonomies.TaxonomiesController.Taxonomy (Timesheets.Web)", returned result "Microsoft.AspNetCore.Mvc.ViewResult".
+2017-10-17 16:04:49.004 +03:00 [Debug] View lookup cache miss for view '"Taxonomy"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.052 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Taxonomies\Taxonomy.cshtml"' started.
+2017-10-17 16:04:49.080 +03:00 [Debug] Compilation of the generated code for the Razor file at '"M:\Users\dbitsanis.FUTURA\Source\Repos\Timesheets\src\Timesheets.Web\Features\Taxonomies\Taxonomy.cshtml"' completed in 27.7627ms.
+2017-10-17 16:04:49.081 +03:00 [Debug] The view '"Taxonomy"' was found.
+2017-10-17 16:04:49.081 +03:00 [Information] Executing ViewResult, running view at path "/Features/Taxonomies/Taxonomy.cshtml".
+2017-10-17 16:04:49.084 +03:00 [Debug] View lookup cache miss for view '"_Layout"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.085 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:49.085 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:49.085 +03:00 [Debug] View lookup cache miss for view '"_HeadScriptsPartial"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.086 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' initialized.
+2017-10-17 16:04:49.086 +03:00 [Debug] Tag helper component '"Microsoft.AspNetCore.ApplicationInsights.HostingStartup.JavaScriptSnippetTagHelperComponent"' processed.
+2017-10-17 16:04:49.086 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" with arguments ([]).
+2017-10-17 16:04:49.086 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderViewComponent" in 0.0053ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.086 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeader/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.086 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" with arguments ([]).
+2017-10-17 16:04:49.086 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderLogoViewComponent" in 0.0099ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.086 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderLogo/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.087 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" with arguments ([]).
+2017-10-17 16:04:49.087 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainHeaderNavBarViewComponent" in 0.0114ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.087 +03:00 [Debug] View lookup cache miss for view '"Components/MainHeaderNavBar/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.087 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:49.088 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.NavigationViewComponent" with arguments ([]).
+2017-10-17 16:04:49.088 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.NavigationViewComponent" in 0.0053ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.088 +03:00 [Debug] View lookup cache miss for view '"Components/Navigation/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.088 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" with arguments ([]).
+2017-10-17 16:04:49.088 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarSearchFormViewComponent" in 0.004ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.088 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarSearchForm/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.089 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" with arguments ([]).
+2017-10-17 16:04:49.089 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.SidebarMenuViewComponent" in 0.0033ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.089 +03:00 [Debug] View lookup cache miss for view '"Components/SidebarMenu/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.089 +03:00 [Debug] View lookup cache miss for view '"_PageTitle"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.090 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" with arguments ([]).
+2017-10-17 16:04:49.090 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.BreadcrumpsViewComponent" in 0.0043ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.090 +03:00 [Debug] View lookup cache miss for view '"Components/Breadcrumps/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.090 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" with arguments ([]).
+2017-10-17 16:04:49.091 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.MainFooterViewComponent" in 0.0086ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.091 +03:00 [Debug] View lookup cache miss for view '"Components/MainFooter/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.091 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" with arguments ([]).
+2017-10-17 16:04:49.091 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.HiddenSidebarViewComponent" in 0.0079ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.091 +03:00 [Debug] View lookup cache miss for view '"Components/HiddenSidebar/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.092 +03:00 [Debug] Executing view component "Web.Features.UserSession.UserSessionViewComponent" with arguments (["~/Features/Shared/Components/HiddenSidebar/UserSession.cshtml"]).
+2017-10-17 16:04:49.092 +03:00 [Debug] Executed view component "Web.Features.UserSession.UserSessionViewComponent" in 0.0306ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.092 +03:00 [Debug] An antiforgery cookie token was reused.
+2017-10-17 16:04:49.092 +03:00 [Debug] View lookup cache miss for view '"_BottomScriptsPartial"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.093 +03:00 [Debug] Executing view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" with arguments ([]).
+2017-10-17 16:04:49.093 +03:00 [Debug] Executed view component "Timesheets.Web.ViewComponents.ServerFeedbackViewComponent" in 0.0086ms and returned "Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult"
+2017-10-17 16:04:49.093 +03:00 [Debug] View lookup cache miss for view '"Components/ServerFeedback/Default"' in controller '"Taxonomies"'.
+2017-10-17 16:04:49.094 +03:00 [Information] Executed action "Timesheets.Web.Features.Taxonomies.TaxonomiesController.Taxonomy (Timesheets.Web)" in 157.197ms
+2017-10-17 16:04:49.095 +03:00 [Debug] Cache disposes
+2017-10-17 16:04:49.095 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" completed keep alive response.
+2017-10-17 16:04:49.095 +03:00 [Information] Request finished in 164.1364ms 200 text/html; charset=utf-8
+2017-10-17 16:04:49.121 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user2-160x160.jpg  
+2017-10-17 16:04:49.121 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user3-128x128.jpg  
+2017-10-17 16:04:49.121 +03:00 [Debug] The request path "/dist/img/user2-160x160.jpg" does not match an existing file
+2017-10-17 16:04:49.121 +03:00 [Debug] The request path "/dist/img/user3-128x128.jpg" does not match an existing file
+2017-10-17 16:04:49.122 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:49.122 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:49.122 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:49.122 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:49.122 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:49.122 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:49.122 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user2-160x160.jpg"]
+2017-10-17 16:04:49.122 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user3-128x128.jpg"]
+2017-10-17 16:04:49.122 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:49.122 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:49.122 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" completed keep alive response.
+2017-10-17 16:04:49.122 +03:00 [Information] Request finished in 1.0096ms 404 
+2017-10-17 16:04:49.122 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" completed keep alive response.
+2017-10-17 16:04:49.122 +03:00 [Information] Request finished in 1.1353ms 404 
+2017-10-17 16:04:49.129 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:51257/dist/img/user4-128x128.jpg  
+2017-10-17 16:04:49.130 +03:00 [Debug] The request path "/dist/img/user4-128x128.jpg" does not match an existing file
+2017-10-17 16:04:49.131 +03:00 [Information] AuthenticationScheme: "Identity.Application" was successfully authenticated.
+2017-10-17 16:04:49.131 +03:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-10-17 16:04:49.131 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:49.131 +03:00 [Debug] No actions matched the current request. Route values: ["controller=dist", "action=img", "id=user4-128x128.jpg"]
+2017-10-17 16:04:49.131 +03:00 [Debug] Request did not match any routes.
+2017-10-17 16:04:49.131 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" completed keep alive response.
+2017-10-17 16:04:49.132 +03:00 [Information] Request finished in 3.0553ms 404 
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" received FIN.
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" received FIN.
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" disconnecting.
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" disconnecting.
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" received FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" disconnecting.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" sending FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" sending FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" received FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" disconnecting.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" sending FIN.
+2017-10-17 16:06:12.505 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" received FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" disconnecting.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" received FIN.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" disconnecting.
+2017-10-17 16:06:12.506 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" sending FIN.
+2017-10-17 16:06:12.507 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" sending FIN.
+2017-10-17 16:06:12.507 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" sending FIN.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73F"" stopped.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73H"" stopped.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73E"" stopped.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73G"" stopped.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73I"" stopped.
+2017-10-17 16:06:12.508 +03:00 [Debug] Connection id ""0HL8LBUAVM73D"" stopped.

@@ -1,0 +1,16 @@
+﻿<section class="sidebar">
+
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="@UserSession.Avatar" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p>@UserSession.UserName</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync(typeof(SidebarSearchFormViewComponent))
+
+    @await Component.InvokeAsync(typeof(SidebarMenuViewComponent))
+</section>

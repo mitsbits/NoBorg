@@ -1,0 +1,9 @@
+﻿@using Timesheets.Web.Domain.Infrastructure
+@using Web.Domain.Infrastructure
+@model QueryResult
+
+
+@{
+    var message = (Model.Outcome == QueryOutcome.Failure) ? $"Request error: {string.Join(@"n\", Model.Errors)}" : $" {string.Join(@"n\", Model.Errors)}"; 
+}
+<p>@Html.Raw(message)</p>

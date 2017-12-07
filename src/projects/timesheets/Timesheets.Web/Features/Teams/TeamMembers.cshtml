@@ -1,0 +1,38 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Timesheets.Web.Features.Teams
+@model System.Collections.Generic.IEnumerable<Timesheets.Web.Features.Teams.TeamMemberViewModel>
+
+
+@if (Model != null && Model.Any())
+{
+
+            @*<div class="pre-scrollable" >*@
+                <ul class="list-group " >
+                    @foreach (var member in Model.OrderBy(x => x.Locked).ThenBy(x => x.Display))
+                    {
+                        <li class="list-group-item">
+                    
+                            <a asp-controller="Workers" asp-action="Worker" asp-route-email="@member.Email" title="@member.Email">
+
+
+                                <span>   @member.Display </span>
+                            </a>
+                            <span class="margin-r-5 pull-right" style="width: 14px;">
+                                @if (member.Locked)
+                                {
+                                    <i class="fa fa-lock text-danger"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-check text-success"></i>
+                                }
+
+                            </span>
+                        </li>
+                    }
+                </ul>
+              
+            @*</div>*@
+
+}

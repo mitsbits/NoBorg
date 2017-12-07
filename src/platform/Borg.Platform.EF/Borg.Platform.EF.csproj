@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.0.3-beta</Version>
+    <Description>Borg framework EF core implementation</Description>
+    <Copyright>mitsbits@gmail.com</Copyright>
+    <PackageProjectUrl>https://github.com/mitsbits/Borg.Platform.EF</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mitsbits/Borg.Platform.EF</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Borg</PackageTags>
+    <PackageIconUrl>http://icons.iconarchive.com/icons/icons8/windows-8/128/Cinema-Borg-Head-icon.png</PackageIconUrl>
+    <AssemblyVersion>0.0.0.3</AssemblyVersion>
+    <FileVersion>0.0.0.3</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\infra\Borg.Infra\Borg.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

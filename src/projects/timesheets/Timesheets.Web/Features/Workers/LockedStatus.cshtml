@@ -1,0 +1,60 @@
+﻿
+@using Web.Features.Workers
+
+@model WorkerViewModel
+@{
+
+    var title = (Model.Locked) ? "Locked" : "Enabled";
+    var lockedEnds = Model.LockoutEnd != default(DateTime) ? Model.LockoutEnd.ToString("F") : string.Empty;
+    var boxclass = (Model.Locked) ? "danger" : "success";
+}
+
+
+<div class="box box-@boxclass">
+    <div class="box-header with-border">
+        <h3 class="box-title text-@boxclass">@title</h3>
+    </div>
+    <form role="form" asp-controller="Workers" asp-action="ToggleLockOut" method="post" asp-route-redirecturl="@Orchestrator.Device.Path">
+        <input type="hidden" asp-for="@Model.Email" />
+        @if (Model.Locked && !string.IsNullOrWhiteSpace(lockedEnds))
+        {
+            <div class="box-body">
+                <p class="text-@boxclass">Lock out ends: @lockedEnds</p>
+            </div>
+        }
+        @if (!Model.Locked && UserSession.IsAdminOrManager())
+        {
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label asp-for="LockoutEnd" class="control-label"></label>
+                    <div class="input-group margin">
+                        @Html.TextBoxFor(m => m.LockoutEnd, "{0:dd/MM/yyyy}", new { @class = "form-control datepickernullable", data_val = "false" })
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-danger pull-right">Lock</button>
+                        </span>
+                    </div>
+
+
+                    <span asp-validation-for="LockoutEnd" class="text-danger"></span>
+
+                </div>
+
+            </div>
+        }
+        @if (UserSession.IsAdminOrManager() && Model.Locked)
+        {
+
+            <div class="box-footer">
+            
+
+                <button type="submit" class="btn btn-success pull-right">Unlock</button>
+
+
+            </div>
+
+        }
+    </form>
+    
+    @Html.Partial("Roles", new WorkerRolesViewModel(Model))
+</div>
