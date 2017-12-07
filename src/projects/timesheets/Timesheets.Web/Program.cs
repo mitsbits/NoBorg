@@ -27,7 +27,7 @@ namespace Timesheets.Web
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile("log-{Date}.txt")
+                //.WriteTo.RollingFile("log-{Date}.txt")
                 //.WriteTo.AzureTableStorageWithProperties(storage, LogEventLevel.Verbose, null, "AtlasDebugLog")
                 //.WriteTo.AzureTableStorageWithProperties(storage).Filter.ByExcluding(Matching.FromSource("Microsoft")).MinimumLevel.Verbose()
                 //.WriteTo.Logger(l => l.Filter.ByExcluding(Matching.FromSource("Microsoft")).WriteTo.AzureTableStorage(storage, LogEventLevel.Information, null, "AtlasLog"))

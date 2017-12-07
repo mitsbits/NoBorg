@@ -1,7 +1,7 @@
 ﻿{
   "ConnectionStrings": {
-    "AuthSql": "Server=.\\sql2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;",
-    "TmesheetsSql": "Server=.\\sql2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;"
+    "AuthSql": "Server=.\\d2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;",
+    "TmesheetsSql": "Server=.\\d2016;Database=timesheets;Trusted_Connection=True;MultipleActiveResultSets=true;"
   },
   "BuildInUser": {
     "UserName": "timesheets@futuradefence.com",
