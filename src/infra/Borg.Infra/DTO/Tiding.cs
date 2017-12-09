@@ -3,7 +3,7 @@ using System;
 
 namespace Borg.Infra.DTO
 {
-    public class Tiding : Catalogued, IWeighted, ICloneable, ICloneable<Tiding>, IHierarchyData
+    public class Tiding : Catalogued, IWeighted, ICloneable, ICloneable<Tiding>
     {
         private IHierarchicalEnumerable _children;
 
@@ -15,30 +15,6 @@ namespace Borg.Infra.DTO
 
         public virtual Tidings Children { get; } = new Tidings();
         public virtual double Weight { get; set; }
-
-        public virtual void AddChild(Tiding child)
-        {
-            if (child == null) throw new ArgumentNullException(nameof(child));
-            child.Parent = this;
-            Children.Add(child);
-        }
-
-        #region IHierarchyData
-
-        public bool HasChildren => Children.Count > 0;
-        public object Item => this;
-        public virtual string Tag => GetType().FullName;
-
-        IHierarchicalEnumerable IHierarchyData.Children => Children;
-
-        public IHierarchyData Parent { get; protected internal set; }
-
-        void IHierarchyData.AddChild(IHierarchyData child)
-        {
-            AddChild(child as Tiding);
-        }
-
-        #endregion IHierarchyData
 
         #region ICloneable
 
@@ -54,7 +30,7 @@ namespace Borg.Infra.DTO
                 clone.Children.Add(tiding.Clone());
             return clone;
         }
-    }
 
-    #endregion ICloneable
+        #endregion ICloneable
+    }
 }

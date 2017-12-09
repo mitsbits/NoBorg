@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  webclient:
+    image: webclient
+    build:
+      context: ./WebClient
+      dockerfile: Dockerfile
+    depends_on:
+      - sql.data
+
+  sql.data:
+    image: "microsoft/mssql-server-linux"
+    environment:
+      - SA_PASSWORD=Passw0rd
+      - ACCEPT_EULA=Y
+    ports:
+      - "5434:1433"

@@ -1,12 +1,11 @@
-﻿using Borg.Infra.Collections.Hierarchy;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Borg.Infra.DTO
 {
-    public class Tidings : IHierarchicalEnumerable, ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>,
+    public class Tidings :  ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>,
         ICloneable, ICloneable<Tidings>
     {
         private readonly ICollection<Tiding> _bucket;
@@ -85,10 +84,7 @@ namespace Borg.Infra.DTO
             return _bucket.GetEnumerator();
         }
 
-        public IHierarchyData GetHierarchyData(object enumeratedItem)
-        {
-            return enumeratedItem as IHierarchyData;
-        }
+
 
         IEnumerator IEnumerable.GetEnumerator()
         {
