@@ -8,11 +8,20 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - sql.data
+      - rabbit.mq
 
   sql.data:
     image: "microsoft/mssql-server-linux"
+    volumes:
+      - sqldata:/sql/data
     environment:
       - SA_PASSWORD=Passw0rd
       - ACCEPT_EULA=Y
     ports:
       - "5434:1433"
+
+  rabbit.mq:
+    image: rabbitmq
+
+volumes:
+  sqldata:
