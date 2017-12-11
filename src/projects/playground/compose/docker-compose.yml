@@ -21,7 +21,9 @@ services:
       - "5434:1433"
 
   rabbit.mq:
-    image: rabbitmq
+    image: rabbitmq:3-management
+
+     
 
 volumes:
   sqldata:
