@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -97,9 +98,13 @@ namespace Borg.Infra.Storage
         public static async Task<bool> RenameFile(this IFileStorage fileStorage, string path, string newpath,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await fileStorage.CopyFile(path, newpath, cancellationToken)
-                ? await fileStorage.DeleteFile(path, cancellationToken)
-                : false;
+            return await fileStorage.CopyFile(path, newpath, cancellationToken) && await fileStorage.DeleteFile(path, cancellationToken);
+        }
+
+        public static async Task<bool> SaveFile(this IFileStorage fileStorage, string path, string content, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content ?? ""));
+            return await fileStorage.SaveFile(path, stream, cancellationToken);
         }
     }
 }

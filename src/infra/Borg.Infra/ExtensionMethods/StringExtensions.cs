@@ -20,7 +20,8 @@ namespace Borg.Infra.ExtensionMethods
 
             return true;
         }
-                public static string RemoveWhitespace(this string str)
+
+        public static string RemoveWhitespace(this string str)
         {
             return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
@@ -39,10 +40,10 @@ namespace Borg.Infra.ExtensionMethods
 
         public static string MakeValidFileName(this string name)
         {
-            string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            string invalidChars = Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
             string invalidRegStr = $@"([{invalidChars}]*\.+$)|([{invalidChars}]+)";
 
-            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+            return Regex.Replace(name, invalidRegStr, "_");
         }
     }
 }
