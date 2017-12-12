@@ -21,7 +21,7 @@ namespace Borg.MVC
         protected virtual void PopulateSettings(IServiceCollection services, string configElement = "Borg")
         {
             BorgSettings = new BorgSettings();
-            services.ConfigurePOCO(Configuration.GetSection(configElement), () => BorgSettings);
+            services.Config(Configuration.GetSection(configElement), () => BorgSettings);
         }
     }
 }

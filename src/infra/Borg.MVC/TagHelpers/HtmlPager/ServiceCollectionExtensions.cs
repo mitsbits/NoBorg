@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddPagination<TSettings>(this IServiceCollection services, IConfigurationSection config) where TSettings : class, IPaginationInfoStyle, new()
         {
             var settings = new TSettings();
-            services.ConfigurePOCO(config, () => settings);
+            services.Config(config, () => settings);
             return services.AddSingleton<IPaginationSettingsProvider>(c => new InstancePaginationSettingsProvider<TSettings>(settings));
         }
     }

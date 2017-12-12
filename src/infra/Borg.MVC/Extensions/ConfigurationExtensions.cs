@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigurationExtensions
     {
-        public static TConfig ConfigurePOCO<TConfig>(this IServiceCollection services, IConfiguration configuration,
+        public static TConfig Config<TConfig>(this IServiceCollection services, IConfiguration configuration,
             Func<TConfig> pocoProvider) where TConfig : class
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return config;
         }
 
-        public static TConfig ConfigurePOCO<TConfig>(this IServiceCollection services, IConfiguration configuration,
+        public static TConfig Config<TConfig>(this IServiceCollection services, IConfiguration configuration,
             TConfig config) where TConfig : class
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
