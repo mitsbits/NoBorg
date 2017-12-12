@@ -7,6 +7,15 @@ services:
       context: ./WebClient
       dockerfile: Dockerfile
     depends_on:
+      - webapi
+      - rabbit.mq
+
+  webapi:
+    image: webapi
+    build:
+      context: ./WebApi
+      dockerfile: Dockerfile
+    depends_on:
       - sql.data
       - rabbit.mq
 
@@ -22,11 +31,17 @@ services:
 
   rabbit.mq:
     image: rabbitmq:3-management
+    volumes:
+      - rabbitdata:/rabbit/data
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbituser
+      - RABBITMQ_DEFAULT_PASS=Passw0rd
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5673:5672"
+      - "15673:15672"
 
-     
+
 
 volumes:
   sqldata:
+  rabbitdata:
