@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - default
+    ports:
+      - 8801:80
     depends_on:
       - webapi
       - rabbit.mq
@@ -27,6 +29,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - default
+    ports:
+      - 8800:80
     depends_on:
       - sql.data
       - rabbit.mq

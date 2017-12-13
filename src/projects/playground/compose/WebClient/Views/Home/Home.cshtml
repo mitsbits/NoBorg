@@ -41,7 +41,7 @@
             methods: {
                 loadUsers: function () {
                     alert("loading");
-                    this.$http.get('http://localhost:32770/api/topics').then(function(response){
+                    this.$http.get('http://localhost:8800/api/topics').then(function(response){
                         this.topics = response.data;
                     }, function(error){
                         console.log(error.statusText);
