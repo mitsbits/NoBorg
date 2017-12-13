@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace WebClient
 {
     public class Startup
@@ -25,21 +26,23 @@ namespace WebClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.Config(Configuration.GetSection("compose"), () => Settings);
-            var connectionString = Settings.ConnectionStrings["db"];
-            using (SqlConnection connection =
-                new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    connection.Close();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
-            }
+            //var connectionString = Settings.ConnectionStrings["db"];
+            //using (SqlConnection connection =
+            //    new SqlConnection(connectionString))
+            //{
+            //    try
+            //    {
+            //        connection.Open();
+            //        connection.Close();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e);
+            //        throw;
+            //    }
+            //}
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,10 +53,7 @@ namespace WebClient
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync($"Hello World from {env.EnvironmentName}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home leme</title>
+
+</head>
+<body>
+    <h1>Home leme</h1>
+<div id="app">
+    <button v-on:click="loadUsers">load users</button>
+    <div>
+        {{ message }}
+
+    </div>
+    <a v-bind:title="message">hover</a>
+    <div>
+        {{topics.length}}
+    </div>
+    <ul >
+        <li v-for="item in topics">
+            {{ item }}
+        </li>
+    </ul>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                topics: []
+            },
+            methods: {
+                loadUsers: function () {
+                    alert("loading");
+                    this.$http.get('http://localhost:32770/api/topics').then(function(response){
+                        this.topics = response.data;
+                    }, function(error){
+                        console.log(error.statusText);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
