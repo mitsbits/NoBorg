@@ -10,6 +10,15 @@ namespace Domain
     {
         public IDictionary<string, string> ConnectionStrings { get; set; }
         public IDictionary<string, string> EndPoints { get; set; }
+        public RabbitMqSettings RabbitMq { get; set; }
+    }
+
+
+    public class RabbitMqSettings
+    {
+        public string Host { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 
 }

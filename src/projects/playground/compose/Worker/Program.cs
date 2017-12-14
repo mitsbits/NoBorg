@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Autofac;
 using Microsoft.Extensions.Configuration;
 
 namespace Worker
@@ -7,13 +8,14 @@ namespace Worker
     class Program
     {
         private static IConfigurationRoot Configuration { get;  set; }
+        private static IContainer Container { get; set; }
         static void Main(string[] args)
         {
             Configuration = ConfigureSettings();
             Console.WriteLine("Hello World!");
         }
 
-
+        private static IContainer RegisterDI() { }
         private static IConfigurationRoot ConfigureSettings()
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
