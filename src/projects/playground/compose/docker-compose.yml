@@ -15,6 +15,7 @@ services:
       - webapi
       - rabbit.mq
       - redis.cache
+      - worker
     links:
      - "webapi:api"
      - "sql.data:db"
@@ -35,10 +36,27 @@ services:
       - sql.data
       - rabbit.mq
       - redis.cache
+      - worker
     links:
      - "sql.data:db"
      - "rabbit.mq:queue"
      - "redis.cache:cache"
+
+  worker:
+      image: worker
+      build:
+        context: ./Worker
+        dockerfile: Dockerfile
+      networks:
+          - default
+      depends_on:
+        - sql.data
+        - rabbit.mq
+        - redis.cache
+      links:
+        - "sql.data:db"
+        - "rabbit.mq:queue"
+        - "redis.cache:cache"
 
   sql.data:
     image: "microsoft/mssql-server-linux"
@@ -78,9 +96,12 @@ services:
     networks:
       - default
 
+
+
 networks:
   default:
 
 
 volumes:
   files:
+

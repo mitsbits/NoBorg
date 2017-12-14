@@ -1,4 +1,5 @@
-﻿
+﻿@using Domain
+@inject AppSettings _settings
 @{
     Layout = null;
 }
@@ -41,7 +42,7 @@
             methods: {
                 loadUsers: function () {
                     alert("loading");
-                    this.$http.get('http://localhost:8800/api/topics').then(function(response){
+                    this.$http.get('@_settings.EndPoints["api"]/v1/topics').then(function(response){
                         this.topics = response.data;
                     }, function(error){
                         console.log(error.statusText);

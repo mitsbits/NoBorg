@@ -47,7 +47,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "projects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "projects\playground\compose\WebApi\WebApi.csproj", "{F1A77ACC-658C-4C97-B30C-62AC58255091}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "projects\playground\compose\Domain\Domain.csproj", "{101AF318-DFA8-4B72-B18A-49EFDD8369D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "projects\playground\compose\Domain\Domain.csproj", "{101AF318-DFA8-4B72-B18A-49EFDD8369D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "projects\playground\compose\Worker\Worker.csproj", "{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{101AF318-DFA8-4B72-B18A-49EFDD8369D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{101AF318-DFA8-4B72-B18A-49EFDD8369D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{101AF318-DFA8-4B72-B18A-49EFDD8369D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +141,7 @@ Global
 		{4DE6C1CF-83C4-495B-B1CB-8B91B07AB41F} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 		{F1A77ACC-658C-4C97-B30C-62AC58255091} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 		{101AF318-DFA8-4B72-B18A-49EFDD8369D7} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
+		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A383B681-DE8E-4944-8D4D-2EFFDEE3C9A7}
