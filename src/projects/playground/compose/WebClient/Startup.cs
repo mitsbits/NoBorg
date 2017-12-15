@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebClient.Hubs;
 
 
 namespace WebClient
@@ -41,8 +42,9 @@ namespace WebClient
             //        throw;
             //    }
             //}
-
+            services.AddSignalR();
             services.AddMvc();
+ 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,8 +54,13 @@ namespace WebClient
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseFileServer();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TopicsHub>("topics");
+            });
             app.UseMvcWithDefaultRoute();
+
         }
     }
 }

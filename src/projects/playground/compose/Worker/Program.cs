@@ -24,13 +24,13 @@ namespace Worker
 
             bus.Start();
 
-            bus.Publish<CreateTopic>(new
-            {
-                CommandId = Guid.NewGuid(),
-                Timestamp = DateTimeOffset.UtcNow,
-                Topic = "test",
-                UserName = "xxx"
-            });
+            //bus.Publish<CreateTopic>(new
+            //{
+            //    CommandId = Guid.NewGuid(),
+            //    Timestamp = DateTimeOffset.UtcNow,
+            //    Topic = "test",
+            //    UserName = "xxx"
+            //});
 
             Console.WriteLine("Press any key to exit");
             Console.Read();
