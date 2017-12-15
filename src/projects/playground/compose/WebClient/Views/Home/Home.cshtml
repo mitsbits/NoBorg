@@ -1,4 +1,5 @@
-﻿@using Domain
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Domain
 @inject AppSettings _settings
 @{
     Layout = null;
@@ -34,7 +35,13 @@
             </li>
         </ul>
     </div>
-    <script src="~/js/signalr-client.min.js"></script>
+    <environment names="Development">
+        <script src="~/dist/main.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/dist/main.js" asp-append-version="true"></script>
+    </environment>
+
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
     <script>
