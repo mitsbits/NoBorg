@@ -48,7 +48,7 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(
-                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                options => options.WithOrigins("http://localhost:8801/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
             );
             app.UseMvc();
 

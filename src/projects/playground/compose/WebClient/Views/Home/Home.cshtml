@@ -2,51 +2,51 @@
 @using Domain
 @inject AppSettings _settings
 @{
-    Layout = null;
+  Layout = null;
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Home leme</title>
+  <meta name="viewport" content="width=device-width" />
+  <title>Home leme</title>
 </head>
 <body>
-    <h1>Home leme</h1>
-    <div class="container">
-        <input type="text" id="message" />
-        <input type="button" id="sendMessage" value="Send" />
-        <ul id="discussion"></ul>
+  <h1>Home leme</h1>
+  <div class="container">
+    <input type="text" id="message" />
+    <input type="button" id="sendMessage" value="Send" />
+    <ul id="discussion"></ul>
+  </div>
+  <div id="app">
+    <button v-on:click="loadUsers">load users</button>
+    <div>
+      {{ message }}
+
     </div>
-    <div id="app">
-        <button v-on:click="loadUsers">load users</button>
-        <div>
-            {{ message }}
-
-        </div>
-        <a v-bind:title="message">hover</a>
-        <div>
-            {{topics.length}}
-        </div>
-        <ul>
-            <li v-for="item in topics">
-                {{ item }}
-            </li>
-        </ul>
+    <a v-bind:title="message">hover</a>
+    <div>
+      {{topics.length}}
     </div>
-    <environment names="Development">
-        <script src="~/dist/main.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/dist/main.js" asp-append-version="true"></script>
-    </environment>
+    <ul>
+      <li v-for="item in topics">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+  <environment names="Development">
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+  </environment>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
-    <script>
+  @*<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>*@
+  <script>
 
-    var transport = signalR.TransportType.WebSockets;
+    @*var transport = signalR.TransportType.WebSockets;
     var connection = new signalR.HubConnection("@_settings.EndPoints["web"]" + "/topics", { transport: transport });
     var messageInput = document.getElementById('message');
     var name = prompt('Enter your name:', '');
@@ -61,24 +61,29 @@
         messageInput.value = '';
         messageInput.focus();
     });
-    connection.start();
-    var app = new Vue({
-        el: '#app',
-        data: {
-            message: 'Hello Vue!',
-            topics: []
-        },
-        methods: {
-            loadUsers: function () {
-                alert("loading");
-                this.$http.get('@_settings.EndPoints["api"]/v1/topics').then(function(response){
+    connection.start();*@
+  
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                topics: []
+            },
+            methods: {
+                loadUsers: function () {
+                alert('load clicked');
+                this.$http.get('@_settings.EndPoints["api"]/v1/topics')
+                    .then(function (response) {
+                    alert(JSON.stringify(response));
                     this.topics = response.data;
                 }, function(error){
                     console.log(error.statusText);
                 });
             }
+
+
         }
     });
-    </script>
+  </script>
 </body>
 </html>
