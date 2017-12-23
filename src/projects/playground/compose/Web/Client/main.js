@@ -9,7 +9,7 @@ if (module['hot']) {
 }
 import Vue from 'vue';
 window.VueX = Vue;
-import App from './App.vue';
+import App from './file.vue';
 new Vue({
     el: '#app',
     render: function (h) { return h(App); }
