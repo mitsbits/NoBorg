@@ -4,7 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Borg.Infra;
 using Domain;
+using Domain.Messages.Contracts;
+using Domain.Model;
+using Domain.Model.Data;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,10 +38,17 @@ namespace WebApi
             services.AddMvc();
 
             var builder = new ContainerBuilder();
-            builder.RegisterModule(new AppiModule(Settings));
+            builder.RegisterModule(new CommonModule( Settings));
+            builder.RegisterModule(new ApiModule(Settings));
             builder.Populate(services);
             ApplicationContainer = builder.Build();
-            return new AutofacServiceProvider(ApplicationContainer);
+
+            var locator = new AutofacServiceProvider(ApplicationContainer);
+
+
+
+   
+            return  locator;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +64,9 @@ namespace WebApi
             app.UseMvc();
 
             var bus = ApplicationContainer.Resolve<IBusControl>();
-            bus.Start();
+           // bus.Start();
             lifetime.ApplicationStopping.Register(() => bus.Stop());
+            lifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
 
         }
     }

@@ -6,8 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
+    <ProjectReference Include="..\..\..\..\platform\Borg.Platform.EF\Borg.Platform.EF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

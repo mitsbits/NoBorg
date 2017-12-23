@@ -30,10 +30,10 @@ namespace Timesheets.Web
         public void ConfigureServices(IServiceCollection services)
         {
             BorgSettings = new BorgSettings();
-            services.ConfigurePOCO(Configuration.GetSection("Borg"), () => BorgSettings);
+            services.Config(Configuration.GetSection("Borg"), () => BorgSettings);
 
             Settings = new WebSiteSettings();
-            services.ConfigurePOCO(Configuration, () => Settings);
+            services.Config(Configuration, () => Settings);
             //services.AddPagination<PaginationInfoStyle>(Configuration.GetSection("Borg:PaginationInfoStyle"));
             services.AddPagination(() => BorgSettings.PaginationInfoStyle);
 

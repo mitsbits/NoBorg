@@ -1,9 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Borg.Infra;
 using Domain;
+using Domain.Auth;
+using Domain.Auth.Data;
 using Domain.Messages.Contracts;
+using Domain.Model.Data;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,23 +19,30 @@ namespace Worker
     {
         private static IConfigurationRoot Configuration { get;  set; }
         private static IContainer Container { get; set; }
+        private static IServiceProvider Locator { get; set; }
+        private static IServiceCollection Services { get; set; } = new ServiceCollection();
         private static AppSettings Settings { get; set; } = new AppSettings();
         static void Main(string[] args)
         {
             Configuration = ConfigureSettings();
             Container = RegisterDI();
+            Locator = new AutofacServiceProvider(Container);
+
+            using (var  scope = Locator.CreateScope())
+            {
+
+                var modelseed = scope.ServiceProvider.GetService<ModelDbSeed>();
+                var authseed = scope.ServiceProvider.GetService<AuthDbSeed>();
+
+                authseed.Init().Wait(15000);
+                modelseed.Init().Wait(15000);
+
+            }
 
             var bus = Container.Resolve<IBusControl>();
 
             bus.Start();
 
-            //bus.Publish<CreateTopic>(new
-            //{
-            //    CommandId = Guid.NewGuid(),
-            //    Timestamp = DateTimeOffset.UtcNow,
-            //    Topic = "test",
-            //    UserName = "xxx"
-            //});
 
             Console.WriteLine("Press any key to exit");
             Console.Read();
@@ -42,13 +54,13 @@ namespace Worker
 
         private static IContainer RegisterDI()
         {
-            IServiceCollection services = new ServiceCollection();
-            services.Config(Configuration.GetSection("compose"), () => Settings);
-            var builder = new ContainerBuilder();
 
-            builder.RegisterModule(new WorkerModule(Settings));
+            Services.Config(Configuration.GetSection("compose"), () => Settings);
+            var builder = new ContainerBuilder();
             builder.RegisterModule(new CommonModule(Settings));
-            builder.Populate(services);
+            builder.RegisterModule(new AuthModule(Services, Settings));
+            builder.RegisterModule(new WorkerModule(Settings));
+            builder.Populate(Services);
             return builder.Build();
 
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Model;
 
 namespace Domain.Messages.Contracts
 {
@@ -8,5 +9,11 @@ namespace Domain.Messages.Contracts
         DateTimeOffset Timestamp { get; }
         string Topic { get; }
         string UserName { get; }
+        string TopicDescription { get; }
+    }
+
+    public interface TopicCreated
+    {
+        ITopic Topic { get; }
     }
 }

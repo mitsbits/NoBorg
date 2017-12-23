@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es5",
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+
+  },
+  "files": [
+    "./Client/main.ts"
+  ],
+  "include": [
+    "./**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "wwwroot",
+    "bin"
+  ]
+}

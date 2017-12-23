@@ -8,6 +8,7 @@ namespace Domain
 
     public class AppSettings
     {
+        public string ServiceTag { get; set; } = "empty";
         public IDictionary<string, string> ConnectionStrings { get; set; }
         public IDictionary<string, string> EndPoints { get; set; }
         public RabbitMqSettings RabbitMq { get; set; }

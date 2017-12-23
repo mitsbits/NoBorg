@@ -30,7 +30,7 @@ namespace WebApi.Controllers
             }
             return list.ToArray();
         }
-
+        [HttpPost("")]
         public IActionResult Create([FromBody] CreateTopic topic)
         {
             return BadRequest();

@@ -287,3 +287,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /src/projects/playground/compose/WebClient/wwwroot/dist
+/src/projects/playground/compose/WebClient/stats.json
+/src/projects/playground/compose/Web/package-lock.json

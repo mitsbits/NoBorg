@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "name": "web",
+  "private": true,
+  "scripts": {
+    "postinstall": "webpack --config webpack.config.vendor.js",
+    "start": "webpack --config webpack.config.js --watch --progress --profile",
+    "build": "webpack --config webpack.config.js --progress --profile",
+    "prod": "webpack --env.NODE_ENV=production --config webpack.config.js --progress --hide-modules"
+  },
+  "devDependencies": {
+    "aspnet-webpack": "^1.0.11",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "expose-loader": "^0.7.4",
+    "typescript": "^2.5.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "url-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "global": "^4.3.1",
+    "html-webpack-plugin": "^2.22.0",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^3.0.2",
+    "prop-types": "^15.5.4",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "ts-loader": "^2.0.3",
+    "vue-class-component": "^5.0.1",
+    "vue-loader": "^11.3.4",
+    "vue-property-decorator": "^5.0.1",
+    "vue-router": "^2.3.1",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.3.3",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "vue": "^2.5.13"
+  }
+}
