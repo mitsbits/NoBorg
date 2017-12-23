@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="bpp">
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
@@ -31,7 +31,7 @@
 </script>
 <style>
 
-  #app {
+  #bpp {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

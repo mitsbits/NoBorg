@@ -10,11 +10,11 @@ module.exports = function (env) {
 
   var config = {
     entry: {
-      main: './Client/main.ts'
+      main: ['./Client/main.ts']
     },
     output: {
       path: path.join(__dirname, bundleOutputDir),
-      publicPath: '/dist/',
+      publicPath: './dist/',
       filename: '[name].js'
     },
     resolve: {
@@ -24,6 +24,7 @@ module.exports = function (env) {
     },
     devtool: 'eval-source-map',
     plugins: [
+      //new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(!isProd ? 'development' : 'production')

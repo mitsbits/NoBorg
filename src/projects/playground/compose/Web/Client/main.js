@@ -1,19 +1,24 @@
+//declare var require: any;
 require('./css/site.css');
 require('bootstrap/dist/css/bootstrap.css');
 require('jquery');
 require('bootstrap');
 //require('vue');
+if (module['hot']) {
+    module['hot'].accept();
+}
 import Vue from 'vue';
-window.Vue = Vue;
+window.VueX = Vue;
+import App from './App.vue';
 new Vue({
     el: '#app',
-    render: function (h) { return h(require('./App.vue')); }
+    render: function (h) { return h(App); }
 });
 ////import App from './App.vue';
-////new Vue({
-////  el: '#app',
-////  components: { App }
-////})
+//new Vue({
+//  el: '#app',
+//  components: { App }
+//})
 //let v = new Vue({
 //  el: "#app",
 //  template: `

@@ -1,25 +1,29 @@
-declare var require: any;
+
+//declare var require: any;
 require('./css/site.css');
 require('bootstrap/dist/css/bootstrap.css');
 require('jquery');
 require('bootstrap');
 //require('vue');
-
+if (module['hot']) {
+    module['hot'].accept();
+}  
 import Vue from 'vue';
-(<any>window).Vue = Vue;
+(<any>window).VueX = Vue;
 
-
+import App from './file.vue' 
 
 new Vue({
   el: '#app',
-  render: h => h(require('./App.vue'))
+  render: h => h(App)
 });
 ////import App from './App.vue';
 
-////new Vue({
-////  el: '#app',
-////  components: { App }
-////})
+//new Vue({
+//  el: '#app',
+
+//  components: { App }
+//})
 
 //let v = new Vue({
 //  el: "#app",
