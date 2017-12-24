@@ -49,7 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "projects\playgrou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "projects\playground\compose\Worker\Worker.csproj", "{68D3BA68-0504-45E5-A7CF-5C464E80A2B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "projects\playground\compose\Web\Web.csproj", "{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "projects\playground\compose\Web\Web.csproj", "{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "projects\playground\compose\WebClient\WebClient.csproj", "{FB81C081-E326-4254-851F-3EC13E72D266}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB81C081-E326-4254-851F-3EC13E72D266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB81C081-E326-4254-851F-3EC13E72D266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB81C081-E326-4254-851F-3EC13E72D266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB81C081-E326-4254-851F-3EC13E72D266}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +148,7 @@ Global
 		{101AF318-DFA8-4B72-B18A-49EFDD8369D7} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 		{68D3BA68-0504-45E5-A7CF-5C464E80A2B9} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 		{9A3C79E0-1971-4D4D-878C-EDB1F8AD08BD} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
+		{FB81C081-E326-4254-851F-3EC13E72D266} = {320CE07B-DF88-47A1-98DB-B7F5CCD1E45C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A383B681-DE8E-4944-8D4D-2EFFDEE3C9A7}

@@ -5,7 +5,7 @@ services:
     image: webclient
     container_name: webclient
     build:
-      context: ./Web
+      context: ./WebClient
       dockerfile: Dockerfile
     networks:
       - default

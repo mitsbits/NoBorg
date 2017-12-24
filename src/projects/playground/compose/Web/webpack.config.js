@@ -10,7 +10,8 @@ module.exports = function (env) {
 
   var config = {
     entry: {
-      main: ['./Client/main.ts']
+      main: ['./Client/main.ts'],
+      topic: ['./Client/topic.ts'],
     },
     output: {
       path: path.join(__dirname, bundleOutputDir),

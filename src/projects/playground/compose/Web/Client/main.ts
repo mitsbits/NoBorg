@@ -11,7 +11,7 @@ if (module['hot']) {
 import Vue from 'vue';
 (<any>window).VueX = Vue;
 
-import App from './file.vue' 
+import App from './App.vue' 
 
 new Vue({
   el: '#app',
