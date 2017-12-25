@@ -5,8 +5,11 @@ import postsModule from './posts'
 
 Vue.use(Vuex)
 
+const MAIN_SET_COUNTER = 'MAIN_SET_COUNTER'
+
 const state = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  counter: 0
 }
 const store = new Vuex.Store({
   modules: {
@@ -16,6 +19,9 @@ const store = new Vuex.Store({
   getters: {
     isAuthenticated: (state) => {
       return state.isAuthenticated
+    },
+    counter: (state) => {
+      return state.counter
     }
   },
   actions: {
@@ -33,6 +39,10 @@ const store = new Vuex.Store({
             if (typeof window !== 'undefined') { window.alert('Could not login!') }
           })
       })
+    },
+    setCounter (context, obj) {
+      console.log(obj)
+      context.commit(MAIN_SET_COUNTER, obj)
     }
   },
   mutations: {
@@ -49,6 +59,9 @@ const store = new Vuex.Store({
         window.localStorage.setItem('tokenExpiration', token.expiration)
       }
       state.isAuthenticated = true
+    },
+    [MAIN_SET_COUNTER] (state, obj) {
+      state.counter = obj
     }
   }
 })

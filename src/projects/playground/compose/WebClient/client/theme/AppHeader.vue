@@ -12,14 +12,35 @@
         <span v-if="isAuthenticated">Log out</span>
         <span v-else>Log in</span>
     </router-link>
+    <a class="nav-item is-tab" href="#">{{counter}}</a>
     </div>
     </nav>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default{
+  data () {
+    return {
+      connection: null
+    }
+  },
   computed: {
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated', 'counter'])
+  },
+  methods: {
+    ...mapActions({
+      setCounter: 'setCounter'
+    })
+  },
+  created: function () {
+    this.connection = new this.$signalR.HubConnection('/count')
+  },
+  mounted: function () {
+    this.connection.start()
+
+    this.connection.on('increment', data => {
+      this.setCounter(data)
+    })
   }
 }
 </script>
