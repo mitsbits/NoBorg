@@ -29,7 +29,9 @@ const store = new Vuex.Store({
             context.commit('login', data)
             resolve()
           })
-          .catch(() => window.alert('could not log in'))
+          .catch(() => {
+            if (typeof window !== 'undefined') { window.alert('Could not login!') }
+          })
       })
     }
   },

@@ -12,7 +12,6 @@
 <script>
 import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
-
 export default {
   components: {
     'app-header': AppHeader,
@@ -21,7 +20,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  $primary: #287ab1;
+  $primary: #b12828;
   @import '~bulma';
 
   .columns{
