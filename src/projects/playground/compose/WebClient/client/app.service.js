@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://api.fullstackweekly.com'
+axios.defaults.baseURL = 'http://localhost:1921/v1'
 
 axios.interceptors.request.use(function (config) {
   if (typeof window === 'undefined') {
     return config
   }
   const token = window.localStorage.getItem('token')
-  if (token){
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
   return config
@@ -16,7 +16,7 @@ axios.interceptors.request.use(function (config) {
 const appService = {
   getPosts (categoryId) {
     return new Promise((resolve) => {
-      axios.get(`/wp-json/wp/v2/posts?categories=${categoryId}&per_page=6`)
+      axios.get(`/posts?categories=${categoryId}&per_page=6`)
         .then(response => {
           resolve(response.data)
         })
@@ -24,7 +24,7 @@ const appService = {
   },
   login (credentials) {
     return new Promise((resolve, reject) => {
-      axios.post('/services/auth.php', credentials)
+      axios.post('/token', credentials)
         .then(response => {
           resolve(response.data)
         }).catch(response => {
@@ -34,7 +34,7 @@ const appService = {
   },
   getProfile () {
     return new Promise((resolve) => {
-      axios.get('/services/profile.php')
+      axios.get('/token/profile')
         .then(response => {
           resolve(response.data)
         })

@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Borg.Infra;
 using Domain;
+using Domain.Auth;
 using Domain.Messages.Contracts;
 using Domain.Model;
 using Domain.Model.Data;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi
 {
@@ -34,12 +38,30 @@ namespace WebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Config(Configuration.GetSection("compose"), () => Settings);
+
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new CommonModule(Settings));
+            builder.RegisterModule(new AuthModule(services, Settings));
+            builder.RegisterModule(new ApiModule(Settings));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Settings.Jwt.Issuer,
+                        ValidAudience = Settings.Jwt.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.Jwt.Key))
+                    };
+                });
+
             services.AddCors();
             services.AddMvc();
 
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new CommonModule( Settings));
-            builder.RegisterModule(new ApiModule(Settings));
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 
@@ -59,8 +81,11 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(
-                options => options.WithOrigins("http://localhost:8801/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+                options => options.WithOrigins("http://localhost:5000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
             );
+
+            app.UseAuthentication();
+
             app.UseMvc();
 
             var bus = ApplicationContainer.Resolve<IBusControl>();

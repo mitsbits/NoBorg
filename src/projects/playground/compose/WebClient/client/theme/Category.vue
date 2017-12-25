@@ -1,41 +1,35 @@
 <<template>
     <div class="columns">
     <div class="column is-one-third" v-for="(post, title) in posts" v-bind:key="post.id">
-      <app-post :link="post.rest_api_enabler.Link">
-        <h3 slot="title" v-html="post.title.rendered"> </h3>
-        <span slot="content" v-html="post.content.rendered"></span>
+      <app-post :link="post.link">
+        <h3 slot="title" v-html="post.title"> </h3>
+        <span slot="content" v-html="post.content"></span>
       </app-post>
     </div>
   </div>
 </template>
 <<script>
 import Post from './Post.vue'
-import appService from '../app.service.js'
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     'app-post': Post
   },
-  data () {
-    return {
-      id: this.$route.params.id,
-
-      posts: [ ]
-    }
+  computed: {
+    ...mapGetters('postsModule', ['posts'])
   },
   methods: {
     loadPosts () {
       let categoryId = 2
-      if (this.id === 'mobile') {
+      if (this.$route.params.id === 'mobile') {
         categoryId = 11
       }
-      appService.getPosts(categoryId).then(data => {
-        this.posts = data
-      })
+      this.$store.dispatch('postsModule/updateCategory', categoryId)
     }
   },
   watch: {
     '$route' (to, from) {
-      this.id = to.params.id
       this.loadPosts()
     }
   },

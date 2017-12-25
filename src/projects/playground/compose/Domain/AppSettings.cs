@@ -12,6 +12,7 @@ namespace Domain
         public IDictionary<string, string> ConnectionStrings { get; set; }
         public IDictionary<string, string> EndPoints { get; set; }
         public RabbitMqSettings RabbitMq { get; set; }
+        public JwtSettings Jwt { get; set; }
     }
 
 
@@ -20,6 +21,12 @@ namespace Domain
         public string Host { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+    }
+
+    public class JwtSettings
+    {
+        public string Key { get; set; }
+        public string Issuer { get; set; }
     }
 
 }
