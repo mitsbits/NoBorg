@@ -39,6 +39,14 @@ const appService = {
           resolve(response.data)
         })
     })
+  },
+  slugify (input) {
+    return new Promise((resolve) => {
+      axios.get('/slug/' + input)
+        .then(response => {
+          resolve(response.data)
+        })
+    })
   }
 }
 

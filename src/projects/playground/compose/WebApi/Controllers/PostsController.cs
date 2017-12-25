@@ -12,8 +12,10 @@ namespace WebApi.Controllers
     {
 
         [HttpGet]
+        [Authorize]
         public IActionResult Posts(string categories)
         {
+            var u = User;
             var posts = new[]
             {
                 new {title = $"title {categories}", content = "content 1", link = "http://www.google.com"},

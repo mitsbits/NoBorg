@@ -59,6 +59,8 @@ namespace WebApi
                     };
                 });
 
+            services.AddBorgDefaultSlugifier();
+
             services.AddCors();
             services.AddMvc();
 

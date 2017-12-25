@@ -8,5 +8,7 @@ namespace Borg.MVC.Services.Slugs
         /// <param name="c">The non ASCII char.</param>
         /// <returns>Should return empty array when no match is found.</returns>
         char[] Transform(char c);
+
+        string Special(string source, int length = -1);
     }
 }

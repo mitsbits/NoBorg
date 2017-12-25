@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
+    <ProjectReference Include="..\..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

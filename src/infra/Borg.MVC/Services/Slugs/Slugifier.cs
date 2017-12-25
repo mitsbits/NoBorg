@@ -29,6 +29,11 @@ namespace Borg.MVC.Services.Slugs
 
             source = InterceptSource(source);
 
+            foreach (var nternationalCharacterToAsciiService in _internationalCharacterMappers)
+            {
+                source = nternationalCharacterToAsciiService.Special(source, maxlength);
+            }
+
             int len = source.Length;
             bool prevdash = false;
             var sb = new StringBuilder(len);
@@ -71,7 +76,7 @@ namespace Borg.MVC.Services.Slugs
                     if (replacement.Length == 0) sb.Append(c);
                     if (prevlen != sb.Length) prevdash = false;
                 }
-                if (i == maxlength) break;
+                if (maxlength > 0 && i == maxlength) break;
             }
 
             return prevdash ? sb.ToString().Substring(0, sb.Length - 1) : sb.ToString();

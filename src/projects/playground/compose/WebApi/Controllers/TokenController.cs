@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
@@ -37,8 +38,19 @@ namespace WebApi.Controllers
             if (user != null)
             {
                 var tokenString = BuildToken(user);
+                var p = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(JwtRegisteredClaimNames.NameId, user?.Name),
+                    new Claim(JwtRegisteredClaimNames.Email, user?.Email),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.Name),
+                });
+                HttpContext.User = new ClaimsPrincipal(p);
+
                 response = Ok(new { token = tokenString });
             }
+
+
 
             return response;
         }

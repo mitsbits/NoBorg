@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Category from './theme/Category.vue'
 import Login from './theme/Login.vue'
+import Topic from './theme/Topic.vue'
 import NotFound from './theme/NotFound.vue'
 
 // const Category = () => System.import('./theme/Category.vue')
@@ -18,6 +19,7 @@ const router = new VueRouter({
     { path: '/login', component: Login },
     { path: '/category/:id', name: 'category', component: Category },
     { path: '/', redirect: '/category/front-end' },
+    { path: '/topic', component: Topic },
     { path: '*', component: NotFound }
   ]
 })

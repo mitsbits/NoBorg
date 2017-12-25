@@ -8,6 +8,7 @@
 
       <router-link class="nav-item is-tab" to="/category/front-end">Front end</router-link>
       <router-link class="nav-item is-tab"  :to="{ name: 'category', params: { id: 'mobile' } }">Mobile</router-link>
+      <router-link class="nav-item is-tab" to="/topic">Topic</router-link>
       <router-link class="nav-item is-tab" to="/login">
         <span v-if="isAuthenticated">Log out</span>
         <span v-else>Log in</span>
