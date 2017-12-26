@@ -3,7 +3,7 @@
   "name": "cms.basic",
   "private": true,
   "scripts": {
-    "backoffice":"webpack --config ./areas/backoffice/webpack.config.js"
+    "backoffice": "webpack --config ./areas/backoffice/webpack.config.js"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

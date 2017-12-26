@@ -1,15 +1,48 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xxx</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="~/dist/backoffice.css" rel="stylesheet" />
+    @RenderSection("headscripts", required: false)
 </head>
-<body>
-    <div>
-        @RenderBody()
+<body class="hold-transition skin-black-light sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+
+        <a  asp-controller="Home" asp-action="Home" class="logo">
+            <span class="logo-mini"> <img src="https://hypb.imgix.net/image/2013/03/mastermind-japan-loses-exclusive-rights-to-skull-logo-0.jpg?w=960&q=90&fit=max&auto=compress%2Cformat" style="width: 20px; height: 20px;"/>  </span>
+            <span class="logo-lg"><img src="https://hypb.imgix.net/image/2013/03/mastermind-japan-loses-exclusive-rights-to-skull-logo-0.jpg?w=960&q=90&fit=max&auto=compress%2Cformat" style="width: 20px; height: 20px; margin-bottom: 5px;" /> xxxx</span>
+        </a>
+    </header>
+    
+
+    <aside class="main-sidebar">
+       
+    </aside>
+
+    <div class="content-wrapper">
+
+        <section class="content-header">
+            @if (IsSectionDefined("contentheader"))
+            {
+                @RenderSection("contentheader", required: false)
+            }
+            else
+            {
+               
+            }
+        </section>
+
+        <section class="content">
+            @RenderBody()
+        </section>
     </div>
-    <script src="~/dist/backoffice.js"></script>
+</div>
+<script src="~/dist/backoffice.js"></script>
+@RenderSection("bottomscripts", required: false)
+
 </body>
 </html>

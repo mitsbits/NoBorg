@@ -290,3 +290,4 @@ __pycache__/
 /src/projects/playground/compose/WebClient/stats.json
 /src/projects/playground/compose/Web/package-lock.json
 /src/projects/playground/compose/Web/wwwroot/dist
+/src/projects/cms/Borg.Cms.Basic/wwwroot/dist

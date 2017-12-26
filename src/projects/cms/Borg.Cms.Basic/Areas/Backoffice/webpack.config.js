@@ -14,8 +14,10 @@ module.exports = (env) => {
                 'bootstrap',
                 'bootstrap/dist/css/bootstrap.css',
                 'jquery',
-                'admin-lte',
+                'admin-lte/',
+                'admin-lte/dist/css/AdminLTE.css',
                 './Areas/Backoffice/Static/css/backoffice.css'
+                
             ],
         },
         module: {
@@ -31,7 +33,7 @@ module.exports = (env) => {
                     }]
                 },
                 { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
-                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
+                { test: /\.(png|woff|woff2|eot|ttf|svg|jpg)(\?|$)/, use: 'url-loader?limit=100000' }
             ]
         },
         output: {
