@@ -2,7 +2,6 @@
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Extensions;
-using Borg.MVC.Services.Slugs;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;

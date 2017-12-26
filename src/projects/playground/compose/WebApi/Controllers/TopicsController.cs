@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Messages.Contracts;
+﻿using Domain.Messages.Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
     [Route("v1/[controller]")]
     public class TopicsController : Controller
     {
-        IBus _bus;
+        private IBus _bus;
 
         public TopicsController(IBus bus)
         {
@@ -25,11 +22,11 @@ namespace WebApi.Controllers
             var list = new List<string>();
             for (int i = 0; i < 100; i++)
             {
-                list.Add(  $"topic-{i:000}");
-
+                list.Add($"topic-{i:000}");
             }
             return list.ToArray();
         }
+
         [HttpPost("")]
         public IActionResult Create([FromBody] CreateTopic topic)
         {

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Borg.MVC.Services.Slugs
+namespace Borg.Infra.Services.Slugs
 {
-    internal class GreekCharacterToAsciiService : InternationalCharacterToASCIIService
+    public class GreekCharacterToAsciiService : InternationalCharacterToASCIIService
     {
         private static readonly Lazy<IDictionary<char, string>> _cache = new Lazy<IDictionary<char, string>>(GetCache);
 
@@ -23,7 +23,7 @@ namespace Borg.MVC.Services.Slugs
         {
             foreach (var key in Specials.Keys)
             {
-                source = Regex.Replace(source, key, Specials[key]);
+                source = Regex.Replace(source, (string)key, (string)Specials[key]);
             }
             return source;
         }

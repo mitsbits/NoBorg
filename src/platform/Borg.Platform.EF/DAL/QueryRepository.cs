@@ -7,17 +7,18 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Platform.EF.Exceptions;
 
 namespace Borg.Platform.EF.DAL
 {
     public class QueryRepository<T, TDbContext> : IQueryRepository<T>, IHaveDbContext<TDbContext> where T : class where TDbContext : DbContext
     {
-
         private readonly TDbContext _dbContext;
 
         public QueryRepository(TDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            if (!_dbContext.EntityIsMapped<T, TDbContext>()) throw new EntityNotMappedException<TDbContext>(typeof(T));
         }
 
         public TDbContext Context => _dbContext;
@@ -28,5 +29,4 @@ namespace Borg.Platform.EF.DAL
             return await _dbContext.Fetch(predicate, page, records, orderBy, cancellationToken, true, paths);
         }
     }
-
 }

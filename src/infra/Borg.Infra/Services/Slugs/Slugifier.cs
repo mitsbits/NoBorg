@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Borg.MVC.Services.Slugs
+namespace Borg.Infra.Services.Slugs
 {
-    internal delegate string SlugifierExecutingInterceptor(string source);
+    public delegate string SlugifierExecutingInterceptor(string source);
 
-    internal class Slugifier :  ISlugifierService
+    public class Slugifier : ISlugifierService
     {
         private readonly IEnumerable<InternationalCharacterToASCIIService> _internationalCharacterMappers;
 
         public Slugifier(IEnumerable<InternationalCharacterToASCIIService> internationalCharacterMappers)
         {
-            if (internationalCharacterMappers == null) throw new ArgumentNullException(nameof(internationalCharacterMappers));
-            _internationalCharacterMappers = internationalCharacterMappers;
+            _internationalCharacterMappers = internationalCharacterMappers ?? throw new ArgumentNullException(nameof(internationalCharacterMappers));
         }
 
         protected SlugifierExecutingInterceptor SlugifierExecuting;

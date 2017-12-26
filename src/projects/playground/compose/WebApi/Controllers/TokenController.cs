@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Domain;
+﻿using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace WebApi.Controllers
 {
@@ -22,10 +19,11 @@ namespace WebApi.Controllers
             _settings = settings;
         }
 
-        [HttpGet("profile")][Authorize]
+        [HttpGet("profile")]
+        [Authorize]
         public IActionResult Profile()
         {
-            return Ok(new {firstName = "mits", favoriteSandwich = "bread"});
+            return Ok(new { firstName = "mits", favoriteSandwich = "bread" });
         }
 
         [AllowAnonymous]
@@ -49,8 +47,6 @@ namespace WebApi.Controllers
 
                 response = Ok(new { token = tokenString });
             }
-
-
 
             return response;
         }
@@ -93,4 +89,3 @@ namespace WebApi.Controllers
         }
     }
 }
-

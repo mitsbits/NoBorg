@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Borg.Platform.EF.Exceptions
 {
-    public class ConcurrentModificationException : Exception
+    public class ConcurrentModificationException : BorgEfException
     {
         public ConcurrentModificationException()
         {
@@ -19,6 +17,5 @@ namespace Borg.Platform.EF.Exceptions
             : base(message, innerException)
         {
         }
-
     }
 }

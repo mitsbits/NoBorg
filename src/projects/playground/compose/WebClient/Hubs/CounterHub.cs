@@ -1,13 +1,12 @@
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
 
 namespace WebClient.Hubs
 {
   public class CounterHub : Hub
   {
-
   }
 
   public class Counter : HostedService

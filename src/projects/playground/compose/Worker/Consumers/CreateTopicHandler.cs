@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Borg.Platform.EF.Contracts;
 using Domain.Messages.Contracts;
 using Domain.Model;
 using MassTransit;
 
 namespace Worker.Consumers
 {
-   public class CrateTopicHandler :IConsumer<CreateTopic>
+   public class CreateTopicHandler :IConsumer<CreateTopic>
    {
-       private readonly ModelDbContext _db;
+       private readonly IUnitOfWork<ModelDbContext>  _uow;
 
-       public CrateTopicHandler(ModelDbContext db)
+       public CreateTopicHandler(IUnitOfWork<ModelDbContext> uow)
        {
-           _db = db;
+           _uow = uow;
        }
 
        public async Task Consume(ConsumeContext<CreateTopic> context)
@@ -26,8 +27,11 @@ namespace Worker.Consumers
                Description = context.Message.TopicDescription,
                UserName = context.Message.UserName
            };
-           await _db.Topics.AddAsync(topic, context.CancellationToken);
-           await _db.SaveChangesAsync(context.CancellationToken);
+
+           var repo = _uow.ReadWriteRepo<Topic>();
+           await repo.Create(topic);
+           await _uow.Save();
+
            await context.Publish<TopicCreated>(new {Topic = topic}, context.CancellationToken);
        }
         

@@ -25,7 +25,7 @@ namespace Borg.Platform.EF.DAL
         public async Task Delete(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var hits = await Context.Set<T>().Where(predicate).ToListAsync();
+            var hits = await Context.Set<T>().Where(predicate).ToListAsync(cancellationToken: cancellationToken);
             if (!hits.Any()) return;
             await Task.WhenAll(hits.Select(x => Delete(x, cancellationToken)).ToList());
         }

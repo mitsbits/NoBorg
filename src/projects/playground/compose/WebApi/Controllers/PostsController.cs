@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("v1/Posts")][Authorize]
+    [Route("v1/Posts")]
+    [Authorize]
     public class PostsController : Controller
     {
-
         [HttpGet]
         [Authorize]
         public IActionResult Posts(string categories)

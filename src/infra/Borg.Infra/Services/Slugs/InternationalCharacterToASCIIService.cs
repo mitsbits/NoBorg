@@ -1,4 +1,4 @@
-namespace Borg.MVC.Services.Slugs
+namespace Borg.Infra.Services.Slugs
 {
     public interface InternationalCharacterToASCIIService
     {

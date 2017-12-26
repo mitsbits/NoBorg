@@ -4,7 +4,6 @@ using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.ServerResponses;
-using Borg.MVC.Services.Slugs;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
@@ -40,21 +39,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ISessionServerResponseProvider, TempDataResponseProvider>();
             services.AddScoped<IUserSession, BorgUserSession>();
             services.AddScoped<IContextAwareUserSession, BorgUserSession>();
-            return services;
-        }
-
-        public static IServiceCollection AddBorgDefaultSlugifier(this IServiceCollection services)
-        {
-            services.AddBorgInternationalCharacterToASCIIService<GreekCharacterToAsciiService>();
-            services.AddSingleton<ISlugifierService, Slugifier>();
-            return services;
-        }
-
-        public static IServiceCollection AddBorgInternationalCharacterToASCIIService<T>(
-            this IServiceCollection services) where T : InternationalCharacterToASCIIService
-        {
-            services.Add(new ServiceDescriptor(typeof(InternationalCharacterToASCIIService), typeof(T),
-                ServiceLifetime.Singleton));
             return services;
         }
     }

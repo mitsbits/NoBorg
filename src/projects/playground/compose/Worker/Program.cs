@@ -8,6 +8,7 @@ using Domain;
 using Domain.Auth;
 using Domain.Auth.Data;
 using Domain.Messages.Contracts;
+using Domain.Model;
 using Domain.Model.Data;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +43,15 @@ namespace Worker
             var bus = Container.Resolve<IBusControl>();
 
             bus.Start();
+
+
+            bus.Publish<CreateTopic>(new
+            {
+                CommandId = Guid.NewGuid(),
+                Timestamp = DateTimeOffset.UtcNow,
+                Topic = "test",
+                UserName = "xxx"
+            });
 
 
             Console.WriteLine("Press any key to exit");

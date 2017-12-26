@@ -1,6 +1,7 @@
 ﻿using Borg.Infra.Collections;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.DAL;
+using Borg.Platform.EF.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,28 +55,39 @@ namespace Borg.Platform.EF
                     var data = await query.Skip((page - 1) * size).Take(size).ToListAsync(cancellationToken: cancellationToken);
                     result = new PagedResult<T>(data, page, size, totalRecords);
                 }
-
             }
             return result;
         }
 
-
         public static IQueryRepository<T> QueryRepo<T, TDbContext>(this TDbContext db) where T : class where TDbContext : DbContext
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
-            return new QueryRepository<T, TDbContext>(db);
+            if (db.EntityIsMapped<T, TDbContext>())
+            {
+                return new QueryRepository<T, TDbContext>(db);
+            }
+            throw new EntityNotMappedException(typeof(T));
         }
 
         public static IReadRepository<T> ReadRepo<T, TDbContext>(this TDbContext db) where T : class where TDbContext : DbContext
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
-            return new ReadRepository<T, TDbContext>(db);
+            if (db.EntityIsMapped<T, TDbContext>())
+            {
+                return new ReadRepository<T, TDbContext>(db);
+            }
+            throw new EntityNotMappedException(typeof(T));
         }
 
         public static IReadWriteRepository<T> ReadWriteRepo<T, TDbContext>(this TDbContext db) where T : class where TDbContext : DbContext
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
             return new ReadWriteRepository<T, TDbContext>(db);
+        }
+
+        public static bool EntityIsMapped<T, TDbContext>(this TDbContext db) where T : class where TDbContext : DbContext
+        {
+            return db.Model.GetEntityTypes(typeof(T)).Any();
         }
     }
 }
