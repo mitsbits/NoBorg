@@ -1,60 +1,48 @@
-﻿const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+﻿var path = require('path');
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = (env) => {
-    const isDevBuild = !(env && env.prod);
-    const extractCSS = new ExtractTextPlugin('backoffice.css');
+module.exports = function (env) {
 
-    return [{
-        stats: { modules: false },
-        resolve: { extensions: ['.js'] },
+    env = env || {};
+    var isProd = env.NODE_ENV === 'production';
+
+    var extractCSS = new ExtractTextPlugin('backoffice.css');
+    // Setup base config for all environments
+    var config = {
         entry: {
-            backoffice: [
-                'bootstrap',
-                'bootstrap/dist/css/bootstrap.css',
-                'jquery',
-                'admin-lte/',
-                'admin-lte/dist/css/AdminLTE.css',
-                './Areas/Backoffice/Static/css/backoffice.css'
-                
-            ],
-        },
-        module: {
-            rules: [
-                {
-                    test: require.resolve('jquery'),
-                    use: [{
-                        loader: 'expose-loader',
-                        options: 'jQuery'
-                    }, {
-                        loader: 'expose-loader',
-                        options: '$'
-                    }]
-                },
-                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
-                { test: /\.(png|woff|woff2|eot|ttf|svg|jpg)(\?|$)/, use: 'url-loader?limit=100000' }
-            ]
+            backoffice: './Areas/Backoffice/entry'
         },
         output: {
-            path: path.join(__dirname, '../../wwwroot', 'dist'),
-            publicPath: 'dist/',
-            filename: '[name].js',
-            library: '[name]_[hash]'
+            path: path.join(__dirname, '../../wwwroot/dist'),
+            filename: '[name].js'
+        },
+        devtool: 'eval-source-map',
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
         plugins: [
+            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
             extractCSS,
-            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+        ],
+        module: {
+            rules: [
+                { test: /\.css?$/, use: extractCSS.extract({ use: !isProd ? 'css-loader' : 'css-loader?minimize' })  },
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
+                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
+            ]
+        }
+    }
 
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
-            }),
-            new webpack.DllPlugin({
-                path: path.join(__dirname, '../../wwwroot', 'dist', '[name]-manifest.json'),
-                name: '[name]_[hash]'
+    // Alter config for prod environment
+    if (isProd) {
+        config.devtool = 'source-map';
+        config.plugins = config.plugins.concat([
+            new webpack.optimize.UglifyJsPlugin({
+                sourceMap: true
             })
-        ].concat(isDevBuild ? [] : [
-            new webpack.optimize.UglifyJsPlugin()
-        ])
-    }];
+        ]);
+    }
+
+    return config;
 };

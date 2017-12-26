@@ -1,6 +1,12 @@
-require('admin-lte');
-require('jquery');
-require('bootstrap')
+import './Static/css/backoffice.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'admin-lte/dist/css/AdminLTE.css'
+import jquery from 'jquery';
+import 'bootstrap';
+import 'admin-lte';
+
+window.$ = jquery;
+window.jQuery = jquery;
 
 jQuery.expr[':'].icontains = function (a, i, m) {
     return jQuery(a).text().toUpperCase()

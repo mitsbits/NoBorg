@@ -3,7 +3,9 @@
   "name": "cms.basic",
   "private": true,
   "scripts": {
-    "backoffice": "webpack --config ./areas/backoffice/webpack.config.js"
+    "start": "webpack --config ./areas/backoffice/webpack.config.js --watch --progress --profile",
+    "build": "webpack --config ./areas/backoffice/webpack.config.js --progress --profile",
+    "prod": "webpack --env.NODE_ENV=production --config ./areas/backoffice/webpack.config.js --progress"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

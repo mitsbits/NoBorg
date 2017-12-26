@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ooo</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    <link href="~/dist/backoffice.css" rel="stylesheet" />
     @RenderSection("headscripts", required: false)
 </head>
 <body class="skin-black-light" style="background: #f9fafc;">
     <div class="wrapper">
         @RenderBody()
     </div>
-
+<script src="~/dist/backoffice.js"></script>
+<script src="~/dist/main.js"></script>
     @RenderSection("bottomscripts", required: false)
 
 </body>
