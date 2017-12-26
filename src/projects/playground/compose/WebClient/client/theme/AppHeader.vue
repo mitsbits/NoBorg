@@ -14,6 +14,7 @@
         <span v-else>Log in</span>
     </router-link>
     <a class="nav-item is-tab" href="#">{{counter}}</a>
+    <a class="nav-item is-tab" href="#">{{profile.name}}</a>
     </div>
     </nav>
 </template>
@@ -26,7 +27,7 @@ export default{
     }
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'counter'])
+    ...mapGetters(['isAuthenticated', 'counter', 'profile'])
   },
   methods: {
     ...mapActions({

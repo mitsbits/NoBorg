@@ -9,7 +9,8 @@ const MAIN_SET_COUNTER = 'MAIN_SET_COUNTER'
 
 const state = {
   isAuthenticated: false,
-  counter: 0
+  counter: 0,
+  profile: ''
 }
 const store = new Vuex.Store({
   modules: {
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
     },
     counter: (state) => {
       return state.counter
+    },
+    profile: (state) => {
+      return state.profile
     }
   },
   actions: {
@@ -32,7 +36,7 @@ const store = new Vuex.Store({
       return new Promise((resolve) => {
         appService.login(credentials)
           .then((data) => {
-            context.commit('login', data)
+            context.commit('login', data, credentials.username)
             resolve()
           })
           .catch(() => {
@@ -53,12 +57,13 @@ const store = new Vuex.Store({
       }
       state.isAuthenticated = false
     },
-    login (state, token) {
+    login (state, token, profile) {
       if (typeof window !== 'undefined') {
         window.localStorage.setItem('token', token.token)
         window.localStorage.setItem('tokenExpiration', token.expiration)
       }
       state.isAuthenticated = true
+      state.profile = profile
     },
     [MAIN_SET_COUNTER] (state, obj) {
       state.counter = obj
