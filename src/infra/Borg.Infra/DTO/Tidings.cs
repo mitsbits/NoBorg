@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Borg.Infra.DTO
 {
-    public class Tidings :  ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>,
+    public class Tidings : ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>,
         ICloneable, ICloneable<Tidings>
     {
         private readonly ICollection<Tiding> _bucket;
@@ -83,8 +83,6 @@ namespace Borg.Infra.DTO
         {
             return _bucket.GetEnumerator();
         }
-
-
 
         IEnumerator IEnumerable.GetEnumerator()
         {

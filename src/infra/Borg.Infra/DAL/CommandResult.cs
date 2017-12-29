@@ -15,7 +15,7 @@
 
         public TransactionOutcome Outcome { get; protected set; }
 
-        public string[] Errors { get; private set; }
+        public string[] Errors { get; protected set; }
 
         public static CommandResult Success()
         {
@@ -37,9 +37,11 @@
 
         public T Payload { get; private set; }
 
-        public static CommandResult Success(T payload)
+        public static CommandResult<T> Success(T payload)
         {
             return new CommandResult<T>(TransactionOutcome.Success) { Payload = payload };
         }
+
+        public static CommandResult<T> FailureWithEmptyPayload(params string[] errors) => new CommandResult<T>(TransactionOutcome.Failure) { Errors = errors };
     }
 }

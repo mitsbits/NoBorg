@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Platform.Azure.Storage.Tables
 {
-    public class AzureTableRepository<T> : IAzureTableRepository<T> where T : TableEntity, IHasPartitionKey<string>, new()
+    public class AzureTableRepository<T> : IAzureTableRepository<T> where T : TableEntity, IHasCompositeKey<string>, new()
     {
         private readonly string _tableName = typeof(T).Name;
         private readonly CloudTable _table;
@@ -80,7 +80,7 @@ namespace Borg.Platform.Azure.Storage.Tables
             return results;
         }
 
-        public async Task Delete(PartitionedKey<string> key, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Delete(CompositeKey<string> key, CancellationToken cancellationToken = default(CancellationToken))
         {
             TableEntity entity = default(TableEntity);
             TableOperation retrieveOperation = TableOperation.Retrieve<T>(key.Partition, key.Row);
@@ -94,7 +94,7 @@ namespace Borg.Platform.Azure.Storage.Tables
             }
         }
 
-        public async Task<T> Get(PartitionedKey<string> key, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<T> Get(CompositeKey<string> key, CancellationToken cancellationToken = default(CancellationToken))
         {
             TableOperation retrieveOperation = TableOperation.Retrieve<T>(key.Partition, key.Row);
             TableResult retrievedResult = await _table.ExecuteAsync(retrieveOperation);

@@ -39,7 +39,7 @@ namespace Domain.Auth
         public AuthDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AuthDbContext>();
-            optionsBuilder.UseSqlServer(_settings != null ? _settings.ConnectionStrings[_dbConnKey] : "Server=db;Database=polemic;User=sa;Password=Passw0rd;MultipleActiveResultSets=true", x => x.MigrationsHistoryTable("__MigrationsHistory", "auth"));
+            optionsBuilder.UseSqlServer(_settings != null ? _settings.ConnectionStrings[_dbConnKey] : "Server=db;Database=db;User=sa;Password=Passw0rd;MultipleActiveResultSets=true", x => x.MigrationsHistoryTable("__MigrationsHistory", "auth"));
 
             return new AuthDbContext(optionsBuilder.Options);
         }

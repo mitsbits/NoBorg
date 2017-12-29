@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Slugs\" />
     <Folder Include="TagHelpers\HtmlPager\" />
   </ItemGroup>
 

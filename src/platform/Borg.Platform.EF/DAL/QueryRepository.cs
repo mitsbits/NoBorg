@@ -1,13 +1,13 @@
 ﻿using Borg.Infra.Collections;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.Contracts;
+using Borg.Platform.EF.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Platform.EF.Exceptions;
 
 namespace Borg.Platform.EF.DAL
 {

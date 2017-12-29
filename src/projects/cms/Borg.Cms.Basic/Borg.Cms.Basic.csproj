@@ -5,17 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Backoffice\wwwroot\dist\" />
-    <Folder Include="wwwroot\" />
-    <Folder Include="wwwroot\dist\" />
+    <Compile Remove="Areas\Backoffice\wwwroot\**" />
+    <Content Remove="Areas\Backoffice\wwwroot\**" />
+    <EmbeddedResource Remove="Areas\Backoffice\wwwroot\**" />
+    <None Remove="Areas\Backoffice\wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Backoffice\Static\assets\" />
+    <Folder Include="Areas\Backoffice\Views\Account\" />
+    <Folder Include="Areas\Backoffice\Views\Shared\Layout\" />
+    <Folder Include="Areas\Backoffice\Views\Users\Components\" />
+    <Folder Include="wwwroot\dist\jquery-validation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
   </ItemGroup>
 
 </Project>

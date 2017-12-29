@@ -7,6 +7,7 @@ using Borg.MVC.Extensions;
 using Borg.MVC.Services.ServerResponses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -17,12 +18,18 @@ namespace Borg.MVC.Services.UserSession
     public class BorgUserSession : UserSession, ISessionServerResponseProvider, ICanContextualize, ICanContextualizeFromController, IContextAwareUserSession
     {
         private readonly ISessionServerResponseProvider _srprovider;
-        private readonly IFileStorage _storage;
+        private readonly Func<string, IFileStorage> _storageFactory;
 
-        public BorgUserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer, ISessionServerResponseProvider srprovider, IFileStorage storage) : base(httpContextAccessor, serializer)
+        public BorgUserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer, ISessionServerResponseProvider srprovider, Func<string, IFileStorage> storageFactory) : base(httpContextAccessor, serializer)
         {
             _srprovider = srprovider;
-            _storage = storage;
+            _storageFactory = storageFactory;
+        }
+
+        public void StartSession()
+        {
+            Remove(SessionStartKey);
+            SaveState();
         }
 
         public void Push(ServerResponse message)
@@ -45,7 +52,7 @@ namespace Borg.MVC.Services.UserSession
             {
                 if (_userStorage != null) return _userStorage;
                 var prefix = IsAuthenticated() ? $"sessions/{SessionId}" : "sessions/_public";
-                _userStorage = _storage.Scope(prefix) as IScopedFileStorage;
+                _userStorage = _storageFactory.Invoke("temp").Scope(prefix) as IScopedFileStorage;
                 return _userStorage;
             }
         }

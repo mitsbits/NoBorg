@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Borg.Cms.Basic
 {
@@ -14,12 +10,33 @@ namespace Borg.Cms.Basic
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args);
+
+            var host = BuildWebHost(args);
+
+            Seed(host);
+
+            host.Run();
         }
+
+
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+
+
+        private static void Seed(IWebHost host)
+        {
+            IServiceScopeFactory services = host.Services.GetService<IServiceScopeFactory>();
+            using (var scope = services.CreateScope())
+            {
+                var authseed = scope.ServiceProvider.GetRequiredService<AuthDbSeed>();
+                authseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                var borgseed = scope.ServiceProvider.GetRequiredService<BorgDbSeed>();
+                borgseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+            }
+        }
     }
 }

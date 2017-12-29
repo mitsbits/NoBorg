@@ -1,21 +1,17 @@
-﻿
+﻿@using Borg.Cms.Basic.Lib.Features.Auth
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ooo</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="~/dist/backoffice.css" rel="stylesheet" />
+    @Html.Partial("_headScripts")
     @RenderSection("headscripts", required: false)
 </head>
 <body class="skin-black-light" style="background: #f9fafc;">
     <div class="wrapper">
         @RenderBody()
     </div>
-<script src="~/dist/backoffice.js"></script>
-<script src="~/dist/main.js"></script>
-    @RenderSection("bottomscripts", required: false)
 
+    @Html.Partial("_bottomScripts")
+    @RenderSection("bottomscripts", required: false)
 </body>
 </html>

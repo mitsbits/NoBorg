@@ -1,9 +1,10 @@
+using Borg.Infra.DDD;
+using System;
+
 namespace Borg.Infra.Collections.Hierarchy
 {
-    public interface IHasParent<out TKey> : IHasParent
+    public interface IHasParent<out TKey> : IHasParent, IEntity<TKey> where TKey : IEquatable<TKey>
     {
-        TKey Id { get; }
-
         TKey ParentId { get; }
     }
 

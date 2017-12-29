@@ -6,6 +6,7 @@ using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
+using Borg.Infra.Services.Slugs;
 
 namespace Borg.Mvc.Example.Controllers
 {

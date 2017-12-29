@@ -15,7 +15,7 @@
 
         public TransactionOutcome Outcome { get; protected set; }
 
-        public string[] Errors { get; private set; } = new string[0];
+        public string[] Errors { get; protected set; } = new string[0];
 
         public static QueryResult Failure(params string[] errors)
         {
@@ -40,9 +40,14 @@
 
         public T Payload => Succeded ? _payload : default(T);
 
-        public static QueryResult Success(T payload)
+        public static QueryResult<T> Success(T payload)
         {
             return new QueryResult<T>(TransactionOutcome.Success, payload);
+        }
+
+        public new static QueryResult<T> Failure(params string[] errors)
+        {
+            return new QueryResult<T>(TransactionOutcome.Failure) { Errors = errors };
         }
     }
 }

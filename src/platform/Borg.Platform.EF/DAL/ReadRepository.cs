@@ -1,18 +1,17 @@
 ﻿using Borg.Infra.Collections;
 using Borg.Infra.DAL;
+using Borg.Platform.EF.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Platform.EF.Exceptions;
 
 namespace Borg.Platform.EF.DAL
 {
     public class ReadRepository<T, TDbContext> : IReadRepository<T> where T : class where TDbContext : DbContext
     {
-
         private readonly TDbContext _dbContext;
 
         public ReadRepository(TDbContext dbContext)
@@ -29,5 +28,4 @@ namespace Borg.Platform.EF.DAL
             return await _dbContext.Fetch(predicate, page, records, orderBy, cancellationToken, false, paths);
         }
     }
-
 }

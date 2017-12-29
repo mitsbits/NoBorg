@@ -1,49 +1,44 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Borg.Infra;
 using Domain;
 using Domain.Auth;
 using Domain.Auth.Data;
 using Domain.Messages.Contracts;
-using Domain.Model;
 using Domain.Model.Data;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 
 namespace Worker
 {
-    class Program
+    internal class Program
     {
-        private static IConfigurationRoot Configuration { get;  set; }
+        private static IConfigurationRoot Configuration { get; set; }
         private static IContainer Container { get; set; }
         private static IServiceProvider Locator { get; set; }
         private static IServiceCollection Services { get; set; } = new ServiceCollection();
         private static AppSettings Settings { get; set; } = new AppSettings();
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             Configuration = ConfigureSettings();
             Container = RegisterDI();
             Locator = new AutofacServiceProvider(Container);
 
-            using (var  scope = Locator.CreateScope())
+            using (var scope = Locator.CreateScope())
             {
-
                 var modelseed = scope.ServiceProvider.GetService<ModelDbSeed>();
                 var authseed = scope.ServiceProvider.GetService<AuthDbSeed>();
 
                 authseed.Init().Wait(15000);
                 modelseed.Init().Wait(15000);
-
             }
 
             var bus = Container.Resolve<IBusControl>();
 
             bus.Start();
-
 
             bus.Publish<CreateTopic>(new
             {
@@ -53,18 +48,14 @@ namespace Worker
                 UserName = "xxx"
             });
 
-
             Console.WriteLine("Press any key to exit");
             Console.Read();
 
             bus.Stop();
-
-        
         }
 
         private static IContainer RegisterDI()
         {
-
             Services.Config(Configuration.GetSection("compose"), () => Settings);
             var builder = new ContainerBuilder();
             builder.RegisterModule(new CommonModule(Settings));
@@ -72,8 +63,8 @@ namespace Worker
             builder.RegisterModule(new WorkerModule(Settings));
             builder.Populate(Services);
             return builder.Build();
-
         }
+
         private static IConfigurationRoot ConfigureSettings()
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

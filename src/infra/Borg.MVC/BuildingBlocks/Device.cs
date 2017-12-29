@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using Borg.MVC.Services.Breadcrumbs;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -26,7 +27,7 @@ namespace Borg.MVC.BuildingBlocks
         public string Layout { get; set; } = string.Empty;
 
         public Tidings Scripts { get; private set; } = new Tidings();
-
+        public Breadcrumbs Breadcrumbs { get; } = new Breadcrumbs();
         public bool ContextAcquired => _populated;
 
         public void Contextualize(ViewContext context)

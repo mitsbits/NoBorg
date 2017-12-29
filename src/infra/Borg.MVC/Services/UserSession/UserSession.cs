@@ -4,7 +4,6 @@ using Borg.Infra.Serializer;
 using Borg.MVC.BuildingBlocks;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -12,17 +11,29 @@ namespace Borg.MVC.Services.UserSession
 {
     public abstract class UserSession : Tidings, IUserSession, ICanContextualize
     {
-        private const string SettingsCookieName = "Borg.UserSession"; //TODO: retrieve from settings
-        private const string SessionStartKey = "Borg.SessionStartKey";//TODO: retrieve from settings
+        protected const string SettingsCookieName = "Borg.UserSession"; //TODO: retrieve from settings
+        protected const string SessionStartKey = "Borg.SessionStartKey";//TODO: retrieve from settings
 
         protected UserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer)
-        {      
+        {
             HttpContext = httpContextAccessor.HttpContext;
             Serializer = serializer;
             SessionId = HttpContext.Session.Id;
             ReadState();
             //PopulateState();
             SaveState();
+        }
+
+        public void StartSession()
+        {
+            Remove(SessionStartKey);
+            SaveState();
+        }
+
+        public void StopSession()
+        {
+            Remove(SessionStartKey);
+            HttpContext.Response.Cookies.Delete(SettingsCookieName);
         }
 
         //private void PopulateState()
@@ -56,10 +67,9 @@ namespace Borg.MVC.Services.UserSession
         public string UserIdentifier => !IsAuthenticated() ? string.Empty : HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
         public string UserName => !IsAuthenticated() ? string.Empty : HttpContext.User.Identity.Name;
 
-       
         public string SessionId { get; }
 
-        protected  HttpContext HttpContext { get; }
+        protected HttpContext HttpContext { get; }
 
         protected ISerializer Serializer { get; }
 
@@ -69,7 +79,6 @@ namespace Borg.MVC.Services.UserSession
         {
             return HttpContext.User != null && HttpContext.User.Identity.IsAuthenticated;
         }
-
 
         protected virtual void SaveState()
         {

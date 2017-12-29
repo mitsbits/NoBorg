@@ -37,14 +37,14 @@ namespace Borg.Platform.Azure.Tests
         public async Task test_inserting_and_retrieving_and_deleting_objects()
         {
             var bucket = DecorateWithScreens(MockScenarios());
-            var keys = new List<PartitionedKey<string>>();
+            var keys = new List<CompositeKey<string>>();
 
             foreach (var scenario in bucket)
             {
                 var inserted = await _repo.Create(scenario);
                 inserted.ShouldNotBeNull();
-                inserted.PartitionedKey.ShouldBe(scenario.PartitionedKey);
-                keys.Add(inserted.PartitionedKey); //create
+                inserted.CompositeKey.ShouldBe(scenario.CompositeKey);
+                keys.Add(inserted.CompositeKey); //create
             }
 
             foreach (var partitionedKey in keys)
@@ -52,9 +52,9 @@ namespace Borg.Platform.Azure.Tests
                 var hit = await _repo.Get(partitionedKey); //get
                 hit.ShouldNotBeNull();
                 hit.Screens.Count().ShouldBeGreaterThan(0);
-                hit.PartitionedKey.ShouldBe(partitionedKey);
+                hit.CompositeKey.ShouldBe(partitionedKey);
 
-                await _repo.Delete(hit.PartitionedKey); //delete
+                await _repo.Delete(hit.CompositeKey); //delete
             }
             var predicate = string.Empty;
             var scenarios = await _repo.Find(predicate);
@@ -131,7 +131,7 @@ namespace Borg.Platform.Azure.Tests
             return builder.ToString();
         }
 
-        public class ScenarioViewModel : IHasPartitionKey<string>
+        public class ScenarioViewModel : IHasCompositeKey<string>
         {
             public ScenarioViewModel()
             {
@@ -151,7 +151,7 @@ namespace Borg.Platform.Azure.Tests
             public string Description { get; set; }
             public DateTime DateCreated { get; set; }
             public IEnumerable<ScenarioScreenViewModel> Screens { get; set; }
-            public PartitionedKey<string> PartitionedKey => PartitionedKey<string>.Create(PartitionKey, RowKey);
+            public CompositeKey<string> CompositeKey => CompositeKey<string>.Create(PartitionKey, RowKey);
         }
 
         public class ScenarioScreenViewModel

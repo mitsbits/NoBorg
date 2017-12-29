@@ -1,22 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Borg.Infra.DAL;
-using Microsoft.AspNetCore.Identity;
 
 namespace Borg.MVC
 {
-    public abstract class BorgController : Controller
+    public abstract class BorgBaseController : Controller
+    {
+        [NonAction]
+        protected IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return Redirect(Url.Content("~/"));
+        }
+    }
+
+    public abstract class BorgController : BorgBaseController
     {
         protected readonly ILogger Logger;
 
         protected BorgController(ILoggerFactory loggerFactory)
         {
             Logger = loggerFactory.CreateLogger(GetType());
+            ViewBag.DeviceInfo = null;
+            ViewBag.ContentInfo = null;
         }
 
         #region Page Content
@@ -65,29 +77,13 @@ namespace Borg.MVC
                 ModelState.AddModelError(string.Empty, error);
             }
         }
-
-        [NonAction]
-        protected virtual IActionResult RedirectToLocal(string returnUrl, string homeController = "Home", string homeAction = "Home")
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction(homeController, "Home");
-            }
-        }
     }
 
     internal static class FrameworkControllerExtensions
     {
-        private static readonly IPageContent _defaultContent = new PageContent { Title = "default" };
-        private static readonly IDevice _defaultDevice = new Device { Path = string.Empty, Layout = string.Empty };
-
         public static TContent GetContent<TContent>(this BorgController controller) where TContent : IPageContent
         {
-            var page = controller.ViewBag.ContentInfo as IPageContent ?? _defaultContent;
+            var page = controller.ViewBag.ContentInfo as IPageContent ?? new PageContent { Title = "default" };
             return (TContent)page;
         }
 
@@ -98,7 +94,7 @@ namespace Borg.MVC
 
         public static TDevice GetDevice<TDevice>(this BorgController controller) where TDevice : IDevice
         {
-            var device = controller.ViewBag.DeviceInfo as IDevice ?? _defaultDevice;
+            var device = controller.ViewBag.DeviceInfo as IDevice ?? new Device { Path = string.Empty, Layout = string.Empty };
             return (TDevice)device;
         }
 

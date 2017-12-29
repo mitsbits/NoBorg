@@ -1,26 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Borg.Cms.Basic.Lib
+@using Borg.Cms.Basic.Lib.Features.Auth
+@{
+    var collapseClass = UserSession.MenuIsCollapsed() ? "sidebar-collapse" : "";
+}
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xxx</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="~/dist/backoffice.css" rel="stylesheet" />
+    @Html.Partial("_headScripts")
     @RenderSection("headscripts", required: false)
 </head>
-<body class="hold-transition skin-black-light sidebar-mini">
+<body class="hold-transition skin-black-light sidebar-mini @collapseClass">
 <div class="wrapper">
-    <header class="main-header">
-
-        <a  asp-controller="Home" asp-action="Home" class="logo">
-            <span class="logo-mini"> <img src="https://hypb.imgix.net/image/2013/03/mastermind-japan-loses-exclusive-rights-to-skull-logo-0.jpg?w=960&q=90&fit=max&auto=compress%2Cformat" style="width: 20px; height: 20px;"/>  </span>
-            <span class="logo-lg"><img src="https://hypb.imgix.net/image/2013/03/mastermind-japan-loses-exclusive-rights-to-skull-logo-0.jpg?w=960&q=90&fit=max&auto=compress%2Cformat" style="width: 20px; height: 20px; margin-bottom: 5px;" /> xxxx</span>
-        </a>
-    </header>
-    
-
+    @await Html.PartialAsync("Layout/MainHeader")
     <aside class="main-sidebar">
-       
+        @await Html.PartialAsync("Layout/Navigation")
     </aside>
 
     <div class="content-wrapper">
@@ -32,7 +25,7 @@
             }
             else
             {
-               
+                @await Html.PartialAsync("Layout/PageHeader")
             }
         </section>
 
@@ -41,9 +34,9 @@
         </section>
     </div>
 </div>
-<script src="~/dist/backoffice.js"></script>
-
-@RenderSection("bottomscripts", required: false)
-
+    @await Html.PartialAsync("Layout/MainFooter")
+    @await Html.PartialAsync("Layout/HiddenSidebar")
+    @Html.Partial("_bottomScripts")
+    @RenderSection("bottomscripts", required: false)
 </body>
 </html>
