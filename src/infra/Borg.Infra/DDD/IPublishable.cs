@@ -6,6 +6,6 @@
 
         void Publish();
 
-        void Suppress();
+        void Suspend();
     }
 }

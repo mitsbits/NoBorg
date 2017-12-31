@@ -38,6 +38,10 @@ module.exports = function (env) {
                 { from: 'node_modules/font-awesome/', to: 'font-awesome/' },
                 { from: 'node_modules/ionicons/dist/', to: 'ionicons/' },
                 { from: 'node_modules/select2/dist/', to: 'select2/' },
+                { from: 'node_modules/datatables.net/js/jquery.dataTables.js' },
+                { from: 'node_modules/datatables.net-bs/js/dataTables.bootstrap.js' },
+                { from: 'node_modules/jsoneditor/dist/', to: 'jsoneditor/' },
+
 
 
 

@@ -1,0 +1,33 @@
+﻿@model Borg.Infra.DTO.Tiding
+
+@{
+    var parentActive = Model.Children["ParentActive"] == null || bool.Parse(Model.Children["ParentActive"]);
+    var currentActive = bool.Parse(Model.Flag);
+    var calculatedState = parentActive && currentActive;
+}
+<li>
+
+    <form asp-controller="Menus" asp-action="Delete" method="post" class="form-inline">
+        <a asp-controller="Menus" asp-action="Group" asp-route-id="@Orchestrator.Device.RouteValues["id"]" asp-route-row="@Model.Key" class="text-@(calculatedState?"primary":"warning")" title="@Model.HumanKey">
+            <span class="glyphicon glyphicon-@((bool.Parse(Model.Flag)) ? "ok" : "remove")"></span>
+            <span >@Model.Value [@Model.Hint]</span>
+        </a>
+        <input type="hidden" name="RecordId" value="@Model.Key" />
+        <input type="hidden" name="Group" value="@Orchestrator.Device.RouteValues["id"]" />
+        <button type="submit" class="btn btn-danger btn-xs">
+            delete
+        </button>
+    </form>
+    @if (Model.Children != null && Model.Children.Count > 0)
+    {
+
+        <ul>
+            @foreach (var child in Model.Children)
+            {
+                if (child.Key == "ParentActive") {continue;}
+                child.Children.Add("ParentActive", calculatedState.ToString());
+                @Html.Partial("Partials/TreeTiding", child)
+            }
+        </ul>
+    }
+</li>

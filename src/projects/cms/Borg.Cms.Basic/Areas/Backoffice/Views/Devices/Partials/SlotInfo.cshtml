@@ -1,0 +1,86 @@
+﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SlotCreateOrUpdateCommand
+<form role="form" asp-controller="Devices" asp-action="SlotEdit" method="post" class="form-horizontal">
+    <div class="box-body">
+
+        <div class="form-group hidden">
+            <label asp-for="RecordId"></label>
+            <input type="text" asp-for="RecordId" class="form-control" />
+
+            <span asp-validation-for="RecordId" class="text-danger"></span>
+        </div>
+        <div class="form-group hidden">
+            <label asp-for="SectionId"></label>
+            <input type="text" asp-for="SectionId" class="form-control" />
+
+            <span asp-validation-for="SectionId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ordinal"></label>
+            <input type="text" asp-for="Ordinal" class="form-control" />
+
+            <span asp-validation-for="Ordinal" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="IsEnabled"></label>
+            <input type="checkbox" asp-for="IsEnabled" />
+
+            <span asp-validation-for="IsEnabled" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ModuleDecriptorJson"></label>
+            <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
+            <div id="jsoneditor" style="min-height: 400px;height: 400px;"></div>
+            <span asp-validation-for="ModuleDecriptorJson" class="text-danger"></span>
+        </div>
+        @*<div class="form-group" id="jsoneditor" >
+            </div>*@
+        <div class="form-group text-danger" asp-validation-summary="All">
+        </div>
+    </div>
+    <div class="box-footer text-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<script device id="jsoneditorscript" Weight="100">
+    $(function () {
+
+        var container = document.getElementById("jsoneditor");
+        var initialText = $('#jsonValueBox').val();
+        var options = {
+            modes: ['text', 'code', 'tree', 'form', 'view'],
+            mode: 'code',
+            ace: ace,
+            search: true,
+            onChange: function () {
+                var json = JSON.stringify(editor.get());
+                $('#jsonValueBox').val(json);
+            },
+            templates: [
+                {
+                    text: 'Tiding',
+                    title: 'Insert a Tiding',
+                    className: 'jsoneditor-type-object',
+                    field: 'TidingTemplate',
+                    value: {
+                        Key: "",
+                        Value: "",
+                        Weight: 0.5,
+                        Depth: 1,
+                        HumanKey: "",
+                        Hint: "",
+                        Flag: ""
+                    }
+                }
+            ]
+        }
+        var editor = new JSONEditor(container, options, initialText);
+
+        // set json
+
+
+
+
+    })
+</script>

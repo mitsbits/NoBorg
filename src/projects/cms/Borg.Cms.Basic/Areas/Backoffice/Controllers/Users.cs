@@ -5,17 +5,19 @@ using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
-    [Route("[area]/Users")][Area("Backoffice")][Authorize]
+    [Route("[area]/Users")]
+    [Area("Backoffice")]
+    [Authorize]
     public class UsersController : BorgController
     {
         private readonly IMediator Dispatcher;

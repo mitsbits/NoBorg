@@ -1,0 +1,75 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Navigation.Model
+@using Borg.MVC
+@model Borg.Infra.DTO.Tiding
+@inject BorgSettings _settings
+
+@{
+    MenuItemBase renderer;
+    if (Model.Hint == "Anchor")
+    {
+        renderer = new MenuItemLink(Model, _settings.Tenant.Endpoint);
+    }
+    else
+    {
+        renderer = new MenuItemLabel(Model);
+    }
+    bool hasChildren = Model.Children != null && Model.Children.Count > 0;
+    bool isSubmenu = Model.Depth > 1;
+}
+<li class="@(hasChildren?isSubmenu?"dropdown-submenu":"dropdown":"")">
+    @if (renderer.IsLink)
+    {
+        if (hasChildren)
+        {
+            <a href="@renderer.Href" class="dropdown-toggle" data-toggle="dropdown">
+                <span>@renderer.Display</span>
+                @if (!(isSubmenu))
+                {
+                    <span class="caret"></span>
+                }
+            </a>
+        }
+        else
+        {
+            <a href="@renderer.Href">
+                <span>@renderer.Display</span>
+            </a>
+        }
+
+    }
+    else
+    {
+        if (hasChildren)
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span>@renderer.Display</span>
+                <span class="caret"></span>
+            </a>
+        }
+        else
+        {
+            <a>@renderer.Display</a>
+        }
+
+    }
+
+    @if (Model.Children != null && Model.Children.Count > 0)
+    {
+
+        <ul class="dropdown-menu multi-level">
+            @foreach (var child in Model.Children)
+            {
+
+                @Html.Partial("Components/Menu/MenuItem", child)
+            }
+        </ul>
+    }
+</li>
+
+@*<div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>*@<!--/.nav-collapse -->

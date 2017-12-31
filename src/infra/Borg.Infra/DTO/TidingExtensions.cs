@@ -33,4 +33,29 @@ namespace Borg.Infra.DTO
             return AsyncHelpers.RunSync(() => serializer.DeserializeAsync<T>(tiding.Value));
         }
     }
+
+    public static class TidingsExtensions
+    {
+        public static IDictionary<(int, int), Tiding> TreeDictionary(this Tidings tidings)
+        {
+            var bucket = new Dictionary<(int, int), Tiding>();
+            foreach (var tiding in tidings)
+            {
+                int i = 1;
+                RecurseTididnigsToDictionary(tiding, bucket, i);
+            }
+            return bucket;
+        }
+
+        private static void RecurseTididnigsToDictionary(Tiding tiding, Dictionary<(int, int), Tiding> bucket, int i)
+        {
+            var key = (int.Parse(tiding.Key), i);
+            bucket.Add(key, tiding);
+            i++;
+            foreach (var child in tiding.Children)
+            {
+                RecurseTididnigsToDictionary(child, bucket, i);
+            }
+        }
+    }
 }

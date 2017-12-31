@@ -1,0 +1,11 @@
+﻿@model Borg.Cms.Basic.Lib.Features.Navigation.Services.MenuContainer
+
+<div id="navbar" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+        @foreach (var tree in Model.Trees)
+        {
+
+            @Html.Partial("Components/Menu/MenuItem", tree)
+        }
+    </ul>
+</div><!--/.nav-collapse -->

@@ -3,14 +3,14 @@
         .indexOf(m[3].toUpperCase()) >= 0;
 };
 $(function () {
-    //$(".server-table").dataTable({
-    //    "bPaginate": false,
-    //    "bLengthChange": false,
-    //    "bFilter": false,
-    //    "bSort": false,
-    //    "bInfo": false,
-    //    "bAutoWidth": true
-    //});
+    $(".server-table").dataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": false,
+        "bInfo": false,
+        "bAutoWidth": true
+    });
 
     //$('input.datetimepicker').daterangepicker({
     //    "timePicker": true, "timePickerIncrement": 15, "format": 'DD/MM/YYYY HH:mm', "timePicker24Hour": true,

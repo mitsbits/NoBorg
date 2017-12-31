@@ -14,7 +14,8 @@ namespace Borg.Infra.DTO
         }
 
         public virtual Tidings Children { get; } = new Tidings();
-        public virtual double Weight { get; set; }
+        public virtual double Weight { get; set; } = 0;
+        public virtual int Depth { get; set; } = 0;
 
         #region ICloneable
 
@@ -25,7 +26,7 @@ namespace Borg.Infra.DTO
 
         public Tiding Clone()
         {
-            var clone = new Tiding(Key, Value) { Weight = Weight, Flag = Flag, Hint = Hint, HumanKey = HumanKey };
+            var clone = new Tiding(Key, Value) { Weight = Weight, Flag = Flag, Hint = Hint, HumanKey = HumanKey, Depth = Depth };
             foreach (var tiding in Children)
                 clone.Children.Add(tiding.Clone());
             return clone;

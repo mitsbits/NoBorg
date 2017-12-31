@@ -1,0 +1,22 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
+@model IEnumerable<Borg.Cms.Basic.Lib.Features.Device.DeviceRecord>
+@{
+    var command = new DeviceCreateOrUpdateCommand("", "",DeviceRenderScheme.UnSet);
+}
+    
+<div class="box">
+    <div class="box-body">
+        @Html.Partial("Partials/DeviceInfo", command)
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-body">
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Devices" asp-action="Home" asp-route-id="@item.Id" class="btn btn-primary">
+                <span>@item.FriendlyName</span>
+            </a>
+        }
+    </div>
+</div>

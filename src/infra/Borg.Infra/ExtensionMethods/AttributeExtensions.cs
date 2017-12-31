@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Borg.Infra.ExtensionMethods
+namespace Borg
 {
     public static class AttributeExtensions
     {

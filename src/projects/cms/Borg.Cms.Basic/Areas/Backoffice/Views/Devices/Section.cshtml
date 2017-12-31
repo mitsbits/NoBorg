@@ -1,0 +1,46 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
+@model Borg.Cms.Basic.Lib.Features.Device.SectionRecord
+@{
+    var slotCommand = new SlotCreateOrUpdateCommand(true, 0, Model.Id, "");
+}
+<div class="box">
+    <div class="box-body">
+
+        @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(Model.FriendlyName, Model.DeviceId, Model.RenderScheme, Model.Identifier, Model.Id))
+    </div>
+
+</div>
+<div class="box">
+    <div class="box-body">
+
+        @Html.Partial("Partials/SlotInfo", slotCommand)
+    </div>
+
+</div>
+<div class="box">
+<div class="box-body">
+    <table class="server-table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>IsEnabled</th>
+            <th>Ordinal</th>
+            <th>SectionId</th>
+            <th>ModuleDecriptorJson</th>
+        </tr>
+        </thead>
+        @foreach (var item in Model.Slots)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.IsEnabled</td>
+                <td>@item.Ordinal</td>
+                <td>@item.SectionId</td>
+                <td>@item.ModuleDecriptorJson</td>
+            </tr>
+        }
+
+    </table>
+    </div>
+
+</div>

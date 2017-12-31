@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Borg.Infra.ExtensionMethods
+namespace Borg
 {
     public static class StringExtensions
     {
@@ -44,6 +45,12 @@ namespace Borg.Infra.ExtensionMethods
             string invalidRegStr = $@"([{invalidChars}]*\.+$)|([{invalidChars}]+)";
 
             return Regex.Replace(name, invalidRegStr, "_");
+        }
+
+        public static string Repeat(this string c, int times)
+        {
+            var repeatedStrArray = Enumerable.Repeat(c.ToCharArray(), times).SelectMany(x => x);
+            return new string(repeatedStrArray.ToArray());
         }
     }
 }

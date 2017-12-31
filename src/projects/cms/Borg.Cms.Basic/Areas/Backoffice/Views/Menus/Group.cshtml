@@ -1,0 +1,19 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Navigation.Commands
+@using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
+@model MenuViewModel
+@{
+
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        @Html.Partial("Partials/ItemEdit", new NavigationItemRecordCreateOrUpdateCommand
+        {
+            ParentOptions = Model.TreeDictionaryExcludingCurrentAndChildren(),
+            Record = Model.SelectedRecord
+        });
+    </div>
+    <div class="col-lg-6">
+        @Html.Partial("Partials/Tree", Model.Trees())
+    </div>
+</div>
