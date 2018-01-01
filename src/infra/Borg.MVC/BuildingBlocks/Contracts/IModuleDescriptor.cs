@@ -4,7 +4,11 @@ using Borg.Infra.DTO;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {
-    public interface IModuleDescriptor<TModule, out TData> : IModuleDescriptor where TData : IDictionary<string, string> where TModule : IModule<TData>
+    public interface IModuleDescriptor<TModule, out TData> : IModuleDescriptor<TData> where TData : IDictionary<string, string> where TModule : IModule<TData>
+    {
+        
+    }
+    public interface IModuleDescriptor<out TData> : IModuleDescriptor where TData : IDictionary<string, string>
     {
 
         TData Parameters { get; }
