@@ -37,6 +37,8 @@ namespace Borg.Cms.Basic
             services.RegisterAuth(Settings, LoggerFactory, Environment);
             services.RegisterBorg(Settings, LoggerFactory, Environment);
 
+
+
             services.AddMediatR(asmbls);
 
             services.AddMvc();

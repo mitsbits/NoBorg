@@ -32,6 +32,17 @@ namespace Borg.MVC.BuildingBlocks
         public IDictionary<string, string> RouteValues { get; } = new Dictionary<string, string>();
         public string Layout { get; set; } = string.Empty;
         public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
+        public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
+        public void SectionsClear()
+        {
+            Sections.Clear();
+        }
+
+        public void SectionAdd(ISection section)
+        {
+            Sections.Add(section as Section);
+        }
+
         ICollection<ISection> IHaveSections.Sections => Sections.Cast<ISection>().ToList();
 
         public Tidings Scripts { get; private set; } = new Tidings();

@@ -33,3 +33,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
+<form role="form" asp-controller="Devices" asp-action="Delete" method="post" class="form-horizontal" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
+
+    <input type="hidden" name="RecordId" value="@Model.RecordId"/>
+    <div class="box-footer text-right">
+        <button type="submit" class="btn btn-danger">delete</button>
+    </div>
+</form>

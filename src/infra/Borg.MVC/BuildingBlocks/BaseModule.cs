@@ -23,7 +23,7 @@ namespace Borg.MVC.BuildingBlocks
             Parameters = new Tidings();
         }
 
-        public abstract ModuleType ModuleType { get; }
+        public abstract ModuleGender ModuleGender { get; }
 
         public string FriendlyName { get; private set; }
 

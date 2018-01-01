@@ -4,7 +4,7 @@ namespace Borg.MVC.Extensions
 {
     public static class DeviceExtensions
     {
-        public static string RedirectToDevice(this IDevice device)
+        public static string RelativePath(this IDevice device)
         {
             return $"{device.Path}{device.QueryString}";
         }

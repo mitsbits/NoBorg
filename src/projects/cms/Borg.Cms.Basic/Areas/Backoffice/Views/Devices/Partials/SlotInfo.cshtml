@@ -1,37 +1,23 @@
-﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SlotCreateOrUpdateCommand
-<form role="form" asp-controller="Devices" asp-action="SlotEdit" method="post" class="form-horizontal">
+﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
+@using Borg.Infra.DTO
+@model Borg.Cms.Basic.Lib.Features.Device.ViewModels.SectionViewModel
+@{
+   
+    var dict = Model.ObjectJsonDict();
+    ViewBag.ModuleOptions = Model.ModuleOptions();
+}
+<form role="form" asp-controller="Devices" asp-action="SlotEdit" method="post" class="form-horizontal" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
     <div class="box-body">
 
-        <div class="form-group hidden">
-            <label asp-for="RecordId"></label>
-            <input type="text" asp-for="RecordId" class="form-control" />
+        @Html.Partial("Partials/SlotInfoForm", Model.SlotCommand)
 
-            <span asp-validation-for="RecordId" class="text-danger"></span>
-        </div>
-        <div class="form-group hidden">
-            <label asp-for="SectionId"></label>
-            <input type="text" asp-for="SectionId" class="form-control" />
+        <div>
 
-            <span asp-validation-for="SectionId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Ordinal"></label>
-            <input type="text" asp-for="Ordinal" class="form-control" />
-
-            <span asp-validation-for="Ordinal" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="IsEnabled"></label>
-            <input type="checkbox" asp-for="IsEnabled" />
-
-            <span asp-validation-for="IsEnabled" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ModuleDecriptorJson"></label>
-            <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
-            <div id="jsoneditor" style="min-height: 400px;height: 400px;"></div>
-            <span asp-validation-for="ModuleDecriptorJson" class="text-danger"></span>
+            @foreach (var t in dict.Keys)
+            {
+                var td = dict[t];
+                <input type="hidden" id="@t" value="@td.Value" data-gender="@td.Hint" data-type="@td.HumanKey" />
+            }
         </div>
         @*<div class="form-group" id="jsoneditor" >
             </div>*@
@@ -54,7 +40,7 @@
             ace: ace,
             search: true,
             onChange: function () {
-                var json = JSON.stringify(editor.get());
+                var json = editor.getText();
                 $('#jsonValueBox').val(json);
             },
             templates: [
@@ -66,8 +52,8 @@
                     value: {
                         Key: "",
                         Value: "",
-                        Weight: 0.5,
-                        Depth: 1,
+                        Weight: 0.1,
+                        Depth: 0,
                         HumanKey: "",
                         Hint: "",
                         Flag: ""
@@ -78,7 +64,24 @@
         var editor = new JSONEditor(container, options, initialText);
 
         // set json
+        $("#modulesselect").change(function () {
+            var v = $(this).val();
+            var $item = $('#' + v);
+            var jtext = $item.val();
+            var gender = $item.data('gender');
+            var type = $item.data('type');
 
+            if (jtext == "undefined") {
+                editor.set({});
+                $('#moduleGenderInput').val('');
+                $('#jsonValueBox').val('');
+            } else {
+                $('#moduleGenderInput').val(gender);
+                $('#moduleTypeInput').val(type);
+                editor.setText(jtext);
+            }
+
+        });
 
 
 

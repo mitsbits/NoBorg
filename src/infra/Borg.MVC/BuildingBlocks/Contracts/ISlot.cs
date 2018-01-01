@@ -4,6 +4,6 @@
     {
         ISectionSlotInfo SectionSlotInfo { get; }
 
-        BaseModule Module { get; }
+        ModuleRenderer Module { get; }
     }
 }

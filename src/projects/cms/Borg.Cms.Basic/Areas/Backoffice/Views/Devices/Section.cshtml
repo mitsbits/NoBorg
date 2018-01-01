@@ -1,19 +1,20 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
-@model Borg.Cms.Basic.Lib.Features.Device.SectionRecord
+@model Borg.Cms.Basic.Lib.Features.Device.ViewModels.SectionViewModel
 @{
-    var slotCommand = new SlotCreateOrUpdateCommand(true, 0, Model.Id, "");
+    var record = Model.Record;
+
 }
 <div class="box">
     <div class="box-body">
 
-        @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(Model.FriendlyName, Model.DeviceId, Model.RenderScheme, Model.Identifier, Model.Id))
+        @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(record.FriendlyName, record.DeviceId, record.RenderScheme, record.Identifier, record.Id))
     </div>
 
 </div>
 <div class="box">
     <div class="box-body">
 
-        @Html.Partial("Partials/SlotInfo", slotCommand)
+        @Html.Partial("Partials/SlotInfo", Model)
     </div>
 
 </div>
@@ -27,9 +28,10 @@
             <th>Ordinal</th>
             <th>SectionId</th>
             <th>ModuleDecriptorJson</th>
+            <th></th>
         </tr>
         </thead>
-        @foreach (var item in Model.Slots)
+        @foreach (var item in record.Slots)
         {
             <tr>
                 <td>@item.Id</td>
@@ -37,6 +39,9 @@
                 <td>@item.Ordinal</td>
                 <td>@item.SectionId</td>
                 <td>@item.ModuleDecriptorJson</td>
+                <td><form asp-controller="Devices" asp-action="SlotDelete" method="post" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
+                    <input type="hidden" name="RecordId" value="@item.Id"/><button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                </form></td>
             </tr>
         }
 

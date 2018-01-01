@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Borg.MVC.BuildingBlocks
 {
-    public class ModuleType
+    public class ModuleGender
     {
         private readonly string _flavorDescription = String.Empty;
-        private static readonly IDictionary<string, ModuleType> Dict = new Dictionary<string, ModuleType>();
+        private static readonly IDictionary<string, ModuleGender> Dict = new Dictionary<string, ModuleGender>();
 
-        public static readonly ModuleType Empty = new ModuleType("Empty");
-        public static readonly ModuleType PartialView = new ModuleType("View");
-        public static readonly ModuleType ViewComponent = new ModuleType("Component");
+        public static readonly ModuleGender Empty = new ModuleGender("Empty");
+        public static readonly ModuleGender PartialView = new ModuleGender("View");
+        public static readonly ModuleGender ViewComponent = new ModuleGender("Component");
 
-        private ModuleType(string flavorDescription)
+        private ModuleGender(string flavorDescription)
         {
             _flavorDescription = flavorDescription;
             Dict.Add(flavorDescription, this);
@@ -25,7 +25,7 @@ namespace Borg.MVC.BuildingBlocks
 
         public string Flavor { get { return ToString(); } }
 
-        public static ModuleType Parse(string flavorDescription)
+        public static ModuleGender Parse(string flavorDescription)
         {
             if (Dict.Keys.Contains(flavorDescription))
             {
@@ -34,23 +34,23 @@ namespace Borg.MVC.BuildingBlocks
             throw new NotImplementedException("This type description is not supported currently.");
         }
 
-        public static bool TryParse(string heightDescription, out ModuleType type)
+        public static bool TryParse(string heightDescription, out ModuleGender gender)
         {
             try
             {
-                type = Parse(heightDescription);
+                gender = Parse(heightDescription);
                 return true;
             }
             catch (NotImplementedException)
             {
-                type = null;
+                gender = null;
                 return false;
             }
         }
 
-        public static List<ModuleType> GetMembers()
+        public static List<ModuleGender> GetMembers()
         {
-            return new List<ModuleType>(Dict.Values);
+            return new List<ModuleGender>(Dict.Values);
         }
     }
 }

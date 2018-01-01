@@ -4,7 +4,7 @@ namespace Borg.MVC.BuildingBlocks
 {
     public class Slot : ISlot
     {
-        public Slot(SectionSlotInfo sectionSlotInfo, BaseModule module)
+        public Slot(SectionSlotInfo sectionSlotInfo, ModuleRenderer module)
         {
             SectionSlotInfo = sectionSlotInfo;
             Module = module;
@@ -13,9 +13,9 @@ namespace Borg.MVC.BuildingBlocks
         ISectionSlotInfo ISlot.SectionSlotInfo => SectionSlotInfo;
 
         public SectionSlotInfo SectionSlotInfo { get; private set; }
-        public BaseModule Module { get; private set; }
+        public ModuleRenderer Module { get; private set; }
 
-        public Slot NewModule(BaseModule module)
+        public Slot NewModule(ModuleRenderer module)
         {
             return new Slot(SectionSlotInfo, module);
         }
