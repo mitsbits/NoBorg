@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Borg.Infra.DTO;
+﻿using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Borg.Cms.Basic.Lib.Features.Content.Modules
 {
-    public sealed class BodyViewModuleDescriptor : IModuleDescriptor< Tidings>
+    public sealed class BodyViewModuleDescriptor : ViewModuleDescriptor
     {
-        public string FriendlyName => "Body View";
-        public string Summary => "Body View Description";
-        public string ModuleGroup => "System.Content";
-        public ModuleGender ModuleGender => ModuleGender.PartialView;
-        public Tidings Parameters => GetDefaults();
+        public override string FriendlyName => "Body View";
+        public override string Summary => "Body View Description";
+        public override string ModuleGroup => "System.Content";
 
-        private static Tidings GetDefaults()
+        protected override Tidings GetDefaults()
         {
             var result = new Tidings
             {

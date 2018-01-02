@@ -25,7 +25,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
             obj.FriendlyName = d.FriendlyName;
             obj.Summary = d.Summary;
             obj.ModuleGroup = d.ModuleGroup;
-
+            obj.ModuleGender = d.ModuleGender.Flavor;
             var dd = d as dynamic;
             var p = dd.Parameters as Tidings;
             var tids = new List<Tiding>();

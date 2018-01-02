@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Borg.Cms.Basic.Controllers
 {
-    [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_Layout" })]
+    //[TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_Layout" })]
     public class HomeController : Controller
     {
         private readonly IDeviceStructureProvider _deviceProvider;
@@ -18,8 +18,10 @@ namespace Borg.Cms.Basic.Controllers
 
         public async Task< IActionResult> Home([FromServices] IPageOrchestrator<IPageContent, IDevice> orchestrator)
         {
-            var model = await _deviceProvider.PageLayout(1);
+            var model = await _deviceProvider.PageLayout(8);
             orchestrator.TryContextualize(this);
+            orchestrator.Device.Layout = model.Layout;
+            orchestrator.Device.RenderScheme = model.RenderScheme;
             orchestrator.Device.SectionsClear();
             foreach (var modelSection in model.Sections)
             {

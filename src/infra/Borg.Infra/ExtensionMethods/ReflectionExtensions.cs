@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using Borg.Infra.DI;
 
-namespace Borg.Infra.ExtensionMethods
+namespace Borg
 {
     internal static class ReflectionExtensions
     {

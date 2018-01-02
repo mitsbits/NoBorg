@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Borg.Infra.ExtensionMethods;
+using Borg;
 
 namespace Borg.Infra.DI
 {

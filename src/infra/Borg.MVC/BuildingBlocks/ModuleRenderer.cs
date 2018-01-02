@@ -8,5 +8,6 @@ namespace Borg.MVC.BuildingBlocks
         public string Summary { get; set; }
         public string ModuleGroup { get; set; }
         public Tiding[] Parameters { get; set; }
+        public  string ModuleGender { get; set; }
     }
 }

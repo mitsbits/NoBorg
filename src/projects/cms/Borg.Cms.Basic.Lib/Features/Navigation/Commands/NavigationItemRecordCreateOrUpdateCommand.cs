@@ -2,7 +2,6 @@
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra.DAL;
 using Borg.Infra.DTO;
-using Borg.Infra.ExtensionMethods;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

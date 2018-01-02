@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
+﻿using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
-using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
 {
@@ -28,15 +26,13 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
         }
     }
 
-    public sealed class MenuModuleDescriptor : IModuleDescriptor<MenuViewComponent,Tidings>
+    public sealed class MenuModuleDescriptor : ViewComponentModuleDescriptor
     {
-        public string FriendlyName => "Navigation Menu";
-        public string Summary => "Navigation Menu Description";
-        public string ModuleGroup => "System.Navigation";
-        public ModuleGender ModuleGender => ModuleGender.ViewComponent;
-        public Tidings Parameters => GetDefaults();
+        public override string FriendlyName => "Navigation Menu";
+        public override string Summary => "Navigation Menu Description";
+        public override string ModuleGroup => "System.Navigation";
 
-        private static Tidings GetDefaults()
+        protected override Tidings GetDefaults()
         {
             var result = new Tidings
             {
@@ -47,7 +43,4 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
             return result;
         }
     }
-
-
-
 }

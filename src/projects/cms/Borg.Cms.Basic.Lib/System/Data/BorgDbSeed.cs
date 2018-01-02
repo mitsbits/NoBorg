@@ -1,5 +1,4 @@
-﻿using Borg.Infra.ExtensionMethods;
-using Borg.MVC;
+﻿using Borg.MVC;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

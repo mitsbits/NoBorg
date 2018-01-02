@@ -1,10 +1,24 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.Navigation.Modules
 @using Borg.Infra.DTO
+@using Borg.MVC
+@using Microsoft.AspNetCore.Mvc.Razor
 @{
-    var copt = new Tidings(new[] { new Tiding("group", "BSE") });
+    
 }
-@section menu{ 
-    @await Component.InvokeAsync(typeof(MenuViewComponent), copt)
-}
+@foreach (var s in Orchestrator.Device.Sections)
+{
 
-<h1>@Orchestrator.Device.Sections.Count</h1>
+
+
+    DefineSection(s.Identifier, async _ =>
+    {
+
+
+        
+        var value = await Html.RenderViewSection(Component, s);
+ 
+        
+        await Output.WriteAsync(value.ToString());
+    });
+
+}

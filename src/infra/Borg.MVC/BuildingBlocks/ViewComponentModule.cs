@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Borg.MVC.BuildingBlocks
 {

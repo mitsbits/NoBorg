@@ -19,7 +19,8 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Services
 
 
 
-        public async Task<IDeviceStrctureInfo> PageLayout(int id)
+
+        public async Task<IDeviceStructureInfo> PageLayout(int id)
         {
             var result = await _dispatcher.Send(new PageLayoutRequest(id));
             return result.Payload;

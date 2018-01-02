@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.System.Data;
+﻿using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
@@ -13,10 +7,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 {
-    public class PageLayoutRequest : IRequest<QueryResult<IDeviceStrctureInfo>>
+    public class PageLayoutRequest : IRequest<QueryResult<IDeviceStructureInfo>>
     {
         public PageLayoutRequest(int recordId)
         {
@@ -26,8 +22,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
         public int RecordId { get; }
     }
 
-
-    public class PageLayoutRequestHandler : AsyncRequestHandler<PageLayoutRequest, QueryResult<IDeviceStrctureInfo>>
+    public class PageLayoutRequestHandler : AsyncRequestHandler<PageLayoutRequest, QueryResult<IDeviceStructureInfo>>
     {
         private readonly ILogger _logger;
         private readonly IUnitOfWork<BorgDbContext> _uow;
@@ -38,11 +33,11 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
             _uow = uow;
         }
 
-        protected override async Task<QueryResult<IDeviceStrctureInfo>> HandleCore(PageLayoutRequest message)
+        protected override async Task<QueryResult<IDeviceStructureInfo>> HandleCore(PageLayoutRequest message)
         {
             var hit = await _uow.Context.DeviceRecords.Include(x => x.Sections).ThenInclude(x => x.Slots)
                 .AsNoTracking().FirstOrDefaultAsync(x => x.Id == message.RecordId);
-            if (hit == null) return QueryResult<IDeviceStrctureInfo>.Failure($"No device for id {message.RecordId}");
+            if (hit == null) return QueryResult<IDeviceStructureInfo>.Failure($"No device for id {message.RecordId}");
 
             var result = new DeviceStructureInfo()
             {
@@ -67,12 +62,11 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
                     }
                     catch (Exception ex)
                     {
-                        
                     }
                 }
                 result.Sections.Add(section);
             }
-            return QueryResult<IDeviceStrctureInfo>.Success(result);
+            return QueryResult<IDeviceStructureInfo>.Success(result);
         }
     }
 }
