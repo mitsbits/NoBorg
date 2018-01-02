@@ -65,10 +65,10 @@ namespace Borg.Infra.Messaging
                 if (subscriber.CancellationToken.IsCancellationRequested)
                 {
                     Subscriber sub;
-                    if (_subscribers.TryRemove(subscriber.Id, out sub))
-                        Logger.Trace("Removed cancelled subscriber: {subscriberId}", subscriber.Id);
-                    else
-                        Logger.Trace("Unable to remove cancelled subscriber: {subscriberId}", subscriber.Id);
+                    Logger.Trace(
+                        _subscribers.TryRemove(subscriber.Id, out sub)
+                            ? "Removed cancelled subscriber: {subscriberId}"
+                            : "Unable to remove cancelled subscriber: {subscriberId}", subscriber.Id);
 
                     continue;
                 }
@@ -122,8 +122,7 @@ namespace Borg.Infra.Messaging
 
             foreach (var messageId in messagesToSend)
             {
-                DelayedMessage message;
-                if (!_delayedMessages.TryRemove(messageId, out message))
+                if (!_delayedMessages.TryRemove(messageId, out var message))
                     continue;
 
                 Logger.Trace("Sending delayed message scheduled for {0} for type {1}", message.SendTime.ToString("o"),

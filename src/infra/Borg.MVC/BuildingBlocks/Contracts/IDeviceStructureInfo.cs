@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {
-    public interface IDeviceStrctureInfo : IHaveSections, IHaveALayout
+    public interface IDeviceStructureInfo : IHaveSections, IHaveALayout
     {
         
     }
 
-    public class DeviceStructureInfo: IDeviceStrctureInfo
+    public class DeviceStructureInfo: IDeviceStructureInfo
     {
         public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
         ICollection<ISection> IHaveSections.Sections => Sections.Cast<ISection>().ToList();

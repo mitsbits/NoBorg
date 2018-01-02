@@ -5,8 +5,7 @@ using System.Linq;
 
 namespace Borg.Infra.DTO
 {
-    public class Tidings : ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>,
-        ICloneable, ICloneable<Tidings>
+    public class Tidings : ICollection<Tiding>, IDictionary<string, string>, IReadOnlyList<Tiding>, IEnumerable<Tiding>, ICloneable, ICloneable<Tidings>
     {
         private readonly ICollection<Tiding> _bucket;
 
@@ -50,6 +49,7 @@ namespace Borg.Infra.DTO
 
         public void Add(Tiding item)
         {
+            Preconditions.NotNull(item, nameof(item));
             _bucket.Add(item);
         }
 
@@ -60,6 +60,7 @@ namespace Borg.Infra.DTO
 
         public bool Contains(Tiding item)
         {
+            Preconditions.NotNull(item, nameof(item));
             return _bucket.Contains(item);
         }
 

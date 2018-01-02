@@ -7,6 +7,6 @@ namespace Borg.MVC.BuildingBlocks.Contracts
 {
   public  interface IDeviceStructureProvider
     {
-        Task<IDeviceStrctureInfo> PageLayout(int id);
+        Task<IDeviceStructureInfo> PageLayout(int id);
     }
 }

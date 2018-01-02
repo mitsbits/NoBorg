@@ -74,9 +74,7 @@ namespace Borg.Infra.Storage
             if (!extension.StartsWith(seperator.ToString()))
                 extension = seperator + extension;
 
-            string mime;
-
-            return _mappings.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
+            return _mappings.TryGetValue(extension, out var mime) ? mime : "application/octet-stream";
         }
 
         public static IFileSpec ToSpec(this FileInfo info, string textToRemoveFomFullPath = "")

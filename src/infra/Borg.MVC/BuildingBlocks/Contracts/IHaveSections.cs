@@ -8,6 +8,7 @@ namespace Borg.MVC.BuildingBlocks.Contracts
         string RenderScheme { get; }
 
         void SectionsClear();
+
         void SectionAdd(ISection section);
     }
 }

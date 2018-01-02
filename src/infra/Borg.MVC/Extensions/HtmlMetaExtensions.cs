@@ -1,5 +1,6 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
 using System;
+using Borg.Infra;
 
 namespace Borg.MVC.Extensions
 {
@@ -12,18 +13,21 @@ namespace Borg.MVC.Extensions
 
         public static bool IsOpenGraph(this IHtmlMeta meta)
         {
+            Preconditions.NotNull(meta, nameof(meta));
             return (!string.IsNullOrWhiteSpace(meta.Name)
                     && meta.Name.StartsWith("og:", StringComparison.CurrentCultureIgnoreCase));
         }
 
         public static bool IsTwitterCard(this IHtmlMeta meta)
         {
+            Preconditions.NotNull(meta, nameof(meta));
             return (!string.IsNullOrWhiteSpace(meta.Name)
                     && meta.Name.StartsWith("twitter:", StringComparison.CurrentCultureIgnoreCase));
         }
 
         public static string TypeIdentifier(this IHtmlMeta meta)
         {
+            Preconditions.NotNull(meta, nameof(meta));
             if (meta.IsOpenGraph()) return "OPENGRAPH";
             if (meta.IsTwitterCard()) return "TWITTERCARD";
             return meta.IsHttpEquiv() ? "HTTPEQUIV" : "BASIC";

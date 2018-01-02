@@ -1,6 +1,7 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -21,8 +22,9 @@ namespace Borg.MVC.BuildingBlocks
 
         public void DefineSlot(SectionSlotInfo info, ModuleRenderer module)
         {
-            var slot = Slots
-                .FirstOrDefault(x => x.SectionSlotInfo.Ordinal == info.Ordinal
+            Preconditions.NotNull(info, nameof(info));
+            Preconditions.NotNull(module, nameof(module));
+            var slot = Slots.FirstOrDefault(x => x.SectionSlotInfo.Ordinal == info.Ordinal
                                      && x.SectionSlotInfo.SectionIdentifier == info.SectionIdentifier);
 
             if (slot != null) Slots.Remove(slot);

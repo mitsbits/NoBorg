@@ -1,5 +1,6 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
 using System;
+using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -12,7 +13,7 @@ namespace Borg.MVC.BuildingBlocks
         public SectionSlotInfo(string sectionIdentifier, bool enabled, int ordinal)
             : this()
         {
-            if (string.IsNullOrWhiteSpace(sectionIdentifier)) throw new ArgumentNullException(nameof(sectionIdentifier));
+            Preconditions.NotNull(sectionIdentifier, nameof(sectionIdentifier));
             SectionIdentifier = sectionIdentifier;
             Enabled = enabled;
             Ordinal = ordinal;

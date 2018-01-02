@@ -23,7 +23,7 @@ namespace Borg.Infra.Collections.Hierarchy
         /// <returns>
         /// An <see cref="T:System.Object"/> hierarchical data node object.
         /// </returns>
-        [Obsolete("why is this here?")]
+        [Obsolete("why is this here?", true)]
         object Item { get; }
 
         /// <summary>

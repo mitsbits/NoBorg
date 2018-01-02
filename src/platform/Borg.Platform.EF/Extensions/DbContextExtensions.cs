@@ -10,17 +10,17 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Borg.Platform.EF
+namespace Borg
 {
     public static class DbContextExtensions
     {
-        public static async Task<IPagedResult<T>> Fetch<T, TDbContext>(this TDbContext db, Expression<Func<T, bool>> predicate, int page, int size, IEnumerable<OrderByInfo<T>> orderBy, CancellationToken cancellationToken = default(CancellationToken), bool readOnly = false, Expression<Func<T, dynamic>>[] paths = null) where T : class where TDbContext : DbContext
+        public static async Task<IPagedResult<T>> Fetch<T, TDbContext>(this TDbContext db, Expression<Func<T, bool>> predicate, int page, int size, IEnumerable<OrderByInfo<T>> orderBy, CancellationToken cancellationToken = default(CancellationToken), bool noTracking = false, Expression<Func<T, dynamic>>[] paths = null) where T : class where TDbContext : DbContext
         {
             cancellationToken.ThrowIfCancellationRequested();
             var fetchAll = (page == -1 && size == -1);
             IPagedResult<T> result;
 
-            var query = (readOnly) ? db.Set<T>().AsNoTracking().Where(predicate) : db.Set<T>().Where(predicate);
+            var query = (noTracking) ? db.Set<T>().AsNoTracking().Where(predicate) : db.Set<T>().Where(predicate);
             var totalRecords = (fetchAll) ? 0 : await query.CountAsync(cancellationToken: cancellationToken);
             var totalPages = (fetchAll) ? 1 : (int)Math.Ceiling((double)totalRecords / size);
             if (page > totalPages)

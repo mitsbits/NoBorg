@@ -3,8 +3,7 @@
     public interface IPageOrchestrator<out TPage, out TDevice> :
         IPageOrchestrator,
         IPageContentAccessor<IPageContent>,
-        IDeviceAccessor<IDevice>,
-        ICanContextualize
+        IDeviceAccessor<IDevice>
         where TPage : IPageContent where TDevice : IDevice
     {
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -14,6 +15,7 @@ namespace Borg.MVC.BuildingBlocks
 
         private ModuleGender(string flavorDescription)
         {
+            Preconditions.NotEmpty(flavorDescription, nameof(flavorDescription));
             _flavorDescription = flavorDescription;
             Dict.Add(flavorDescription, this);
         }
@@ -43,7 +45,7 @@ namespace Borg.MVC.BuildingBlocks
             }
             catch (NotImplementedException)
             {
-                gender = null;
+                gender = Empty;
                 return false;
             }
         }

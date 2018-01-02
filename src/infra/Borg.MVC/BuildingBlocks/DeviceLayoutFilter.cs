@@ -1,4 +1,5 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,6 +11,7 @@ namespace Borg.MVC.BuildingBlocks
         private readonly IPageOrchestrator<IPageContent, IDevice> _orchestrator;
         public DeviceLayoutFilter(IPageOrchestrator<IPageContent, IDevice> orchestrator, string layout = ""):base()
         {
+            Preconditions.NotNull(orchestrator, nameof(orchestrator));
             _orchestrator = orchestrator;
             Layout = layout;
         }

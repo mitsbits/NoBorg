@@ -1,4 +1,5 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -6,6 +7,8 @@ namespace Borg.MVC.BuildingBlocks
     {
         public Slot(SectionSlotInfo sectionSlotInfo, ModuleRenderer module)
         {
+            Preconditions.NotNull(sectionSlotInfo, nameof(sectionSlotInfo));
+            Preconditions.NotNull(module, nameof(module));
             SectionSlotInfo = sectionSlotInfo;
             Module = module;
         }

@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DTO;
+﻿using Borg.Infra;
+using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks.Contracts;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ namespace Borg.MVC.BuildingBlocks
         protected BaseModule(string friendlyName)
             : this()
         {
+            Preconditions.NotNull(friendlyName, nameof(friendlyName));
             FriendlyName = friendlyName;
         }
 

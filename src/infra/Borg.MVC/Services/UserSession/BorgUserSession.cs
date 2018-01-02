@@ -22,15 +22,13 @@ namespace Borg.MVC.Services.UserSession
 
         public BorgUserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer, ISessionServerResponseProvider srprovider, Func<string, IFileStorage> storageFactory) : base(httpContextAccessor, serializer)
         {
+            Preconditions.NotNull(srprovider, nameof(srprovider));
+            Preconditions.NotNull(storageFactory, nameof(storageFactory));
             _srprovider = srprovider;
             _storageFactory = storageFactory;
         }
 
-        public void StartSession()
-        {
-            Remove(SessionStartKey);
-            SaveState();
-        }
+        #region IServerResponseProvider
 
         public void Push(ServerResponse message)
         {
@@ -43,6 +41,10 @@ namespace Borg.MVC.Services.UserSession
         }
 
         public IReadOnlyCollection<ServerResponse> Messages => _srprovider.Messages;
+
+        #endregion IServerResponseProvider
+
+        #region IUserSessionStorage
 
         private IScopedFileStorage _userStorage = null;
 
@@ -57,13 +59,23 @@ namespace Borg.MVC.Services.UserSession
             }
         }
 
+        #endregion IUserSessionStorage
+
+        #region ICanContextualize
+
         public override bool ContextAcquired { get; protected set; } = false;
+
+        #endregion ICanContextualize
+
+        #region ICanContextualizeFromController
 
         public void Contextualize(Controller controller)
         {
             if (ContextAcquired) return;
             ContextAcquired = _srprovider.TryContextualize(controller);
         }
+
+        #endregion ICanContextualizeFromController
 
         #region IFileStorage
 

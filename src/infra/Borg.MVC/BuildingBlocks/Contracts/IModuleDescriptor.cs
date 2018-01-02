@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Borg.Infra.DTO;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {
@@ -20,18 +19,5 @@ namespace Borg.MVC.BuildingBlocks.Contracts
         string Summary { get; }
         string ModuleGroup { get; }
         ModuleGender ModuleGender { get; }
-    }
-
-    public interface IModuleRenderer<out TData> : IModuleDescriptor where TData : IDictionary<string, string>
-    {
-        TData Parameters { get; }
-    }
-
-    public class ModuleRenderer 
-    {
-        public string FriendlyName { get; set; }
-        public string Summary { get; set; }
-        public string ModuleGroup { get; set; }
-        public Tiding[] Parameters { get; set; }
     }
 }

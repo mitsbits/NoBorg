@@ -1,12 +1,9 @@
-﻿using Borg.Infra.Collections.Hierarchy;
-using System;
+﻿using System;
 
 namespace Borg.Infra.DTO
 {
     public class Tiding : Catalogued, IWeighted, ICloneable, ICloneable<Tiding>
     {
-        private IHierarchicalEnumerable _children;
-
         public Tiding(string key, string value = "")
         {
             Key = key;

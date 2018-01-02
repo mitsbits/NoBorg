@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Borg.Infra.Collections;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using Borg.Infra.Collections;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Borg.MVC.TagHelpers.HtmlPager
 {
@@ -56,8 +56,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
             if (settings == null) settings = new PaginationInfo();
             return new HtmlString(GetHtmlPager(metaData, generatePageUrl, routedValues, settings, htmlAttributes));
         }
-
-
 
         internal static string GetHtmlPager(
             IPagedResult metaData,
@@ -169,7 +167,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
             return ul.GetString();
         }
 
-
         private static string GetRoutedValues(IDictionary<string, string[]> routedValues, string pageVariable)
         {
             //string paramBuilder = string.Empty;
@@ -185,7 +182,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         if (!key.Equals(pageVariable, StringComparison.OrdinalIgnoreCase))
                             paramBuilder.Append($"&{key}={val}");
                     }
-
                 }
             }
 
@@ -414,12 +410,8 @@ namespace Borg.MVC.TagHelpers.HtmlPager
 
         public class PaginationInfo
         {
-            private bool _pagerInChunks = false;
-            private int _chunkCount = 10;
-
             public PaginationInfo()
             {
-
             }
 
             public PaginationInfo(IPaginationSettingsProvider provider) : this()
@@ -446,19 +438,11 @@ namespace Borg.MVC.TagHelpers.HtmlPager
             }
 
             [DefaultValue(false)]
-            public bool PagerInChunks
-            {
-                get { return _pagerInChunks; }
-                set { _pagerInChunks = value; }
-            }
+            public bool PagerInChunks { get; set; } = false;
 
-            public int ChunkCount
-            {
-                get { return _chunkCount; }
-                set { _chunkCount = value; }
-            }
+            public int ChunkCount { get; set; } = 10;
 
-            private PaginationInfoStyle _paginationInfoStyle = new PaginationInfoStyle();
+            private readonly PaginationInfoStyle _paginationInfoStyle = new PaginationInfoStyle();
 
             public PaginationInfoStyle PaginationInfoStyle
             {
@@ -777,12 +761,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                     return result;
                 }
             }
-
-
-
-
-
-
         }
 
         public static string GetString(this IHtmlContent content)
@@ -793,4 +771,3 @@ namespace Borg.MVC.TagHelpers.HtmlPager
         }
     }
 }
-

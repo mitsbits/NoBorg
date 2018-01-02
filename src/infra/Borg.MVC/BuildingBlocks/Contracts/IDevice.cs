@@ -1,8 +1,6 @@
 ﻿namespace Borg.MVC.BuildingBlocks.Contracts
 {
-    public interface IDevice : IHaveAUrl, IHaveAController, ICanRenderAParentView, ICanContextualize, IDeviceStrctureInfo
+    public interface IDevice : IHaveAFriendlyName, IHaveAUrl, IHaveAController, ICanRenderParentViewElements, ICanContextualize, IDeviceStructureInfo
     {
-        string FriendlyName { get; }
-  
     }
 }

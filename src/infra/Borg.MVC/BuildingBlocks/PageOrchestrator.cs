@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
+using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -23,6 +24,7 @@ namespace Borg.MVC.BuildingBlocks
         public void Contextualize(ViewContext viewContext)
         {
             if (ContextAcquired || Bag != null) return;
+            Preconditions.NotNull(viewContext, nameof(viewContext));
             Bag = viewContext.ViewBag;
             Device.TryContextualize(viewContext);
             ContextAcquired = true;
@@ -31,6 +33,7 @@ namespace Borg.MVC.BuildingBlocks
         public void Contextualize(Controller controller)
         {
             if (ContextAcquired || Bag != null) return;
+            Preconditions.NotNull(controller, nameof(controller));
             Bag = controller.ViewBag;
             Device.TryContextualize(controller);
             ContextAcquired = true;

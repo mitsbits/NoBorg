@@ -1,5 +1,4 @@
-﻿using Borg.MVC.Services.ServerResponses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {

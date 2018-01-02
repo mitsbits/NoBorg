@@ -36,8 +36,7 @@ namespace Borg.Infra.DAL
 
         public OrderByInfo(Expression<Func<T, TKey>> property, bool ascending = true)
         {
-            if (property == null) throw new ArgumentNullException(nameof(property));
-            Property = property;
+            Property = property ?? throw new ArgumentNullException(nameof(property));
             Ascending = ascending;
             TruePropertyName = TruePropertyNameInternal(Property);
         }
@@ -121,8 +120,8 @@ namespace Borg.Infra.DAL
             var memberExpr = expression.Body as MemberExpression;
             if (memberExpr == null)
             {
-                var unaryExpr = expression.Body as UnaryExpression;
-                if (unaryExpr != null && unaryExpr.NodeType == ExpressionType.Convert)
+                if (expression.Body is UnaryExpression unaryExpr
+                    && unaryExpr.NodeType == ExpressionType.Convert)
                     memberExpr = unaryExpr.Operand as MemberExpression;
             }
 

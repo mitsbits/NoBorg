@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Borg.Infra;
+﻿using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.Infra.Serializer;
 using Borg.MVC.BuildingBlocks;
@@ -9,6 +6,9 @@ using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Borg.MVC.Services.ServerResponses
 {
@@ -31,18 +31,19 @@ namespace Borg.MVC.Services.ServerResponses
 
         public TempDataResponseProvider(ISerializer serializer)
         {
+            Preconditions.NotNull(serializer, nameof(serializer));
             _serializer = serializer;
         }
 
         public void Push(ServerResponse message)
         {
             if (!_loaded) throw new Exception(nameof(_context));
+            Preconditions.NotNull(message, nameof(message));
             _bucket.Add(message);
             _context[_key] = _serializer.SerializeToString(_bucket);
         }
 
         public IReadOnlyCollection<ServerResponse> Messages => _bucket;
-
 
         public ServerResponse Pop()
         {
@@ -54,19 +55,21 @@ namespace Borg.MVC.Services.ServerResponses
 
         public void Contextualize(ViewContext context)
         {
+            Preconditions.NotNull(context, nameof(context));
             _context = context.TempData;
             Load();
         }
 
         public void Contextualize(Controller context)
         {
+            Preconditions.NotNull(context, nameof(context));
             _context = context.TempData;
             Load();
         }
 
         private void Load()
         {
-            if(_loaded) return;
+            if (_loaded) return;
             _bucket.Clear();
             if (_context != null && _context.ContainsKey(_key))
             {

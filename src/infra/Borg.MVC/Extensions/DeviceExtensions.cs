@@ -1,4 +1,5 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.Extensions
 {
@@ -6,6 +7,7 @@ namespace Borg.MVC.Extensions
     {
         public static string RelativePath(this IDevice device)
         {
+            Preconditions.NotNull(device, nameof(device));
             return $"{device.Path}{device.QueryString}";
         }
     }

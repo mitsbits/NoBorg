@@ -16,13 +16,16 @@ namespace Borg.MVC.Services.UserSession
 
         protected UserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer)
         {
+            Preconditions.NotNull(httpContextAccessor, nameof(httpContextAccessor));
+            Preconditions.NotNull(serializer, nameof(serializer));
             HttpContext = httpContextAccessor.HttpContext;
             Serializer = serializer;
             SessionId = HttpContext.Session.Id;
             ReadState();
-            //PopulateState();
             SaveState();
         }
+
+        #region IUserSession
 
         public void StartSession()
         {
@@ -35,19 +38,6 @@ namespace Borg.MVC.Services.UserSession
             Remove(SessionStartKey);
             HttpContext.Response.Cookies.Delete(SettingsCookieName);
         }
-
-        //private void PopulateState()
-        //{
-        //    if (!IsAuthenticated()) return;
-        //    var dict = new Dictionary<string, string>();
-        //    foreach (var userClaim in HttpContext?.User?.Claims)
-        //    {
-        //        dict.Add(userClaim.Type, Serializer.SerializeToString( userClaim.Value));
-        //        //Setting(userClaim.Type, userClaim.Value);
-        //    }
-        //    this.AppendAndUpdate(dict);
-        //    var gg = Setting<string>(dict.Keys.First());
-        //}
 
         public DateTimeOffset SessionStart
         {
@@ -67,42 +57,16 @@ namespace Borg.MVC.Services.UserSession
         public string UserIdentifier => !IsAuthenticated() ? string.Empty : HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
         public string UserName => !IsAuthenticated() ? string.Empty : HttpContext.User.Identity.Name;
 
-        public string SessionId { get; }
-
-        protected HttpContext HttpContext { get; }
-
-        protected ISerializer Serializer { get; }
-
-        public abstract bool ContextAcquired { get; protected set; }
-
         public bool IsAuthenticated()
         {
             return HttpContext.User != null && HttpContext.User.Identity.IsAuthenticated;
         }
 
-        protected virtual void SaveState()
-        {
-            string data = Serializer.SerializeToString(this as Tidings);
-            CookieOptions options = new CookieOptions { HttpOnly = true };
-            HttpContext.Response.Cookies.Append(SettingsCookieName, data, options);
-        }
-
-        protected virtual void ReadState()
-        {
-            if (HttpContext.Request.Cookies.ContainsKey(SettingsCookieName))
-            {
-                var jsonData = HttpContext.Request.Cookies[SettingsCookieName];
-                Tidings data = Serializer.Deserialize<Tidings>(jsonData);
-                Clear();
-                foreach (var tiding in data)
-                {
-                    Add(tiding);
-                }
-            }
-        }
+        public string SessionId { get; }
 
         public T Setting<T>(string key, T value)
         {
+            Preconditions.NotEmpty(key, nameof(key));
             T setting = default(T);
             if (value != null)
             {
@@ -131,12 +95,46 @@ namespace Borg.MVC.Services.UserSession
 
         public T Setting<T>(string key)
         {
+            Preconditions.NotEmpty(key, nameof(key));
             T setting = default(T);
             if (ContainsKey(key))
             {
                 setting = RootByKey[key].GetValue<T>(Serializer);
             }
             return setting;
+        }
+
+        #endregion IUserSession
+
+        #region ICanContextualize
+
+        public abstract bool ContextAcquired { get; protected set; }
+
+        #endregion ICanContextualize
+
+        protected virtual HttpContext HttpContext { get; }
+
+        protected virtual ISerializer Serializer { get; }
+
+        protected virtual void SaveState()
+        {
+            string data = Serializer.SerializeToString(this as Tidings);
+            CookieOptions options = new CookieOptions { HttpOnly = true };
+            HttpContext.Response.Cookies.Append(SettingsCookieName, data, options);
+        }
+
+        protected virtual void ReadState()
+        {
+            if (HttpContext.Request.Cookies.ContainsKey(SettingsCookieName))
+            {
+                var jsonData = HttpContext.Request.Cookies[SettingsCookieName];
+                Tidings data = Serializer.Deserialize<Tidings>(jsonData);
+                Clear();
+                foreach (var tiding in data)
+                {
+                    Add(tiding);
+                }
+            }
         }
     }
 }

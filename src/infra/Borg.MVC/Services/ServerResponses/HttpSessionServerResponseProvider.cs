@@ -20,6 +20,8 @@ namespace Borg.MVC.Services.ServerResponses
 
         public HttpSessionServerResponseProvider(ISerializer serializer, IHttpContextAccessor contextAccessor)
         {
+            Preconditions.NotNull(serializer, nameof(serializer));
+            Preconditions.NotNull(contextAccessor, nameof(contextAccessor));
             _bucket = new List<ServerResponse>();
             _serializer = serializer;
             _contextAccessor = contextAccessor;
@@ -31,6 +33,7 @@ namespace Borg.MVC.Services.ServerResponses
 
         public void Push(ServerResponse message)
         {
+            Preconditions.NotNull(message, nameof(message));
             Load();
             if (_bucket.Contains(message)) return;
             _bucket.Add(message);
