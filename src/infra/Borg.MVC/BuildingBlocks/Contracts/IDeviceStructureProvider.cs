@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {
-  public  interface IDeviceStructureProvider
+    public interface IDeviceStructureProvider
     {
         Task<IDeviceStructureInfo> PageLayout(int id);
+
+        Task<IDeviceStructureInfo> PageLayout(string layout);
     }
 }

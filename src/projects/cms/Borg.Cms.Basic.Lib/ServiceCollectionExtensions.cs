@@ -1,14 +1,17 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Cms.Basic.Lib.Features.Device.Services;
 using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Cms.Basic.Lib.Features.Navigation.Services;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra;
+using Borg.Infra.DTO;
 using Borg.Infra.Services.AssemblyProvider;
 using Borg.Infra.Storage;
 using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Services;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
 using Borg.Platform.EF.Contracts;
@@ -18,30 +21,26 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Content.Modules;
-using Borg.Cms.Basic.Lib.Features.Device.Services;
-using Borg.Cms.Basic.Lib.Features.Navigation.Modules;
-using Borg.Infra.DTO;
-using Borg.MVC.Services;
 
 namespace Borg.Cms.Basic.Lib
 {
     public static class ServiceCollectionExtensions
     {
-        public static IEnumerable<Assembly> GetRefAssembleisAndRegsiterDefaultProviders(this IServiceCollection services, ILoggerFactory loggerFactory)
+        public static Assembly[] GetRefAssembliesAndRegsiterDefaultProviders(this IServiceCollection services, ILoggerFactory loggerFactory)
         {
             services.AddScoped<IAssemblyProvider, DepedencyAssemblyProvider>();
             services.AddScoped<IAssemblyProvider, ReferenceAssemblyProvider>();
             var p1 = new DepedencyAssemblyProvider(loggerFactory);
             var p2 = new ReferenceAssemblyProvider(loggerFactory);
             var asmbls = p1.GetAssemblies().Union(p2.GetAssemblies()).Where(x => !x.FullName.StartsWith("Microsoft")).Distinct();
-            return asmbls;
+            return asmbls.ToArray();
         }
 
         public static IServiceCollection RegisterCommonFramework(this IServiceCollection services, BorgSettings settings, ILoggerFactory loggerFactory)
@@ -133,7 +132,7 @@ namespace Borg.Cms.Basic.Lib
             return services;
         }
 
-        public static IServiceCollection RegisterBorg(this IServiceCollection services, BorgSettings settings, ILoggerFactory loggerFactory, IHostingEnvironment environment)
+        public static IServiceCollection RegisterBorg(this IServiceCollection services, BorgSettings settings, ILoggerFactory loggerFactory, IHostingEnvironment environment, IEnumerable<Assembly> assembliesToScan)
         {
             services.AddDbContextPool<BorgDbContext>(options =>
             {
@@ -144,13 +143,33 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<BorgDbSeed>();
             services.AddScoped<IMenuProvider, MenuProvider>();
 
-            services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
-            services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
+            //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
+            //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
 
-            services.AddSingleton<IModuleDescriptor, BodyViewModuleDescriptor>();
-            services.AddSingleton<IModuleDescriptor<Tidings>, BodyViewModuleDescriptor>();
+            //services.AddSingleton<IModuleDescriptor, BodyViewModuleDescriptor>();
+            //services.AddSingleton<IModuleDescriptor<Tidings>, BodyViewModuleDescriptor>();
+
+            foreach (var assembly in assembliesToScan)
+            {
+                var moduledscrs = assembly.GetTypes().Where(t =>
+                    t.IsNonAbstractClass(false) && t.GetInterface(nameof(IModuleDescriptor), true) != null);
+                if (moduledscrs.Any())
+                {
+                    foreach (var moduledscr in moduledscrs)
+                    {
+                        var intrfs = moduledscr.GetInterfaces();
+                        foreach (var intrf in intrfs)
+                        {
+                            services.Add(new ServiceDescriptor(intrf, moduledscr, ServiceLifetime.Singleton));
+                        }
+                        services.TryAdd(new ServiceDescriptor(typeof(IModuleDescriptor), moduledscr, ServiceLifetime.Singleton));
+                        services.TryAdd(new ServiceDescriptor(typeof(IModuleDescriptor<Tidings>), moduledscr, ServiceLifetime.Singleton));
+                    }
+                }
+            }
 
             services.AddSingleton<IModuleDescriptorProvider, ModuleDescriptorProvider>();
+            services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>();
             services.AddScoped<IDeviceStructureProvider, DeviceStructureProvider>();
             return services;
         }

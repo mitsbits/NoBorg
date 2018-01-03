@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Device.Commands;
+﻿using Borg.Cms.Basic.Lib.Features.Device.Commands;
 using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.Features.Device.ViewModels;
 using Borg.MVC;
@@ -11,23 +7,31 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
     [Route("[area]/Devices")]
-    [Area("Backoffice")][Authorize]
+    [Area("Backoffice")]
+    [Authorize]
     public class DevicesController : BorgController
     {
         private readonly IMediator _dispatcher;
         private readonly IModuleDescriptorProvider _modules;
-        public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules) : base(loggerFactory)
+        private readonly IDeviceLayoutFileProvider _deviceLayoutFiles;
+
+        public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules, IDeviceLayoutFileProvider deviceLayoutFiles) : base(loggerFactory)
         {
             _dispatcher = dispatcher;
             _modules = modules;
+            _deviceLayoutFiles = deviceLayoutFiles;
         }
+
         [HttpGet("")]
-        public async Task< IActionResult> Home()
+        public async Task<IActionResult> Home()
         {
+            var ff = await _deviceLayoutFiles.LayoutFiles();
             var model = await _dispatcher.Send(new DevicesRequest());
             SetPageTitle("Devices", $"{model.Payload.Count()} templates");
             return View(model.Payload);
@@ -38,8 +42,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             var model = await _dispatcher.Send(new DeviceRequest(id));
             SetPageTitle($"Device: {model.Payload.FriendlyName}", $"{model.Payload.Sections.Count()} sections");
-            return View("Device",model.Payload);
+            return View("Device", model.Payload);
         }
+
         [HttpPost("edit")]
         public async Task<IActionResult> Edit(DeviceCreateOrUpdateCommand model)
         {
@@ -52,8 +57,8 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return RedirectToAction(nameof(Home), new { id = result.Payload.Id });
-
         }
+
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(DeviceDeleteCommand model)
         {
@@ -66,12 +71,11 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return RedirectToAction(nameof(Home));
-
         }
+
         [HttpGet("section/{id}")]
         public async Task<IActionResult> Section(int id)
         {
-
             var reposnse = await _dispatcher.Send(new SectionRequest(id));
             SetPageTitle($"Section: {reposnse.Payload.FriendlyName}", $"Device: {reposnse.Payload.Device.FriendlyName}");
             var model = new SectionViewModel
@@ -79,8 +83,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 Record = reposnse.Payload,
                 Descriptors = _modules.Descriptors()
             };
-            return View( model);
+            return View(model);
         }
+
         [HttpPost("section/edit")]
         public async Task<IActionResult> SectionEdit(SectionCreateOrUpdateCommand model)
         {
@@ -93,7 +98,6 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return RedirectToAction(nameof(Section), new { id = result.Payload.Id });
-
         }
 
         [HttpPost("section/delete")]
@@ -108,7 +112,6 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return Redirect(redirectUrl);
-
         }
 
         [HttpPost("slot/edit")]
@@ -123,7 +126,6 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return Redirect(redirectUrl);
-
         }
 
         [HttpPost("slot/delete")]
@@ -138,9 +140,6 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
             }
             return Redirect(redirectUrl);
-
         }
-
-
     }
 }

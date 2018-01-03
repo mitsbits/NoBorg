@@ -4,3 +4,4 @@
 [assembly: InternalsVisibleTo("Borg.MVC")]
 [assembly: InternalsVisibleTo("Borg.Platform.Azure")]
 [assembly: InternalsVisibleTo("Borg.Platform.EF")]
+[assembly: InternalsVisibleTo("Borg.Cms.Basic.Lib")]

@@ -32,14 +32,13 @@ namespace Borg.Cms.Basic
             services.Config(Configuration.GetSection("Borg"), () => Settings);
             services.AddDistributedMemoryCache();
 
-            var asmbls = services.GetRefAssembleisAndRegsiterDefaultProviders(LoggerFactory);
+            var assembliesToScan = services.GetRefAssembliesAndRegsiterDefaultProviders(LoggerFactory);
             services.RegisterCommonFramework(Settings, LoggerFactory);
             services.RegisterAuth(Settings, LoggerFactory, Environment);
-            services.RegisterBorg(Settings, LoggerFactory, Environment);
 
+            services.RegisterBorg(Settings, LoggerFactory, Environment, assembliesToScan);
 
-
-            services.AddMediatR(asmbls);
+            services.AddMediatR(assembliesToScan);
 
             services.AddMvc();
 

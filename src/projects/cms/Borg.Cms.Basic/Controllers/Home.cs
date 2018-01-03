@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using Borg.MVC.BuildingBlocks;
+﻿using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Controllers
 {
-    //[TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_Layout" })]
+    [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_LayoutSample" })]
     public class HomeController : Controller
     {
         private readonly IDeviceStructureProvider _deviceProvider;
@@ -16,10 +16,11 @@ namespace Borg.Cms.Basic.Controllers
             _deviceProvider = deviceProvider;
         }
 
-        public async Task< IActionResult> Home([FromServices] IPageOrchestrator<IPageContent, IDevice> orchestrator)
+        public async Task<IActionResult> Home([FromServices] IPageOrchestrator<IPageContent, IDevice> orchestrator)
         {
-            var model = await _deviceProvider.PageLayout(8);
             orchestrator.TryContextualize(this);
+            var model = await _deviceProvider.PageLayout(orchestrator.Device.Layout);
+
             orchestrator.Device.Layout = model.Layout;
             orchestrator.Device.RenderScheme = model.RenderScheme;
             orchestrator.Device.SectionsClear();

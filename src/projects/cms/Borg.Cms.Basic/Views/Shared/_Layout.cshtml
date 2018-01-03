@@ -82,7 +82,7 @@
                 </button>
                 <a class="navbar-brand" href="@_settings.Tenant.Endpoint">@_settings.Tenant.ServiceTag</a>
             </div>
-            @RenderSection("menu", required: false)
+            @await RenderSectionAsync("menu", required: false)
         </div>
     </nav>
     @RenderBody()

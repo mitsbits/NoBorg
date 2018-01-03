@@ -6,9 +6,9 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-@RenderSection("head", required: false)
-<div>
-    @RenderSection("main", required: false)
-</div>
+    @RenderSection("head", required: false)
+    <div>
+        @await RenderSectionAsync("main", required: false)
+    </div>
 </body>
 </html>

@@ -16,6 +16,7 @@
     <Folder Include="Areas\Backoffice\Views\Account\" />
     <Folder Include="Areas\Backoffice\Views\Shared\Layout\" />
     <Folder Include="Areas\Backoffice\Views\Users\Components\" />
+    <Folder Include="Views\Shared\Templates\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 

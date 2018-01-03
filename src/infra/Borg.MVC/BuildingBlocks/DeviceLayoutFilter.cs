@@ -15,11 +15,19 @@ namespace Borg.MVC.BuildingBlocks
             _orchestrator = orchestrator;
             Layout = layout;
         }
-        public string Layout { get; } = string.Empty;
 
-        public override void OnResultExecuting(ResultExecutingContext context)
+        private string Layout { get; }
+
+        //public override void OnResultExecuting(ResultExecutingContext context)
+        //{
+        //    base.OnResultExecuting(context);
+        //    _orchestrator.TryContextualize(context.Controller as Controller);
+        //    _orchestrator.Device.Layout = Layout;
+        //}
+
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            base.OnResultExecuting(context);
+            base.OnActionExecuting(context);
             _orchestrator.TryContextualize(context.Controller as Controller);
             _orchestrator.Device.Layout = Layout;
         }

@@ -7,7 +7,7 @@ using Borg.Infra.DI;
 
 namespace Borg
 {
-    internal static class ReflectionExtensions
+    public static class ReflectionExtensions
     {
         public static bool IsNonAbstractClass(this Type type, bool publicOnly)
         {

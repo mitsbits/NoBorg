@@ -10,7 +10,6 @@ namespace Borg.Cms.Basic
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args);
 
             var host = BuildWebHost(args);
 

@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Borg.MVC.BuildingBlocks.Contracts;
+using System.Collections.Generic;
 using System.Linq;
-using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {
-    public class DeviceStructureInfo: IDeviceStructureInfo
+    public class DeviceStructureInfo : IDeviceStructureInfo
     {
         public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
         ICollection<ISection> IHaveSections.Sections => Sections.Cast<ISection>().ToList();
         public string RenderScheme { get; set; }
+
         public void SectionsClear()
         {
             Sections.Clear();
