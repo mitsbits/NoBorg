@@ -29,7 +29,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 
         [Required]
         public string FriendlyName { get; set; }
-
+        [Required]
         public string Layout { get; set; }
 
         [Required]

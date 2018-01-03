@@ -16,7 +16,7 @@ namespace Borg.MVC.Services
         private readonly string[] _sectionTriggers = { @"RenderSectionAsync\(", @"RenderSection\(" }; //the order is important
         private readonly BorgSettings _settings;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private List<DeviceLayoutFileInfo> _layouts = new List<DeviceLayoutFileInfo>();
+        private readonly List<DeviceLayoutFileInfo> _layouts = new List<DeviceLayoutFileInfo>();
         private bool _hasInitialised = false;
 
         public DeviceLayoutFileProvider(IHostingEnvironment hostingEnvironment, BorgSettings settings)
@@ -27,6 +27,7 @@ namespace Borg.MVC.Services
 
         private void Init()
         {
+            _layouts.Clear();
             var root = _hostingEnvironment.ContentRootPath;
             var defaultTemplatesPath = Path.Combine(root, "Views", "Shared", _defaultTemplateFolder);
             var sharedTemplatesPath = Path.Combine(root, "Views", "Shared");
@@ -74,6 +75,7 @@ namespace Borg.MVC.Services
                     _layouts.Add(dl);
                 }
             }
+            _hasInitialised = true;
         }
 
         public Task<IEnumerable<IDeviceLayoutFileInfo>> LayoutFiles()

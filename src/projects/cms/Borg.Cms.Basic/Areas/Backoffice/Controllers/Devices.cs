@@ -31,7 +31,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Home()
         {
-            var ff = await _deviceLayoutFiles.LayoutFiles();
+            ViewBag.LayoutFiles = await _deviceLayoutFiles.LayoutFiles();
             var model = await _dispatcher.Send(new DevicesRequest());
             SetPageTitle("Devices", $"{model.Payload.Count()} templates");
             return View(model.Payload);
@@ -40,8 +40,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Home(int id)
         {
+            ViewBag.LayoutFiles = await _deviceLayoutFiles.LayoutFiles();
             var model = await _dispatcher.Send(new DeviceRequest(id));
-            SetPageTitle($"Device: {model.Payload.FriendlyName}", $"{model.Payload.Sections.Count()} sections");
+            SetPageTitle($"Device: {model.Payload.FriendlyName}", $"{model.Payload.Sections.Count} sections");
             return View("Device", model.Payload);
         }
 
