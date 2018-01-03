@@ -1,4 +1,5 @@
-﻿using Borg.MVC.BuildingBlocks;
+﻿using System;
+using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
@@ -31,22 +32,26 @@ namespace Borg.MVC.Services
             var root = _hostingEnvironment.ContentRootPath;
             var defaultTemplatesPath = Path.Combine(root, "Views", "Shared", _defaultTemplateFolder);
             var sharedTemplatesPath = Path.Combine(root, "Views", "Shared");
+            //TODO: add from settings
 
             var files1 = Directory.GetFiles(defaultTemplatesPath, "*.cshtml", SearchOption.TopDirectoryOnly);
             var files2 = Directory.GetFiles(sharedTemplatesPath, "*.cshtml", SearchOption.TopDirectoryOnly);
 
             var hits = files1.Union(files2).Distinct();
-            var layoutsections = new List<string>();
+
+  
             foreach (var hit in hits)
             {
-                var matches = new List<Match>();
+                var layoutsections = new List<string>();
+           
                 var txt = File.ReadAllText(hit);
                 foreach (var sectionTrigger in _sectionTriggers)
                 {
                     var match = Regex.Matches(txt, sectionTrigger);
-                    Match[] col = new Match[match.Count];
-                    match.CopyTo(col, 0);
-                    matches.AddRange(col);
+                    var matcharray = new Match[match.Count];
+                    var matches = new List<Match>();
+                    match.CopyTo(matcharray, 0);
+                    matches.AddRange(matcharray);
 
                     foreach (var candidate in matches)
                     {
@@ -69,9 +74,11 @@ namespace Borg.MVC.Services
                 {
                     var dl = new DeviceLayoutFileInfo()
                     {
-                        FullPath = $"~/Views/{hit.Substring(hit.IndexOf("Views/") + 5)}".Replace(@"\", "/"),
+                        
                         SectionIdentifiers = layoutsections.Distinct().ToArray()
                     };
+                    var local = hit.Substring(hit.IndexOf("Views\\", StringComparison.Ordinal) + 5);
+                    dl.FullPath = $"~/Views/{local}".Replace(@"\", "/");
                     _layouts.Add(dl);
                 }
             }

@@ -27,11 +27,11 @@ module.exports = function (env) {
             new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
             extractCSS,
             new CopyWebpackPlugin([
-         
+
                 { from: 'node_modules/jquery/dist/jquery.js' },
                 { from: 'node_modules/jquery-validation/dist/', to: 'jquery-validation/' },
-                { from: 'node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js' },             
-                { from: 'node_modules/admin-lte/dist/', to: 'adminlte/'},
+                { from: 'node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js' },
+                { from: 'node_modules/admin-lte/dist/', to: 'adminlte/' },
                 { from: 'node_modules/bootstrap/dist/', to: 'bootstrap/' },
                 { from: 'node_modules/icheck/', to: 'icheck' },
                 { from: 'node_modules/icheck/skins/', to: 'icheck/' },
@@ -39,18 +39,11 @@ module.exports = function (env) {
                 { from: 'node_modules/ionicons/dist/', to: 'ionicons/' },
                 { from: 'node_modules/select2/dist/', to: 'select2/' },
                 { from: 'node_modules/datatables.net/js/jquery.dataTables.js' },
-                { from: 'node_modules/datatables.net-bs/js/dataTables.bootstrap.js' },
+                { from: 'node_modules/datatables.net-bs/', to: 'datatables.net-bs/' },
                 { from: 'node_modules/jsoneditor/dist/', to: 'jsoneditor/' },
-
-
-
 
                 { from: 'Areas/Backoffice/Static/assets/', to: 'assets/' },
                 { from: 'Areas/Backoffice/Static/js/site.js', to: 'site.js' },
-
-
-
-
 
                 { from: 'Areas/Backoffice/Static/css/backoffice.css' },
                 //{ from: 'node_modules/admin-lte/plugins/iCheck/all.css', to: 'iCheck.css' },
@@ -58,7 +51,6 @@ module.exports = function (env) {
             ])
         ],
         module: {
-
             rules: [
                 { test: /\.css?$/, use: extractCSS.extract({ use: !isProd ? 'css-loader' : 'css-loader?minimize' }) },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
@@ -74,7 +66,6 @@ module.exports = function (env) {
                     }]
                 }
             ]
-            
         }
     }
 

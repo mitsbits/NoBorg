@@ -56,9 +56,8 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
                 {
                     try
                     {
-                        var renderer = JsonConvert.DeserializeObject<ModuleRenderer>(slotRecord.ModuleDecriptorJson);
-                        var slot = new SectionSlotInfo(sectionRecord.Identifier, slotRecord.IsEnabled, slotRecord.Ordinal);
-                        section.DefineSlot(slot, renderer);
+                        var values = slotRecord.Module(sectionRecord.Identifier);           
+                        section.DefineSlot(values.slotInfo, values.renderer);
                     }
                     catch (Exception ex)
                     {

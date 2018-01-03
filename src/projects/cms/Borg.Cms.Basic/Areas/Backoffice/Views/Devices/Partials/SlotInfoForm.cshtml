@@ -41,7 +41,7 @@
     <span asp-validation-for="IsEnabled" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <select asp-items="@moduleOptions" id="modulesselect"></select>
+    <select asp-items="@moduleOptions" id="modulesselect" class="select2"></select>
     <label asp-for="ModuleDecriptorJson"></label>
     <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
     <div id="jsoneditor" style="min-height: 400px; height: 400px;"></div>

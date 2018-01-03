@@ -12,12 +12,7 @@
 
     DefineSection(s.Identifier, async _ =>
     {
-
-
-        
         var value = await Html.RenderViewSection(Component, s);
- 
-        
         await Output.WriteAsync(value.ToString());
     });
 
