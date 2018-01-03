@@ -6,5 +6,6 @@ namespace Borg.MVC.BuildingBlocks.Contracts
     public interface IDeviceLayoutFileProvider
     {
         Task<IEnumerable<IDeviceLayoutFileInfo>> LayoutFiles();
+        void Invalidate();
     }
 }

@@ -83,5 +83,10 @@ namespace Borg.MVC.Services
             if (!_hasInitialised) Init();
             return Task.FromResult(_layouts.Cast<IDeviceLayoutFileInfo>());
         }
+
+        public void Invalidate()
+        {
+            _hasInitialised = false;
+        }
     }
 }

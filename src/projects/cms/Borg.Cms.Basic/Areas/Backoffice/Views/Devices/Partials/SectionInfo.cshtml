@@ -1,4 +1,9 @@
 ﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SectionCreateOrUpdateCommand
+@{
+    var schemeoptions = DeviceRenderScheme.Schemes().Select(x => new SelectListItem() {Value = x, Text = x});
+}
+
+
 <form role="form" asp-controller="Devices" asp-action="SectionEdit" method="post" class="form-horizontal">
     <div class="box-body">
 
@@ -28,7 +33,7 @@
         </div>
         <div class="form-group">
             <label asp-for="RenderScheme"></label>
-            <input type="text" asp-for="RenderScheme" class="form-control" />
+            <select asp-for="RenderScheme" asp-items="@schemeoptions" class="form-control select2"></select>
 
             <span asp-validation-for="RenderScheme" class="text-danger"></span>
         </div>
