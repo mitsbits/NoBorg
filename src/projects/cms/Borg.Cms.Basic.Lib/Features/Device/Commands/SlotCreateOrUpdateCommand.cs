@@ -5,6 +5,7 @@ using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,21 +32,25 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         [Required]
         public int RecordId { get; set; }
 
-        [Required]
+        [Required][DisplayName("Ordinal")]
         public int Ordinal { get; set; }
 
         [Required]
+        [DisplayName("Enabled")]
         public bool IsEnabled { get; set; }
 
         [Required]
         public int SectionId { get; set; }
 
         [Required]
+        [DisplayName("Module Type")]
         public string ModuleGender { get; set; }
 
         [Required]
+        [DisplayName("Module Descriptor")]
         public string ModuleTypeName { get; set; }
-
+        [Required]
+        [DisplayName("Module Configuration")]
         public string ModuleDecriptorJson { get; set; }
     }
 

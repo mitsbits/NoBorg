@@ -15,7 +15,7 @@ namespace Borg.Cms.Basic.Lib.System.Data
         public DbSet<NavigationItemRecord> NavigationItemRecords { get; set; }
         public DbSet<DeviceRecord> DeviceRecords { get; set; }
         public DbSet<SectionRecord> SectionRecords { get; set; }
-        public DbSet<SlotRecord> SlotRecord { get; set; }
+        public DbSet<SlotRecord> SlotRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

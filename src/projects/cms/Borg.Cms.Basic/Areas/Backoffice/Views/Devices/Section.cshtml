@@ -2,50 +2,32 @@
 @model Borg.Cms.Basic.Lib.Features.Device.ViewModels.SectionViewModel
 @{
     var record = Model.Record;
-
+    ViewBag.AvailableSectionIdentifiers = Model.AvailableSectionIdentifiers;
 }
-<div class="box">
-    <div class="box-body">
 
-        @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(record.FriendlyName, record.DeviceId, record.RenderScheme, record.Identifier, record.Id))
+
+<div class="row">
+    <div class="col-lg-8">
+
+
+        @Html.Partial("Partials/SlotList", Model)
+
+        <div class="box">
+            <div class="box-body">
+                @Html.Partial("Partials/SlotInfo", Model)
+            </div>
+        </div>
     </div>
+    <div class="col-lg-4">
+        <div class="box">
+            <div class="box-body">
+                @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(record.FriendlyName, record.DeviceId, record.RenderScheme, record.Identifier, record.Id))
+            </div>
+        </div>
 
-</div>
-<div class="box">
-    <div class="box-body">
-
-        @Html.Partial("Partials/SlotInfo", Model)
     </div>
-
 </div>
-<div class="box">
-<div class="box-body">
-    <table class="server-table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>IsEnabled</th>
-            <th>Ordinal</th>
-            <th>SectionId</th>
-            <th>ModuleDecriptorJson</th>
-            <th></th>
-        </tr>
-        </thead>
-        @foreach (var item in record.Slots)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.IsEnabled</td>
-                <td>@item.Ordinal</td>
-                <td>@item.SectionId</td>
-                <td>@item.ModuleDecriptorJson</td>
-                <td><form asp-controller="Devices" asp-action="SlotDelete" method="post" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
-                    <input type="hidden" name="RecordId" value="@item.Id"/><button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                </form></td>
-            </tr>
-        }
 
-    </table>
-    </div>
 
-</div>
+
+

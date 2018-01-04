@@ -6,6 +6,7 @@ using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -28,11 +29,16 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 
         public int RecordId { get; set; }
 
-        [Required]
+        [Required][DisplayName("Name")]
         public string FriendlyName { get; set; }
-
+        [Required]
+        [DisplayName("Identifier")]
         public string Identifier { get; set; }
+        [Required]
+        [DisplayName("Device")]
         public int DeviceId { get; set; }
+        [Required]
+        [DisplayName("Render Scheme")]
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
     }
 

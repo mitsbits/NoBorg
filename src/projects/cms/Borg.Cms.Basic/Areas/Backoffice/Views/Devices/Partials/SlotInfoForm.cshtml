@@ -1,6 +1,8 @@
 ﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SlotCreateOrUpdateCommand
 @{
     var moduleOptions = ViewBag.ModuleOptions as IEnumerable<SelectListItem>;
+    var isTransient = Model.RecordId <= 0;
+
 }
 <div class="form-group hidden">
     <label asp-for="RecordId"></label>
@@ -14,11 +16,10 @@
 
     <span asp-validation-for="SectionId" class="text-danger"></span>
 </div>
-<div class="form-group">
-    <label asp-for="Ordinal"></label>
-    <input type="text" asp-for="Ordinal" class="form-control" />
 
-    <span asp-validation-for="Ordinal" class="text-danger"></span>
+<div class="form-group">
+    <label for="modulesselect" >Module Selection</label>
+    <select asp-items="@moduleOptions" id="modulesselect" class="form-control" ></select>
 </div>
 <div class="form-group">
     <label asp-for="ModuleGender"></label>
@@ -41,9 +42,10 @@
     <span asp-validation-for="IsEnabled" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <select asp-items="@moduleOptions" id="modulesselect" class="select2"></select>
+
     <label asp-for="ModuleDecriptorJson"></label>
     <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
-    <div id="jsoneditor" style="min-height: 400px; height: 400px;"></div>
     <span asp-validation-for="ModuleDecriptorJson" class="text-danger"></span>
+    <div id="jsoneditor" style="min-height: 400px; height: 400px;"></div>
+
 </div>

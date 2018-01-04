@@ -19,6 +19,8 @@ namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
 
         public SlotCreateOrUpdateCommand  SlotCommand => new SlotCreateOrUpdateCommand(true, 0, Record.Id, "","","");
 
+        public string[] AvailableSectionIdentifiers { get; set; }
+
       static  dynamic cont(IModuleDescriptor d)
         {
             dynamic obj = new ExpandoObject();
@@ -58,7 +60,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
         }
         public IEnumerable<SelectListItem> ModuleOptions()
         {
-            yield return new SelectListItem() { Text ="...", Value = "_" };
+            yield return new SelectListItem() { Text ="...", Value = "empty" };
             foreach (var descriptor in Descriptors)
             {
                 yield return new SelectListItem(){Text = descriptor.FriendlyName, Value = descriptor.GetType().FullName.Replace(".",""), Group =new SelectListGroup(){ Name = descriptor.ModuleGroup}};
