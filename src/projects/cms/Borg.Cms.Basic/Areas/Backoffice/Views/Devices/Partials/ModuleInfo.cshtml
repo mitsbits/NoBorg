@@ -1,0 +1,122 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Device
+@model Borg.Cms.Basic.Lib.Features.Device.Commands.SlotCreateOrUpdateCommand
+@{
+    var record = ViewBag.Record as SlotRecord;
+}
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">
+            <h3 class="box-title">
+                <a asp-controller="Devices" asp-action="Home" asp-route-id="@record.Section.DeviceId">@record.Section.Device.FriendlyName</a>
+                <small> <i class="fa fa-arrow-right"></i></small>
+                <a asp-controller="Devices" asp-action="Section" asp-route-id="@record.Section.Id">@record.Section.FriendlyName</a>
+                <small>
+                    <i class="fa fa-arrow-right"></i>
+                </small>
+                <a asp-controller="Devices" asp-action="Slot" asp-route-id="@record.Id">@record.Module().renderer.FriendlyName</a>
+            </h3>
+        </div>
+    </div>
+    <form role="form" asp-controller="Devices" asp-action="SlotEdit" method="post" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
+        <div class="box-body ">
+            <div class="form-group hidden">
+                <label asp-for="RecordId"></label>
+                <input type="text" asp-for="RecordId" class="form-control" />
+
+                <span asp-validation-for="RecordId" class="text-danger"></span>
+            </div>
+            <div class="form-group hidden">
+                <label asp-for="SectionId"></label>
+                <input type="text" asp-for="SectionId" class="form-control" />
+                <span asp-validation-for="SectionId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-8">
+                    <label asp-for="ModuleGender"></label>
+                    <input type="text" asp-for="ModuleGender" class="form-control" id="moduleGenderInput" readonly="readonly" />
+
+                    <span asp-validation-for="ModuleGender" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="Ordinal"></label>
+                    <input type="text" asp-for="Ordinal" class="form-control" />
+
+                    <span asp-validation-for="Ordinal" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ModuleTypeName"></label>
+                <input type="text" asp-for="ModuleTypeName" class="form-control" readonly="readonly" />
+
+                <span asp-validation-for="ModuleTypeName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsEnabled"></label>
+                <input type="checkbox" asp-for="IsEnabled" />
+
+                <span asp-validation-for="IsEnabled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="ModuleDecriptorJson"></label>
+                <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
+                <span asp-validation-for="ModuleDecriptorJson" class="text-danger"></span>
+                <div id="jsoneditor" style="min-height: 400px; height: 600px;"></div>
+            </div>
+        </div>
+        <div class="box-footer text-right">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
+        </div>
+    </form>
+</div>
+
+<script device id="jsoneditorscript" Weight="100">
+    $(function () {
+
+        var container = document.getElementById("jsoneditor");
+
+        var options = {
+            modes: ['text', 'code', 'tree', 'form', 'view'],
+            mode: 'text',
+            ace: ace,
+            search: false,
+            sortObjectKeys: true,
+            onChange: function () {
+                var json = editor.getText();
+                $('#jsonValueBox').val(json);
+            },
+            templates: [
+                {
+                    text: 'Tiding',
+                    title: 'Insert a Tiding',
+                    className: 'jsoneditor-type-object',
+                    field: 'TidingTemplate',
+                    value: {
+                        Key: "",
+                        Value: "",
+                        Weight: 0.1,
+                        Depth: 0,
+                        HumanKey: "",
+                        Hint: "",
+                        Flag: ""
+                    }
+                }
+            ]
+        }
+        var editor = new JSONEditor(container, options);
+
+       const obj = JSON.parse('@Html.Raw( Model.ModuleDecriptorJson)');
+       editor.set(obj);
+       editor.setMode('tree');
+
+       setTimeout(function () {
+           var jtext = '@Html.Raw( Model.ModuleDecriptorJson)';
+            $('#jsonValueBox').val(jtext);
+        }, 800);
+
+    })
+</script>

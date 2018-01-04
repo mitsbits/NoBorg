@@ -1,7 +1,6 @@
 ﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SlotCreateOrUpdateCommand
 @{
     var moduleOptions = ViewBag.ModuleOptions as IEnumerable<SelectListItem>;
-    var isTransient = Model.RecordId <= 0;
 
 }
 <div class="form-group hidden">
@@ -16,21 +15,29 @@
 
     <span asp-validation-for="SectionId" class="text-danger"></span>
 </div>
-
 <div class="form-group">
-    <label for="modulesselect" >Module Selection</label>
-    <select asp-items="@moduleOptions" id="modulesselect" class="form-control" ></select>
+    <label for="modulesselect">Module Selection</label>
+    <select asp-items="@moduleOptions" id="modulesselect" class="form-control select2"></select>
 </div>
-<div class="form-group">
-    <label asp-for="ModuleGender"></label>
-    <input type="text" asp-for="ModuleGender" class="form-control" id="moduleGenderInput" />
+<div class="row">
+    <div class="form-group col-md-8">
+        <label asp-for="ModuleGender"></label>
+        <input type="text" asp-for="ModuleGender" class="form-control" id="moduleGenderInput" readonly="readonly" />
 
-    <span asp-validation-for="ModuleGender" class="text-danger"></span>
+        <span asp-validation-for="ModuleGender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label asp-for="Ordinal"></label>
+        <input type="text" asp-for="Ordinal" class="form-control" />
+
+        <span asp-validation-for="Ordinal" class="text-danger"></span>
+    </div>
 </div>
 
 <div class="form-group">
     <label asp-for="ModuleTypeName"></label>
-    <input type="text" asp-for="ModuleTypeName" class="form-control" id="moduleTypeInput" />
+    <input type="text" asp-for="ModuleTypeName" class="form-control" id="moduleTypeInput" readonly="readonly" />
 
     <span asp-validation-for="ModuleTypeName" class="text-danger"></span>
 </div>
@@ -44,8 +51,7 @@
 <div class="form-group">
 
     <label asp-for="ModuleDecriptorJson"></label>
-    <input type="text" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
+    <input type="hidden" asp-for="ModuleDecriptorJson" class="form-control hidden" id="jsonValueBox" />
     <span asp-validation-for="ModuleDecriptorJson" class="text-danger"></span>
-    <div id="jsoneditor" style="min-height: 400px; height: 400px;"></div>
-
+    <div id="jsoneditor" style="min-height: 400px; height: 600px;"></div>
 </div>

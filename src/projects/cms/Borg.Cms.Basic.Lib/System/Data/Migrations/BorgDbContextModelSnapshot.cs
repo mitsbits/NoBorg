@@ -126,7 +126,7 @@ namespace Borg.Cms.Basic.Lib.System.Data.Migrations
                     b.HasIndex("SectionId")
                         .HasName("IX_Slot_SectionId");
 
-                    b.ToTable("SlotRecord","borg");
+                    b.ToTable("SlotRecords","borg");
                 });
 
             modelBuilder.Entity("Borg.Cms.Basic.Lib.Features.Navigation.NavigationItemRecord", b =>

@@ -20,13 +20,11 @@
 
         @Html.Partial("Partials/SlotInfoForm", Model.SlotCommand)
 
-
-
         <div class="form-group text-danger" asp-validation-summary="ModelOnly">
         </div>
     </div>
     <div class="box-footer text-right">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
     </div>
 </form>
 <div class="hidden">
@@ -38,7 +36,7 @@
     }
     <input type="hidden" value="undefined" id="empty" />
 </div>
-<script device id="jsoneditorscript" Weight="100" >
+<script device id="jsoneditorscript" Weight="100">
     $(function () {
 
         var container = document.getElementById("jsoneditor");
@@ -48,9 +46,11 @@
             mode: 'text',
             ace: ace,
             search: false,
+            sortObjectKeys: true,
             onChange: function () {
                 var json = editor.getText();
                 $('#jsonValueBox').val(json);
+
             },
             templates: [
                 {
@@ -77,8 +77,7 @@
             var v = $(this).val();
             var $item = $('#' + v);
             var jtext = $item.val();
-            if (jtext === 'undefined')
-            {
+            if (jtext === 'undefined') {
                 editor.setText('{}');
                 $('#moduleGenderInput').val('');
                 $('#jsonValueBox').val('');
@@ -90,11 +89,13 @@
                 $('#moduleTypeInput').val(type);
                 editor.setText(jtext);
                 editor.setMode('tree');
+
+                setTimeout(function () {
+                    $('#jsonValueBox').val(jtext);
+                }, 800);
             }
 
         });
-
-
 
     })
 </script>

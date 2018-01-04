@@ -1,7 +1,7 @@
-﻿using System;
-using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD;
 using Borg.MVC.BuildingBlocks;
 using Newtonsoft.Json;
+using System;
 
 namespace Borg.Cms.Basic.Lib.Features.Device
 {
@@ -19,9 +19,10 @@ namespace Borg.Cms.Basic.Lib.Features.Device
         public virtual (SectionSlotInfo slotInfo, ModuleRenderer renderer) Module()
         {
             var renderer = JsonConvert.DeserializeObject<ModuleRenderer>(ModuleDecriptorJson);
-            var slot = new SectionSlotInfo(Section?.Identifier,IsEnabled, Ordinal);
+            var slot = new SectionSlotInfo(Section?.Identifier, IsEnabled, Ordinal);
             return ValueTuple.Create(slot, renderer);
         }
+
         public virtual (SectionSlotInfo slotInfo, ModuleRenderer renderer) Module(string sectionIdentifier)
         {
             var renderer = JsonConvert.DeserializeObject<ModuleRenderer>(ModuleDecriptorJson);

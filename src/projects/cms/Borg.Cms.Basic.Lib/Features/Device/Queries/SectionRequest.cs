@@ -40,35 +40,4 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
             return QueryResult<SectionRecord>.Success(results);
         }
     }
-
-
-
-
-    public class SlotRequest : IRequest<QueryResult<SlotRecord>>
-    {
-        public SlotRequest(int recordId)
-        {
-            RecordId = recordId;
-        }
-        public int RecordId { get; }
-    }
-
-    public class SlotRequestHandler : AsyncRequestHandler<SlotRequest, QueryResult<SlotRecord>>
-    {
-        private readonly ILogger _logger;
-        private readonly IUnitOfWork<BorgDbContext> _uow;
-
-        public SlotRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow)
-        {
-            _logger = loggerFactory.CreateLogger(GetType());
-            _uow = uow;
-        }
-
-        protected override async Task<QueryResult<SlotRecord>> HandleCore(SlotRequest message)
-        {
-            var result = await _uow.Context.SlotRecords.Include(x => x.Section).ThenInclude(x => x.Device).Include(x => x.Section).ThenInclude(x=>x.Slots).AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == message.RecordId);
-            return QueryResult<SlotRecord>.Success(result);
-        }
-    }
 }

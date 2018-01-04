@@ -2,15 +2,15 @@
 using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.Features.Device.ViewModels;
 using Borg.MVC;
+using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.MVC.BuildingBlocks;
-using Borg.MVC.Services.Breadcrumbs;
 
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
@@ -55,7 +55,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
             SetPageTitle($"Device: {model.Payload.FriendlyName}", $"{model.Payload.Sections.Count} sections");
             var device = PageDevice<Device>();
             device.Breadcrumbs.Add(new BreadcrumbLink("Devices", Url.Action("Home", "Devices", new { id = "" })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Payload.FriendlyName, Url.Action("Home", "Devices", new {id= model.Payload.Id})));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.Payload.FriendlyName, Url.Action("Home", "Devices", new { id = model.Payload.Id })));
             PageDevice(device);
             return View("Device", model.Payload);
         }
@@ -93,13 +93,13 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             var reposnse = await _dispatcher.Send(new SectionRequest(id));
             SetPageTitle($"Section: {reposnse.Payload.FriendlyName}", $"Device: {reposnse.Payload.Device.FriendlyName}");
-            var layouts    = await _deviceLayoutFiles.LayoutFiles();
+            var layouts = await _deviceLayoutFiles.LayoutFiles();
             var selectedLayout = layouts.FirstOrDefault(x => x.MatchesPath(reposnse.Payload.Device.Layout));
             var model = new SectionViewModel
             {
                 Record = reposnse.Payload,
                 Descriptors = _modules.Descriptors(),
-                AvailableSectionIdentifiers = selectedLayout != null?selectedLayout.SectionIdentifiers:new string[0]
+                AvailableSectionIdentifiers = selectedLayout != null ? selectedLayout.SectionIdentifiers : new string[0]
             };
             var device = PageDevice<Device>();
             device.Breadcrumbs.Add(new BreadcrumbLink("Devices", Url.Action("Home", "Devices", new { id = "" })));
@@ -141,14 +141,15 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         public async Task<IActionResult> Slot(int id)
         {
             var reposnse = await _dispatcher.Send(new SlotRequest(id));
-            SetPageTitle($"Section: {reposnse.Payload.Section.FriendlyName} Slot: {reposnse.Payload.Module(reposnse.Payload.Section.Identifier).renderer.FriendlyName}", $"Device: {reposnse.Payload.Section.Device.FriendlyName}");
+
+            SetPageTitle($"Section: {reposnse.Payload.Record.Section.FriendlyName} Slot: {reposnse.Payload.Record.Module(reposnse.Payload.Record.Section.Identifier).renderer.FriendlyName}", $"Device: {reposnse.Payload.Record.Section.Device.FriendlyName}");
 
             var model = reposnse.Payload;
             var device = PageDevice<Device>();
             device.Breadcrumbs.Add(new BreadcrumbLink("Devices", Url.Action("Home", "Devices", new { id = "" })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Section.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.Section.Device.Id })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Section.FriendlyName, Url.Action("Section", "Devices", new { id = model.Section.Id })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(reposnse.Payload.Module(reposnse.Payload.Section.Identifier).renderer.FriendlyName, Url.Action("Slot", "Devices", new { id = model.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.Section.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.Record.Section.Device.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.Section.FriendlyName, Url.Action("Section", "Devices", new { id = model.Record.Section.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(reposnse.Payload.Record.Module(reposnse.Payload.Record.Section.Identifier).renderer.FriendlyName, Url.Action("Slot", "Devices", new { id = model.Record.Id })));
             PageDevice(device);
             return View(model);
         }
@@ -165,7 +166,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Slot", new {id = result.Payload.Id});
+                    return RedirectToAction("Slot", new { id = result.Payload.Id });
                 }
             }
             return Redirect(redirectUrl);
