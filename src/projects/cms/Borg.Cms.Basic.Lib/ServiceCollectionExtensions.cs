@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -167,6 +168,9 @@ namespace Borg.Cms.Basic.Lib
                     }
                 }
             }
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CorrelationBehavior<,>));
 
             services.AddSingleton<IModuleDescriptorProvider, ModuleDescriptorProvider>();
             services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>();
