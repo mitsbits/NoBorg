@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Borg.Infra.DI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using Borg.Infra.DI;
 
 namespace Borg
 {

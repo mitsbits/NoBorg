@@ -1,4 +1,4 @@
-﻿namespace Sarek.Extensions
+﻿namespace Borg
 {
     using System;
     using System.Collections.Concurrent;
@@ -39,13 +39,7 @@
         {
             internal PropertyInfo PropertyInfo { get; set; }
 
-            string IProperty.Name
-            {
-                get
-                {
-                    return PropertyInfo.Name;
-                }
-            }
+            string IProperty.Name => PropertyInfo.Name;
 
             object IProperty.GetValue(object obj, object[] index)
             {
@@ -63,13 +57,7 @@
         {
             internal FieldInfo FieldInfo { get; set; }
 
-            string IProperty.Name
-            {
-                get
-                {
-                    return FieldInfo.Name;
-                }
-            }
+            string IProperty.Name => FieldInfo.Name;
 
             object IProperty.GetValue(object obj, object[] index)
             {

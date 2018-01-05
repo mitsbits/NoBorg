@@ -12,6 +12,11 @@ namespace Borg.Infra.DDD
             End = end;
         }
 
+        private Period(DateTimeOffset start, TimeSpan duration)
+            : this(start, start.Add(duration))
+        {
+        }
+
         public DateTimeOffset Start { get; }
 
         public DateTimeOffset End { get; }
@@ -23,7 +28,7 @@ namespace Borg.Infra.DDD
 
         public static Period Create(DateTimeOffset start, TimeSpan lenngth)
         {
-            return new Period(start, start.Add(lenngth));
+            return new Period(start, lenngth);
         }
 
         public IEnumerable<DateTimeOffset> MissingDays(IEnumerable<DateTimeOffset> source)
@@ -53,6 +58,42 @@ namespace Borg.Infra.DDD
                 yield return current;
                 current = current.Add(granuality);
             }
+        }
+
+        public int DurationInMinutes()
+        {
+            return (End - Start).Minutes;
+        }
+
+        public Period NewEnd(DateTimeOffset newEnd)
+        {
+            return new Period(Start, newEnd);
+        }
+
+        public Period NewDuration(TimeSpan newDuration)
+        {
+            return new Period(this.Start, newDuration);
+        }
+
+        public Period NewStart(DateTimeOffset newStart)
+        {
+            return new Period(newStart, this.End);
+        }
+
+        public static Period CreateOneDayRange(DateTimeOffset day)
+        {
+            return new Period(day, day.AddDays(1));
+        }
+
+        public static Period CreateOneWeekRange(DateTimeOffset startDay)
+        {
+            return new Period(startDay, startDay.AddDays(7));
+        }
+
+        public bool Overlaps(Period other)
+        {
+            return Start < other.End &&
+                   End > other.Start;
         }
     }
 }

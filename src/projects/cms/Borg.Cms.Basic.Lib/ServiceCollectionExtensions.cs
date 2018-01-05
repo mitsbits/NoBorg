@@ -78,7 +78,7 @@ namespace Borg.Cms.Basic.Lib
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
 
-            services.AddIdentity<CmsUser, IdentityRole>()
+            services.AddIdentity<CmsUser, CmsRole>()
                 .AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
 

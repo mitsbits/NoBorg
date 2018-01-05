@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Borg.Infra;
 
-namespace Borg.Infra.Serializer
+namespace Borg
 {
     public static class SerializerExtensions
     {
