@@ -1,6 +1,9 @@
-﻿namespace Borg.Infra.DAL
+﻿using System;
+using Borg.Infra.Messaging;
+
+namespace Borg.Infra.DAL
 {
-    public class CommandResult
+    public class CommandResult: ICorrelatedResponse
     {
         protected CommandResult()
         {
@@ -25,6 +28,14 @@
         public static CommandResult Failure(params string[] errors)
         {
             return new CommandResult { Outcome = TransactionOutcome.Failure, Errors = errors };
+        }
+
+        private Guid _correlationId = Guid.Empty;
+        public Guid CorrelationId => _correlationId;
+
+        public void Corralate(ICorrelated message)
+        {
+            _correlationId = message.CorrelationId;
         }
     }
 
