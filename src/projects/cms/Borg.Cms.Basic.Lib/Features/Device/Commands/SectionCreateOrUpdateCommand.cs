@@ -29,14 +29,18 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 
         public int RecordId { get; set; }
 
-        [Required][DisplayName("Name")]
+        [Required]
+        [DisplayName("Name")]
         public string FriendlyName { get; set; }
+
         [Required]
         [DisplayName("Identifier")]
         public string Identifier { get; set; }
+
         [Required]
         [DisplayName("Device")]
         public int DeviceId { get; set; }
+
         [Required]
         [DisplayName("Render Scheme")]
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;

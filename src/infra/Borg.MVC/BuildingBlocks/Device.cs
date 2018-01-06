@@ -143,6 +143,10 @@ namespace Borg.MVC.BuildingBlocks
                     RouteValues.Add(item.Key.ToLower(), item.Value.ToString());
                 }
             }
+            foreach (var q in httpContent.Request.Query)
+            {
+                if (!RouteValues.ContainsKey(q.Key)) RouteValues.Add(q.Key, string.Join("|", q.Value.Select(s=>s)));
+            }
 
             Path = httpContent.Request.Path;
             QueryString = httpContent.Request.QueryString.HasValue

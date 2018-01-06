@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Controllers
 {
-    [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_LayoutSample" })]
+    //[TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "Templates/_BlogLayout" })]
     public class HomeController : Controller
     {
         private readonly IDeviceStructureProvider _deviceProvider;
@@ -19,7 +19,7 @@ namespace Borg.Cms.Basic.Controllers
         public async Task<IActionResult> Home([FromServices] IPageOrchestrator<IPageContent, IDevice> orchestrator)
         {
             orchestrator.TryContextualize(this);
-            var model = await _deviceProvider.PageLayout(orchestrator.Device.Layout);
+            var model = await _deviceProvider.PageLayout(2);
 
             orchestrator.Device.Layout = model.Layout;
             orchestrator.Device.RenderScheme = model.RenderScheme;

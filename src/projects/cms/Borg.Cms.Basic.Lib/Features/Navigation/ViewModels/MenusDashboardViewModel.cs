@@ -1,6 +1,7 @@
 ﻿using Borg.Infra.DTO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Borg.Cms.Basic.Lib.Features.Navigation.Commands;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
 {
@@ -28,5 +29,24 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
 
         public IDictionary<(int, int), Tiding> TreeDictionaryExcludingCurrentAndChildren() =>
             Records.TreeDictionaryExcludingCurrentAndChildren(SelectedRecord);
+
+        public NavigationItemRecordCreateOrUpdateCommand GetCommand()
+        {
+            if (SelectedRecord == null) SelectedRecord = new NavigationItemRecord();
+            var result = new NavigationItemRecordCreateOrUpdateCommand()
+            {
+                RecordId = SelectedRecord.Id,
+                Path = SelectedRecord.Path,
+                Display = SelectedRecord.Display,
+                Group = Group,
+                IsPublished = SelectedRecord.IsPublished,
+                ItemType = SelectedRecord.ItemType,
+                ParentId = SelectedRecord.ParentId,
+                ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
+                Weight = SelectedRecord.Weight
+
+            };
+            return result;
+        }
     }
 }

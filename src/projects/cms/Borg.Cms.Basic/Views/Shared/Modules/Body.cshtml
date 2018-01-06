@@ -1,6 +1,5 @@
 ﻿
-
-
-
-<h1>body</h1>
-<p>@Orchestrator.Page.Title</p>
+@{
+    var raw = Orchestrator.Page.Body.Any() ? Orchestrator.Page.Body[0] : "";
+}
+@Html.Raw(raw)

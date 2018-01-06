@@ -30,7 +30,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 
         [HttpGet]
         [Route("{searchterm?}")]
-        public async Task<IActionResult> Users([FromServices] RoleManager<CmsRole> manager, string searchterm = "")
+        public async Task<IActionResult> Users([FromServices] RoleManager<IdentityRole> manager, string searchterm = "")
         {
             var searchMessage = string.IsNullOrWhiteSpace(searchterm) ? string.Empty : $"Search for: {searchterm}";
             SetPageTitle("Users", searchMessage);
@@ -53,7 +53,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 
         [HttpGet]
         [Route("email/{email}")]
-        public async Task<IActionResult> Item([FromServices] RoleManager<CmsRole> manager, string email)
+        public async Task<IActionResult> Item([FromServices] RoleManager<IdentityRole> manager, string email)
         {
             var result = await Dispatcher.Send(new UserRequest(email));
             if (result.Succeded)
@@ -89,7 +89,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 
         [Route("ToggleRole")]
         [HttpPost]
-        public async Task<IActionResult> ToggleRole([FromServices] RoleManager<CmsRole> rmanager, string userId, string role, string action)
+        public async Task<IActionResult> ToggleRole([FromServices] RoleManager<IdentityRole> rmanager, string userId, string role, string action)
         {
             var commandResult = await Dispatcher.Send(new ToggleRolesCommand(userId, role));
             if (!commandResult.Succeded) return BadRequest(commandResult.Errors);

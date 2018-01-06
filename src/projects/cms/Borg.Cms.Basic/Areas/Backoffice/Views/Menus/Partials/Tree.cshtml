@@ -1,13 +1,18 @@
 ﻿@model Borg.Infra.DTO.Tidings
-
-<div class="box">
-    <div class="box-body">
-        <ul>
-            @foreach (var root in Model)
-        {
-            root.Children.Add("ParentActive", true.ToString());
-            @Html.Partial("Partials/TreeTiding", root)
+@{
+    var row = default(int?);
+    if (Orchestrator.Device.RouteValues.ContainsKey("row"))
+    {
+        row = int.Parse(Orchestrator.Device.RouteValues["row"]);
     }
-        </ul>
-    </div>
-</div>
+}
+
+<div id="tree"></div>
+
+<script device id="menu-tree-script" script-position="Bottom" weight="100">
+    $(function () {
+        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"], row))';
+        var tree = (jsonstring);
+        $('#tree').treeview({ data: tree, enableLinks: true, levels: 6, selectable: false, showCheckbox : true, showTags: true });
+    });
+</script>

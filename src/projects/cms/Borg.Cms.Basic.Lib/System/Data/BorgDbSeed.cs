@@ -12,11 +12,11 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
     {
         private readonly AuthDbContext _db;
         private readonly BorgSettings _settings;
-        private readonly RoleManager<CmsRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<CmsUser> _userManager;
         private readonly ILogger _logger;
 
-        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, BorgSettings settings, RoleManager<CmsRole> roleManager, UserManager<CmsUser> userManager)
+        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, BorgSettings settings, RoleManager<IdentityRole> roleManager, UserManager<CmsUser> userManager)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _db = db;
@@ -39,7 +39,7 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
             {
                 if (!await _roleManager.RoleExistsAsync($"system.{role}"))
                 {
-                    var result = await _roleManager.CreateAsync(new CmsRole(role.ToString()));
+                    var result = await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
                     if (result.Succeeded)
                     {
                         _logger.Info("Role {role} created", $"system.{role}");
@@ -58,7 +58,7 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
             {
                 if (!await _roleManager.RoleExistsAsync($"cms.{role}"))
                 {
-                    var result = await _roleManager.CreateAsync(new CmsRole(role.ToString()));
+                    var result = await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
                     if (result.Succeeded)
                     {
                         _logger.Info("Role {role} created", $"cms.{role}");

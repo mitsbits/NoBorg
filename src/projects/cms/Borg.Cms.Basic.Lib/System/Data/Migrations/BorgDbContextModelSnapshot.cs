@@ -21,6 +21,43 @@ namespace Borg.Cms.Basic.Lib.System.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Borg.Cms.Basic.Lib.Features.Content.ContentItemRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("Body");
+
+                    b.Property<DateTimeOffset?>("LastRevisionDate");
+
+                    b.Property<DateTimeOffset>("PublisheDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<string>("Slug")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Subtitle")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.ToTable("ContentItemRecords","borg");
+                });
+
             modelBuilder.Entity("Borg.Cms.Basic.Lib.Features.Device.DeviceRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -134,6 +171,8 @@ namespace Borg.Cms.Basic.Lib.System.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ContentItemRecordId");
+
                     b.Property<string>("Display")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -164,6 +203,10 @@ namespace Borg.Cms.Basic.Lib.System.Data.Migrations
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", true);
 
+                    b.HasIndex("ContentItemRecordId")
+                        .IsUnique()
+                        .HasFilter("[ContentItemRecordId] IS NOT NULL");
+
                     b.ToTable("NavigationItemRecords","borg");
                 });
 
@@ -183,6 +226,14 @@ namespace Borg.Cms.Basic.Lib.System.Data.Migrations
                         .HasForeignKey("SectionId")
                         .HasConstraintName("FK_Section_Slot")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Cms.Basic.Lib.Features.Navigation.NavigationItemRecord", b =>
+                {
+                    b.HasOne("Borg.Cms.Basic.Lib.Features.Content.ContentItemRecord", "ContentItemRecord")
+                        .WithOne("NavigationItemRecord")
+                        .HasForeignKey("Borg.Cms.Basic.Lib.Features.Navigation.NavigationItemRecord", "ContentItemRecordId")
+                        .HasConstraintName("FK_Navigation_Content");
                 });
 #pragma warning restore 612, 618
         }

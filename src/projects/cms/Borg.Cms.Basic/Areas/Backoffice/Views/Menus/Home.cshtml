@@ -1,30 +1,26 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Navigation
-@using Borg.Cms.Basic.Lib.Features.Navigation.Commands
-@using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
-@model MenusDashboardViewModel
-    @{
-        var startGroupModel = new NavigationItemRecordCreateOrUpdateCommand()
+﻿@using Borg.Cms.Basic.Areas.Backoffice.ViewComponents
+@model Borg.Cms.Basic.Lib.Features.Navigation.ViewModels.MenuViewModel
+@{
+    var hasId = Orchestrator.Device.RouteValues.ContainsKey("id");
+    ViewBag.ContentItemRecordId = Model.SelectedRecord?.ContentItemRecordId?.ToString();
+}
+<div class="row">
+    <div class="col-lg-5">
+        @await Component.InvokeAsync(typeof(MenuGroupsViewComponent))
+        @if (hasId)
         {
-            Record = new NavigationItemRecord()
-            {
-                Display = "to replace",
-                IsPublished = false,
-                ParentId = 0,
-                Id = 0,
-                ItemType = NavigationItemType.Label,
-                Path = "/"
-            }
-        };
-    }
-<div>
-    @Html.Partial("Partials/StartNewGroup", startGroupModel)
-</div>
-@if (Model.Groups.Any())
-{
-    <div class="btn-group">
-        @foreach (var g in Model.Groups)
-        {
-            <a asp-action="Group" asp-controller="Menus" asp-route-id="@g" class="btn btn-flat btn-secondary">@g</a>
+            @Html.Partial("Partials/Tree", Model.Trees())
+
+            
         }
     </div>
-}
+    <div class="col-lg-7">
+        @if (hasId)
+        {
+         
+            @Html.Partial("Partials/ItemEdit", Model.GetCommand())
+           
+        }
+    </div>
+
+</div>

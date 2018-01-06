@@ -24,34 +24,45 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
             _dispatcher = dispatcher;
         }
 
-        public async Task<IActionResult> Home()
+        [HttpGet("{id?}")]
+        public async Task< IActionResult> Home(string id, int? row)
         {
-            SetPageTitle("Navigational Menus Dashboards");
-            var model = new MenusDashboardViewModel
+            SetPageTitle(string.IsNullOrWhiteSpace(id)? "Navigational Menus": $"Navigational Menus {id.ToUpper()}");
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                Groups = (await _dispatcher.Send(new MenuGroupsRequest())).Payload.ToArray(),
-            };
-
-            return View(model);
+                var model = new MenuViewModel
+                {
+                    Group = id,
+                    Records = string.IsNullOrWhiteSpace(id)
+                        ? new NavigationItemRecord[0]
+                        : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
+                    SelectedRecord = new NavigationItemRecord() { Group = id, Id = -1, ParentId = -1}
+                };
+                if (row.HasValue && model.Records.Any(x => x.Id == row))
+                    model.SelectedRecord = model.Records.Single(x => x.Id == row);
+                SetPageTitle($"Menu {id}", model.SelectedRecord != null ? model.SelectedRecord.Display : "");
+                return View(model);
+            }
+            return View();
         }
 
-        [Route("group/{id?}")]
-        public async Task<IActionResult> Group(string id, int? row)
-        {
-            SetPageTitle($"Menu {id}");
-            var model = new MenuViewModel
-            {
-                Group = id,
-                Records = string.IsNullOrWhiteSpace(id)
-                    ? new NavigationItemRecord[0]
-                    : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
-                SelectedRecord = new NavigationItemRecord() { Group = id }
-            };
-            if (row.HasValue && model.Records.Any(x => x.Id == row))
-                model.SelectedRecord = model.Records.Single(x => x.Id == row);
-            SetPageTitle($"Menu {id}", model.SelectedRecord != null ? model.SelectedRecord.Display : "");
-            return View(model);
-        }
+        //[Route("group/{id?}")]
+        //public async Task<IActionResult> Group(string id, int? row)
+        //{
+        //    SetPageTitle($"Menu {id}");
+        //    var model = new MenuViewModel
+        //    {
+        //        Group = id,
+        //        Records = string.IsNullOrWhiteSpace(id)
+        //            ? new NavigationItemRecord[0]
+        //            : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
+        //        SelectedRecord = new NavigationItemRecord() { Group = id }
+        //    };
+        //    if (row.HasValue && model.Records.Any(x => x.Id == row))
+        //        model.SelectedRecord = model.Records.Single(x => x.Id == row);
+        //    SetPageTitle($"Menu {id}", model.SelectedRecord != null ? model.SelectedRecord.Display : "");
+        //    return View(model);
+        //}
 
         [HttpPost("")]
         public async Task<IActionResult> Item(NavigationItemRecordCreateOrUpdateCommand model)
@@ -62,18 +73,18 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 if (!result.Succeded)
                 {
                     AddErrors(result);
+                    return RedirectToAction(nameof(Home), new { id = model.Group });
+                  
                 }
-                else
-                {
-                    model.Record = result.Payload;
-                }
+                return RedirectToAction(nameof(Home), new { id = model.Group, row = result.Payload.Id });
             }
-            return RedirectToAction(nameof(Group), new { id = model.Record.Group, row = model.Record.Id });
+            return RedirectToAction(nameof(Home), new { id = model.Group });
         }
 
-        [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(NavigationItemRecordDeleteCommand model)
+        [HttpGet("Delete/{id:alpha}/{row:int}")]
+        public async Task<IActionResult> Delete(string id, int row)
         {
+            var model = new NavigationItemRecordDeleteCommand() {Group = id, RecordId = row};
             if (ModelState.IsValid)
             {
                 var result = await _dispatcher.Send(model);
@@ -82,7 +93,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                     AddErrors(result);
                 }
             }
-            return RedirectToAction(nameof(Group), new { id = model.Group });
+            return RedirectToAction(nameof(Home), new { id = model.Group });
         }
     }
 }

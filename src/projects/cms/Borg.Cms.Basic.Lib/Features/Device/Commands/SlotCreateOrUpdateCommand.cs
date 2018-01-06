@@ -32,7 +32,8 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         [Required]
         public int RecordId { get; set; }
 
-        [Required][DisplayName("Ordinal")]
+        [Required]
+        [DisplayName("Ordinal")]
         public int Ordinal { get; set; }
 
         [Required]
@@ -49,6 +50,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         [Required]
         [DisplayName("Module Descriptor")]
         public string ModuleTypeName { get; set; }
+
         [Required]
         [DisplayName("Module Configuration")]
         public string ModuleDecriptorJson { get; set; }

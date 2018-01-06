@@ -1,5 +1,5 @@
-﻿using Borg.Infra.Serializer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Borg.Infra.DTO
 {
@@ -39,7 +39,7 @@ namespace Borg.Infra.DTO
         public static IDictionary<(int, int), Tiding> TreeDictionary(this Tidings tidings)
         {
             var bucket = new Dictionary<(int, int), Tiding>();
-            foreach (var tiding in tidings)
+            foreach (var tiding in tidings.AsEnumerable().OrderBy(x => x.Weight).ThenBy(x => x.Value))
             {
                 int i = 1;
                 RecurseTididnigsToDictionary(tiding, bucket, i);
@@ -52,7 +52,7 @@ namespace Borg.Infra.DTO
             var key = (int.Parse(tiding.Key), i);
             bucket.Add(key, tiding);
             i++;
-            foreach (var child in tiding.Children)
+            foreach (var child in tiding.Children.AsEnumerable().OrderBy(x => x.Weight).ThenBy(x => x.Value))
             {
                 RecurseTididnigsToDictionary(child, bucket, i);
             }

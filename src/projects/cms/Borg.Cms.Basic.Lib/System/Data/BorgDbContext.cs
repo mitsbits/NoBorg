@@ -1,4 +1,6 @@
-﻿using Borg.Cms.Basic.Lib.Features.Device;
+﻿using System.Security.Cryptography.X509Certificates;
+using Borg.Cms.Basic.Lib.Features.Content;
+using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,9 @@ namespace Borg.Cms.Basic.Lib.System.Data
         public DbSet<SectionRecord> SectionRecords { get; set; }
         public DbSet<SlotRecord> SlotRecords { get; set; }
 
+
+        public DbSet<ContentItemRecord> ContentItemRecords { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -27,6 +32,8 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<NavigationItemRecord>().Property(x => x.Group).HasMaxLength(3).IsRequired().HasDefaultValue("BSE");
             builder.Entity<NavigationItemRecord>().Property(x => x.ParentId).IsRequired().HasDefaultValue(0);
             builder.Entity<NavigationItemRecord>().Property(x => x.Path).HasMaxLength(512).HasDefaultValue("/");
+            builder.Entity<NavigationItemRecord>().HasOne(n => n.ContentItemRecord).WithOne(c => c.NavigationItemRecord)
+                .HasForeignKey<NavigationItemRecord>(x => x.ContentItemRecordId).HasConstraintName("FK_Navigation_Content");
 
             builder.Entity<DeviceRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<DeviceRecord>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
@@ -51,6 +58,14 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<SlotRecord>().Property(x => x.ModuleDecriptorJson).IsRequired().HasDefaultValue("");
             builder.Entity<SlotRecord>().Property(x => x.ModuleGender).IsRequired().HasMaxLength(64).HasDefaultValue("");
             builder.Entity<SlotRecord>().Property(x => x.ModuleTypeName).IsRequired().HasMaxLength(1024).HasDefaultValue("");
+
+            builder.Entity<ContentItemRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<ContentItemRecord>().Property(x => x.Title).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<ContentItemRecord>().Property(x => x.Slug).HasMaxLength(512).HasDefaultValue("");
+            builder.Entity<ContentItemRecord>().Property(x => x.Subtitle).HasMaxLength(512).HasDefaultValue("");
+            builder.Entity<ContentItemRecord>().Property(x => x.PublisheDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
+
+
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {

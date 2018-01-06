@@ -29,6 +29,11 @@ namespace Borg.Infra.DTO
             get { return _bucket.GroupBy(x => x.Key).ToDictionary(x => x.Key, x => x.First()); }
         }
 
+        public IEnumerable<Tiding> AsEnumerable()
+        {
+            return this;
+        }
+
         #region IReadOnlyCollection
 
         public Tiding this[int index] => _bucket.ToArray()[index];

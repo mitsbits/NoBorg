@@ -1,6 +1,6 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
-using Borg.Infra.Serializer;
+
 using Borg.MVC.BuildingBlocks;
 using Microsoft.AspNetCore.Http;
 using System;

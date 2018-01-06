@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Borg.Infra.DTO
 {
@@ -13,6 +14,8 @@ namespace Borg.Infra.DTO
         public virtual Tidings Children { get; } = new Tidings();
         public virtual double Weight { get; set; } = 0;
         public virtual int Depth { get; set; } = 0;
+
+
 
         #region ICloneable
 

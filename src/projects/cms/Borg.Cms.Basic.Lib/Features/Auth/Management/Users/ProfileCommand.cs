@@ -22,7 +22,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
             Email = email;
             FirstName = firstName;
             LastName = lastName;
-    
         }
 
         [Required]
@@ -35,8 +34,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
         [Required]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
-
-
     }
 
     public class ProfileCommandHandler : AsyncRequestHandler<ProfileCommand, CommandResult>

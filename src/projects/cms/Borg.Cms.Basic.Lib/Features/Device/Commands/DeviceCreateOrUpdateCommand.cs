@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -71,7 +70,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 DeviceRecord device;
                 if (isTransient)
                 {
-                    device = new DeviceRecord() { FriendlyName = message.FriendlyName, Layout = message.Layout , RenderScheme = message.RenderScheme};
+                    device = new DeviceRecord() { FriendlyName = message.FriendlyName, Layout = message.Layout, RenderScheme = message.RenderScheme };
                     var file = (await _deviceLayoutFiles.LayoutFiles()).FirstOrDefault(x => x.MatchesPath(message.Layout));
                     foreach (var fileSectionIdentifier in file.SectionIdentifiers)
                     {

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "admin-lte": "^2.4.2",
+    "bootstrap-treeview": "^1.2.0",
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^2.1.1",
     "icheck": "^1.0.2",

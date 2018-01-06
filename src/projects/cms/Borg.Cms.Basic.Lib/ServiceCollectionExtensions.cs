@@ -65,6 +65,7 @@ namespace Borg.Cms.Basic.Lib
             });
             services.AddScoped<DeviceLayoutFilter>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddBorgDefaultSlugifier();
             return services;
         }
 
@@ -78,7 +79,7 @@ namespace Borg.Cms.Basic.Lib
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
 
-            services.AddIdentity<CmsUser, CmsRole>()
+            services.AddIdentity<CmsUser, IdentityRole>()
                 .AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
 

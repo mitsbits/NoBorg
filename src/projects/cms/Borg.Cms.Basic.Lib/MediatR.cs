@@ -8,6 +8,7 @@ using Borg.Infra.Messaging;
 
 namespace MediatR
 {
+    [DebuggerStepThrough]
     public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly ILogger _log;
@@ -16,7 +17,7 @@ namespace MediatR
         {
             _log = loggerFactory.CreateLogger(GetType());
         }
-
+        [DebuggerStepThrough]
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -29,9 +30,10 @@ namespace MediatR
             return response;
         }
     }
-
+    [DebuggerStepThrough]
     public class CorrelationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
+        [DebuggerStepThrough]
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             cancellationToken.ThrowIfCancellationRequested();
