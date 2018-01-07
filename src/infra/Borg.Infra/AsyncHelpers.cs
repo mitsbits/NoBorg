@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace Borg.Infra
 {
     public static class AsyncHelpers
     {
+        [DebuggerStepThrough]
         public static void RunSync(Func<Task> task)
         {
             var oldContext = SynchronizationContext.Current;
@@ -32,7 +34,7 @@ namespace Borg.Infra
 
             SynchronizationContext.SetSynchronizationContext(oldContext);
         }
-
+        [DebuggerStepThrough]
         public static T RunSync<T>(Func<Task<T>> task)
         {
             var oldContext = SynchronizationContext.Current;

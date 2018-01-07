@@ -5,10 +5,8 @@
     ViewBag.AvailableSectionIdentifiers = Model.AvailableSectionIdentifiers;
 }
 
-
 <div class="row">
     <div class="col-lg-8">
-
 
         @Html.Partial("Partials/SlotList", Model)
 
@@ -24,10 +22,5 @@
                 @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(record.FriendlyName, record.DeviceId, record.RenderScheme, record.Identifier, record.Id))
             </div>
         </div>
-
     </div>
 </div>
-
-
-
-

@@ -25,9 +25,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         }
 
         [HttpGet("{id?}")]
-        public async Task< IActionResult> Home(string id, int? row)
+        public async Task<IActionResult> Home(string id, int? row)
         {
-            SetPageTitle(string.IsNullOrWhiteSpace(id)? "Navigational Menus": $"Navigational Menus {id.ToUpper()}");
+            SetPageTitle(string.IsNullOrWhiteSpace(id) ? "Navigational Menus" : $"Navigational Menus {id.ToUpper()}");
             if (!string.IsNullOrWhiteSpace(id))
             {
                 var model = new MenuViewModel
@@ -36,7 +36,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                     Records = string.IsNullOrWhiteSpace(id)
                         ? new NavigationItemRecord[0]
                         : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
-                    SelectedRecord = new NavigationItemRecord() { Group = id, Id = -1, ParentId = -1}
+                    SelectedRecord = new NavigationItemRecord() { Group = id, Id = -1, ParentId = -1 }
                 };
                 if (row.HasValue && model.Records.Any(x => x.Id == row))
                     model.SelectedRecord = model.Records.Single(x => x.Id == row);
@@ -74,7 +74,6 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                 {
                     AddErrors(result);
                     return RedirectToAction(nameof(Home), new { id = model.Group });
-                  
                 }
                 return RedirectToAction(nameof(Home), new { id = model.Group, row = result.Payload.Id });
             }
@@ -84,7 +83,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpGet("Delete/{id:alpha}/{row:int}")]
         public async Task<IActionResult> Delete(string id, int row)
         {
-            var model = new NavigationItemRecordDeleteCommand() {Group = id, RecordId = row};
+            var model = new NavigationItemRecordDeleteCommand() { Group = id, RecordId = row };
             if (ModelState.IsValid)
             {
                 var result = await _dispatcher.Send(model);

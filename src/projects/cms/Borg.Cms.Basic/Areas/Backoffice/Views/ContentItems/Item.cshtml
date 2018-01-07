@@ -1,0 +1,2 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Content.ViewComponents
+@await Component.InvokeAsync(typeof(ContentItemCommandViewComponent), Orchestrator.Device.RouteValue<int>("id"))

@@ -1,10 +1,10 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
-using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {

@@ -1,8 +1,16 @@
-﻿@using Borg.Cms.Basic.Areas.Backoffice.ViewComponents
+﻿@using Borg.Cms.Basic.Lib.Features.Navigation.ViewComponents
 @model Borg.Cms.Basic.Lib.Features.Navigation.ViewModels.MenuViewModel
 @{
     var hasId = Orchestrator.Device.RouteValues.ContainsKey("id");
-    ViewBag.ContentItemRecordId = Model.SelectedRecord?.ContentItemRecordId?.ToString();
+    try
+    {
+        ViewBag.ContentItemRecordId = Model.SelectedRecord?.ContentItemRecordId?.ToString();
+    }
+    catch (Exception e)
+    {
+        ViewBag.ContentItemRecordId = 0;
+    }
+
 }
 <div class="row">
     <div class="col-lg-5">
@@ -11,16 +19,14 @@
         {
             @Html.Partial("Partials/Tree", Model.Trees())
 
-            
         }
     </div>
     <div class="col-lg-7">
         @if (hasId)
         {
-         
+
             @Html.Partial("Partials/ItemEdit", Model.GetCommand())
-           
+
         }
     </div>
-
 </div>

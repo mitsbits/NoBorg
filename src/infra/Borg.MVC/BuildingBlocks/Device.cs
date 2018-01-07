@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DTO;
+﻿using Borg.Infra;
+using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.Breadcrumbs;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -85,6 +85,7 @@ namespace Borg.MVC.BuildingBlocks
 
         private bool _populated;
         public bool ContextAcquired => _populated;
+
         #endregion ICanContextualize
 
         #region ICanContextualizeFromView
@@ -145,7 +146,7 @@ namespace Borg.MVC.BuildingBlocks
             }
             foreach (var q in httpContent.Request.Query)
             {
-                if (!RouteValues.ContainsKey(q.Key)) RouteValues.Add(q.Key, string.Join("|", q.Value.Select(s=>s)));
+                if (!RouteValues.ContainsKey(q.Key)) RouteValues.Add(q.Key, string.Join("|", q.Value.Select(s => s)));
             }
 
             Path = httpContent.Request.Path;

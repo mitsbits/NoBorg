@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
+    <Folder Include="Areas\Backoffice\ViewComponents\" />
     <Folder Include="Areas\Backoffice\Views\Account\" />
     <Folder Include="Areas\Backoffice\Views\Shared\Layout\" />
     <Folder Include="Areas\Backoffice\Views\Users\Components\" />

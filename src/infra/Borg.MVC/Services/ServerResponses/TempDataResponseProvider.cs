@@ -50,6 +50,7 @@ namespace Borg.MVC.Services.ServerResponses
             if (!_bucket.Any()) return null;
             var result = _bucket.First();
             _bucket.Remove(result);
+            _context[_key] = _serializer.SerializeToString(_bucket);
             return result;
         }
 
@@ -74,7 +75,11 @@ namespace Borg.MVC.Services.ServerResponses
             if (_context != null && _context.ContainsKey(_key))
             {
                 var bucket = _serializer.Deserialize<HashSet<ServerResponse>>(_context[_key].ToString());
-                if (bucket == null || !bucket.Any()) return;
+                if (bucket == null || !bucket.Any())
+                {
+                    _loaded = true;
+                    return;
+                }
                 foreach (var message in bucket)
                 {
                     _bucket.Add(message);

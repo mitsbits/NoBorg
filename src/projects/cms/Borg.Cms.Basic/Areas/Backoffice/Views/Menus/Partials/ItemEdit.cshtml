@@ -22,10 +22,9 @@
 <div class="box box-primary box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">@formTilte</h3>
-
     </div>
     <form role="form" asp-controller="Menus" asp-action="Item" method="post" asp-route-id="">
-        <div class="box-body" >
+        <div class="box-body">
 
             <div class="form-group hidden">
                 <label asp-for="RecordId"></label>
@@ -45,8 +44,8 @@
             <div clas="row">
                 <div class="form-group col-md-6">
                     <label asp-for="Group"></label>
-                    <input type="hidden"  asp-for="Group" >
-                    <input type="text" class="form-control"  placeholder="@Model.Group" disabled="disabled">
+                    <input type="hidden" asp-for="Group">
+                    <input type="text" class="form-control" placeholder="@Model.Group" disabled="disabled">
                     <span asp-validation-for="Group" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
@@ -55,7 +54,6 @@
                     <span asp-validation-for="Weight" class="text-danger"></span>
                 </div>
             </div>
-
 
             <div class="form-group">
                 <label asp-for="ParentId"></label>
@@ -89,13 +87,11 @@
             </div>
             <div class="form-group" asp-validation-summary="All">
             </div>
-
-
         </div>
         <div class="box-footer text-right">
             @if (!isTransient)
             {
-                <a asp-controller="Content" asp-action="Item" asp-route-id="@ViewBag.ContentItemRecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
+                <a asp-controller="ContentItems" asp-action="Item" asp-route-id="@ViewBag.ContentItemRecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
                    class="btn btn-success"><i class="fa fa-book"></i></a>
                 <a asp-controller="Menus" asp-action="Delete" asp-route-id="@Orchestrator.Device.RouteValues["id"]" asp-route-row="@Model.RecordId"
                    class="btn btn-danger"><i class="fa fa-remove"></i></a>

@@ -42,6 +42,7 @@ module.exports = function (env) {
                 { from: 'node_modules/datatables.net-bs/', to: 'datatables.net-bs/' },
                 { from: 'node_modules/jsoneditor/dist/', to: 'jsoneditor/' },
                 { from: 'node_modules/bootstrap-treeview/dist/', to: 'bootstrap-treeview/' },
+                { from: 'node_modules/moment/min/moment-with-locales.min.js', to: 'moment.js' },
                 { from: 'Areas/Backoffice/Static/assets/', to: 'assets/' },
                 { from: 'Areas/Backoffice/Static/js/site.js', to: 'site.js' },
 

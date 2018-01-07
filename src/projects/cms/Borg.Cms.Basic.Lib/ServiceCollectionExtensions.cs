@@ -16,6 +16,7 @@ using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -28,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using MediatR;
 
 namespace Borg.Cms.Basic.Lib
 {

@@ -63,23 +63,26 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpPost("edit")]
         public async Task<IActionResult> Edit(DeviceCreateOrUpdateCommand model)
         {
-            var result = await _dispatcher.Send(model);
+          
             if (ModelState.IsValid)
             {
+                var result = await _dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
                 }
+                return RedirectToAction(nameof(Home), new { id = result.Payload.Id });
             }
-            return RedirectToAction(nameof(Home), new { id = result.Payload.Id });
+            return RedirectToAction(nameof(Home), new { id = "" });
         }
 
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(DeviceDeleteCommand model)
         {
-            var result = await _dispatcher.Send(model);
+           
             if (ModelState.IsValid)
             {
+                var result = await _dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
