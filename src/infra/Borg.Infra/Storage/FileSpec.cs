@@ -1,4 +1,5 @@
 ﻿using System;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Infra.Storage
 {

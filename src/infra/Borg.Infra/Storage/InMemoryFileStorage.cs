@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Infra.Storage
 {
@@ -103,7 +104,7 @@ namespace Borg.Infra.Storage
                     return false;
 
                 _storage[targetpath] = _storage[path];
-                _storage[targetpath].Item1.ModifyPath(targetpath);
+                (_storage[targetpath].Item1  as FileSpec).ModifyPath(targetpath);
             }
 
             return true;

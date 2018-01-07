@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Borg.Infra.Storage
+namespace Borg.Infra.Storage.Contracts
 {
     public interface IFileStorage : IDisposable
     {

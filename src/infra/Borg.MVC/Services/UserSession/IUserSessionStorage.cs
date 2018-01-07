@@ -1,4 +1,5 @@
 ﻿using Borg.Infra.Storage;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.MVC.Services.UserSession
 {

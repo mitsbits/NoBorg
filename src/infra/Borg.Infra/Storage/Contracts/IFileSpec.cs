@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Borg.Infra.Storage
+namespace Borg.Infra.Storage.Contracts
 {
     public interface IFileSpec<out TKey> : IFileSpec where TKey : IEquatable<TKey>
     {
@@ -17,6 +17,5 @@ namespace Borg.Infra.Storage
         long SizeInBytes { get; }
         string MimeType { get; }
 
-        void ModifyPath(string newPath);
     }
 }

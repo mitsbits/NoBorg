@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using Borg.Cms.Basic.Lib.Features.Assets;
 using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
@@ -18,9 +19,12 @@ namespace Borg.Cms.Basic.Lib.System.Data
         public DbSet<DeviceRecord> DeviceRecords { get; set; }
         public DbSet<SectionRecord> SectionRecords { get; set; }
         public DbSet<SlotRecord> SlotRecords { get; set; }
-
-
         public DbSet<ContentItemRecord> ContentItemRecords { get; set; }
+
+        public DbSet<FileRecord> FileRecords { get; set; }
+        public DbSet<VersionRecord> VersionRecords { get; set; }
+        public DbSet<AssetRecord> AssetRecords { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -65,6 +69,30 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<ContentItemRecord>().Property(x => x.Subtitle).HasMaxLength(512).HasDefaultValue("");
             builder.Entity<ContentItemRecord>().Property(x => x.PublisheDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
 
+            builder.Entity<FileRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<FileRecord>().Property(x => x.CreationDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
+            builder.Entity<FileRecord>().Property(x => x.LastWrite).IsRequired().HasDefaultValueSql("GetUtcDate()");
+            builder.Entity<FileRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<FileRecord>().Property(x => x.FullPath).HasMaxLength(1024).IsRequired().HasDefaultValue("");
+            builder.Entity<FileRecord>().Property(x => x.SizeInBytes).IsRequired().HasDefaultValueSql("0");
+            builder.Entity<FileRecord>().HasOne(x => x.VersionRecord).WithOne(x => x.FileRecord)
+                .HasForeignKey<VersionRecord>(x => x.FileRecordId).HasConstraintName("FK_Version_File");
+            builder.Entity<FileRecord>().Property(x => x.MimeType).HasMaxLength(256).IsRequired().HasDefaultValue("");
+            builder.Entity<FileRecord>().HasIndex(x => x.FullPath).HasName("IX_File_FullPath");
+
+
+            builder.Entity<VersionRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<VersionRecord>().Property(x => x.Version).IsRequired().HasDefaultValueSql("0");
+            builder.Entity<VersionRecord>().HasIndex(x => x.Version).HasName("IX_Version_Version");
+            builder.Entity<VersionRecord>().HasOne(x => x.AssetRecord).WithMany(x => x.Versions)
+                .HasForeignKey(x => x.AssetRecordId).HasConstraintName("FK_Asset_Version");
+            builder.Entity<VersionRecord>().HasIndex(x => x.FileRecordId).HasName("IX_Version_FileRecordId");
+            builder.Entity<FileRecord>().HasIndex(x => x.FullPath).HasName("IX_File_FullPath");
+
+            builder.Entity<AssetRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<AssetRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
+            builder.Entity<AssetRecord>().Property(x => x.DocumentState).IsRequired();
 
 
             foreach (var entityType in builder.Model.GetEntityTypes())

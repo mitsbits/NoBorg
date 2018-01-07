@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Platform.Azure.Storage.Blobs
 {

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.MVC.Services.UserSession
 {

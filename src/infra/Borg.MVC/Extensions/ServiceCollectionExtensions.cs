@@ -8,6 +8,7 @@ using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using Borg.Infra.Storage.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
