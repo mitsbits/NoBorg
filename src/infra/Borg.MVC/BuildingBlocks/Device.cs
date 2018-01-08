@@ -41,7 +41,7 @@ namespace Borg.MVC.BuildingBlocks
         public string Area { get; protected set; }
         public string Controller { get; protected set; }
         public string Action { get; protected set; }
-        public IDictionary<string, string> RouteValues { get; } = new Dictionary<string, string>();
+        public IDictionary<string, string[]> RouteValues { get; } = new Dictionary<string, string[]>();
 
         #endregion IHaveAController
 
@@ -141,12 +141,12 @@ namespace Borg.MVC.BuildingBlocks
             {
                 if (!_definedRouteKeys.Contains(item.Key.ToLower()))
                 {
-                    RouteValues.Add(item.Key.ToLower(), item.Value.ToString());
+                    RouteValues.Add(item.Key.ToLower(), new[] { item.Value.ToString()});
                 }
             }
             foreach (var q in httpContent.Request.Query)
             {
-                if (!RouteValues.ContainsKey(q.Key)) RouteValues.Add(q.Key, string.Join("|", q.Value.Select(s => s)));
+                if (!RouteValues.ContainsKey(q.Key)) RouteValues.Add(q.Key, q.Value.ToArray());
             }
 
             Path = httpContent.Request.Path;
