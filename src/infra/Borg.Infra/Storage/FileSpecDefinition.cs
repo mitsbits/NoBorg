@@ -1,11 +1,11 @@
-﻿using System;
-using Borg.Infra.Storage.Contracts;
+﻿using Borg.Infra.Storage.Contracts;
+using System;
 
 namespace Borg.Infra.Storage
 {
-    public class FileSpec<TKey> : FileSpec, IFileSpec<TKey> where TKey : IEquatable<TKey>
+    public class FileSpecDefinition<TKey> : FileSpecDefinition, IFileSpec<TKey> where TKey : IEquatable<TKey>
     {
-        public FileSpec(TKey id, string fullPath, string name, DateTime creationDate, DateTime lastWrite,
+        public FileSpecDefinition(TKey id, string fullPath, string name, DateTime creationDate, DateTime lastWrite,
             DateTime? lastRead, long sizeInBytes, string mimeType) : base(fullPath, name, creationDate, lastWrite,
             lastRead, sizeInBytes, mimeType)
         {
@@ -15,13 +15,13 @@ namespace Borg.Infra.Storage
         public TKey Id { get; }
     }
 
-    public class FileSpec : IFileSpec
+    public class FileSpecDefinition : IFileSpec
     {
-        internal FileSpec()
+        internal FileSpecDefinition()
         {
         }
 
-        public FileSpec(string fullPath, string name, DateTime creationDate, DateTime lastWrite, DateTime? lastRead,
+        public FileSpecDefinition(string fullPath, string name, DateTime creationDate, DateTime lastWrite, DateTime? lastRead,
             long sizeInBytes, string mimeType = "")
         {
             FullPath = fullPath;
@@ -41,6 +41,7 @@ namespace Borg.Infra.Storage
         public long SizeInBytes { get; }
         public string MimeType { get; }
 
+        [Obsolete("not a good idea, copy instead", true)]
         public void ModifyPath(string newPath)
         {
             FullPath = newPath;

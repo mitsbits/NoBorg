@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD;
 
 namespace Borg.Cms.Basic.Lib.Features.Assets
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Borg.Infra.Storage.Assets.Contracts
+﻿namespace Borg.Infra.Storage.Assets.Contracts
 {
     public interface IDocumentBehaviour
     {
         IVersionInfo CheckOut();
+
         IVersionInfo Checkin(IVersionInfo edit);
 
         DocumentState DocumentState { get; }
@@ -16,6 +13,5 @@ namespace Borg.Infra.Storage.Assets.Contracts
     {
         Commited = 1,
         InProgress = 2
-
     }
 }
