@@ -12,7 +12,12 @@ namespace Borg.Infra.Storage
             Id = id;
         }
 
-        public TKey Id { get; }
+        internal FileSpecDefinition(TKey id)
+        {
+            Id = id;
+        }
+
+        public TKey Id { get; internal set; }
     }
 
     public class FileSpecDefinition : IFileSpec

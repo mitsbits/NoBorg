@@ -31,5 +31,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<IPagedResult<AssetInfoDefinition<TKey>>> Find(IEnumerable<TKey> ids);
 
         Task Create(AssetInfoDefinition<TKey> asset);
+
+        Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
     }
 }

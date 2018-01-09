@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Borg.Cms.Basic.Lib.Features.Assets;
+﻿using Borg.Cms.Basic.Lib.Features.Assets;
 using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
@@ -24,7 +23,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
         public DbSet<FileRecord> FileRecords { get; set; }
         public DbSet<VersionRecord> VersionRecords { get; set; }
         public DbSet<AssetRecord> AssetRecords { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -80,7 +78,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<FileRecord>().Property(x => x.MimeType).HasMaxLength(256).IsRequired().HasDefaultValue("");
             builder.Entity<FileRecord>().HasIndex(x => x.FullPath).HasName("IX_File_FullPath");
 
-
             builder.Entity<VersionRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<VersionRecord>().Property(x => x.Version).IsRequired().HasDefaultValueSql("0");
             builder.Entity<VersionRecord>().HasIndex(x => x.Version).HasName("IX_Version_Version");
@@ -93,7 +90,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<AssetRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
             builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
             builder.Entity<AssetRecord>().Property(x => x.DocumentState).IsRequired();
-
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {

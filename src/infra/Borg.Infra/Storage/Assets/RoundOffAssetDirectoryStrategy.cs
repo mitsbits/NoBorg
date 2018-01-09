@@ -1,10 +1,11 @@
 ﻿using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Contracts;
 using System;
 using System.Threading.Tasks;
 
 namespace Borg.Infra.Storage.Assets
 {
-    public delegate string CalculateParentPath(IAssetInfo<int> asset);
+    public delegate string CalculateParentPath(IFileSpec<int> file);
 
     public class RoundOffAssetDirectoryStrategy : IAssetDirectoryStrategy<int>
     {
@@ -26,7 +27,7 @@ namespace Borg.Infra.Storage.Assets
             _calculate = CalculateFromThresholds;
         }
 
-        private string CalculateFromThresholds(IAssetInfo<int> asset)
+        private string CalculateFromThresholds(IFileSpec<int> asset)
         {
             var key = asset.Id;
             var outer = key.RoundOff(500) + 500;
@@ -38,14 +39,14 @@ namespace Borg.Infra.Storage.Assets
             return $"{outer}/{inner}/";
         }
 
-        public RoundOffAssetDirectoryStrategy(Func<IAssetInfo<int>, string> deleg) : this()
+        public RoundOffAssetDirectoryStrategy(Func<IFileSpec<int>, string> deleg) : this()
         {
             _calculate = x => deleg(x);
         }
 
-        public Task<string> ParentFolder(IAssetInfo<int> asset)
+        public Task<string> ParentFolder(IFileSpec<int> file)
         {
-            return Task.FromResult(_calculate.Invoke(asset));
+            return Task.FromResult(_calculate.Invoke(file));
         }
     }
 }

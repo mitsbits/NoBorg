@@ -1,11 +1,14 @@
 ﻿using System;
 
-public class AssetCreatedEventArgs<TKey> : EventArgs where TKey : IEquatable<TKey>
+namespace Borg.Infra.Storage.Assets
 {
-    public AssetCreatedEventArgs(TKey recordId)
+    public class AssetCreatedEventArgs<TKey> : EventArgs where TKey : IEquatable<TKey>
     {
-        RecordId = recordId;
-    }
+        public AssetCreatedEventArgs(TKey recordId)
+        {
+            RecordId = recordId;
+        }
 
-    public TKey RecordId { get; }
+        public TKey RecordId { get; }
+    }
 }

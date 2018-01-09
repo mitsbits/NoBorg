@@ -14,14 +14,14 @@ namespace Borg.Infra.Storage.Assets.Contracts
         protected readonly ILogger _logger;
         protected readonly IAssetDirectoryStrategy<TKey> _assetDirectoryStrategy;
         protected readonly IConflictingNamesResolver _conflictingNamesResolver;
-        protected readonly IFileStorage _fileStorage;
+        protected readonly Func<IFileStorage> _fileStorageFactory;
         protected readonly IAssetStoreDatabaseService<TKey> _assetStoreDatabaseService;
 
-        protected AssetStoreDefinition(ILoggerFactory loggerFactory, IAssetDirectoryStrategy<TKey> assetDirectoryStrategy, IConflictingNamesResolver conflictingNamesResolver, IFileStorage fileStorage, IAssetStoreDatabaseService<TKey> assetStoreDatabaseService)
+        protected AssetStoreDefinition(ILoggerFactory loggerFactory, IAssetDirectoryStrategy<TKey> assetDirectoryStrategy, IConflictingNamesResolver conflictingNamesResolver, Func<IFileStorage> fileStorageFactory, IAssetStoreDatabaseService<TKey> assetStoreDatabaseService)
         {
             _assetDirectoryStrategy = assetDirectoryStrategy;
             _conflictingNamesResolver = conflictingNamesResolver;
-            _fileStorage = fileStorage;
+            _fileStorageFactory = fileStorageFactory;
             _assetStoreDatabaseService = assetStoreDatabaseService;
             _logger = loggerFactory.CreateLogger(GetType());
         }
@@ -51,40 +51,101 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>
     {
-        public AssetStoreBase(ILoggerFactory loggerFactory, IAssetDirectoryStrategy<TKey> assetDirectoryStrategy, IConflictingNamesResolver conflictingNamesResolver, IFileStorage fileStorage, IAssetStoreDatabaseService<TKey> assetStoreDatabaseService) : base(loggerFactory, assetDirectoryStrategy, conflictingNamesResolver, fileStorage, assetStoreDatabaseService)
+        public AssetStoreBase(ILoggerFactory loggerFactory, IAssetDirectoryStrategy<TKey> assetDirectoryStrategy, IConflictingNamesResolver conflictingNamesResolver, Func<IFileStorage> fileStorageFactory, IAssetStoreDatabaseService<TKey> assetStoreDatabaseService) : base(loggerFactory, assetDirectoryStrategy, conflictingNamesResolver, fileStorageFactory, assetStoreDatabaseService)
         {
         }
 
         public override async Task<AssetInfoDefinition<TKey>> AddNewVersion(TKey id, byte[] content, string fileName)
         {
-            var hits = await _assetStoreDatabaseService.Find(new[] {id});
-            var hit = hits.First();
-
+            return await AddNewVersionInternal(id, content, fileName);
         }
 
         public override async Task<IEnumerable<AssetInfoDefinition<TKey>>> Projections(IEnumerable<TKey> ids)
+        {
+            return await ProjectionsInternal(ids);
+        }
+
+        public override async Task<AssetInfoDefinition<TKey>> Create(string name, byte[] content, string fileName)
+        {
+            return await CreateInternal(name, content, fileName);
+        }
+
+        #region Internal --to be intercepted
+
+        private async Task<AssetInfoDefinition<TKey>> AddNewVersionInternal(TKey id, byte[] content, string fileName)
+        {
+            //preperation
+            var hits = await _assetStoreDatabaseService.Find(new[] { id });
+            var hit = hits.First();
+            var fileId = await _assetStoreDatabaseService.FileNextFromSequence();
+            var fileSpec = new FileSpecDefinition<TKey>(fileId);
+            var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(fileSpec);
+
+            //upload file
+            IFileSpec uploaded;
+            using (var storage = _fileStorageFactory.Invoke())
+            using (var scoped = storage.Scope(parentDirecotry))
+            {
+                var exists = await scoped.Exists(fileName);
+                if (exists) fileName = await _conflictingNamesResolver.Resolve(fileName);
+                using (var stream = new MemoryStream(content))
+                {
+                    await scoped.SaveFile(fileName, stream, CancellationToken.None);
+                    uploaded = await scoped.GetFileInfo(fileName, CancellationToken.None);
+                }
+            }
+
+            //persist to database
+            var filespc = new FileSpecDefinition(uploaded.FullPath, hit.Name, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
+            var versionSpec = new VersionInfoDefinition(-1, filespc);
+
+            //return
+            return await _assetStoreDatabaseService.AddVersion(hit, fileSpec, versionSpec);
+        }
+
+        private async Task<IEnumerable<AssetInfoDefinition<TKey>>> ProjectionsInternal(IEnumerable<TKey> ids)
         {
             var results = await _assetStoreDatabaseService.Find(ids);
             return results.Records;
         }
 
-        public override async Task<AssetInfoDefinition<TKey>> Create(string name, byte[] content, string fileName)
+        private async Task<AssetInfoDefinition<TKey>> CreateInternal(string name, byte[] content, string fileName)
         {
+            //preperation
             var id = await _assetStoreDatabaseService.AssetNextFromSequence();
+            var fileId = await _assetStoreDatabaseService.FileNextFromSequence();
+            var fileSpec = new FileSpecDefinition<TKey>(fileId);
+            var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(fileSpec);
             var definition = new AssetInfoDefinition<TKey>(id, name);
-            var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(definition);
-            var scoped = _fileStorage.Scope(parentDirecotry);
-            var exists = await scoped.Exists(fileName);
-            if (exists) fileName = await _conflictingNamesResolver.Resolve(fileName);
-            await scoped.SaveFile(fileName, new MemoryStream(content), CancellationToken.None);
-            var uploaded = await scoped.GetFileInfo(fileName, CancellationToken.None);
+
+            //upload file
+            IFileSpec uploaded;
+            using (var storage = _fileStorageFactory.Invoke())
+            using (var scoped = storage.Scope(parentDirecotry))
+            {
+                var exists = await scoped.Exists(fileName);
+                if (exists) fileName = await _conflictingNamesResolver.Resolve(fileName);
+                using (var stream = new MemoryStream(content))
+                {
+                    await scoped.SaveFile(fileName, stream, CancellationToken.None);
+                    uploaded = await scoped.GetFileInfo(fileName, CancellationToken.None);
+                }
+            }
+
+            //persist to database
             var filespc = new FileSpecDefinition(uploaded.FullPath, name, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
             var versionspc = new VersionInfoDefinition(1, filespc);
             definition.CurrentFile = versionspc;
             await _assetStoreDatabaseService.Create(definition);
+
+            //raise events
             OnAssetCreated(new AssetCreatedEventArgs<TKey>(id));
             OnVersionCreated(new VersionCreatedEventArgs<TKey>(id, 1));
+
+            //retuen
             return definition;
         }
+
+        #endregion Internal --to be intercepted
     }
 }
