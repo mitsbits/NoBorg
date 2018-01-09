@@ -2,7 +2,7 @@
 using Borg.Infra.DDD;
 using Borg.Infra.Storage.Assets.Contracts;
 
-namespace Borg.Cms.Basic.Lib.Features.Assets
+namespace Borg.Platform.EF.Assets
 {
     public class AssetRecord : IEntity<int>
     {

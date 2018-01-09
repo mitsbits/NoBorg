@@ -1,5 +1,7 @@
 ﻿using System;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Cms.Basic.Lib.System.Data;
+using Borg.Platform.EF.Assets.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +37,8 @@ namespace Borg.Cms.Basic
                 authseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
                 var borgseed = scope.ServiceProvider.GetRequiredService<BorgDbSeed>();
                 borgseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                var assetseed = scope.ServiceProvider.GetRequiredService<AssetsDbSeed>();
+                assetseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
             }
         }
     }

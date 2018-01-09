@@ -1,7 +1,7 @@
 ﻿using System;
 using Borg.Infra.DDD;
 
-namespace Borg.Cms.Basic.Lib.Features.Assets
+namespace Borg.Platform.EF.Assets
 {
     public class FileRecord : IEntity<int>
     {

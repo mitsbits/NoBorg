@@ -30,6 +30,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Borg.Infra.Storage.Contracts;
+using Borg.Platform.EF.Assets.Data;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -137,7 +138,7 @@ namespace Borg.Cms.Basic.Lib
 
         public static IServiceCollection RegisterBorg(this IServiceCollection services, BorgSettings settings, ILoggerFactory loggerFactory, IHostingEnvironment environment, IEnumerable<Assembly> assembliesToScan)
         {
-            services.AddDbContextPool<BorgDbContext>(options =>
+            services.AddDbContext<BorgDbContext>(options =>
             {
                 options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "borg"));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
@@ -146,6 +147,13 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<BorgDbSeed>();
             services.AddScoped<IMenuProvider, MenuProvider>();
 
+
+            services.AddDbContext<AssetsDbContext>(options =>
+            {
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets"));
+                options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
+            });
+            services.AddScoped<AssetsDbSeed>();
             //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
             //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
 

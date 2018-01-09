@@ -106,7 +106,7 @@ namespace Borg
             var fullPath = string.IsNullOrWhiteSpace(textToRemoveFomFullPath)
                 ? info.FullName
                 : info.FullName.Replace(textToRemoveFomFullPath, string.Empty);
-            return new FileSpec(fullPath, info.Name, info.CreationTimeUtc, info.LastWriteTimeUtc,
+            return new FileSpecDefinition(fullPath, info.Name, info.CreationTimeUtc, info.LastWriteTimeUtc,
                 info.LastAccessTimeUtc, info.Length);
         }
 

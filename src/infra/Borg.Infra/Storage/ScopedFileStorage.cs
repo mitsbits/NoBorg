@@ -31,7 +31,7 @@ namespace Borg.Infra.Storage
             var file = await UnscopedStorage.GetFileInfo(string.Concat(_pathPrefix, path), cancellationToken);
             var name = file.Name;
             if (name.StartsWith(_pathPrefix)) name = name.Substring(_pathPrefix.Length);
-            return new FileSpec(file.FullPath, name, file.CreationDate, file.LastWrite, file.LastRead, file.SizeInBytes,
+            return new FileSpecDefinition(file.FullPath, name, file.CreationDate, file.LastWrite, file.LastRead, file.SizeInBytes,
                 file.MimeType);
         }
 
@@ -67,7 +67,7 @@ namespace Borg.Infra.Storage
                     .GetFileList(string.Concat(_pathPrefix, searchPattern), limit, skip, cancellationToken)
                     .AnyContext())
                 .ToList();
-            return files.Select(x => new FileSpec(x.FullPath,
+            return files.Select(x => new FileSpecDefinition(x.FullPath,
                 x.Name.StartsWith(_pathPrefix) ? x.Name.Substring(_pathPrefix.Length) : x.Name, x.CreationDate,
                 x.LastWrite, x.LastRead, x.SizeInBytes, x.MimeType));
         }

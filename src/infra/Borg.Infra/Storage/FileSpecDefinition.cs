@@ -46,7 +46,7 @@ namespace Borg.Infra.Storage
         public long SizeInBytes { get; }
         public string MimeType { get; }
 
-        [Obsolete("not a good idea, copy instead", true)]
+        [Obsolete("not a good idea, copy instead", false)]
         public void ModifyPath(string newPath)
         {
             FullPath = newPath;

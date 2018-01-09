@@ -79,7 +79,7 @@ namespace Borg.Infra.Storage
             {
                 _storage[path] =
                     Tuple.Create(
-                        new FileSpec(path, Path.GetFileName(path), DateTime.UtcNow, DateTime.UtcNow, default(DateTime?),
+                        new FileSpecDefinition(path, Path.GetFileName(path), DateTime.UtcNow, DateTime.UtcNow, default(DateTime?),
                             contents.Length) as IFileSpec, contents);
 
                 if (_storage.Count > MaxFiles)
@@ -104,7 +104,7 @@ namespace Borg.Infra.Storage
                     return false;
 
                 _storage[targetpath] = _storage[path];
-                (_storage[targetpath].Item1  as FileSpec).ModifyPath(targetpath);
+                (_storage[targetpath].Item1  as FileSpecDefinition).ModifyPath(targetpath);
             }
 
             return true;
