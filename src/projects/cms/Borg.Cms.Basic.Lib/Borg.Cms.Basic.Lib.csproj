@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Auth\Commands\" />
-    <Folder Include="Features\Content\Services\" />
     <Folder Include="System\ViewComponents\" />
   </ItemGroup>
 

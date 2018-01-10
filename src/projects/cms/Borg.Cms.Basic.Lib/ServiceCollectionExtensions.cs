@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Content.Services;
+using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Borg.Platform.EF.Assets.Data;
 
@@ -154,6 +156,10 @@ namespace Borg.Cms.Basic.Lib
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
             services.AddScoped<AssetsDbSeed>();
+
+            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition, int>),
+                p => null, //TODO:do it
+                ServiceLifetime.Scoped));
             //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
             //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
 
