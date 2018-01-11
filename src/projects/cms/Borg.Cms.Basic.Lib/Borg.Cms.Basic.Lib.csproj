@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\..\..\platform\Borg.Platform.Azure\Borg.Platform.Azure.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.EF\Borg.Platform.EF.csproj" />
   </ItemGroup>
 

@@ -34,6 +34,7 @@ using Borg.Cms.Basic.Lib.Features.Content.Services;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
+using Borg.Platform.Azure.Storage.Blobs;
 using Borg.Platform.EF.Assets.Data;
 using Borg.Platform.EF.Assets.Services;
 
@@ -164,7 +165,7 @@ namespace Borg.Cms.Basic.Lib
                 p => new AssetService(loggerFactory, 
                 p.GetRequiredService<IAssetDirectoryStrategy<int>>(), 
                 p.GetRequiredService<IConflictingNamesResolver>(), 
-                () => new FolderFileStorage(Path.Combine( environment.WebRootPath , "assets/storage/"),loggerFactory),
+                () => new AzureFileStorage(settings.Storage.AzureStorageConnection , settings.Storage.Folder),
                 p.GetRequiredService<IAssetStoreDatabaseService<int>>()), 
                 ServiceLifetime.Scoped));
 
