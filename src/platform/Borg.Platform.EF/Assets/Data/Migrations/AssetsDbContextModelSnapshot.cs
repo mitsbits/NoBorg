@@ -27,7 +27,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.AssetRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.AssetsSQC");
 
                     b.Property<int>("CurrentVersion")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.FileRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.FilesSQC");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.VersionRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.VersionsSQC");
 
                     b.Property<int>("AssetRecordId");
 

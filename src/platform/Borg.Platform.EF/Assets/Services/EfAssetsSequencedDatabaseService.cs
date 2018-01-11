@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -60,29 +61,40 @@ namespace Borg.Platform.EF.Assets.Services
 
         public override async Task Create(AssetInfoDefinition<int> asset)
         {
-            var assetRecotd = new AssetRecord() { Id = asset.Id, Name = asset.Name, CurrentVersion = 1 };
-            assetRecotd.Versions.Add(new VersionRecord()
+            try
             {
-                Id = await SequnceInternal("assets.VersionsSQC"),
-                AssetRecordId = asset.Id,
-                Version = 1,
-                FileRecord = new FileRecord()
+                var assetRecotd = new AssetRecord() { Id = asset.Id, Name = asset.Name, CurrentVersion = 1 };
+                assetRecotd.Versions.Add(new VersionRecord()
                 {
-                    Id = ((IFileSpec<int>)asset.CurrentFile.FileSpec).Id,
-                    CreationDate = asset.CurrentFile.FileSpec.CreationDate,
-                    FullPath = asset.CurrentFile.FileSpec.FullPath,
-                    LastRead = asset.CurrentFile.FileSpec.LastRead,
-                    LastWrite = asset.CurrentFile.FileSpec.LastWrite,
-                    MimeType = asset.CurrentFile.FileSpec.MimeType,
-                    Name = asset.CurrentFile.FileSpec.Name,
-                    SizeInBytes = asset.CurrentFile.FileSpec.SizeInBytes
-                }
-            });
+                    Id = await SequnceInternal("assets.VersionsSQC"),
+                    AssetRecordId = asset.Id,
+                    Version = 1,
+                    FileRecord = new FileRecord()
+                    {
+                        Id = ((IFileSpec<int>)asset.CurrentFile.FileSpec).Id,
+                        CreationDate = asset.CurrentFile.FileSpec.CreationDate,
+                        FullPath = asset.CurrentFile.FileSpec.FullPath,
+                        LastRead = asset.CurrentFile.FileSpec.LastRead,
+                        LastWrite = asset.CurrentFile.FileSpec.LastWrite,
+                        MimeType = asset.CurrentFile.FileSpec.MimeType,
+                        Name = asset.CurrentFile.FileSpec.Name,
+                        SizeInBytes = asset.CurrentFile.FileSpec.SizeInBytes
+                    }
+                });
+
+                await _db.AssetRecords.AddAsync(assetRecotd);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public override async Task<AssetInfoDefinition<int>> AddVersion(AssetInfoDefinition<int> hit, FileSpecDefinition<int> fileSpec, VersionInfoDefinition versionSpec)
         {
-            var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x=>x.Id == hit.Id);
+            var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == hit.Id);
             asset.Versions.Add(new VersionRecord()
             {
                 Version = versionSpec.Version,
@@ -109,13 +121,23 @@ namespace Borg.Platform.EF.Assets.Services
 
         private async Task<int> SequnceInternal(string sqc)
         {
-            using (var conn = _db.Database.GetDbConnection())
+            var conn = _db.Database.GetDbConnection(); //do not dispose connection, it is managed by the context
             using (var command = conn.CreateCommand())
             {
-                command.CommandText = $"SELECT NEXT VALUE FOR {sqc}";
-                if (conn.State == ConnectionState.Closed) await conn.OpenAsync();
-                var result = await command.ExecuteScalarAsync();
-                return (int)result;
+                try
+                {
+
+
+                    command.CommandText = $"SELECT NEXT VALUE FOR {sqc}";
+                    if (conn.State == ConnectionState.Closed) await conn.OpenAsync();
+                    var result = await command.ExecuteScalarAsync();
+                    return (int)result;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
         }
     }

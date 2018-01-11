@@ -1,9 +1,10 @@
 ﻿using System;
 using Borg.Infra.DDD;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Platform.EF.Assets
 {
-    public class FileRecord : IEntity<int>
+    public class FileRecord : IEntity<int>, IFileSpec<int>
     {
         public int Id { get; set; }
         public string FullPath { get; set; }

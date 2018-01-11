@@ -32,6 +32,8 @@ namespace Borg.Platform.EF.Assets.Data
 
 
             builder.Entity<FileRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<FileRecord>().Property(x => x.Id).ValueGeneratedNever();
+            builder.Entity<FileRecord>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR assets.FilesSQC");
             builder.Entity<FileRecord>().Property(x => x.CreationDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
             builder.Entity<FileRecord>().Property(x => x.LastWrite).IsRequired().HasDefaultValueSql("GetUtcDate()");
             builder.Entity<FileRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
@@ -43,6 +45,8 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<FileRecord>().HasIndex(x => x.FullPath).HasName("IX_File_FullPath");
 
             builder.Entity<VersionRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<VersionRecord>().Property(x => x.Id).ValueGeneratedNever();
+            builder.Entity<VersionRecord>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR assets.VersionsSQC");
             builder.Entity<VersionRecord>().Property(x => x.Version).IsRequired().HasDefaultValueSql("0");
             builder.Entity<VersionRecord>().HasIndex(x => x.Version).HasName("IX_Version_Version");
             builder.Entity<VersionRecord>().HasOne(x => x.AssetRecord).WithMany(x => x.Versions)
@@ -51,6 +55,8 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<VersionRecord>().HasIndex(x => new{ x.AssetRecordId, x.Version}).IsUnique().HasName("PK_Version_Asset");
 
             builder.Entity<AssetRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<AssetRecord>().Property(x => x.Id).ValueGeneratedNever();
+            builder.Entity<AssetRecord>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR assets.AssetsSQC");
             builder.Entity<AssetRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
             builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
             builder.Entity<AssetRecord>().Property(x => x.DocumentState).IsRequired();

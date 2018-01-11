@@ -12,8 +12,8 @@ using System;
 namespace Borg.Platform.EF.Assets.Data.Migrations
 {
     [DbContext(typeof(AssetsDbContext))]
-    [Migration("20180109204621_version_asset_index")]
-    partial class version_asset_index
+    [Migration("20180111191119_assets1")]
+    partial class assets1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.AssetRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.AssetsSQC");
 
                     b.Property<int>("CurrentVersion")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.FileRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.FilesSQC");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.VersionRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasDefaultValueSql("NEXT VALUE FOR assets.VersionsSQC");
 
                     b.Property<int>("AssetRecordId");
 

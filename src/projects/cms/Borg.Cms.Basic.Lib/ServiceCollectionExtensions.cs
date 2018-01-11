@@ -26,13 +26,16 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Borg.Cms.Basic.Lib.Features.Content.Services;
+using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Borg.Platform.EF.Assets.Data;
+using Borg.Platform.EF.Assets.Services;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -157,9 +160,18 @@ namespace Borg.Cms.Basic.Lib
             });
             services.AddScoped<AssetsDbSeed>();
 
-            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition, int>),
-                p => null, //TODO:do it
+            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>), 
+                p => new AssetService(loggerFactory, 
+                p.GetRequiredService<IAssetDirectoryStrategy<int>>(), 
+                p.GetRequiredService<IConflictingNamesResolver>(), 
+                () => new FolderFileStorage(Path.Combine( environment.WebRootPath , "assets/storage/"),loggerFactory),
+                p.GetRequiredService<IAssetStoreDatabaseService<int>>()), 
                 ServiceLifetime.Scoped));
+
+            services.AddScoped<IAssetStoreDatabaseService<int>, EfAssetsSequencedDatabaseService>();
+            services.AddScoped<IConflictingNamesResolver, DefaultConflictingNamesResolver>();
+            services.AddScoped<IAssetDirectoryStrategy<int>, RoundOffAssetDirectoryStrategy>();
+
             //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
             //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
 

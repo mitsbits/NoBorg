@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
 namespace Borg.Platform.EF.Assets.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class assets1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,8 +28,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                 schema: "assets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false, defaultValueSql: "NEXT VALUE FOR assets.AssetsSQC"),
                     CurrentVersion = table.Column<int>(nullable: false, defaultValueSql: "0"),
                     DocumentState = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 512, nullable: false, defaultValue: "")
@@ -46,8 +44,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                 schema: "assets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false, defaultValueSql: "NEXT VALUE FOR assets.FilesSQC"),
                     CreationDate = table.Column<DateTime>(nullable: false, defaultValueSql: "GetUtcDate()"),
                     FullPath = table.Column<string>(maxLength: 1024, nullable: false, defaultValue: ""),
                     LastRead = table.Column<DateTime>(nullable: true),
@@ -67,8 +64,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                 schema: "assets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false, defaultValueSql: "NEXT VALUE FOR assets.VersionsSQC"),
                     AssetRecordId = table.Column<int>(nullable: false),
                     FileRecordId = table.Column<int>(nullable: false),
                     Version = table.Column<int>(nullable: false, defaultValueSql: "0")
@@ -100,12 +96,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                 column: "FullPath");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VersionRecords_AssetRecordId",
-                schema: "assets",
-                table: "VersionRecords",
-                column: "AssetRecordId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Version_FileRecordId",
                 schema: "assets",
                 table: "VersionRecords",
@@ -117,6 +107,13 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                 schema: "assets",
                 table: "VersionRecords",
                 column: "Version");
+
+            migrationBuilder.CreateIndex(
+                name: "PK_Version_Asset",
+                schema: "assets",
+                table: "VersionRecords",
+                columns: new[] { "AssetRecordId", "Version" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

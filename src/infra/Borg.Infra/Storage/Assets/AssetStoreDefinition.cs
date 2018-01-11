@@ -133,7 +133,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
             }
 
             //persist to database
-            var filespc = new FileSpecDefinition(uploaded.FullPath, name, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
+            var filespc = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, name, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
             var versionspc = new VersionInfoDefinition(1, filespc);
             definition.CurrentFile = versionspc;
             await _assetStoreDatabaseService.Create(definition);
