@@ -7,7 +7,7 @@ namespace Borg.Infra.Storage.Assets
 {
     public delegate string CalculateParentPath(IFileSpec<int> file);
 
-    public class RoundOffAssetDirectoryStrategy : IAssetDirectoryStrategy<int>
+    public class RoundUpAssetDirectoryStrategy : IAssetDirectoryStrategy<int>
     {
         private readonly int _innerThreshold = 50;
         private readonly int _outerThreshold = 500;
@@ -15,11 +15,11 @@ namespace Borg.Infra.Storage.Assets
 
         private readonly CalculateParentPath _calculate;
 
-        public RoundOffAssetDirectoryStrategy() : this(50, 500)
+        public RoundUpAssetDirectoryStrategy() : this(50, 500)
         {
         }
 
-        public RoundOffAssetDirectoryStrategy(int innerThreshold, int outerThreshold, bool wrapFileInFolder = true)
+        public RoundUpAssetDirectoryStrategy(int innerThreshold, int outerThreshold, bool wrapFileInFolder = true)
         {
             _innerThreshold = innerThreshold;
             _outerThreshold = outerThreshold;
@@ -30,8 +30,8 @@ namespace Borg.Infra.Storage.Assets
         private string CalculateFromThresholds(IFileSpec<int> asset)
         {
             var key = asset.Id;
-            var outer = key.RoundOff(500) + 500;
-            var inner = key.RoundOff(_innerThreshold) + _innerThreshold;
+            var outer = key.RoundUp(_outerThreshold) + _outerThreshold;
+            var inner = key.RoundUp(_innerThreshold) + _innerThreshold;
             if (_wrapFileInFolder)
             {
                 return $"{outer}/{inner}/{key}/";
@@ -39,7 +39,7 @@ namespace Borg.Infra.Storage.Assets
             return $"{outer}/{inner}/";
         }
 
-        public RoundOffAssetDirectoryStrategy(Func<IFileSpec<int>, string> deleg) : this()
+        public RoundUpAssetDirectoryStrategy(Func<IFileSpec<int>, string> deleg) : this()
         {
             _calculate = x => deleg(x);
         }

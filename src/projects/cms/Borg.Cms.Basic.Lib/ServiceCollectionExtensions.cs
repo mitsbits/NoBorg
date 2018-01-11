@@ -165,13 +165,14 @@ namespace Borg.Cms.Basic.Lib
                 p => new AssetService(loggerFactory, 
                 p.GetRequiredService<IAssetDirectoryStrategy<int>>(), 
                 p.GetRequiredService<IConflictingNamesResolver>(), 
-                () => new AzureFileStorage(settings.Storage.AzureStorageConnection , settings.Storage.Folder),
+                () => new AzureFileStorage(settings.Storage.AzureStorageConnection , settings.Storage.AssetStoreContainer),
                 p.GetRequiredService<IAssetStoreDatabaseService<int>>()), 
                 ServiceLifetime.Scoped));
 
             services.AddScoped<IAssetStoreDatabaseService<int>, EfAssetsSequencedDatabaseService>();
             services.AddScoped<IConflictingNamesResolver, DefaultConflictingNamesResolver>();
-            services.AddScoped<IAssetDirectoryStrategy<int>, RoundOffAssetDirectoryStrategy>();
+            services.Add(new ServiceDescriptor(typeof(IAssetDirectoryStrategy<int>),
+                p => new RoundUpAssetDirectoryStrategy(10, 50), ServiceLifetime.Scoped));
 
             //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
             //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();

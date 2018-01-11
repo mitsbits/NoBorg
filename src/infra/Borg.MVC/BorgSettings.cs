@@ -1,5 +1,6 @@
 ﻿using Borg.MVC.TagHelpers.HtmlPager;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Borg.MVC
 {
@@ -15,7 +16,10 @@ namespace Borg.MVC
     public class StorageSettings
     {
         public string Folder { get; set; }
+        public string AssetStoreContainer { get; set; }
         public string AzureStorageConnection { get; set; }
+
+
     }
 
     public class TenantSettings

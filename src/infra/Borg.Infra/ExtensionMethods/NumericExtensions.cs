@@ -52,10 +52,33 @@ namespace Borg
             return (int)((long)i).RoundOff(round);
         }
 
+
+        public static int RoundDown(this int i, int round = 10)
+        {
+            return (int)((long)i).RoundDown(round);
+        }
+
+        public static int RoundUp(this int i, int round = 10)
+        {
+            return (int)((long)i).RoundUp(round);
+        }
+
         public static long RoundOff(this long i, int round = 10)
         {
             if (round <= 0) throw new ArgumentOutOfRangeException(nameof(round));
             return (long)Math.Round(i / (double)round) * round;
+        }
+
+
+        public static long RoundDown(this long i, int round = 10)
+        {
+            if (round <= 0) throw new ArgumentOutOfRangeException(nameof(round));
+            return (long)(Math.Truncate(i / (double)round) -1) * round;
+        }
+
+        public static long RoundUp(this long i, int round = 10)
+        {
+            return i.RoundDown(round) + round;
         }
     }
 }

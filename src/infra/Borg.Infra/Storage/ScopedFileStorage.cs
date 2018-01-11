@@ -14,7 +14,7 @@ namespace Borg.Infra.Storage
         public ScopedFileStorage(IFileStorage storage, string scope)
         {
             UnscopedStorage = storage;
-            Scope = !string.IsNullOrWhiteSpace(scope) ? scope.Trim() : null;
+            Scope = !string.IsNullOrWhiteSpace(scope) ? scope.Trim().TrimEnd('/') : null;
             _pathPrefix = Scope != null ? string.Concat(Scope, "/") : string.Empty;
         }
 
