@@ -47,6 +47,21 @@ namespace Borg
             return ((long)byteCount).SizeDisplay(format, decimalsToShow);
         }
 
+
+
+        public static int RoundUp(this int i, int round = 10)
+        {
+            return (int)((long)i).RoundUp(round);
+        }
+
+
+
+        public static long RoundUp(this long i, int round = 10)
+        {
+            return i.RoundDown(round) + round;
+        }
+
+
         public static int RoundOff(this int i, int round = 10)
         {
             return (int)((long)i).RoundOff(round);
@@ -56,11 +71,6 @@ namespace Borg
         public static int RoundDown(this int i, int round = 10)
         {
             return (int)((long)i).RoundDown(round);
-        }
-
-        public static int RoundUp(this int i, int round = 10)
-        {
-            return (int)((long)i).RoundUp(round);
         }
 
         public static long RoundOff(this long i, int round = 10)
@@ -73,12 +83,9 @@ namespace Borg
         public static long RoundDown(this long i, int round = 10)
         {
             if (round <= 0) throw new ArgumentOutOfRangeException(nameof(round));
-            return (long)(Math.Truncate(i / (double)round) -1) * round;
-        }
-
-        public static long RoundUp(this long i, int round = 10)
-        {
-            return i.RoundDown(round) + round;
+            var factor = Math.Truncate(i / (double) round);
+            var result = (long)factor * round;
+            return result;
         }
     }
 }

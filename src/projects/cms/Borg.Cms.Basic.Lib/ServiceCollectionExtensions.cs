@@ -1,5 +1,6 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Cms.Basic.Lib.Features.Content.Services;
 using Borg.Cms.Basic.Lib.Features.Device.Services;
 using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Cms.Basic.Lib.Features.Navigation.Services;
@@ -8,12 +9,19 @@ using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.Infra.Services.AssemblyProvider;
 using Borg.Infra.Storage;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Contracts;
 using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services;
+using Borg.MVC.Services.Editors;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
+using Borg.Platform.Azure.Storage.Blobs;
+using Borg.Platform.EF.Assets.Data;
+using Borg.Platform.EF.Assets.Services;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
 using MediatR;
@@ -26,17 +34,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Content.Services;
-using Borg.Infra.Storage.Assets;
-using Borg.Infra.Storage.Assets.Contracts;
-using Borg.Infra.Storage.Contracts;
-using Borg.Platform.Azure.Storage.Blobs;
-using Borg.Platform.EF.Assets.Data;
-using Borg.Platform.EF.Assets.Services;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -153,7 +153,6 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<BorgDbSeed>();
             services.AddScoped<IMenuProvider, MenuProvider>();
 
-
             services.AddDbContext<AssetsDbContext>(options =>
             {
                 options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets"));
@@ -161,24 +160,18 @@ namespace Borg.Cms.Basic.Lib
             });
             services.AddScoped<AssetsDbSeed>();
 
-            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>), 
-                p => new AssetService(loggerFactory, 
-                p.GetRequiredService<IAssetDirectoryStrategy<int>>(), 
-                p.GetRequiredService<IConflictingNamesResolver>(), 
-                () => new AzureFileStorage(settings.Storage.AzureStorageConnection , settings.Storage.AssetStoreContainer),
-                p.GetRequiredService<IAssetStoreDatabaseService<int>>()), 
+            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
+                p => new AssetService(loggerFactory,
+                p.GetRequiredService<IAssetDirectoryStrategy<int>>(),
+                p.GetRequiredService<IConflictingNamesResolver>(),
+                () => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
+                p.GetRequiredService<IAssetStoreDatabaseService<int>>()),
                 ServiceLifetime.Scoped));
 
             services.AddScoped<IAssetStoreDatabaseService<int>, EfAssetsSequencedDatabaseService>();
             services.AddScoped<IConflictingNamesResolver, DefaultConflictingNamesResolver>();
             services.Add(new ServiceDescriptor(typeof(IAssetDirectoryStrategy<int>),
                 p => new RoundUpAssetDirectoryStrategy(10, 50), ServiceLifetime.Scoped));
-
-            //services.AddSingleton<IModuleDescriptor, MenuModuleDescriptor>();
-            //services.AddSingleton<IModuleDescriptor<Tidings>, MenuModuleDescriptor>();
-
-            //services.AddSingleton<IModuleDescriptor, BodyViewModuleDescriptor>();
-            //services.AddSingleton<IModuleDescriptor<Tidings>, BodyViewModuleDescriptor>();
 
             foreach (var assembly in assembliesToScan)
             {
@@ -198,7 +191,13 @@ namespace Borg.Cms.Basic.Lib
                     }
                 }
             }
-
+            var decriptors = assembliesToScan.SelectMany(x =>
+                    x.GetTypes().Where(t => t.IsSealed && t.ImplementsInterface(typeof(IEditorDescriptor))))
+                .Distinct();
+            foreach (var decriptor in decriptors)
+            {
+                services.Add(new ServiceDescriptor(typeof(IEditorDescriptor), decriptor, ServiceLifetime.Scoped));
+            }
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CorrelationBehavior<,>));
 

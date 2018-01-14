@@ -1,0 +1,23 @@
+﻿@using Borg.MVC.Services.Editors
+@model IntScalarSlider
+<input type="hidden" asp-for="HtmlId" />
+<div class="form-group">
+
+    <label asp-for="@Model"></label>
+    <input type="text" class="slider form-control"
+           data-slider-min="@Model.Min"
+           data-slider-max="@Model.Max"
+           data-slider-step="@Model.Step"
+           data-slider-value="@Model.Value"
+           data-slider-orientation="@Model.Orientation.ToString().ToLower()"
+           data-slider-selection="before"
+           data-slider-tooltip="show"
+           data-slider-id="@Model.SliderColor.ToString().ToLower()"
+           value=""
+           id="@Model.HtmlId" />
+</div>
+<script device id="@(Model.HtmlId)_script">
+    $(function() {
+        $("input#" + '@Model.HtmlId').slider();
+    })
+</script>

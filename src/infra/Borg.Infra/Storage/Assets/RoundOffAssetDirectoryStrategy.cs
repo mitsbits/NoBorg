@@ -30,8 +30,8 @@ namespace Borg.Infra.Storage.Assets
         private string CalculateFromThresholds(IFileSpec<int> asset)
         {
             var key = asset.Id;
-            var outer = key.RoundUp(_outerThreshold) + _outerThreshold;
-            var inner = key.RoundUp(_innerThreshold) + _innerThreshold;
+            var outer = key.RoundDown(_outerThreshold) ;
+            var inner = key.RoundDown(_innerThreshold) ;
             if (_wrapFileInFolder)
             {
                 return $"{outer}/{inner}/{key}/";

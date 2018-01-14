@@ -1,0 +1,50 @@
+﻿@using Borg.MVC.Services.Editors
+@model KeyValueSliders
+
+<input type="hidden" asp-for="HtmlId" />
+<div class="form-group">
+    <label asp-for="@Model"></label>
+    <table class="table table-condensed table-striped" id="@Model.HtmlId">
+        <thead>
+            <tr>
+                <th style="width: 10px;"></th>
+                <th style="width: 120px; white-space: nowrap;">@Model.KeyHeader</th>
+                <th>@Model.ValueHeader</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Options.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="@Model.ValueContainers[i].Flag" type="checkbox" />
+                    </td>
+                    <td>
+                        <label asp-for="@Model.ValueContainers[i].Key">@Model.ValueContainers[i].Key</label>
+                    </td>
+                    <td>
+                        <input type="text" class="slider form-control"
+                               data-slider-min="@Model.Min"
+                               data-slider-max="@Model.Max"
+                               data-slider-step="@Model.Step"
+                               data-slider-value="@Model.ValueContainers[i].Value"
+                               data-slider-orientation="horizonta;"
+                               data-slider-selection="before"
+                               data-slider-tooltip="show"
+                               data-slider-id="blue"
+                               asp-for="@Model.ValueContainers[i].Value" />
+                        <input type="hidden" class="form-control" asp-for="@Model.ValueContainers[i].Key" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script device id="@(Model.HtmlId)_script">
+    $(function() {
+        $("table#" + '@Model.HtmlId' + ' input.slider').slider({formatter: function(value) {
+            return  value + ' %';
+        }});
+    })
+</script>

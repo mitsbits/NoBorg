@@ -1,0 +1,49 @@
+﻿@using Borg.MVC.Services.Editors
+@model CheckList
+<input type="hidden" asp-for="HtmlId" />
+@{
+    if (Model.Orientation == Orientation.Horizontal)
+    {
+        <div class="form-group">
+            <label asp-for="@Model"></label>
+            <div id="@Model.HtmlId" class="checkbox">
+                @for (int i = 0; i < Model.Options.Count; i++)
+                {
+                    <label asp-for="@Model.ValueContainers[i].Key">@Model.ValueContainers[i].Value</label>
+                    <input asp-for="@Model.ValueContainers[i].Flag" type="checkbox" class="simple" />
+                    <input asp-for="@Model.ValueContainers[i].Key" type="hidden" />
+                    <input asp-for="@Model.ValueContainers[i].Value" type="hidden" />
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="@Model"></label>
+            <div id="@Model.HtmlId">
+                @for (int i = 0; i < Model.Options.Count; i++)
+                {
+                    <div class="checkbox">
+                        <input asp-for="@Model.ValueContainers[i].Flag" type="checkbox" class="simple" />
+                        <label asp-for="@Model.ValueContainers[i].Key">@Model.ValueContainers[i].Value</label>
+                        <input asp-for="@Model.ValueContainers[i].Key" type="hidden" />
+                        <input asp-for="@Model.ValueContainers[i].Value" type="hidden" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+<script>
+</script>
+
+<script type="text/javascript" device id="@(Model.HtmlId)_script">
+    $(function() {
+        $('div#' + '@Model.HtmlId' + ' input[type="checkbox"], input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue'
+        });
+    });
+</script>

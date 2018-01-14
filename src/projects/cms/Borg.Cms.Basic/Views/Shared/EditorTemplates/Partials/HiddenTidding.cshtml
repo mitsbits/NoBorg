@@ -1,0 +1,16 @@
+﻿@model Borg.Infra.DTO.Tiding
+<input type="hidden" asp-for="Value" />
+<input type="hidden" asp-for="Flag" />
+<input type="hidden" asp-for="Hint" />
+<input type="hidden" asp-for="HumanKey" />
+<input type="hidden" asp-for="Key" />
+<input type="hidden" asp-for="Weight" />
+@{
+    if (Model.Children.Any())
+    {
+        for (var i = 0; i < Model.Children.Count; i++)
+        {
+            @Html.Partial("EditorTemplates/Partials/HiddenTidding", Model.Children[i])
+        }
+    }
+}

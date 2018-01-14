@@ -1,0 +1,42 @@
+﻿@using Borg.MVC.Services.Editors
+@model KeyValueTextBoxes
+
+<input type="hidden" asp-for="HtmlId" />
+<div class="form-group">
+    <label asp-for="@Model"></label>
+    <table class="table table-condensed table-striped" id="@Model.HtmlId">
+        <thead>
+            <tr>
+                <th style="width: 10px;"></th>
+                <th style="width: 120px; white-space: nowrap;">@Model.KeyHeader</th>
+                <th>@Model.ValueHeader</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Options.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="@Model.ValueContainers[i].Flag" type="checkbox" />
+                    </td>
+                    <td>
+                        <label asp-for="@Model.ValueContainers[i].Key">@Model.ValueContainers[i].Key</label>
+                    </td>
+                    <td>
+
+                        <input type="text" class="form-control" asp-for="@Model.ValueContainers[i].Value" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" device id="@(Model.HtmlId)_script">
+    $(function() {
+        $('div#' + '@Model.HtmlId' + ' input[type="checkbox"], input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue'
+        });
+    });
+</script>

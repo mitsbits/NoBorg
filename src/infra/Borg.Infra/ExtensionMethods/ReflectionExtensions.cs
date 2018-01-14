@@ -233,5 +233,52 @@ namespace Borg
         {
             return type.GetTypeInfo().IsGenericTypeDefinition;
         }
+
+        public static bool IsSubclassOfRawGeneric(this Type thisType, Type genericTypeToCheck)
+        {
+            while (thisType != null && thisType != typeof(object))
+            {
+                var cur = thisType.IsGenericType ? thisType.GetGenericTypeDefinition() : thisType;
+                if (cur.IsAssignableFrom(genericTypeToCheck))
+                {
+                    return true;
+                }
+                thisType = thisType.BaseType;
+            }
+            return false;
+        }
+
+        public static bool ImplementsInterface(this Type thisType, Type interfaceTypeToCheck)
+        {
+            while (thisType != null && thisType != typeof(object))
+            {
+                Type cur = thisType.IsGenericType ? thisType.GetGenericTypeDefinition() : thisType;
+
+                var interfaces = cur.GetInterfaces().ToList();
+
+                if (interfaces.Contains(interfaceTypeToCheck))
+                    return true;
+
+                thisType = thisType.BaseType;
+            }
+            return false;
+        }
+
+        public static bool IsDerivedFrom(this Type thisType, Type genericTypeToCheck)
+        {
+            Type typeToCheck = genericTypeToCheck.IsGenericType ? genericTypeToCheck.GetGenericTypeDefinition() : genericTypeToCheck;
+
+            while (thisType != null && thisType != typeof(object))
+            {
+                Type cur = thisType.IsGenericType ? thisType.GetGenericTypeDefinition() : thisType;
+
+                if (cur == typeToCheck)
+                {
+                    return true;
+                }
+                thisType = thisType.BaseType;
+            }
+            return false;
+        }
     }
 }

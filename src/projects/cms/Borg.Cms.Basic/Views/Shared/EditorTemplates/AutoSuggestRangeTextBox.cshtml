@@ -1,0 +1,21 @@
+﻿@using Borg.MVC.Services.Editors
+@model AutoSuggestRangeTextBox
+<input type="hidden" asp-for="HtmlId" />
+<div class="form-group">
+    <label asp-for="@Model"></label>
+    <select id="@Model.HtmlId" class="form-control" asp-for="@Model.Value"></select>
+</div>
+
+<script type="text/javascript" device id="@(Model.HtmlId)_script">
+    $(function() {
+        var data = @Json.Serialize(Model.Options);
+        $("#" + '@Model.HtmlId').select2({
+            data: data,
+            width: 'resolve',
+            tags: true,
+            multiple: true,
+            placeholder: 'Select an option',
+            theme: "bootstrap"
+        });
+    });
+</script>
