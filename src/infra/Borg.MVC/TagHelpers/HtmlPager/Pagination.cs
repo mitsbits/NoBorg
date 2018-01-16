@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using Borg.Infra;
 
 namespace Borg.MVC.TagHelpers.HtmlPager
 {

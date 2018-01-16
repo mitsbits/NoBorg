@@ -1,4 +1,5 @@
 ﻿using System;
+using Borg.Infra;
 using Borg.MVC.TagHelpers.HtmlPager;
 using Microsoft.Extensions.Configuration;
 

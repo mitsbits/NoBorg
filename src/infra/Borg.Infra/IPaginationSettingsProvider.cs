@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Borg.MVC.TagHelpers.HtmlPager
+namespace Borg.Infra
 {
     public interface IPaginationSettingsProvider
     {

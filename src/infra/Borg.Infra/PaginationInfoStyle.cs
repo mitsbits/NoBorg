@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Borg.MVC.TagHelpers.HtmlPager
+namespace Borg.Infra
 {
     public class PaginationInfoStyle : IPaginationInfoStyle
     {
