@@ -1,8 +1,6 @@
-﻿using Borg.MVC.TagHelpers.HtmlPager;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 
-namespace Borg.MVC
+namespace Borg.Infra
 {
     public class BorgSettings
     {

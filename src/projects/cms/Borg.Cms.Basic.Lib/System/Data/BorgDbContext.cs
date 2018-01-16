@@ -1,4 +1,5 @@
-﻿using Borg.Cms.Basic.Lib.Features.Content;
+﻿using Borg.Cms.Basic.Lib.Discovery;
+using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
@@ -8,7 +9,7 @@ namespace Borg.Cms.Basic.Lib.System.Data
 {
     public class BorgDbContext : DbContext
     {
-        public BorgDbContext(DbContextOptions<BorgDbContext> options)
+        public BorgDbContext(DbContextOptions<DiscoveryDbContext> options)
             : base(options)
         {
         }
