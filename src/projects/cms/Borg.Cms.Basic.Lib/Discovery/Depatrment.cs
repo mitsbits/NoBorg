@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Borg.Infra.DDD;
+using Borg.Platform.EF;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Borg.Infra.DDD;
-using Borg.Platform.EF;
-using Borg.Platform.EF.Assets.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using BorgDbContext = Borg.Cms.Basic.Lib.System.Data.BorgDbContext;
+using Borg.Cms.Basic.Lib.System.Data;
+
 
 namespace Borg.Cms.Basic.Lib.Discovery
 {
@@ -19,8 +18,6 @@ namespace Borg.Cms.Basic.Lib.Discovery
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-
     }
 
     public class Person
@@ -47,7 +44,6 @@ namespace Borg.Cms.Basic.Lib.Discovery
     [AttributeUsage(AttributeTargets.Class)]
     public class EntityAttribute : Attribute
     {
-
     }
 
     [AttributeUsage(AttributeTargets.Property)]
@@ -68,35 +64,20 @@ namespace Borg.Cms.Basic.Lib.Discovery
         }
 
         internal IEnumerable<Type> EntityTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
         }
     }
-    public class DiscoveryDbContextFactory : IDesignTimeDbContextFactory<DiscoveryDbContext>
+
+    public class DiscoveryDbContextFactory : BorgDbContextFactory<DiscoveryDbContext>
     {
-        private readonly string _dbConnKey = "db";
-
-
-        public DiscoveryDbContextFactory()
-        {
-        }
-
-
-
-        DiscoveryDbContext IDesignTimeDbContextFactory<DiscoveryDbContext>.CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<DiscoveryDbContext>();
-            optionsBuilder.UseSqlServer("Server=db;Database=polemic;User=sa;Password=Passw0rd;MultipleActiveResultSets=true", x => x.MigrationsHistoryTable("__MigrationsHistory", "assets"));
-
-            return new DiscoveryDbContext(optionsBuilder.Options);
-        }
     }
 
     internal static class Util
     {
         public static IEnumerable<Type> FindEntities(Assembly assembly)
         {
-
             return assembly.GetTypes().Where(t => t.GetCustomAttribute<EntityAttribute>() != null);
         }
     }

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Borg.Platform.EF
 {
-   public abstract class DiscoveryDbContextFactory<TDbContext> where TDbContext : DbContext
+    public abstract class BorgDbContextFactory<TDbContext> where TDbContext : DbContext
     {
         public TDbContext Create()
         {
@@ -32,16 +30,15 @@ namespace Borg.Platform.EF
         private TDbContext Create(string basePath, string environmentName)
         {
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-                
+
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{environmentName}.json", true)
                 .AddEnvironmentVariables();
 
             var config = builder.Build();
-            var settings = new Borg
 
-            var connstr = config.GetConnectionString("db");
+            var connstr = config.GetConnectionString("borg:ConnectionsStrings:db");
 
             if (String.IsNullOrWhiteSpace(connstr) == true)
             {
@@ -65,7 +62,6 @@ namespace Borg.Platform.EF
                 new DbContextOptionsBuilder<TDbContext>();
 
             optionsBuilder.UseSqlServer(connectionString);
-
 
             var instance = Activator.CreateInstance(typeof(TDbContext), BindingFlags.Public, optionsBuilder);
             return (TDbContext)instance;
