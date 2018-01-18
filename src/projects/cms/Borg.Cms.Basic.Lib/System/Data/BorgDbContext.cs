@@ -3,16 +3,18 @@ using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.Lib.System.Data
 {
     public class BorgDbContext : DbContext
     {
-        public BorgDbContext(DbContextOptions<DiscoveryDbContext> options)
+        public BorgDbContext(DbContextOptions<BorgDbContext> options)
             : base(options)
         {
         }
+
 
         public DbSet<NavigationItemRecord> NavigationItemRecords { get; set; }
         public DbSet<DeviceRecord> DeviceRecords { get; set; }

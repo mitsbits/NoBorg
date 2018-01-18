@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Infra;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Data
 {
