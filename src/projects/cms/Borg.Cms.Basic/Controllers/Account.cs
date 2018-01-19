@@ -3,6 +3,7 @@ using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.Features.Auth.Events;
 using Borg.Cms.Basic.Lib.Features.Auth.Login;
 using Borg.Cms.Basic.Lib.Features.Auth.Register;
+using Borg.Infra;
 using Borg.Infra.DAL;
 using Borg.MVC;
 using Borg.MVC.BuildingBlocks;

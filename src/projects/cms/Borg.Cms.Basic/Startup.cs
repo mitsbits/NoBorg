@@ -1,8 +1,10 @@
 ﻿using Borg.Cms.Basic.Lib;
-using Borg.MVC;
+using Borg.Infra;
+using Borg.MVC.Services.Themes;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,6 +42,11 @@ namespace Borg.Cms.Basic
 
             services.AddMediatR(assembliesToScan);
 
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
+            });
+
             services.AddMvc();
 
             services.AddSession();
@@ -55,18 +62,49 @@ namespace Borg.Cms.Basic
             app.UseStaticFiles();
             app.UseSession();
             app.UseAuthentication();
-            app.Map("/backoffice", path =>
-            {
-                app.UseMvc(routes =>
-                {
-                    routes.MapRoute(name: "areaRoute",
-                        template: "{area:exists}/{controller}/{action}/{id?}",
-                        defaults: new { controller = "Home", action = "Home" });
-                });
-            });
+            //app.UseMiddleware<ThemeMiddleware>("backoffice");
+            //app.Map("/backoffice", path =>
+            //{
+            //    path.UseSession();
+            //    path.UseAuthentication();
+            //    path.UseMiddleware<ThemeMiddleware>("backoffice");
+
+            //    path.UseMvc(routes =>
+            //    {
+            //        routes.MapRoute(
+            //            name: "areaRoute",
+            //            template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
+
+            //        routes.MapRoute(
+            //            name: "default",
+            //            template: "{controller=Home}/{action=Home}/{id?}");
+            //    });
+            //});
+
+            //app.Map("/documents", path =>
+            //{
+            //    path.UseSession();
+            //    path.UseAuthentication();
+            //    path.UseMiddleware<ThemeMiddleware>("backoffice");
+
+            //    path.UseMvc(routes =>
+            //    {
+            //        routes.MapRoute(
+            //            name: "areaRoute",
+            //            template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
+
+            //        routes.MapRoute(
+            //            name: "default",
+            //            template: "{controller=Home}/{action=Home}/{id?}");
+            //    });
+            //});
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Home}/{id?}");

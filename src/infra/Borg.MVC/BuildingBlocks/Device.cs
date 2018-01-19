@@ -141,7 +141,7 @@ namespace Borg.MVC.BuildingBlocks
             {
                 if (!_definedRouteKeys.Contains(item.Key.ToLower()))
                 {
-                    RouteValues.Add(item.Key.ToLower(), new[] { item.Value.ToString()});
+                    RouteValues.Add(item.Key.ToLower(), new[] { item.Value.ToString() });
                 }
             }
             foreach (var q in httpContent.Request.Query)

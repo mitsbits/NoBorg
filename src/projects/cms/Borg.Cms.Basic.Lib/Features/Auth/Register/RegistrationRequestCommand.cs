@@ -15,6 +15,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Register
 {

@@ -17,13 +17,16 @@
     <Folder Include="Areas\Backoffice\Views\Account\" />
     <Folder Include="Areas\Backoffice\Views\Shared\Layout\" />
     <Folder Include="Areas\Backoffice\Views\Users\Components\" />
+    <Folder Include="Areas\Documents\Data\" />
+    <Folder Include="Areas\Documents\Models\" />
+    <Folder Include="Areas\Documents\Views\Shared\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

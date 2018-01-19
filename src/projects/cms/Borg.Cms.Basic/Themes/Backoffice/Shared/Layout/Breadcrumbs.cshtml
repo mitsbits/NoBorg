@@ -1,0 +1,25 @@
+﻿@using Borg.MVC.Services.Breadcrumbs
+
+@{
+    var model = Orchestrator.Device.Breadcrumbs;
+    model.Insert(0, new BreadcrumbLink(@"<i class='fa fa-dashboard'></i> Home", Url.Content("~/")));
+    var limitup = model.Count - 1;
+}
+<ol class="breadcrumb">
+    @for (var i = 0; i <= limitup; i++)
+            {
+                var item = model[i];
+                string ActiveClass() => i == limitup ? "active" : "";
+        <li class="@ActiveClass()">
+            @if (item.BreadcrumbType == BreadcrumbItemType.Label)
+            {
+                @Html.Raw(item.Display)
+                ;
+            }
+            @if (item.BreadcrumbType == BreadcrumbItemType.Link)
+            {
+                <a href="@item.Url">@Html.Raw(item.Display)</a>
+            }
+        </li>
+    }
+</ol>

@@ -15,7 +15,7 @@
     <PackageTags>Borg</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WindowsAzure.Storage" Version="8.6.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>

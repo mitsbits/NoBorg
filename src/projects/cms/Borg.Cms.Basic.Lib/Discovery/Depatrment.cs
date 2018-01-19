@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Borg.Cms.Basic.Lib.System.Data;
-
 
 namespace Borg.Cms.Basic.Lib.Discovery
 {
@@ -57,7 +55,7 @@ namespace Borg.Cms.Basic.Lib.Discovery
         public Type LookUpType { get; }
     }
 
-    public class DiscoveryDbContext : BorgDbContext
+    public class DiscoveryDbContext : DbContext
     {
         public DiscoveryDbContext(DbContextOptions<DiscoveryDbContext> options) : base(options)
         {

@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Borg.Infra.Storage.Assets.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Content.Services;
-using Borg.Infra.Storage.Assets.Contracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Controllers
 {
@@ -17,7 +16,7 @@ namespace Borg.Cms.Basic.Controllers
     {
         private readonly IDeviceStructureProvider _deviceProvider;
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
- 
+
         public HomeController(IDeviceStructureProvider deviceProvider, IAssetStore<AssetInfoDefinition<int>, int> assetStore)
         {
             _deviceProvider = deviceProvider;
@@ -45,9 +44,8 @@ namespace Borg.Cms.Basic.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public async Task< IActionResult> FileIt(List<IFormFile> files)
+        public async Task<IActionResult> FileIt(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
 
@@ -63,7 +61,6 @@ namespace Borg.Cms.Basic.Controllers
                         await formFile.CopyToAsync(stream);
 
                         await _assetStore.Create(formFile.Name, stream.ToArray(), formFile.FileName);
-
                     }
                 }
             }

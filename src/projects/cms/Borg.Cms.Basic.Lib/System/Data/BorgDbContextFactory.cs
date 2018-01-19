@@ -1,4 +1,4 @@
-﻿using Borg.MVC;
+﻿using Borg.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 

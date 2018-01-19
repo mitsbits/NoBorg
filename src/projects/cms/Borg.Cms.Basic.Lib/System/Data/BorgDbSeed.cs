@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Borg.Infra;
 using Borg.MVC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

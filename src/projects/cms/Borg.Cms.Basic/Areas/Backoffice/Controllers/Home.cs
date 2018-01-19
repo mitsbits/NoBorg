@@ -1,6 +1,7 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC;
+using Borg.MVC.Conventions;
 using Borg.MVC.Extensions;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
     [Area("Backoffice")]
     [Authorize]
+    [ControllerTheme("backoffice")]
     public class HomeController : BorgController
     {
         // GET: /<controller>/

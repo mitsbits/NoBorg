@@ -1,5 +1,4 @@
-﻿using Borg.Cms.Basic.Lib.Discovery;
-using Borg.Cms.Basic.Lib.Features.Content;
+﻿using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
@@ -9,7 +8,7 @@ namespace Borg.Cms.Basic.Lib.System.Data
 {
     public class BorgDbContext : DbContext
     {
-        public BorgDbContext(DbContextOptions<DiscoveryDbContext> options)
+        public BorgDbContext(DbContextOptions<BorgDbContext> options)
             : base(options)
         {
         }
@@ -19,8 +18,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
         public DbSet<SectionRecord> SectionRecords { get; set; }
         public DbSet<SlotRecord> SlotRecords { get; set; }
         public DbSet<ContentItemRecord> ContentItemRecords { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -64,8 +61,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
             builder.Entity<ContentItemRecord>().Property(x => x.Slug).HasMaxLength(512).HasDefaultValue("");
             builder.Entity<ContentItemRecord>().Property(x => x.Subtitle).HasMaxLength(512).HasDefaultValue("");
             builder.Entity<ContentItemRecord>().Property(x => x.PublisheDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
-
-
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
