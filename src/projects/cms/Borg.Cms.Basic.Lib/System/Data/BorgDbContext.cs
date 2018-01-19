@@ -2,6 +2,7 @@
 using Borg.Cms.Basic.Lib.Features.Device;
 using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.Lib.System.Data
@@ -12,6 +13,7 @@ namespace Borg.Cms.Basic.Lib.System.Data
             : base(options)
         {
         }
+
 
         public DbSet<NavigationItemRecord> NavigationItemRecords { get; set; }
         public DbSet<DeviceRecord> DeviceRecords { get; set; }
