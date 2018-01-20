@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Borg.Cms.Basic.Lib;
+﻿using Borg.Cms.Basic.Lib;
 using Borg.Infra;
+using Borg.MVC.Modules.Decoration;
 using Borg.MVC.Services.Themes;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -11,9 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
-using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers;
-using Borg.Cms.Basic.Modules.Documents.Area.Documents.Controllers;
+using System.Linq;
 
 namespace Borg.Cms.Basic
 {
@@ -48,20 +46,26 @@ namespace Borg.Cms.Basic
 
             services.AddMediatR(assembliesToScan);
 
-            var fk = new EmbeddedFileProvider(typeof(BackofficeController).GetTypeInfo().Assembly);
-            var fs = fk.GetDirectoryContents("");
-            var f = fk.GetFileInfo("Areas/Backoffice/Views/Home/Layout/Navigation.cshtml");
+            var entrypointassemblies = assembliesToScan.Where(x =>
+                x.GetTypes().Any(t => t.GetCustomAttributes<ModuleEntryPointControllerAttribute>() != null)).ToArray();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(BackofficeController).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(DocumentsController).GetTypeInfo().Assembly));
+
+                foreach (var entrypointassembly in entrypointassemblies)
+                {
+                    options.FileProviders.Add(new EmbeddedFileProvider(entrypointassembly));
+                }
             });
             services.AddDistributedMemoryCache();
-            services.AddMvc()
-                .AddApplicationPart(typeof(BackofficeController).Assembly)
-                .AddApplicationPart(typeof(DocumentsController).Assembly);
+            var mvcbuilder = services.AddMvc();
+
+            foreach (var entrypointassembly in entrypointassemblies)
+            {
+                mvcbuilder.AddApplicationPart(entrypointassembly);
+            }
+
             services.AddSession();
         }
 

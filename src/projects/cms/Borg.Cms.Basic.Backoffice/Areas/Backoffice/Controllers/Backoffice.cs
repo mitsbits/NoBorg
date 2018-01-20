@@ -1,13 +1,13 @@
 ﻿using Borg.MVC;
 using Borg.MVC.Conventions;
+using Borg.MVC.Modules.Decoration;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
-    [Area("Backoffice")]
+    [ModuleEntryPointController("Backoffice")]
     [Authorize]
     [ControllerTheme("Backoffice")]
     public abstract class BackofficeController : BorgController

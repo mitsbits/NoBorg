@@ -2,7 +2,6 @@
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Conventions;
-using Borg.MVC.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -27,7 +26,6 @@ namespace Borg.Cms.Basic.Controllers
 
         public async Task<IActionResult> Home([FromServices] IPageOrchestrator<IPageContent, IDevice> orchestrator)
         {
-       
             return View();
         }
 
