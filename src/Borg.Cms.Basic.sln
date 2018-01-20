@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic", "projects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Backoffice", "projects\cms\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj", "{D4FF679B-C3A5-4C00-8C1F-D99425EC13A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Modules.Documents", "projects\cms\Borg.Cms.Basic.Modules.Documents\Borg.Cms.Basic.Modules.Documents.csproj", "{34548195-397D-4233-926F-F5E6FCD8188D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{FA6F12CE-F87E-42E7-BA98-C61753CC3A80}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{470F6E1C-B4D0-4EBC-8F2D-0E9F554C6F48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borg.Cms.Basic.PlugIns.Documents", "projects\cms\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj", "{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{D4FF679B-C3A5-4C00-8C1F-D99425EC13A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4FF679B-C3A5-4C00-8C1F-D99425EC13A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4FF679B-C3A5-4C00-8C1F-D99425EC13A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34548195-397D-4233-926F-F5E6FCD8188D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34548195-397D-4233-926F-F5E6FCD8188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34548195-397D-4233-926F-F5E6FCD8188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34548195-397D-4233-926F-F5E6FCD8188D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,7 +72,7 @@ Global
 		{E3C698B7-7F00-4F82-8208-2A302907C3E5} = {F6669D0C-2EEC-4041-8549-5D3ED4C80095}
 		{6753F735-BA79-4584-9D90-155BFB2A5433} = {8B15B88D-E6B6-430A-8109-DCEBD0F63D74}
 		{511B53AC-0EC2-4884-B2D1-C4D9A91EAF37} = {8B15B88D-E6B6-430A-8109-DCEBD0F63D74}
-		{34548195-397D-4233-926F-F5E6FCD8188D} = {470F6E1C-B4D0-4EBC-8F2D-0E9F554C6F48}
+		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1} = {FA6F12CE-F87E-42E7-BA98-C61753CC3A80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {503CA905-8CDD-4FFE-900E-2929A7466477}

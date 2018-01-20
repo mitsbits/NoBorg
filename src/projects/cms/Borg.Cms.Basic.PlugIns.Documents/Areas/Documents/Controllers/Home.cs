@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Borg.Cms.Basic.Modules.Documents.Area.Documents.Controllers
+namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
     
     public class HomeController : DocumentsController

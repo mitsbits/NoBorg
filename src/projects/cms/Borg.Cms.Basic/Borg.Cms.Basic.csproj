@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
-    <ProjectReference Include="..\Borg.Cms.Basic.Modules.Documents\Borg.Cms.Basic.Modules.Documents.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj" />
   </ItemGroup>
 
 </Project>

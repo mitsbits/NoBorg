@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\Documents\Views\Home\Home.cshtml" />
+    <None Remove="Areas\Documents\Views\Shared\Layout\Navigation.cshtml" />
+    <None Remove="Areas\Documents\Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Documents\Views\Home\Home.cshtml" />
+    <EmbeddedResource Include="Areas\Documents\Views\Shared\Layout\Navigation.cshtml" />
+    <EmbeddedResource Include="Areas\Documents\Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
