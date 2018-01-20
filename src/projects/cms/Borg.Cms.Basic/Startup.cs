@@ -1,12 +1,13 @@
 ﻿using Borg.Cms.Basic.Lib;
-using Borg.Infra;
-using Borg.MVC.Modules.Decoration;
+using Borg.MVC;
+using Borg.MVC.PlugIns;
+using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
 using Borg.MVC.Services.Themes;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -15,21 +16,11 @@ using System.Linq;
 
 namespace Borg.Cms.Basic
 {
-    public class Startup
+    public class Startup : BorgStartUp
     {
-        public Startup(IConfiguration configuration, ILoggerFactory loggerFactory, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, ILoggerFactory loggerFactory, IHostingEnvironment environment) : base(configuration, loggerFactory, environment)
         {
-            Configuration = configuration;
-            LoggerFactory = loggerFactory;
-            Environment = environment;
         }
-
-        private IConfiguration Configuration { get; }
-        private ILoggerFactory LoggerFactory { get; }
-
-        private IHostingEnvironment Environment { get; }
-
-        private BorgSettings Settings { get; set; } = new BorgSettings();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -37,8 +28,9 @@ namespace Borg.Cms.Basic
         {
             services.Config(Configuration.GetSection("Borg"), () => Settings);
             services.AddDistributedMemoryCache();
-
             var assembliesToScan = services.GetRefAssembliesAndRegsiterDefaultProviders(LoggerFactory);
+            PlugInHost = new PlugInHost(LoggerFactory, assembliesToScan);
+            services.AddSingleton<IPlugInHost>(provider => PlugInHost);
             services.RegisterCommonFramework(Settings, LoggerFactory);
             services.RegisterAuth(Settings, LoggerFactory, Environment);
 
@@ -47,7 +39,7 @@ namespace Borg.Cms.Basic
             services.AddMediatR(assembliesToScan);
 
             var entrypointassemblies = assembliesToScan.Where(x =>
-                x.GetTypes().Any(t => t.GetCustomAttributes<ModuleEntryPointControllerAttribute>() != null)).ToArray();
+                x.GetTypes().Any(t => t.GetCustomAttributes<PlugInEntryPointControllerAttribute>() != null)).Distinct().ToArray();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -78,19 +70,8 @@ namespace Borg.Cms.Basic
             }
             app.UseStaticFiles();
 
-            app.MapWhen(c => c.Request.Path.StartsWithSegments("/backoffice"), path =>
-              {
-                  path.UseAuthentication();
-                  path.UseSession();
-                  path.UseMvc(ConfigureRoutes);
-              });
+            BranchPlugins(app);
 
-            app.MapWhen(c => c.Request.Path.StartsWithSegments("/documents"), path =>
-            {
-                path.UseAuthentication();
-                path.UseSession();
-                path.UseMvc(ConfigureRoutes);
-            });
             app.MapWhen(c => c.Request.Path.StartsWithSegments("/logout"), path =>
             {
                 path.UseAuthentication();
@@ -105,17 +86,6 @@ namespace Borg.Cms.Basic
             });
 
             app.UseMvc(ConfigureRoutes);
-        }
-
-        private static void ConfigureRoutes(IRouteBuilder routeBuilder)
-        {
-            routeBuilder.MapRoute(
-                name: "areaRoute",
-                template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
-
-            routeBuilder.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Home}/{id?}");
         }
     }
 }

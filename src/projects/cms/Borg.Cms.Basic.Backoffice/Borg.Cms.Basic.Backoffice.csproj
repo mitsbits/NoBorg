@@ -9,6 +9,12 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Themes\Backoffice\PlugIns\Home.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />

@@ -1,6 +1,6 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
-
+using Borg.Cms.Basic.Lib.Features.Content.Services;
 using Borg.Cms.Basic.Lib.Features.Device.Services;
 using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Cms.Basic.Lib.Features.Navigation.Services;
@@ -12,7 +12,6 @@ using Borg.Infra.Storage;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
-using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services;
@@ -37,7 +36,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Content.Services;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -111,10 +109,10 @@ namespace Borg.Cms.Basic.Lib
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath =  settings.Auth.LoginPath;
+                options.LoginPath = settings.Auth.LoginPath;
                 options.ExpireTimeSpan = TimeSpan.FromDays(15);
-                options.LogoutPath =  settings.Auth.LogoutPath;
-                options.AccessDeniedPath =  settings.Auth.AccessDeniedPath;
+                options.LogoutPath = settings.Auth.LogoutPath;
+                options.AccessDeniedPath = settings.Auth.AccessDeniedPath;
 
                 options.Cookie.Name = "Borg.Auth";
                 options.Cookie.HttpOnly = true;
@@ -208,15 +206,11 @@ namespace Borg.Cms.Basic.Lib
             return services;
         }
 
-
         public static IServiceCollection RegisterDiscoveryEntityStore(this IServiceCollection services,
             BorgSettings settings, ILoggerFactory loggerFactory, IHostingEnvironment environment,
             IEnumerable<Assembly> assembliesToScan)
         {
             return services;
         }
-
-
-
     }
 }

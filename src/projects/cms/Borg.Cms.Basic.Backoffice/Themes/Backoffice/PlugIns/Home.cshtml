@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Borg.MVC.PlugIns.Contracts.IPluginDescriptor>
+
+<div class="box box-default">
+    <div class="box-body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Plugin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var descr in Model)
+                {
+                    <tr>
+                        <td>@descr.GetType().FullName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

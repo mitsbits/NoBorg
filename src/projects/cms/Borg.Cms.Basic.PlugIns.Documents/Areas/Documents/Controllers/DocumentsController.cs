@@ -1,11 +1,11 @@
 ﻿using Borg.MVC;
 using Borg.MVC.Conventions;
-using Borg.MVC.Modules.Decoration;
+using Borg.MVC.PlugIns.Decoration;
 using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
-    [ModuleEntryPointController("Documents")]
+    [PlugInEntryPointController("Documents")]
     [ControllerTheme("Backoffice")]
     public class DocumentsController : BorgController
     {
