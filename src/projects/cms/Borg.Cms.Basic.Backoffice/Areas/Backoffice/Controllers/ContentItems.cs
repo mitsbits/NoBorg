@@ -1,10 +1,10 @@
-﻿using Borg.Cms.Basic.Lib.Features.Content.Commands;
+﻿using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Content.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
     [Route("[area]/Content")]
     public class ContentItemsController : BackofficeController

@@ -1,4 +1,6 @@
-﻿using Borg.Cms.Basic.Lib.Features.Auth.Management.Users;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Auth.Management.Users;
 using Borg.Infra.Collections;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
@@ -8,10 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
     [Route("[area]/Users")]
     public class UsersController : BackofficeController

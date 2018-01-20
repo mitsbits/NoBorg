@@ -5,24 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Backoffice\Views\Account\**" />
-    <Compile Remove="Areas\Backoffice\Views\Users\**" />
     <Compile Remove="Areas\Backoffice\wwwroot\**" />
-    <Content Remove="Areas\Backoffice\Views\Account\**" />
-    <Content Remove="Areas\Backoffice\Views\Users\**" />
     <Content Remove="Areas\Backoffice\wwwroot\**" />
-    <EmbeddedResource Remove="Areas\Backoffice\Views\Account\**" />
-    <EmbeddedResource Remove="Areas\Backoffice\Views\Users\**" />
     <EmbeddedResource Remove="Areas\Backoffice\wwwroot\**" />
-    <None Remove="Areas\Backoffice\Views\Account\**" />
-    <None Remove="Areas\Backoffice\Views\Users\**" />
     <None Remove="Areas\Backoffice\wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
-    <Folder Include="Areas\Documents\Data\" />
-    <Folder Include="Areas\Documents\Models\" />
+    <Folder Include="Areas\Documents\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 
@@ -34,7 +25,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.Modules.Documents\Borg.Cms.Basic.Modules.Documents.csproj" />
   </ItemGroup>
 
 </Project>

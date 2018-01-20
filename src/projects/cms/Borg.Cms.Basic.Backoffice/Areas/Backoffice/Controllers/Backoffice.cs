@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
     [Area("Backoffice")]
     [Authorize]
-    [ControllerTheme("backoffice")]
+    [ControllerTheme("Backoffice")]
     public abstract class BackofficeController : BorgController
     {
         protected readonly IMediator Dispatcher;

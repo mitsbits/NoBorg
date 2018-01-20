@@ -1,14 +1,14 @@
-﻿using Borg.Cms.Basic.Lib.Features.Navigation;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.Cms.Basic.Lib.Features.Navigation.Commands;
 using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
     [Route("[area]/Menus")]
     public class MenusController : BackofficeController

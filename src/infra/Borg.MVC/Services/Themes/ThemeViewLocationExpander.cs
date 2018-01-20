@@ -22,6 +22,8 @@ namespace Borg.MVC.Services.Themes
             {
                 viewLocations = viewLocations.Concat(new[]
                     {
+                        //$"Themes/{theme}/{{1}}/{{0}}.cshtml",
+                        //$"Themes/{theme}/Shared/{{0}}.cshtml",
                         $"/Themes/{theme}/{{1}}/{{0}}.cshtml",
                         $"/Themes/{theme}/Shared/{{0}}.cshtml",
                     });
