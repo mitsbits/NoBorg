@@ -7,7 +7,6 @@ using Borg.Cms.Basic.Lib.Features.Navigation.Services;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra;
 using Borg.Infra.DTO;
-using Borg.Infra.Services.AssemblyProvider;
 using Borg.Infra.Storage;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
@@ -41,16 +40,6 @@ namespace Borg.Cms.Basic.Lib
 {
     public static class ServiceCollectionExtensions
     {
-        public static Assembly[] GetRefAssembliesAndRegsiterDefaultProviders(this IServiceCollection services, ILoggerFactory loggerFactory)
-        {
-            services.AddScoped<IAssemblyProvider, DepedencyAssemblyProvider>();
-            services.AddScoped<IAssemblyProvider, ReferenceAssemblyProvider>();
-            var p1 = new DepedencyAssemblyProvider(loggerFactory);
-            var p2 = new ReferenceAssemblyProvider(loggerFactory);
-            var asmbls = p1.GetAssemblies().Union(p2.GetAssemblies()).Where(x => !x.FullName.StartsWith("Microsoft")).Distinct();
-            return asmbls.ToArray();
-        }
-
         public static IServiceCollection RegisterCommonFramework(this IServiceCollection services, BorgSettings settings, ILoggerFactory loggerFactory)
         {
             services.AddPagination(() => settings.PaginationInfoStyle);

@@ -1,11 +1,20 @@
 ﻿using Borg.Infra;
+using Borg.Infra.Services.AssemblyProvider;
+using Borg.MVC.PlugIns;
 using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
+using Borg.MVC.Services.Themes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Reflection;
 
 namespace Borg.MVC
 {
@@ -27,7 +36,49 @@ namespace Borg.MVC
 
         protected IPlugInHost PlugInHost { get; set; }
 
-        protected  void BranchPlugins(IApplicationBuilder app)
+        protected IServiceCollection RegisterPlugins(IServiceCollection services)
+        {
+            services.TryAddSingleton(typeof(IPlugInHost), provider => PlugInHost);
+            var registernmodules = PlugInHost.Specify<IPluginServiceRegistration>();
+
+            foreach (var registernmodule in registernmodules)
+            {
+                registernmodule.Configure(services, LoggerFactory, Environment, Configuration);
+            }
+            return services;
+        }
+
+        protected void PopulateSettings(IServiceCollection services)
+        {
+            services.Config(Configuration.GetSection("Borg"), () => Settings);
+        }
+
+        protected Assembly[] PopulateAssemblyProviders(IServiceCollection services)
+        {
+            var assembliesToScan = services.GetRefAssembliesAndRegsiterDefaultProviders(LoggerFactory);
+            PlugInHost = new PlugInHost(LoggerFactory, assembliesToScan);
+            return assembliesToScan;
+        }
+
+        protected static Assembly[] ViewEngineProvidersForPluginThemes(IServiceCollection services, Assembly[] assembliesToScan)
+        {
+            var entrypointassemblies = assembliesToScan.Where(x =>
+                    x.GetTypes().Any(t => t.GetCustomAttributes<PlugInEntryPointControllerAttribute>() != null)).Distinct()
+                .ToArray();
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
+
+                foreach (var entrypointassembly in entrypointassemblies)
+                {
+                    options.FileProviders.Add(new EmbeddedFileProvider(entrypointassembly));
+                }
+            });
+            return entrypointassemblies;
+        }
+
+        protected void BranchPlugins(IApplicationBuilder app)
         {
             var mapwhenmodules = PlugInHost.Specify<ICanMapWhen>();
 
@@ -49,5 +100,16 @@ namespace Borg.MVC
         }
     }
 
-
+    internal static class Ext
+    {
+        internal static Assembly[] GetRefAssembliesAndRegsiterDefaultProviders(this IServiceCollection services, ILoggerFactory loggerFactory)
+        {
+            services.AddScoped<IAssemblyProvider, DepedencyAssemblyProvider>();
+            services.AddScoped<IAssemblyProvider, ReferenceAssemblyProvider>();
+            var p1 = new DepedencyAssemblyProvider(loggerFactory);
+            var p2 = new ReferenceAssemblyProvider(loggerFactory);
+            var asmbls = p1.GetAssemblies().Union(p2.GetAssemblies()).Where(x => !x.FullName.StartsWith("Microsoft")).Distinct();
+            return asmbls.ToArray();
+        }
+    }
 }
