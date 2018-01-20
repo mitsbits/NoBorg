@@ -6,7 +6,6 @@ using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -56,7 +55,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
                 {
                     try
                     {
-                        var values = slotRecord.Module(sectionRecord.Identifier);           
+                        var values = slotRecord.Module(sectionRecord.Identifier);
                         section.DefineSlot(values.slotInfo, values.renderer);
                     }
                     catch (Exception ex)

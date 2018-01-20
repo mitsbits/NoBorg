@@ -20,11 +20,11 @@ namespace Borg.MVC.Services.Themes
         {
             if (context.Values.TryGetValue(THEME_KEY, out var theme))
             {
-                viewLocations = new[] {
+                viewLocations = viewLocations.Concat(new[]
+                    {
                         $"/Themes/{theme}/{{1}}/{{0}}.cshtml",
                         $"/Themes/{theme}/Shared/{{0}}.cshtml",
-                    }
-                    .Concat(viewLocations);
+                    });
             }
 
             return viewLocations;

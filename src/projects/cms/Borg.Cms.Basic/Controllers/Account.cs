@@ -7,6 +7,7 @@ using Borg.Infra;
 using Borg.Infra.DAL;
 using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
+using Borg.MVC.Conventions;
 using Borg.MVC.Services.UserSession;
 using Borg.Platform.EF.Contracts;
 using MediatR;
@@ -19,8 +20,8 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Controllers
 {
-    [Route("[Area]/")]
-    [Area("Backoffice")]
+    [Route("")]
+    [ControllerTheme("bootstrap3")]
     [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_EmptyLayout" })]
     public class AccountController : BorgController
     {

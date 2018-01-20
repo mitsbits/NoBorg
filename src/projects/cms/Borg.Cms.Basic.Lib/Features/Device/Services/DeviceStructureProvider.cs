@@ -1,11 +1,11 @@
-﻿using System.Data;
-using Borg.Cms.Basic.Lib.Features.Device.Queries;
+﻿using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 

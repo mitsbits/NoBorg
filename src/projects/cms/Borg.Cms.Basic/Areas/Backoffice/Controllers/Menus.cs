@@ -2,9 +2,7 @@
 using Borg.Cms.Basic.Lib.Features.Navigation.Commands;
 using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
-using Borg.MVC;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
@@ -13,15 +11,10 @@ using System.Threading.Tasks;
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
     [Route("[area]/Menus")]
-    [Area("Backoffice")]
-    [Authorize]
-    public class MenusController : BorgController
+    public class MenusController : BackofficeController
     {
-        private readonly IMediator _dispatcher;
-
-        public MenusController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory)
+        public MenusController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
         {
-            _dispatcher = dispatcher;
         }
 
         [HttpGet("{id?}")]
@@ -35,7 +28,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
                     Group = id,
                     Records = string.IsNullOrWhiteSpace(id)
                         ? new NavigationItemRecord[0]
-                        : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
+                        : (await Dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
                     SelectedRecord = new NavigationItemRecord() { Group = id, Id = -1, ParentId = -1 }
                 };
                 if (row.HasValue && model.Records.Any(x => x.Id == row))
@@ -69,7 +62,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
@@ -86,7 +79,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
             var model = new NavigationItemRecordDeleteCommand() { Group = id, RecordId = row };
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);

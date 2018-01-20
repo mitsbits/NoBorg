@@ -1,12 +1,10 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Device.Commands;
 using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.Features.Device.ViewModels;
-using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
@@ -15,17 +13,13 @@ using System.Threading.Tasks;
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
     [Route("[area]/Devices")]
-    [Area("Backoffice")]
-    [Authorize]
-    public class DevicesController : BorgController
+    public class DevicesController : BackofficeController
     {
-        private readonly IMediator _dispatcher;
         private readonly IModuleDescriptorProvider _modules;
         private readonly IDeviceLayoutFileProvider _deviceLayoutFiles;
 
-        public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules, IDeviceLayoutFileProvider deviceLayoutFiles) : base(loggerFactory)
+        public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules, IDeviceLayoutFileProvider deviceLayoutFiles) : base(loggerFactory, dispatcher)
         {
-            _dispatcher = dispatcher;
             _modules = modules;
             _deviceLayoutFiles = deviceLayoutFiles;
         }
@@ -34,7 +28,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         public async Task<IActionResult> Home()
         {
             ViewBag.LayoutFiles = await _deviceLayoutFiles.LayoutFiles();
-            var model = await _dispatcher.Send(new DevicesRequest());
+            var model = await Dispatcher.Send(new DevicesRequest());
 
             SetPageTitle("Devices", $"{model.Payload.Count()} templates");
             var device = PageDevice<Device>();
@@ -48,7 +42,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             ViewBag.LayoutFiles = await _deviceLayoutFiles.LayoutFiles();
 
-            var model = await _dispatcher.Send(new DeviceRequest(id));
+            var model = await Dispatcher.Send(new DeviceRequest(id));
             var layouts = await _deviceLayoutFiles.LayoutFiles();
             var selectedLayout = layouts.FirstOrDefault(x => x.MatchesPath(model.Payload.Layout));
             ViewBag.AvailableSectionIdentifiers = selectedLayout.SectionIdentifiers;
@@ -63,10 +57,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpPost("edit")]
         public async Task<IActionResult> Edit(DeviceCreateOrUpdateCommand model)
         {
-          
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
@@ -79,10 +72,9 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(DeviceDeleteCommand model)
         {
-           
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
@@ -94,7 +86,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpGet("section/{id}")]
         public async Task<IActionResult> Section(int id)
         {
-            var reposnse = await _dispatcher.Send(new SectionRequest(id));
+            var reposnse = await Dispatcher.Send(new SectionRequest(id));
             SetPageTitle($"Section: {reposnse.Payload.FriendlyName}", $"Device: {reposnse.Payload.Device.FriendlyName}");
             var layouts = await _deviceLayoutFiles.LayoutFiles();
             var selectedLayout = layouts.FirstOrDefault(x => x.MatchesPath(reposnse.Payload.Device.Layout));
@@ -115,7 +107,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpPost("section/edit")]
         public async Task<IActionResult> SectionEdit(SectionCreateOrUpdateCommand model)
         {
-            var result = await _dispatcher.Send(model);
+            var result = await Dispatcher.Send(model);
             if (ModelState.IsValid)
             {
                 if (!result.Succeded)
@@ -129,7 +121,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpPost("section/delete")]
         public async Task<IActionResult> SectionDelete(SectionDeleteCommand model, string redirectUrl)
         {
-            var result = await _dispatcher.Send(model);
+            var result = await Dispatcher.Send(model);
             if (ModelState.IsValid)
             {
                 if (!result.Succeded)
@@ -143,7 +135,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         [HttpGet("slot/{id}")]
         public async Task<IActionResult> Slot(int id)
         {
-            var reposnse = await _dispatcher.Send(new SlotRequest(id));
+            var reposnse = await Dispatcher.Send(new SlotRequest(id));
 
             SetPageTitle($"Section: {reposnse.Payload.Record.Section.FriendlyName} Slot: {reposnse.Payload.Record.Module(reposnse.Payload.Record.Section.Identifier).renderer.FriendlyName}", $"Device: {reposnse.Payload.Record.Section.Device.FriendlyName}");
 
@@ -162,7 +154,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);
@@ -180,7 +172,7 @@ namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _dispatcher.Send(model);
+                var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
                     AddErrors(result);

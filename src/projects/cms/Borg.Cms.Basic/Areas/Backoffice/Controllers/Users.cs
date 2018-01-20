@@ -1,31 +1,23 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth.Management.Users;
 using Borg.Infra.Collections;
 using Borg.Infra.DAL;
-using Borg.MVC;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Auth;
 
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
     [Route("[area]/Users")]
-    [Area("Backoffice")]
-    [Authorize]
-    public class UsersController : BorgController
+    public class UsersController : BackofficeController
     {
-        private readonly IMediator Dispatcher;
-
-        public UsersController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory)
+        public UsersController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
         {
-            Dispatcher = dispatcher;
         }
 
         [HttpGet]

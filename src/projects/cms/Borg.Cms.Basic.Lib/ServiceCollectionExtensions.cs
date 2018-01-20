@@ -111,10 +111,10 @@ namespace Borg.Cms.Basic.Lib
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/backoffice" + settings.Auth.LoginPath;
+                options.LoginPath =  settings.Auth.LoginPath;
                 options.ExpireTimeSpan = TimeSpan.FromDays(15);
-                options.LogoutPath = "/backoffice" + settings.Auth.LogoutPath;
-                options.AccessDeniedPath = "/backoffice" + settings.Auth.AccessDeniedPath;
+                options.LogoutPath =  settings.Auth.LogoutPath;
+                options.AccessDeniedPath =  settings.Auth.AccessDeniedPath;
 
                 options.Cookie.Name = "Borg.Auth";
                 options.Cookie.HttpOnly = true;

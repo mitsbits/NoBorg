@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @Html.Partial("_headScripts")
+    @Html.Partial("_headscripts")
     @RenderSection("headscripts", required: false)
 </head>
 <body class="hold-transition skin-black-light sidebar-mini @collapseClass">
@@ -25,7 +25,7 @@
             }
             else
             {
-                @await Html.PartialAsync("Layout/PageHeader")
+                @await Html.PartialAsync("~/Themes/Backoffice/Shared/Layout/PageHeader.cshtml")
             }
         </section>
 
@@ -36,7 +36,7 @@
 </div>
     @await Html.PartialAsync("Layout/MainFooter")
     @await Html.PartialAsync("Layout/HiddenSidebar")
-    @Html.Partial("_bottomScripts")
+    @Html.Partial("_bottomscripts")
     @RenderSection("bottomscripts", required: false)
     @Html.Partial("_serverResponse")
 </body>

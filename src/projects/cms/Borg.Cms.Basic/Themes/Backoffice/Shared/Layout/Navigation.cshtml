@@ -9,9 +9,6 @@
                 @*<img src="UserSession.Avatar" class="img-circle" alt="User Image">*@
             </div>
             @*@await Component.InvokeAsync("UserSessionClients", new {view = "UserStatus"})*@
-
-
-
         </div>
 
         <!-- search form -->
@@ -28,8 +25,12 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-
+            <li class="header">MAIN NAVIGATION xxx</li>
+            <li>
+                <a asp-area="documents" asp-controller="Home" asp-action="Home" asp-route-id="">
+                    <i class="fa fa-book"></i> <span>Administration</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a asp-area="Backoffice" asp-controller="Home" asp-action="Home">
                     <i class="fa fa-edit"></i> <span>Administration</span>
@@ -56,29 +57,25 @@
                 </ul>
             </li>
             @*<li class="treeview">
-                <a asp-controller="Scenarios" asp-action="Home">
-                    <i class="fa fa-th"></i><span> Scenarios</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a  asp-controller="Scenarios" asp-action="Home">
-                            <i class="fa fa-database"></i> Library
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Scenarios" asp-action="Create">
-                            <i class="fa fa-plus-square-o"></i> Create
-                        </a>
-                    </li>
-
-                </ul>
-
-            </li>*@
-
-         
+                    <a asp-controller="Scenarios" asp-action="Home">
+                        <i class="fa fa-th"></i><span> Scenarios</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a  asp-controller="Scenarios" asp-action="Home">
+                                <i class="fa fa-database"></i> Library
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Scenarios" asp-action="Create">
+                                <i class="fa fa-plus-square-o"></i> Create
+                            </a>
+                        </li>
+                    </ul>
+                </li>*@
         </ul>
     </section>
     <!-- /.sidebar -->

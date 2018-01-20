@@ -5,21 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Backoffice\Views\Account\**" />
+    <Compile Remove="Areas\Backoffice\Views\Users\**" />
     <Compile Remove="Areas\Backoffice\wwwroot\**" />
+    <Content Remove="Areas\Backoffice\Views\Account\**" />
+    <Content Remove="Areas\Backoffice\Views\Users\**" />
     <Content Remove="Areas\Backoffice\wwwroot\**" />
+    <EmbeddedResource Remove="Areas\Backoffice\Views\Account\**" />
+    <EmbeddedResource Remove="Areas\Backoffice\Views\Users\**" />
     <EmbeddedResource Remove="Areas\Backoffice\wwwroot\**" />
+    <None Remove="Areas\Backoffice\Views\Account\**" />
+    <None Remove="Areas\Backoffice\Views\Users\**" />
     <None Remove="Areas\Backoffice\wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
-    <Folder Include="Areas\Backoffice\ViewComponents\" />
-    <Folder Include="Areas\Backoffice\Views\Account\" />
-    <Folder Include="Areas\Backoffice\Views\Shared\Layout\" />
-    <Folder Include="Areas\Backoffice\Views\Users\Components\" />
     <Folder Include="Areas\Documents\Data\" />
     <Folder Include="Areas\Documents\Models\" />
-    <Folder Include="Areas\Documents\Views\Shared\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 

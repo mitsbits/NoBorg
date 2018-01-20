@@ -1,10 +1,8 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
-using Borg.MVC;
-using Borg.MVC.Conventions;
 using Borg.MVC.Extensions;
 using Borg.MVC.Services.UserSession;
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,14 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Areas.Backoffice.Controllers
 {
-    [Area("Backoffice")]
-    [Authorize]
-    [ControllerTheme("backoffice")]
-    public class HomeController : BorgController
+    public class HomeController : BackofficeController
     {
-        // GET: /<controller>/
-
-        public HomeController(ILoggerFactory loggerFactory) : base(loggerFactory)
+        public HomeController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
         {
         }
 
