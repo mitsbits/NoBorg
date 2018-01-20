@@ -1,0 +1,38 @@
+﻿@model Borg.Cms.Basic.Lib.Features.Device.DeviceRecord
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">
+            <h3 class="box-title">Sections for @Model.FriendlyName</h3>
+        </div>
+    </div>
+    <div class="box-body ">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Scheme</th>
+                    <th>Identifier</th>
+                    <th>Slots</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Sections)
+                {
+                    <tr role="row" data-id="@item.Id">
+                        <td> <a asp-controller="Devices" asp-action="Section" asp-route-id="@item.Id">@item.FriendlyName</a> </td>
+                        <td>@item.RenderScheme</td>
+                        <td>@item.Identifier</td>
+                        <td>@string.Join(", ", item.Slots.Where(x => x.IsEnabled).OrderBy(x => x.Ordinal).Select(x => x.Module().renderer.FriendlyName))</td>
+                        <td class="text-right">
+                            <form role="form" asp-controller="Devices" asp-action="SectionDelete" method="post" class="form-horizontal no-margin no-padding" asp-route-redirectUrl="@Orchestrator.Device.RelativePath()">
+                                <input type="hidden" name="RecordId" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger btn-xs no-margin" title="delete @item.FriendlyName"><i class="fa fa-remove"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

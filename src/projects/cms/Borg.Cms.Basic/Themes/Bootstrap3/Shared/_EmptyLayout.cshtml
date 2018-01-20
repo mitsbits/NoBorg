@@ -1,0 +1,19 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Auth
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("~/Themes/Bootstrap3/Shared/_headscripts.cshtml")
+ 
+    @RenderSection("headscripts", required: false)
+</head>
+<body class="skin-black-light" style="background: #f9fafc;">
+
+<div class="wrapper">
+    @RenderBody()
+</div>
+
+@Html.Partial("~/Themes/Bootstrap3/Shared/_bottomscripts.cshtml")
+@RenderSection("bottomscripts", required: false)
+</body>
+</html>

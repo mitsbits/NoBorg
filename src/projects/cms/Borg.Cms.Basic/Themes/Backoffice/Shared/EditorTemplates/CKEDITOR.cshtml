@@ -1,0 +1,29 @@
+﻿@model string
+
+
+@Html.TextAreaFor(x => x, new { @class = "CKEDITOR", id = Html.NameFor(m => m), style="height:400px;" })
+
+
+<script device src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js" id="ckeditor" weight="200" script-position="Bottom"></script>
+<script device  id="ckeditorconfig" weight="150" script-position="Bottom">
+    $(function () {
+
+        $(".CKEDITOR").each(function () {
+            var id = $(this).attr('id');
+
+            ClassicEditor
+                .create(document.querySelector('#' + id),
+                    {
+                        //plugins: [Essentials, Paragraph, Bold, Italic, Image, InsertImage, ImageCaption],
+                        
+                    })
+                .then( editor => {
+                    console.log( editor );
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        });
+
+    });
+</script>

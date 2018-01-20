@@ -1,0 +1,9 @@
+﻿@using Borg.MVC.BuildingBlocks
+@using Borg.MVC.BuildingBlocks.Contracts
+
+@using Borg
+@using Borg.Infra
+@using Borg.MVC
+@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Borg.MVC

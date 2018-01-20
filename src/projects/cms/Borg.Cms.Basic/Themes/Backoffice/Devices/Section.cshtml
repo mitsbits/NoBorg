@@ -1,0 +1,26 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
+@model Borg.Cms.Basic.Lib.Features.Device.ViewModels.SectionViewModel
+@{
+    var record = Model.Record;
+    ViewBag.AvailableSectionIdentifiers = Model.AvailableSectionIdentifiers;
+}
+
+<div class="row">
+    <div class="col-lg-8">
+
+        @Html.Partial("Partials/SlotList", Model)
+
+        <div class="box">
+            <div class="box-body">
+                @Html.Partial("Partials/SlotInfo", Model)
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="box">
+            <div class="box-body">
+                @Html.Partial("Partials/SectionInfo", new SectionCreateOrUpdateCommand(record.FriendlyName, record.DeviceId, record.RenderScheme, record.Identifier, record.Id))
+            </div>
+        </div>
+    </div>
+</div>

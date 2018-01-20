@@ -1,0 +1,11 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
+@model UserViewModel
+
+@foreach (var c in Model.UserClaims)
+{
+    <p>
+        ID: @c.Id
+        Type: @ClaimTypeDisplayProvider.Display(c.ClaimType)
+        Value: @c.ClaimValue
+    </p>
+}
