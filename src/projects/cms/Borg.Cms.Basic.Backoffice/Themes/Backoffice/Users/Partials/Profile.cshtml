@@ -13,7 +13,7 @@
     </div>
     <div class="box-body">
 
-        <form asp-controller="Users" , asp-action="Profile" method="post" asp-route-redirecturl="@Orchestrator.Device.RedirectToDevice()" role="form">
+        <form asp-controller="Users" , asp-action="Profile" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" role="form">
 
             <input type="hidden" asp-for="CorrelationId" />
             <input type="hidden" asp-for="Email" />

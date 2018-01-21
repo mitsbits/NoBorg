@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.BlogEngine.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers

@@ -9,7 +9,7 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Areas\Blogs\Views\Home\Home.cshtml" />
+    <Content Remove="Areas\BlogEngine\Views\Home\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />

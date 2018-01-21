@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Borg.Infra.Messaging;
+using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Events
 {

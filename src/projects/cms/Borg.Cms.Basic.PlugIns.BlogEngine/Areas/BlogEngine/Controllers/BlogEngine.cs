@@ -4,10 +4,11 @@ using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
-namespace Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers
+namespace Borg.Cms.Basic.PlugIns.BlogEngine.Areas.BlogEngine.Controllers
 {
-    [PlugInEntryPointController("Blogs")]
-    [ControllerTheme("Backoffice")][Authorize]
+    [PlugInEntryPointController("BlogEngine")]
+    [ControllerTheme("Backoffice")]
+    [Authorize(Policy = "Blogger")]
     public  class BlogEngineController : BorgController
     {
         protected BlogEngineController(ILoggerFactory loggerFactory) : base(loggerFactory)

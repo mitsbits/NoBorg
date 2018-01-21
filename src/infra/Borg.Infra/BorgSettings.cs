@@ -30,7 +30,7 @@ namespace Borg.Infra
     {
         public bool ActivateOnRegisterRequest { get; set; } = false;
         public string LoginPath { get; set; } = "/login";
-        public string LogoutPath { get; set; } = "/logoff";
+        public string LogoutPath { get; set; } = "/logout";
         public string AccessDeniedPath { get; set; } = "/denied";
         public DefaultUserSettings DefaultUser { get; set; } = new DefaultUserSettings();
 

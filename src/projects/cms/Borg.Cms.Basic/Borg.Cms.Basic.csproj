@@ -14,7 +14,7 @@
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
     <Folder Include="Areas\Documents\" />
-    <Folder Include="Areas\Blogs\" />
+    <Folder Include="Areas\BlogEngine\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 

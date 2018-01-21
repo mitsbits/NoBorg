@@ -1,4 +1,4 @@
-﻿using Borg.Cms.Basic.Lib;
+﻿using System.Reflection;
 using Borg.MVC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -20,29 +20,18 @@ namespace Borg.Cms.Basic
         public void ConfigureServices(IServiceCollection services)
         {
             PopulateSettings(services);
-
-            var assembliesToScan = PopulateAssemblyProviders(services);
-
             RegisterPlugins(services);
 
-            services.RegisterCommonFramework(Settings, LoggerFactory);
-            services.RegisterAuth(Settings, LoggerFactory, Environment);
             services.AddDistributedMemoryCache();
-            services.RegisterBorg(Settings, LoggerFactory, Environment, assembliesToScan);
-
-            services.AddMediatR(assembliesToScan);
-
-            var entrypointassemblies = ViewEngineProvidersForPluginThemes(services, assembliesToScan);
+            services.AddMediatR(AssembliesToScan);
             services.AddDistributedMemoryCache();
-            var mvcbuilder = services.AddMvc();
 
-            foreach (var entrypointassembly in entrypointassemblies)
-            {
-                mvcbuilder.AddApplicationPart(entrypointassembly);
-            }
-   
+            AddBorgMvc(services);
+
             services.AddSession();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -55,13 +44,19 @@ namespace Borg.Cms.Basic
 
             BranchPlugins(app);
 
-            app.MapWhen(c => c.Request.Path.StartsWithSegments("/logout"), path =>
+            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LoginPath), path =>
             {
                 path.UseAuthentication();
                 path.UseSession();
                 path.UseMvc(ConfigureRoutes);
             });
-            app.MapWhen(c => c.Request.Path.StartsWithSegments("/login"), path =>
+            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LogoutPath), path =>
+            {
+                path.UseAuthentication();
+                path.UseSession();
+                path.UseMvc(ConfigureRoutes);
+            });
+            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.AccessDeniedPath), path =>
             {
                 path.UseAuthentication();
                 path.UseSession();

@@ -1,4 +1,5 @@
 ﻿using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers;
+using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -9,17 +10,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Reflection;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
     public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
     {
         public string Area => "Documents";
-        public string Title => "Documents";
+        public string Title => "Documents Management";
 
-        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration)
+        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings, Assembly[] assembliesToScan)
         {
-            return this.RegisterDiscoveryServices(services);
+            return services.RegisterDiscoveryServices(this);
         }
 
         public Tidings BackofficeEntryPointAction => new Tidings

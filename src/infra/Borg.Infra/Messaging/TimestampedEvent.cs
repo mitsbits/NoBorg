@@ -1,7 +1,6 @@
-﻿using Borg.Infra.Messaging;
-using System;
+﻿using System;
 
-namespace Borg.Cms.Basic.Lib.Features
+namespace Borg.Infra.Messaging
 {
     public abstract class TimestampedEvent : MessageBase
     {

@@ -1,5 +1,5 @@
-﻿using System;
-using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
+﻿using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
+using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -9,17 +9,22 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Borg.Cms.Basic.Lib.Features.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {
-    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
+    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration, ISecurityPlugIn
     {
-        public string Area => "Blogs";
+        public string Area => "BlogEngine";
         public string Title => "Blog Engine";
 
-        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration)
+        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings, Assembly[] assembliesToScan)
         {
-            return this.RegisterDiscoveryServices(services);
+            return services.RegisterDiscoveryServices(this);
         }
 
         public Tidings BackofficeEntryPointAction => new Tidings
@@ -39,5 +44,30 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine
             path.UseSession();
             path.UseMvc(routeHandler);
         };
+
+        public string[] DefinedRoles => new[] {CmsRoles.Blogger.ToString()};
+        public IDictionary<string, AuthorizationPolicy> Policies => GetPolicies();
+
+        private IDictionary<string, AuthorizationPolicy> GetPolicies()
+        {
+            var result = new Dictionary<string, AuthorizationPolicy>
+            {
+                {
+                    "Blogger",
+                    new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .RequireAssertion(c => BloggerHandler(c)).Build()
+                }
+            };
+            return result;
+        }
+
+        private static bool BloggerHandler(AuthorizationHandlerContext authorizationHandlerContext)
+        {
+            var isAdmin = authorizationHandlerContext.User.IsInAnyRole(SystemRoles.Admin.ToString(), SystemRoles.Developer.ToString());
+            if (isAdmin) return true;
+            var isBloggerr = authorizationHandlerContext.User.IsInRole(CmsRoles.Blogger.ToString());
+            return isBloggerr;
+        }
     }
 }

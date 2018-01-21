@@ -36,18 +36,38 @@ namespace Borg.MVC
 
         protected IPlugInHost PlugInHost { get; set; }
 
+        protected Assembly[] AssembliesToScan { get; set; }
+        protected Assembly[] EntryPointAssemblies { get; set; }
+
         protected IServiceCollection RegisterPlugins(IServiceCollection services)
         {
+            AssembliesToScan = PopulateAssemblyProviders(services);
             services.TryAddSingleton(typeof(IPlugInHost), provider => PlugInHost);
             var registernmodules = PlugInHost.SpecifyPlugins<IPluginServiceRegistration>();
 
             foreach (var registernmodule in registernmodules)
             {
-                registernmodule.Configure(services, LoggerFactory, Environment, Configuration);
+                registernmodule.Configure(services, LoggerFactory, Environment, Configuration, Settings, AssembliesToScan);
             }
+            EntryPointAssemblies = ViewEngineProvidersForPluginThemes(services, AssembliesToScan);
             return services;
         }
-
+        protected IServiceCollection AddBorgMvc(IServiceCollection services)
+        {
+            var mvcbuilder = services.AddMvc();
+            foreach (var entrypointassembly in EntryPointAssemblies)
+            {
+                mvcbuilder.AddApplicationPart(entrypointassembly);
+            }
+            services.AddAuthorization(options =>
+            {
+                foreach (var sec in PlugInHost.SecurityPlugIns())
+                {
+                    options.AddAuthorizationPolicies(sec);
+                }
+            });
+            return services;
+        }
         protected void PopulateSettings(IServiceCollection services)
         {
             services.Config(Configuration.GetSection("Borg"), () => Settings);

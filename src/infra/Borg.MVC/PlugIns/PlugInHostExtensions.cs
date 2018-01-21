@@ -4,10 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Borg
 {
-    public static class PlugInHostExtensions
+    public static class PlugInExtensions
     {
         public static IEnumerable<TPlugIn> SpecifyPlugins<TPlugIn>(this IPlugInHost host) where TPlugIn : IPluginDescriptor
         {
@@ -19,7 +20,12 @@ namespace Borg
             return host.SpecifyPlugins<IPlugInArea>();
         }
 
-        public static IServiceCollection RegisterDiscoveryServices(this IPluginServiceRegistration descriptor, IServiceCollection services)
+        public static IEnumerable<ISecurityPlugIn> SecurityPlugIns(this IPlugInHost host)
+        {
+            return host.SpecifyPlugins<ISecurityPlugIn>();
+        }
+
+        public static IServiceCollection RegisterDiscoveryServices(this IServiceCollection services, IPluginServiceRegistration descriptor )
         {
             var thisasmbl = Assembly.GetAssembly(descriptor.GetType());
             var registries = thisasmbl.GetTypes().Where(X => X.CustomAttributes.Any(at =>
@@ -37,5 +43,15 @@ namespace Borg
             }
             return services;
         }
+
+
+        public static void AddAuthorizationPolicies(this AuthorizationOptions options, ISecurityPlugIn plugin)
+        {
+            foreach (var pair in plugin.Policies)
+            {
+                options.AddPolicy(pair.Key, pair.Value);
+            }
+        }
+
     }
 }

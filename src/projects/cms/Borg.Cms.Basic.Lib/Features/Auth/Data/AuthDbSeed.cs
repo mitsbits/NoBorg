@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Borg.Infra;
+using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Data
 {
@@ -16,61 +17,49 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<CmsUser> _userManager;
         private readonly ILogger _logger;
+        private readonly IPlugInHost _plugInHost;
 
-        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, BorgSettings settings, RoleManager<IdentityRole> roleManager, UserManager<CmsUser> userManager)
+        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, BorgSettings settings, RoleManager<IdentityRole> roleManager, UserManager<CmsUser> userManager, IPlugInHost plugInHost)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _db = db;
             _settings = settings;
             _roleManager = roleManager;
             _userManager = userManager;
+            _plugInHost = plugInHost;
         }
 
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
-            await EnsureSystemRoles();
-            await EnsureCmsRoles();
+            await EnsurPlugInRoles();
             await EnsureDefaultUser();
         }
 
-        private async Task EnsureSystemRoles()
+
+        private async Task EnsurPlugInRoles()
         {
-            foreach (var role in EnumUtil.GetValues<SystemRoles>())
+            var securityPlaugins = _plugInHost.SecurityPlugIns();
+            foreach (var securityPlugIn in securityPlaugins)
             {
-                if (!await _roleManager.RoleExistsAsync($"system.{role.ToString()}"))
+                foreach (var role in securityPlugIn.DefinedRoles)
                 {
-                    var result = await _roleManager.CreateAsync(new IdentityRole($"system.{role.ToString()}"));
-                    if (result.Succeeded)
+                    if (!await _roleManager.RoleExistsAsync(role))
                     {
-                        _logger.Info("Role {role} created", $"system.{role}");
-                    }
-                    else
-                    {
-                        _logger.Warn("Failed to create role {role} - reason: {errors}", $"system.{role}", string.Join("|", result.Errors.Select(x => $"{x.Code}-{x.Description}")));
+                        var result = await _roleManager.CreateAsync(new IdentityRole(role));
+                        if (result.Succeeded)
+                        {
+                            _logger.Info("Role {role} created", role);
+                        }
+                        else
+                        {
+                            _logger.Warn("Failed to create role {role} - reason: {errors}", role, string.Join("|", result.Errors.Select(x => $"{x.Code}-{x.Description}")));
+                        }
                     }
                 }
             }
         }
 
-        private async Task EnsureCmsRoles()
-        {
-            foreach (var role in EnumUtil.GetValues<CmsRoles>())
-            {
-                if (!await _roleManager.RoleExistsAsync($"cms.{role.ToString()}"))
-                {
-                    var result = await _roleManager.CreateAsync(new IdentityRole($"cms.{role.ToString()}"));
-                    if (result.Succeeded)
-                    {
-                        _logger.Info("Role {role} created", $"cms.{role}");
-                    }
-                    else
-                    {
-                        _logger.Warn("Failed to create role {role} - reason: {errors}", $"cms.{role}", string.Join("|", result.Errors.Select(x => $"{x.Code}-{x.Description}")));
-                    }
-                }
-            }
-        }
 
         private async Task EnsureDefaultUser()
         {

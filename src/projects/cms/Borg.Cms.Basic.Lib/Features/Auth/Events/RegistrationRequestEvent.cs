@@ -1,6 +1,7 @@
 ﻿using Borg.Infra.DDD;
 using MediatR;
 using System.Threading.Tasks;
+using Borg.Infra.Messaging;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Events
 {

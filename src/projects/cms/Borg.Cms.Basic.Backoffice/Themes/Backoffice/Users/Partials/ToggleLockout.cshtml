@@ -12,7 +12,7 @@
             @headerText
         </h3>
     </div>
-    <form asp-controller="Users" , asp-action="ToggleLockOut" method="post" asp-route-redirecturl="@Orchestrator.Device.RedirectToDevice()" role="form">
+    <form asp-controller="Users" , asp-action="ToggleLockOut" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" role="form">
         <div class="box-body">
 
             <input type="hidden" asp-for="UserId" />

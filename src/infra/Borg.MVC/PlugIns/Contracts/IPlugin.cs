@@ -1,4 +1,6 @@
-﻿using Borg.Infra.DTO;
+﻿using Borg.Infra;
+using Borg.Infra.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Borg.MVC.PlugIns.Contracts
 {
@@ -34,6 +38,12 @@ namespace Borg.MVC.PlugIns.Contracts
 
     public interface IPluginServiceRegistration : IPluginDescriptor
     {
-        IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration);
+        IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings, Assembly[] assembliesToScan);
+    }
+
+    public interface ISecurityPlugIn : IPluginDescriptor
+    {
+        string[] DefinedRoles { get; }
+        IDictionary<string, AuthorizationPolicy> Policies { get; }
     }
 }
