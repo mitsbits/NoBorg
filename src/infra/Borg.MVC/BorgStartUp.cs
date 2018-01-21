@@ -39,7 +39,7 @@ namespace Borg.MVC
         protected IServiceCollection RegisterPlugins(IServiceCollection services)
         {
             services.TryAddSingleton(typeof(IPlugInHost), provider => PlugInHost);
-            var registernmodules = PlugInHost.Specify<IPluginServiceRegistration>();
+            var registernmodules = PlugInHost.SpecifyPlugins<IPluginServiceRegistration>();
 
             foreach (var registernmodule in registernmodules)
             {
@@ -80,7 +80,7 @@ namespace Borg.MVC
 
         protected void BranchPlugins(IApplicationBuilder app)
         {
-            var mapwhenmodules = PlugInHost.Specify<ICanMapWhen>();
+            var mapwhenmodules = PlugInHost.SpecifyPlugins<ICanMapWhen>();
 
             foreach (var mapwhenmodule in mapwhenmodules)
             {

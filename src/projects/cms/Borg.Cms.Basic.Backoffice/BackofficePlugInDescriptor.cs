@@ -1,4 +1,4 @@
-﻿using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -10,17 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Borg.Cms.Basic.PlugIns.Documents
+namespace Borg.Cms.Basic.Backoffice
 {
-    public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
+    public sealed class BackofficePlugInDescriptor : IPluginDescriptor, IPlugInArea, IPlugInTheme, ICanMapWhen, IPluginServiceRegistration
     {
-        public string Area => "Documents";
-        public string Title => "Documents";
-
-        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration)
-        {
-            return this.RegisterDiscoveryServices(services);
-        }
+        public string Area => "Backoffice";
+        public string[] Themes => new[] { "Backoffice" };
 
         public Tidings BackofficeEntryPointAction => new Tidings
         {
@@ -28,7 +23,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             {"asp-controller", nameof(HomeController).Replace("Controller", string.Empty)},
             {"asp-action", nameof(HomeController.Home)},
             {"asp-route-id", null},
-            {"icon-class", "fa fa-book"}
+            {"icon-class", ""},
         };
 
         public Func<HttpContext, bool> MapWhenPredicate => c => c.Request.Path.StartsWithSegments($"/{Area}");
@@ -39,5 +34,12 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             path.UseSession();
             path.UseMvc(routeHandler);
         };
+
+        public string Title => "Back office";
+
+        public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration)
+        {
+            return this.RegisterDiscoveryServices(services);
+        }
     }
 }

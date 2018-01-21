@@ -40,7 +40,7 @@ namespace Borg.Cms.Basic
             {
                 mvcbuilder.AddApplicationPart(entrypointassembly);
             }
-
+   
             services.AddSession();
         }
 

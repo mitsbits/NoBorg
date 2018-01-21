@@ -1,4 +1,5 @@
-﻿using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers;
+﻿using System;
+using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -8,14 +9,13 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 
-namespace Borg.Cms.Basic.PlugIns.Documents
+namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {
-    public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
+    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
     {
-        public string Area => "Documents";
-        public string Title => "Documents";
+        public string Area => "Blogs";
+        public string Title => "Blog Engine";
 
         public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration)
         {
@@ -28,7 +28,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             {"asp-controller", nameof(HomeController).Replace("Controller", string.Empty)},
             {"asp-action", nameof(HomeController.Home)},
             {"asp-route-id", null},
-            {"icon-class", "fa fa-book"}
+            {"icon-class", "fa fa-newspaper-o"}
         };
 
         public Func<HttpContext, bool> MapWhenPredicate => c => c.Request.Path.StartsWithSegments($"/{Area}");

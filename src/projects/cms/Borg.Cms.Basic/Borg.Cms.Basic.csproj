@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
     <Folder Include="Areas\Documents\" />
+    <Folder Include="Areas\Blogs\" />
     <Folder Include="wwwroot\dist\jquery-validation\" />
   </ItemGroup>
 
@@ -27,6 +28,7 @@
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj" />
   </ItemGroup>
 

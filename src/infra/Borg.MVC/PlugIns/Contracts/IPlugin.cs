@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Borg.Infra.DTO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -11,11 +12,13 @@ namespace Borg.MVC.PlugIns.Contracts
 {
     public interface IPluginDescriptor
     {
+        string Title { get; }
     }
 
     public interface IPlugInArea : IPluginDescriptor
     {
         string Area { get; }
+        Tidings BackofficeEntryPointAction { get; }
     }
 
     public interface IPlugInTheme : IPluginDescriptor
