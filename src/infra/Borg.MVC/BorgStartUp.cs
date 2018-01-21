@@ -55,21 +55,17 @@ namespace Borg.MVC
             EntryPointAssemblies = ViewEngineProvidersForPluginThemes(services, AssembliesToScan);
             return services;
         }
-        protected IServiceCollection AddBorgMvc(IServiceCollection services)
+        protected IMvcBuilder AddBorgMvc(IServiceCollection services)
         {
             var mvcbuilder = services.AddMvc();
             foreach (var entrypointassembly in EntryPointAssemblies)
             {
                 mvcbuilder.AddApplicationPart(entrypointassembly);
             }
-            services.AddAuthorization(options =>
-            {
-                foreach (var sec in PlugInHost.SecurityPlugIns())
-                {
-                    options.AddAuthorizationPolicies(sec);
-                }
-            });
-            return services;
+           
+
+
+            return mvcbuilder;
         }
         protected void PopulateSettings(IServiceCollection services)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Borg.Cms.Basic.Lib.Discovery;
 using Borg.MVC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +33,18 @@ namespace Borg.Cms.Basic
             services.AddMediatR(AssembliesToScan);
             services.AddDistributedMemoryCache();
 
-            AddBorgMvc(services);
+            var builder = AddBorgMvc(services);
+            builder.ConfigureApplicationPartManager(p =>
+                p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
+
+            services.AddAuthorization(options =>
+            {
+                foreach (var sec in PlugInHost.SecurityPlugIns())
+                {
+                    options.AddAuthorizationPolicies(sec);
+                }
+            });
+
 
             services.AddSession();
 

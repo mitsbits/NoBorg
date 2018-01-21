@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ApplicationFeature\" />
     <Folder Include="TagHelpers\HtmlPager\" />
   </ItemGroup>
 
