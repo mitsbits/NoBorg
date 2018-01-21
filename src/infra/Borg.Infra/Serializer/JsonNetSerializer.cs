@@ -16,8 +16,7 @@ namespace Borg.Infra
 
         public Task<object> DeserializeAsync(byte[] value, Type objectType)
         {
-            return Task.FromResult(JsonConvert.DeserializeObject(Encoding.UTF8.GetString(value), objectType,
-                _settings));
+            return Task.FromResult(JsonConvert.DeserializeObject(Encoding.UTF8.GetString(value), objectType, _settings));
         }
 
         public Task<byte[]> SerializeAsync(object value)

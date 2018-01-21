@@ -11,13 +11,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Borg.Cms.Basic.Lib.Discovery;
+using Borg.Cms.Basic.Lib.Discovery.Contracts;
 using Borg.Cms.Basic.Lib.Features.Auth;
+using Borg.Cms.Basic.PlugIns.BlogEngine.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {
-    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration, ISecurityPlugIn
+    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, 
+        IPluginServiceRegistration, ISecurityPlugIn, IPlugInEfEntityRegistration
     {
         public string Area => "BlogEngine";
         public string Title => "Blog Engine";
@@ -68,6 +75,24 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine
             if (isAdmin) return true;
             var isBloggerr = authorizationHandlerContext.User.IsInRole(CmsRoles.Blogger.ToString());
             return isBloggerr;
+        }
+
+        public IDictionary<Type, Func<ModelBuilder, bool>> Entities
+        {
+            get
+            {
+                bool Empty(ModelBuilder builder) { return false; }
+
+                var dict = GetType().Assembly.GetTypes().Where(x => x.GetCustomAttribute<EntityAttribute>() != null)
+                    .ToDictionary(x => x, x => (Func<ModelBuilder, bool>) Empty);
+
+                dict[typeof(BloggerBlog)] = builder =>
+                {
+                    builder.Entity<BloggerBlog>().HasKey(x => new {x.BlogId, x.BloggerId});
+                    return true;
+                };
+                return dict;
+            }
         }
     }
 }

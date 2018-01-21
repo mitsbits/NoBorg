@@ -1,4 +1,5 @@
-﻿using Borg.Infra;
+﻿using System;
+using Borg.Infra;
 using Borg.Infra.Services.AssemblyProvider;
 using Borg.MVC.PlugIns;
 using Borg.MVC.PlugIns.Contracts;
@@ -38,6 +39,8 @@ namespace Borg.MVC
 
         protected Assembly[] AssembliesToScan { get; set; }
         protected Assembly[] EntryPointAssemblies { get; set; }
+
+        public static IServiceProvider ServiceProvider { get; set; }
 
         protected IServiceCollection RegisterPlugins(IServiceCollection services)
         {

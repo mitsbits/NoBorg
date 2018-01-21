@@ -1,6 +1,5 @@
 ﻿using Borg.Infra.DDD;
 using Borg.Platform.EF;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -55,22 +54,7 @@ namespace Borg.Cms.Basic.Lib.Discovery
         public Type LookUpType { get; }
     }
 
-    public class DiscoveryDbContext : DbContext
-    {
-        public DiscoveryDbContext(DbContextOptions<DiscoveryDbContext> options) : base(options)
-        {
-        }
 
-        internal IEnumerable<Type> EntityTypes { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-        }
-    }
-
-    public class DiscoveryDbContextFactory : BorgDbContextFactory<DiscoveryDbContext>
-    {
-    }
 
     internal static class Util
     {

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Borg.MVC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -17,18 +18,26 @@ namespace Borg.Cms.Basic
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             PopulateSettings(services);
             RegisterPlugins(services);
 
-            services.AddDistributedMemoryCache();
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.SchemaName = "cache";
+                options.TableName = "Store";
+                options.ConnectionString = Settings.ConnectionStrings["db"];
+            });
             services.AddMediatR(AssembliesToScan);
             services.AddDistributedMemoryCache();
 
             AddBorgMvc(services);
 
             services.AddSession();
+
+            ServiceProvider = services.BuildServiceProvider();
+            return ServiceProvider;
         }
 
 

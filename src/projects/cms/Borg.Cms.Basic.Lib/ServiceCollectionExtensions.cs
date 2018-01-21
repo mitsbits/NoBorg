@@ -35,6 +35,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Discovery;
+using Borg.Cms.Basic.Lib.Discovery.Data;
+using Borg.Infra.Caching;
+using Borg.Infra.Caching.Contracts;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -62,6 +66,16 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<DeviceLayoutFilter>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddBorgDefaultSlugifier();
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.SchemaName = "cache";
+                options.TableName = "Store";
+                options.ConnectionString = settings.ConnectionStrings["db"];
+            });
+            services.AddScoped<ISerializer, JsonNetSerializer>();
+            services.AddScoped<ICacheStore, CacheStore>();
+
             return services;
         }
 
@@ -146,6 +160,11 @@ namespace Borg.Cms.Basic.Lib
                 options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets"));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
+            services.AddDbContext<DiscoveryDbContext>(options =>
+            {
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "discovery"));
+                options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
+            });
             services.AddScoped<AssetsDbSeed>();
 
             services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
@@ -192,6 +211,8 @@ namespace Borg.Cms.Basic.Lib
             services.AddSingleton<IModuleDescriptorProvider, ModuleDescriptorProvider>();
             services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>();
             services.AddScoped<IDeviceStructureProvider, DeviceStructureProvider>();
+
+            services.AddScoped<DiscoveryDbSeed>();
             return services;
         }
 
