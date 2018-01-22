@@ -56,7 +56,23 @@ namespace Borg.MVC.Services.UserSession
 
         public string UserIdentifier => !IsAuthenticated() ? string.Empty : HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
         public string UserName => !IsAuthenticated() ? string.Empty : HttpContext.User.Identity.Name;
+        private string _displayName;
 
+        private string GetDiplayName()
+        {
+            if (string.IsNullOrWhiteSpace(_displayName))
+            {
+                _displayName = !IsAuthenticated()
+                    ? string.Empty
+                    : HttpContext.User.Claims.Any(x => x.Type == ClaimTypes.Surname) &&
+                      HttpContext.User.Claims.Any(x => x.Type == ClaimTypes.GivenName)
+                        ? $"{HttpContext.User.Claims.First(x => x.Type == ClaimTypes.GivenName).Value} {HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Surname).Value}"
+                        : HttpContext.User.Identity.Name;
+            }
+            return _displayName;
+        }
+
+        public string DisplayName => GetDiplayName();
         public bool IsAuthenticated()
         {
             return HttpContext.User != null && HttpContext.User.Identity.IsAuthenticated;

@@ -9,6 +9,7 @@ namespace Borg.MVC.Services.UserSession
         DateTimeOffset SessionStart { get; }
         string UserIdentifier { get; }
         string UserName { get; }
+        string DisplayName { get; }
 
         bool IsAuthenticated();
 

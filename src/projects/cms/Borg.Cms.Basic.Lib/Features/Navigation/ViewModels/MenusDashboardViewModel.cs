@@ -23,12 +23,12 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
 
         public IEnumerable<NavigationItemType> NavigaionTypeOptions => EnumUtil.GetValues<NavigationItemType>();
 
-        public Tidings Trees() => Records.Trees();
+        //public Tidings Trees() => Records.Trees();
 
-        public IDictionary<(int, int), Tiding> TreeDictionary() => Trees().TreeDictionary();
+        //public IDictionary<(int, int), Tiding> TreeDictionary() => Trees().TreeDictionary();
 
-        public IDictionary<(int, int), Tiding> TreeDictionaryExcludingCurrentAndChildren() =>
-            Records.TreeDictionaryExcludingCurrentAndChildren(SelectedRecord);
+        //public IDictionary<(int, int), Tiding> TreeDictionaryExcludingCurrentAndChildren() =>
+        //    Records.TreeDictionaryExcludingCurrentAndChildren(SelectedRecord);
 
         public NavigationItemRecordCreateOrUpdateCommand GetCommand()
         {
@@ -41,8 +41,8 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
                 Group = Group,
                 IsPublished = SelectedRecord.IsPublished,
                 ItemType = SelectedRecord.ItemType,
-                ParentId = SelectedRecord.ParentId,
-                ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
+                //ParentId = SelectedRecord.ParentId,
+                //ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
                 Weight = SelectedRecord.Weight
 
             };

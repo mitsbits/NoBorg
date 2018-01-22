@@ -25,16 +25,16 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Services
                 return new MenuContainer() { Group = @group, Trees = new Tidings() };
             }
             var set = result.Payload; //TODO: over engineered
-            var lookup = set.Trees().Flatten();
-            var toRemove = (from l in set.OrderByDescending(x => x.ParentId)
-                    .ThenByDescending(x => x.Id)
-                    .ThenBy(x => x.IsPublished)
-                            let p = lookup.FirstOrDefault(x => x.Key == l.ParentId.ToString())
-                            let parentActive = p == null || bool.Parse(p.Flag)
-                            where !parentActive || !l.IsPublished
-                            select l.Id).ToList();
-            var filteredSet = set.Where(x => !toRemove.Contains(x.Id));
-            return new MenuContainer() { Group = @group, Trees = filteredSet.Trees() };
+            //var lookup = set.Trees().Flatten();
+            //var toRemove = (from l in set.OrderByDescending(x => x.ParentId)
+            //        .ThenByDescending(x => x.Id)
+            //        .ThenBy(x => x.IsPublished)
+            //                let p = lookup.FirstOrDefault(x => x.Key == l.ParentId.ToString())
+            //                let parentActive = p == null || bool.Parse(p.Flag)
+            //                where !parentActive || !l.IsPublished
+            //                select l.Id).ToList();
+            //var filteredSet = set.Where(x => !toRemove.Contains(x.Id));
+            return new MenuContainer() { Group = @group/*, Trees = filteredSet.Trees()*/ };
         }
     }
 }

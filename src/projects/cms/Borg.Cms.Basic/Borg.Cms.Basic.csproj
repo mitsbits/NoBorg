@@ -6,16 +6,20 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Backoffice\wwwroot\**" />
+    <Compile Remove="wwwroot\dist\**" />
     <Content Remove="Areas\Backoffice\wwwroot\**" />
+    <Content Remove="wwwroot\dist\**" />
     <EmbeddedResource Remove="Areas\Backoffice\wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
     <None Remove="Areas\Backoffice\wwwroot\**" />
+    <None Remove="wwwroot\dist\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Static\assets\" />
     <Folder Include="Areas\Documents\" />
     <Folder Include="Areas\BlogEngine\" />
-    <Folder Include="wwwroot\dist\jquery-validation\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
