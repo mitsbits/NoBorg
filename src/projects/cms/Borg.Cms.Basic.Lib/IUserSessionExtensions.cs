@@ -10,7 +10,6 @@ namespace Borg.Cms.Basic.Lib
         private const string RowsPerPageKey = "RowsPerPage";
         private const string AvatarKey = "Avatar";
 
-
         public static bool MenuIsCollapsed(this IUserSession userSession)
         {
             return userSession.Setting<bool>(MenuIsCollapsedKey);

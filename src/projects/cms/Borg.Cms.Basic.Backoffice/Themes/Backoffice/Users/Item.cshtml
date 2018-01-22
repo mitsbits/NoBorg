@@ -2,23 +2,19 @@
 @using Borg.Infra
 @model UserViewModel
 
-
-
-    <div class="row">
-        <div class="col-md-4">
-            @await Html.PartialAsync("Partials/UserAvatar", new UserClaimCommand(Model.UserName, BorgClaimTypes.Avatar, Model.UserClaims.Any(x=>x.ClaimType == BorgClaimTypes.Avatar)?Model.UserClaims.First(x => x.ClaimType == BorgClaimTypes.Avatar).ClaimValue: "https://image.flaticon.com/icons/png/512/78/78373.png"))
-
-        </div>
-
-        <div class="col-md-4">
-            @await Html.PartialAsync("Partials/ToggleLockout", Model)
-            @await Html.PartialAsync("Partials/ResetPassword", new ResetPasswordViewModel() { Email = Model.UserName })
-            @await Html.PartialAsync("Partials/UserRoles", Model)
-        </div>
-
-        <div class="col-md-4">
-            @await Html.PartialAsync("Partials/DeleteUser", new DeleteUserCommand(){Email = Model.UserName})
-            @await Html.PartialAsync("Partials/Profile", new ProfileCommand(Model.UserName, Model.FirstName, Model.LastName))
-
-        </div>
+<div class="row">
+    <div class="col-md-4">
+        @await Html.PartialAsync("Partials/UserAvatar", new UserClaimCommand(Model.UserName, BorgClaimTypes.Avatar, Model.UserClaims.Any(x => x.ClaimType == BorgClaimTypes.Avatar) ? Model.UserClaims.First(x => x.ClaimType == BorgClaimTypes.Avatar).ClaimValue : "https://image.flaticon.com/icons/png/512/78/78373.png"))
     </div>
+
+    <div class="col-md-4">
+        @await Html.PartialAsync("Partials/ToggleLockout", Model)
+        @await Html.PartialAsync("Partials/ResetPassword", new ResetPasswordViewModel() { Email = Model.UserName })
+        @await Html.PartialAsync("Partials/UserRoles", Model)
+    </div>
+
+    <div class="col-md-4">
+        @await Html.PartialAsync("Partials/DeleteUser", new DeleteUserCommand() { Email = Model.UserName })
+        @await Html.PartialAsync("Partials/Profile", new ProfileCommand(Model.UserName, Model.FirstName, Model.LastName))
+    </div>
+</div>

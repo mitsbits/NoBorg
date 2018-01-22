@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features
 {
-    public class CommandBase<TCommandResult> : MessageBase, IRequest<TCommandResult> where TCommandResult : CommandResult
+    public abstract class CommandBase<TCommandResult> : MessageBase, IRequest<TCommandResult> where TCommandResult : CommandResult
     {
     }
 }

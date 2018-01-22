@@ -216,11 +216,6 @@ namespace Borg.Cms.Basic.Lib
             return services;
         }
 
-        public static IServiceCollection RegisterDiscoveryEntityStore(this IServiceCollection services,
-            BorgSettings settings, ILoggerFactory loggerFactory, IHostingEnvironment environment,
-            IEnumerable<Assembly> assembliesToScan)
-        {
-            return services;
-        }
+
     }
 }

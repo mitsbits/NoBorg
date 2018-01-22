@@ -1,5 +1,4 @@
-﻿
-@using Borg.Cms.Basic.Lib.Features.Auth.Events
+﻿@using Borg.Cms.Basic.Lib.Features.Auth.Events
 @model AccessDeniedToUser
 @inject BorgSettings Settings
 @{
@@ -12,8 +11,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">
             Access to <b>@Model.ReturnUrl</b> for account <b>@Model.UserName</b> is denied.<br />
-            <a asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@rdurl" >Log in</a> with another account.
+            <a asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@rdurl">Log in</a> with another account.
         </p>
     </div>
-
 </div>

@@ -11,10 +11,15 @@ namespace Borg.MVC.Services.UserSession
         string UserName { get; }
         string DisplayName { get; }
         string Avatar { get; }
+
         bool IsAuthenticated();
+
         T Setting<T>(string key, T value);
+
         T Setting<T>(string key);
+
         void StartSession();
+
         void StopSession();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Borg.Infra.DDD;
+using Borg.Infra.Messaging;
 using MediatR;
 using System.Threading.Tasks;
-using Borg.Infra.Messaging;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Events
 {
-    public class RegistrationRequestEvent : TimestampedEvent, INotification
+    public class RegistrationRequestEvent : MessageBase, INotification
     {
         public RegistrationRequestEvent(CompositeKey<string> key)
         {

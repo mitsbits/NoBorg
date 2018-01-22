@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Events
 {
-    public class AccessDeniedToUser : TimestampedEvent,INotification
+    public class AccessDeniedToUser : MessageBase, INotification
     {
         public AccessDeniedToUser(string userName, string returnUrl)
         {
