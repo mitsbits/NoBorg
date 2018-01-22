@@ -1,5 +1,6 @@
 using Borg.Infra.DAL;
 using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

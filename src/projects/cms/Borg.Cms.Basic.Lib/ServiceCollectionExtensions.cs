@@ -1,4 +1,5 @@
-﻿using Borg.Cms.Basic.Lib.Features.Auth;
+﻿using Borg.Cms.Basic.Lib.Discovery.Data;
+using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.Features.Content.Services;
 using Borg.Cms.Basic.Lib.Features.Device.Services;
@@ -6,6 +7,8 @@ using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Cms.Basic.Lib.Features.Navigation.Services;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra;
+using Borg.Infra.Caching;
+using Borg.Infra.Caching.Contracts;
 using Borg.Infra.DTO;
 using Borg.Infra.Storage;
 using Borg.Infra.Storage.Assets;
@@ -35,10 +38,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Discovery;
-using Borg.Cms.Basic.Lib.Discovery.Data;
-using Borg.Infra.Caching;
-using Borg.Infra.Caching.Contracts;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -215,7 +214,5 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<DiscoveryDbSeed>();
             return services;
         }
-
-
     }
 }

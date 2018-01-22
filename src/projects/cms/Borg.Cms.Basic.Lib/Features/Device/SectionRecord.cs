@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.MVC.BuildingBlocks;
+using System.Collections.Generic;
 
 namespace Borg.Cms.Basic.Lib.Features.Device
 {

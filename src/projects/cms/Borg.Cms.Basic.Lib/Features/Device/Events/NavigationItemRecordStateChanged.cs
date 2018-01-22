@@ -1,5 +1,6 @@
 ﻿using Borg.Infra.DAL;
 using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Events

@@ -1,6 +1,6 @@
-﻿using System;
-using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Infra.Storage.Contracts;
+using System;
 
 namespace Borg.Platform.EF.Assets
 {

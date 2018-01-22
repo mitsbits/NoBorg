@@ -1,4 +1,4 @@
-﻿using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 
 namespace Borg.Platform.EF.Assets
 {

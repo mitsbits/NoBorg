@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Borg.Infra.DDD
+﻿namespace Borg.CMS.Components.Contracts
 {
     public interface ICanBeDeleted
     {

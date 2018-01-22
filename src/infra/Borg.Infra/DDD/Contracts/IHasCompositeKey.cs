@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Borg.Infra.DDD
+namespace Borg.Infra.DDD.Contracts
 {
     public interface IHasCompositeKey<T> where T : IEquatable<T>
     {

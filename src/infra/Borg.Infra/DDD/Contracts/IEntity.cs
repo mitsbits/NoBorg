@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Borg.Infra.DDD
+namespace Borg.Infra.DDD.Contracts
 {
     public interface IEntity<out TKey> : IEntity where TKey : IEquatable<TKey>
     {

@@ -1,13 +1,14 @@
-﻿using Borg.Infra.Collections.Hierarchy;
-using Borg.Infra.DDD;
+﻿using Borg.Cms.Basic.Lib.Features.Content;
+using Borg.CMS.Components.Contracts;
+using Borg.Infra.Collections.Hierarchy;
+using Borg.Infra.DDD.Contracts;
 using Borg.Infra.DTO;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Borg.Cms.Basic.Lib.Features.Content;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation
 {
-    public class NavigationItemRecord : IHasParent<int>, IPublishable, IEntity<int>, IWeighted
+    public class NavigationItemRecord : IHasParent<int>, ICanBePublished, IEntity<int>, IWeighted
     {
         public int Id { get; set; }
         public int Depth { get; protected set; }
@@ -51,9 +52,11 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation
 
         [DefaultValue(0)]
         [DisplayName("Weight")]
-        public double Weight { get;  set; }
+        public double Weight { get; set; }
+
         [DisplayName("Content Item")]
         public int? ContentItemRecordId { get; set; }
+
         public virtual ContentItemRecord ContentItemRecord { get; set; }
     }
 }

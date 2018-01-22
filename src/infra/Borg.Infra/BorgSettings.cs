@@ -16,8 +16,6 @@ namespace Borg.Infra
         public string Folder { get; set; }
         public string AssetStoreContainer { get; set; }
         public string AzureStorageConnection { get; set; }
-
-
     }
 
     public class TenantSettings

@@ -1,4 +1,4 @@
-﻿using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using System.Collections.Generic;

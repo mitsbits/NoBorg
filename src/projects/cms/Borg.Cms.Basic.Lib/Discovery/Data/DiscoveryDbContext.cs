@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Discovery.Contracts;
+﻿using Borg.Cms.Basic.Lib.Discovery.Contracts;
 using Borg.MVC;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Discovery.Data
 {
@@ -48,6 +48,7 @@ namespace Borg.Cms.Basic.Lib.Discovery.Data
             throw new NotImplementedException();
         }
     }
+
     public class DiscoveryDbSeed
     {
         private readonly DiscoveryDbContext _db;
@@ -57,12 +58,12 @@ namespace Borg.Cms.Basic.Lib.Discovery.Data
             _db = db;
         }
 
-
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
         }
     }
+
     public class DiscoveryDbContextFactory : BorgDbContextFactory<DiscoveryDbContext>
     {
     }

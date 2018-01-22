@@ -1,4 +1,5 @@
 ﻿using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using Borg.Infra.Services;
 using Newtonsoft.Json;
 using System;

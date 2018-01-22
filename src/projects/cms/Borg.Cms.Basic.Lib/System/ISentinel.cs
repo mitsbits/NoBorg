@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
+using Borg.Infra.Services.BackgroundServices;
 
 namespace Borg.Cms.Basic.Lib.System
 {
-    interface ISentinel
+    public interface ISentinel
     {
+        Task FireAndForget<TJob>(TJob job, params string[] args) where TJob : IEnqueueJob;
+        Task Schedule<TJob>(TJob job, DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob;
+        Task Recur<TJob>(TJob job, string jobHandle, string cronExpression, TimeZoneInfo timeZoneInfo, params string[] args) where TJob : IEnqueueJob;
     }
 }

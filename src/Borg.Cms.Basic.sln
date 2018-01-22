@@ -23,11 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Backoffice",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{FA6F12CE-F87E-42E7-BA98-C61753CC3A80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borg.Cms.Basic.PlugIns.Documents", "projects\cms\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj", "{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.PlugIns.Documents", "projects\cms\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj", "{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "system", "system", "{343B8493-57A0-4CB3-BF57-CE9B65A2CB7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borg.Cms.Basic.PlugIns.BlogEngine", "projects\cms\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj", "{656BBDB4-C33E-4872-AA70-F80B751AE5DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.PlugIns.BlogEngine", "projects\cms\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj", "{656BBDB4-C33E-4872-AA70-F80B751AE5DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borg.CMS", "infra\Borg.CMS\Borg.CMS.csproj", "{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{656BBDB4-C33E-4872-AA70-F80B751AE5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{656BBDB4-C33E-4872-AA70-F80B751AE5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{656BBDB4-C33E-4872-AA70-F80B751AE5DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{D9C7E3A9-59EE-44E1-B8ED-57CE05E367A1} = {FA6F12CE-F87E-42E7-BA98-C61753CC3A80}
 		{343B8493-57A0-4CB3-BF57-CE9B65A2CB7C} = {FA6F12CE-F87E-42E7-BA98-C61753CC3A80}
 		{656BBDB4-C33E-4872-AA70-F80B751AE5DC} = {FA6F12CE-F87E-42E7-BA98-C61753CC3A80}
+		{732BAD47-FFFA-4F6C-B540-1651F3DD1AF2} = {F6669D0C-2EEC-4041-8549-5D3ED4C80095}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {503CA905-8CDD-4FFE-900E-2929A7466477}

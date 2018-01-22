@@ -1,10 +1,9 @@
-﻿
+﻿using Borg;
+using Borg.Infra.Messaging;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg;
-using Borg.Infra.Messaging;
 
 namespace MediatR
 {
@@ -17,6 +16,7 @@ namespace MediatR
         {
             _log = loggerFactory.CreateLogger(GetType());
         }
+
         [DebuggerStepThrough]
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
@@ -30,6 +30,7 @@ namespace MediatR
             return response;
         }
     }
+
     [DebuggerStepThrough]
     public class CorrelationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

@@ -2,6 +2,7 @@
 
 namespace Borg.Infra
 {
+    //TODO: this is in the wrong assembly
     public class PaginationInfoStyle : IPaginationInfoStyle
     {
             private string _ItemSliceAndTotalFormat = "{0} to {1} of {2}";

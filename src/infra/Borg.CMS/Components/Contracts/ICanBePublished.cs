@@ -1,6 +1,6 @@
-﻿namespace Borg.Infra.DDD
+﻿namespace Borg.CMS.Components.Contracts
 {
-    public interface IPublishable
+    public interface ICanBePublished
     {
         bool IsPublished { get; }
 

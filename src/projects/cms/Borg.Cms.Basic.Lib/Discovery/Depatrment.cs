@@ -1,5 +1,4 @@
-﻿using Borg.Infra.DDD;
-using Borg.Platform.EF;
+﻿using Borg.Infra.DDD.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -53,8 +52,6 @@ namespace Borg.Cms.Basic.Lib.Discovery
 
         public Type LookUpType { get; }
     }
-
-
 
     internal static class Util
     {

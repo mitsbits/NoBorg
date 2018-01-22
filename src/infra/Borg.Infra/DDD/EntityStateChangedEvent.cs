@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
+using Borg.Infra.DDD.Contracts;
+using System;
 
 namespace Borg.Infra.DDD
 {
@@ -12,6 +11,7 @@ namespace Borg.Infra.DDD
             Id = id;
             DmlOperation = dmlOperation;
         }
+
         public TKey Id { get; }
         public DmlOperation DmlOperation { get; }
         public DateTimeOffset Timestamp { get; } = DateTimeOffset.UtcNow;

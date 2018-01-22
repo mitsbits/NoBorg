@@ -1,13 +1,17 @@
-﻿using System;
-using System.Reflection;
-using Borg.Cms.Basic.Lib.Discovery;
+﻿using Borg.Cms.Basic.Lib.Discovery;
+using Borg.Cms.Basic.Lib.Features;
+using Borg.Cms.Basic.Lib.System;
 using Borg.MVC;
+using Hangfire;
+using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Borg.Cms.Basic
 {
@@ -45,17 +49,18 @@ namespace Borg.Cms.Basic
                 }
             });
 
+            services.AddHangfire(x => x.UseSqlServerStorage(Settings.ConnectionStrings["db"], new SqlServerStorageOptions() { SchemaName = "hangfire" }));
 
             services.AddSession();
-
+            services.AddSingleton<IHostedService, Sentinel>();
+            services.AddSingleton<ISentinel, Sentinel>();
             ServiceProvider = services.BuildServiceProvider();
             return ServiceProvider;
         }
 
-
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -83,7 +88,10 @@ namespace Borg.Cms.Basic
                 path.UseSession();
                 path.UseMvc(ConfigureRoutes);
             });
-
+            GlobalConfiguration.Configuration
+                .UseActivator(new ContainerJobActivator(serviceProvider));
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
             app.UseMvc(ConfigureRoutes);
         }
     }

@@ -1,11 +1,17 @@
-﻿using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
+﻿using Borg.Cms.Basic.Lib.Discovery;
+using Borg.Cms.Basic.Lib.Discovery.Contracts;
+using Borg.Cms.Basic.Lib.Features.Auth;
+using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
+using Borg.Cms.Basic.PlugIns.BlogEngine.Domain;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,17 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Borg.Cms.Basic.Lib.Discovery;
-using Borg.Cms.Basic.Lib.Discovery.Contracts;
-using Borg.Cms.Basic.Lib.Features.Auth;
-using Borg.Cms.Basic.PlugIns.BlogEngine.Domain;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {
-    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, 
+    public sealed class BlogEnginePluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen,
         IPluginServiceRegistration, ISecurityPlugIn, IPlugInEfEntityRegistration
     {
         public string Area => "BlogEngine";
@@ -52,7 +51,7 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine
             path.UseMvc(routeHandler);
         };
 
-        public string[] DefinedRoles => new[] {CmsRoles.Blogger.ToString()};
+        public string[] DefinedRoles => new[] { CmsRoles.Blogger.ToString() };
         public IDictionary<string, AuthorizationPolicy> Policies => GetPolicies();
 
         private IDictionary<string, AuthorizationPolicy> GetPolicies()
@@ -84,11 +83,11 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine
                 bool Empty(ModelBuilder builder) { return false; }
 
                 var dict = GetType().Assembly.GetTypes().Where(x => x.GetCustomAttribute<EntityAttribute>() != null)
-                    .ToDictionary(x => x, x => (Func<ModelBuilder, bool>) Empty);
+                    .ToDictionary(x => x, x => (Func<ModelBuilder, bool>)Empty);
 
                 dict[typeof(BloggerBlog)] = builder =>
                 {
-                    builder.Entity<BloggerBlog>().HasKey(x => new {x.BlogId, x.BloggerId});
+                    builder.Entity<BloggerBlog>().HasKey(x => new { x.BlogId, x.BloggerId });
                     return true;
                 };
                 return dict;

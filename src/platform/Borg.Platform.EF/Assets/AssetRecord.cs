@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Infra.Storage.Assets.Contracts;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.Assets
 {

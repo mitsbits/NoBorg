@@ -1,5 +1,5 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery;
-using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using System.Collections.Generic;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine.Domain

@@ -1,6 +1,6 @@
-﻿using Borg.Infra.DDD;
+﻿using Borg.Cms.Basic.Lib.Features.Navigation;
+using Borg.Infra.DDD.Contracts;
 using System;
-using Borg.Cms.Basic.Lib.Features.Navigation;
 
 namespace Borg.Cms.Basic.Lib.Features.Content
 {

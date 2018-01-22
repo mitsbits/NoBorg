@@ -1,4 +1,5 @@
 using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

@@ -1,4 +1,5 @@
 ﻿using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using System;

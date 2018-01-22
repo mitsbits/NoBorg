@@ -1,4 +1,4 @@
-﻿using Borg.Infra.DDD;
+﻿using Borg.Infra.DDD.Contracts;
 using System;
 
 namespace Borg.Infra.Storage.Assets.Contracts
