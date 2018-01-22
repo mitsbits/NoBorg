@@ -155,7 +155,7 @@
 
                             <p>
                                 @UserSession.DisplayName
-                                <small>Session started: @UserSession.SessionStart.ToString("d/M/yy HH:mm:ss")</small>
+                                <small>Session started: @UserSession.SessionStart.ToLocalTime().ToString("d/M/yy HH:mm:ss")</small>
                             </p>
                         </li>
                         <!-- Menu Body -->
