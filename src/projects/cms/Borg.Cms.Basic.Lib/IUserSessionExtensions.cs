@@ -8,6 +8,7 @@ namespace Borg.Cms.Basic.Lib
         private const string MenuIsCollapsedKey = "MenuIsCollapsed";
         private const string MenuExpandOnHoverKey = "MenuExpandOnHover";
         private const string RowsPerPageKey = "RowsPerPage";
+        private const string AvatarKey = "Avatar";
 
 
         public static bool MenuIsCollapsed(this IUserSession userSession)
@@ -50,6 +51,14 @@ namespace Borg.Cms.Basic.Lib
             return userSession.Setting(RowsPerPageKey, value);
         }
 
+        public static string Avatar(this IUserSession userSession)
+        {
+            return userSession.Setting<string>(AvatarKey);
+        }
 
+        public static string Avatar(this IUserSession userSession, string value)
+        {
+            return userSession.Setting(AvatarKey, value);
+        }
     }
 }

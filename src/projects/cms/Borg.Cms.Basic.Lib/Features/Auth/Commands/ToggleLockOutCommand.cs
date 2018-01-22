@@ -6,9 +6,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Lib.Features.Auth.Commands
+namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
 {
-    public class ToggleLockOutCommand : CommandBase<CommandResult>
+    public class ToggleLockOutCommand : CommandBase<CommandResult>, IRequest<CommandResult>
     {
         public ToggleLockOutCommand(string email, DateTime lockOutEnd = default(DateTime))
         {

@@ -9,7 +9,7 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine.Areas.BlogEngine.Controllers
     [PlugInEntryPointController("BlogEngine")]
     [ControllerTheme("Backoffice")]
     [Authorize(Policy = "Blogger")]
-    public  class BlogEngineController : BorgController
+    public class BlogEngineController : BorgController
     {
         protected BlogEngineController(ILoggerFactory loggerFactory) : base(loggerFactory)
         {

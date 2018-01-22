@@ -14,7 +14,5 @@ namespace Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers
         {
             return View();
         }
-
-
     }
 }

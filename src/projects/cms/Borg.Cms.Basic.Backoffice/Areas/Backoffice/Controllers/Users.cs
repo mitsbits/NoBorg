@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Auth.Management.Users;
+﻿using Borg.Cms.Basic.Lib.Features.Auth.Management.Users;
 using Borg.Infra.Collections;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
@@ -10,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -121,6 +121,23 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                 if (!result.Succeded)
                 {
                     Logger.Debug($"{nameof(UsersController)} - {nameof(Profile)} failed for {model.Email} because {string.Join(", ", result.Errors)}");
+                }
+            }
+
+            return Redirect(redirecturl);
+        }
+
+
+        [Route("UserClaim")]
+        [HttpPost]
+        public async Task<IActionResult> UserClaim(UserClaimCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    Logger.Debug($"{nameof(UsersController)} - {nameof(UserClaim)} failed for {model.Email} because {string.Join(", ", result.Errors)}");
                 }
             }
 

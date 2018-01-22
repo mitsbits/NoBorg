@@ -57,7 +57,6 @@ namespace Borg.MVC.Services.UserSession
         public string UserIdentifier => !IsAuthenticated() ? string.Empty : HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
         public string UserName => !IsAuthenticated() ? string.Empty : HttpContext.User.Identity.Name;
         private string _displayName;
-
         private string GetDiplayName()
         {
             if (string.IsNullOrWhiteSpace(_displayName))
@@ -71,8 +70,32 @@ namespace Borg.MVC.Services.UserSession
             }
             return _displayName;
         }
-
         public string DisplayName => GetDiplayName();
+  
+
+        private string _avatar;
+        private string GetAvatar()
+        {
+            if (string.IsNullOrWhiteSpace(_avatar))
+            {
+                _avatar = !IsAuthenticated()
+                    ? string.Empty
+                    : HttpContext.User.Claims.Any(x => x.Type ==  BorgClaimTypes.Avatar)
+                        ? HttpContext.User.Claims.First(x => x.Type == BorgClaimTypes.Avatar).Value
+                        : "";
+            }
+            return _avatar;
+        }
+
+        public string Avatar => GetAvatar();
+
+
+
+
+
+
+
+
         public bool IsAuthenticated()
         {
             return HttpContext.User != null && HttpContext.User.Identity.IsAuthenticated;

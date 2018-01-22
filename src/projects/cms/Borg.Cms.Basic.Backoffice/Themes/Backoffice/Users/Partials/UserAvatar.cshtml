@@ -1,0 +1,25 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
+@model UserClaimCommand
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Avatar</h3>
+    </div>
+    <form asp-controller="Users" asp-action="UserClaim" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <div class="box-body">
+            <div class="form-group">
+                <input type="hidden" asp-for="CorrelationId" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="ClaimType" value="@BorgClaimTypes.Avatar" />
+                <input type="text" class="form-control" asp-for="ClaimValue" />
+                <span asp-validation-for="ClaimValue" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <img src="@Model.ClaimValue" class="img img-rounded" style="height: 150px; " />
+            </div>
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-primary pull-right"><i class="fa fa-check"></i></button>
+        </div>
+    </form>
+</div>

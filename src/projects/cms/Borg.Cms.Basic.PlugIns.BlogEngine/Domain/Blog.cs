@@ -1,8 +1,6 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery;
 using Borg.Infra.DDD;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine.Domain
 {

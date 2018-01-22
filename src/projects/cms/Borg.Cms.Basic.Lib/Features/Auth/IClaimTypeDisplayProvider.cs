@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Borg.Infra;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth
 {
@@ -18,6 +19,7 @@ namespace Borg.Cms.Basic.Lib.Features.Auth
             {
                 {ClaimTypes.Surname, "Last Name"},
                 {ClaimTypes.GivenName, "First Name"},
+                {BorgClaimTypes.Avatar, "Avatar" }
             };
             return new ConcurrentDictionary<string, string>(dx);
         });
