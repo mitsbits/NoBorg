@@ -1,0 +1,38 @@
+﻿@using Borg.MVC.PlugIns.Contracts
+@model IPluginDescriptor
+
+    
+<div class="box box-primary box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.Title</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-condensed">
+            <tbody>
+                @if (Model is IPlugInArea)
+            {
+                var areaPlugin = (IPlugInArea)Model;
+                <tr>
+                    <td>Area</td>
+                    <td>@areaPlugin.Area</td>
+                </tr>
+                <tr>
+                    <td>Entry point</td>
+                    <td>     <a asp-area="@areaPlugin.Area" asp-controller="@areaPlugin.BackofficeEntryPointAction["asp-controller"]" asp-action="@areaPlugin.BackofficeEntryPointAction["asp-action"]" asp-route-id="@areaPlugin.BackofficeEntryPointAction["asp-route-id"]">
+                        <i class="@areaPlugin.BackofficeEntryPointAction["icon-class"]"></i> <span>@areaPlugin.Title</span>
+                    </a></td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

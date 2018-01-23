@@ -1,6 +1,8 @@
 ﻿using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Extensions;
+using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,6 +49,43 @@ namespace Borg.MVC
 
         #endregion Page Content
 
+        #region Pager
+
+        private const string pageNumerVariableName = "p";
+        private const string rowCountVariableName = "r";
+
+        private RequestPager _pager;
+
+        protected RequestPager Pager(IUserSession session)
+        {
+            if (_pager != null) return _pager;
+            var p = 1;
+
+            if (!string.IsNullOrWhiteSpace(Request.Query[pageNumerVariableName]))
+                if (!int.TryParse(Request.Query[pageNumerVariableName], out p)) p = 1;
+            session.TryContextualize(this);
+
+            var r = session.RowsPerPage();
+
+            if (!string.IsNullOrWhiteSpace(Request.Query[rowCountVariableName]))
+                int.TryParse(Request.Query[rowCountVariableName], out r);
+
+            session.RowsPerPage(r);
+
+            _pager = new RequestPager() { Current = p, RowCount = r };
+            return _pager;
+        }
+
+        protected class RequestPager
+        {
+            public int Current { get; internal set; }
+            public int RowCount { get; internal set; }
+        }
+
+        #endregion Pager
+
+        #region AddErrors
+
         [NonAction]
         protected virtual void AddErrors(IdentityResult result)
         {
@@ -64,5 +103,7 @@ namespace Borg.MVC
                 ModelState.AddModelError(string.Empty, error);
             }
         }
+
+        #endregion AddErrors
     }
 }

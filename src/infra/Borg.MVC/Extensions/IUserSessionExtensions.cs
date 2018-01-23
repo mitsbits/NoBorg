@@ -1,7 +1,7 @@
-﻿using Borg.MVC.Services.UserSession;
-using System;
+﻿using System;
+using Borg.MVC.Services.UserSession;
 
-namespace Borg.Cms.Basic.Lib
+namespace Borg.MVC.Extensions
 {
     public static class IUserSessionExtensions
     {
