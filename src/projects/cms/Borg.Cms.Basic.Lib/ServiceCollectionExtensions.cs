@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -164,7 +165,15 @@ namespace Borg.Cms.Basic.Lib
                 options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "discovery"));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
+
             services.AddScoped<AssetsDbSeed>();
+            services.AddScoped<CmsDbSeed>();
+
+            services.AddDbContext<CmsDbContext>(options =>
+            {
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
+                options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
+            });
 
             services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
                 p => new AssetService(loggerFactory,

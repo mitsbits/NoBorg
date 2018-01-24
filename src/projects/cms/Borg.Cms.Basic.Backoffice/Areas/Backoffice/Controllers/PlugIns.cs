@@ -1,4 +1,6 @@
-﻿using Borg.MVC.PlugIns.Contracts;
+﻿using Borg.MVC.BuildingBlocks;
+using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,7 +20,11 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         [HttpGet("")]
         public IActionResult Home()
         {
+            SetPageTitle("Plug Ins");
+            Breadcrumbs(new BreadcrumbLink("Back office", Url.Action("Home", "Home", new { area = "Backoffice" })), new BreadcrumbLink("Plug Ins", Url.Action("Home", "PlugIns", new { area = "Backoffice" })));
             return View(_plugInHost.PlugIns);
         }
+
+
     }
 }
