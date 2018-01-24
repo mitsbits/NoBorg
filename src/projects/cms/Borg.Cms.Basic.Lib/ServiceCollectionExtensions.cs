@@ -39,6 +39,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Borg.Platform.EF.CMS.Data;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -148,7 +149,7 @@ namespace Borg.Cms.Basic.Lib
         {
             services.AddDbContext<BorgDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "borg"));
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "borg")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
             services.AddScoped<IUnitOfWork<BorgDbContext>, UnitOfWork<BorgDbContext>>();
@@ -157,12 +158,12 @@ namespace Borg.Cms.Basic.Lib
 
             services.AddDbContext<AssetsDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets"));
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
             services.AddDbContext<DiscoveryDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "discovery"));
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "discovery")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
 
@@ -171,7 +172,7 @@ namespace Borg.Cms.Basic.Lib
 
             services.AddDbContext<CmsDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "cms")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
 
