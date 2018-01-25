@@ -18,6 +18,7 @@ namespace Borg.Platform.EF.CMS.Data
         public DbSet<HtmlSnippetState> HtmlSnippetStates { get; set; }
         public DbSet<ArticleState> ArticleStates { get; set; }
         public DbSet<ArticleTagState> ArticleTagStates { get; set; }
+        public DbSet<TaxonomyState> TaxonomyStates { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasSequence<int>("ComponentStatesSQC", "cms")
@@ -51,6 +52,13 @@ namespace Borg.Platform.EF.CMS.Data
             builder.Entity<ArticleTagState>().HasKey(t => new { t.ArticleId, t.TagId }).ForSqlServerIsClustered();
             builder.Entity<ArticleTagState>().HasOne(pt => pt.Article).WithMany("ArticleTags").OnDelete(DeleteBehavior.ClientSetNull);
             builder.Entity<ArticleTagState>().HasOne(pt => pt.Tag).WithMany("ArticleTags").OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<TaxonomyState>().HasBaseType<ComponentState>();
+            builder.Entity<TaxonomyState>().Property(x => x.ParentId).IsRequired().HasDefaultValue(0);
+            builder.Entity<TaxonomyState>().HasOne(x => x.Article).WithOne(a => a.Taxonomy);
+            builder.Entity<ArticleState>().Property(x => x.Slug).IsRequired().HasDefaultValue("").IsUnicode();
+            builder.Entity<TaxonomyState>().HasIndex(x => x.ArticleId).IsUnique(true).HasName("IX_Taxonomy_ArticleId");
+            builder.Entity<TaxonomyState>().HasIndex(x => x.ParentId).IsUnique(false).HasName("IX_Taxonomy_ParentId");
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {

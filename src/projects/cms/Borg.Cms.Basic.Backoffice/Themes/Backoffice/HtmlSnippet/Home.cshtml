@@ -1,0 +1,50 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
+@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@model HtmlSnippetHomeViewModel
+@{
+    var isTransient = Model.Snippet.Id == 0;
+    Orchestrator.Page.SetTitle(isTransient ? "New Snippet" : $"Snippet: {Model.Snippet.Code}");
+}
+
+<div class="box box-primary">
+    <div class="box-header ">
+        <h3 class="box-title">
+            Title
+        </h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <table class="table table-bordered table-condensed">
+                    <tbody>
+                        @{
+                            foreach (var htmlSnippetIndex in Model.Indices)
+                            {
+                                <tr>
+                                    <td>
+                                        @htmlSnippetIndex.IsDeleted
+                                    </td>
+                                    <td>
+                                        @htmlSnippetIndex.IsPublished
+                                    </td>
+                                    <td>
+                                        <a asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="@htmlSnippetIndex.Id">
+                                            <span>@htmlSnippetIndex.Code</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-9">
+                @Html.Partial("Partials/HtmlSnippetCommand", new AddOrUpdateHtmlSnippetCommand{Id = Model.Snippet.Id, Code = Model.Snippet.Code})
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

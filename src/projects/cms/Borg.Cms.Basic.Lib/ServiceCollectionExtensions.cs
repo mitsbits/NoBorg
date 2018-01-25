@@ -175,6 +175,7 @@ namespace Borg.Cms.Basic.Lib
                 options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "cms")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
+            services.AddScoped<IUnitOfWork<CmsDbContext>, UnitOfWork<CmsDbContext>>();
 
             services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
                 p => new AssetService(loggerFactory,

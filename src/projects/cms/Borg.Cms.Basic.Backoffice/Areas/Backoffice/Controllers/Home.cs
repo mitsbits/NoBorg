@@ -31,5 +31,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             session.Push(new ServerResponse(ResponseStatus.Undefined, "Hi there", "this is a message"));
             return View();
         }
+
     }
 }
