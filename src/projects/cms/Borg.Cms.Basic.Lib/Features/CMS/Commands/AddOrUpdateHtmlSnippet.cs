@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Content;
-using Borg.Cms.Basic.Lib.Features.Content.Commands;
-using Borg.Cms.Basic.Lib.Features.Content.Events;
-using Borg.Cms.Basic.Lib.Features.Device.Events;
-using Borg.Cms.Basic.Lib.System.Data;
+﻿using Borg.Cms.Basic.Lib.Features.Device.Events;
 using Borg.Infra.DAL;
-using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
@@ -25,16 +17,16 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
         [Required]
         [DisplayName("Id")]
         public int Id { get; set; }
+
         [Required]
         [DisplayName("Code")]
         public string Code { get; set; }
+
         [Required]
-        [DisplayName("Snippet")][UIHint("CKEDITOR")]
+        [DisplayName("Snippet")]
+        [UIHint("CKEDITOR")]
         public string Snippet { get; set; }
     }
-
-
-
 
     public class AddOrUpdateHtmlSnippetCommandHandler : AsyncRequestHandler<AddOrUpdateHtmlSnippetCommand, CommandResult<HtmlSnippetState>>
     {
@@ -43,8 +35,6 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
         private readonly IUnitOfWork<CmsDbContext> _uow;
 
         private readonly IMediator _dispatcher;
-
-
 
         public AddOrUpdateHtmlSnippetCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher)
         {
@@ -62,8 +52,8 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 HtmlSnippetState record;
                 if (isTransient)
                 {
-                    record = new HtmlSnippetState(message.Code, message.Snippet);
-                  
+                    var component = new ComponentState();
+                    record = new HtmlSnippetState(message.Code, message.Snippet) { Component = component };
 
                     await repo.Create(record);
                     await _uow.Save();
@@ -78,7 +68,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         $"No html snippet found for id {message.Id}");
                 record.Code = message.Code;
                 record.HtmlSnippet = message.Snippet;
-             
+
                 await _uow.Save();
                 await _dispatcher.Publish(new DeviceRecordStateChanged(record.Id, DmlOperation.Update));
                 return CommandResult<HtmlSnippetState>.Success(record);

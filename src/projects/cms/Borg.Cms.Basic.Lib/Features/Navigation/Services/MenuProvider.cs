@@ -2,7 +2,6 @@
 using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
 using Borg.Infra.DTO;
 using MediatR;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.Services

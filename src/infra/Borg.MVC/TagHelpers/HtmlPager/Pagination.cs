@@ -1,4 +1,5 @@
-﻿using Borg.Infra.Collections;
+﻿using Borg.Infra;
+using Borg.Infra.Collections;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,8 +9,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
-using Borg.Infra;
 
 namespace Borg.MVC.TagHelpers.HtmlPager
 {
@@ -762,13 +761,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                     return result;
                 }
             }
-        }
-
-        public static string GetString(this IHtmlContent content)
-        {
-            var writer = new System.IO.StringWriter();
-            content.WriteTo(writer, HtmlEncoder.Default);
-            return writer.ToString();
         }
     }
 }

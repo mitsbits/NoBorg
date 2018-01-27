@@ -1,6 +1,6 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
-using Borg.Infra.Storage;
+using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra.Storage.Contracts;
 
 namespace Borg.MVC.Services.UserSession
 {

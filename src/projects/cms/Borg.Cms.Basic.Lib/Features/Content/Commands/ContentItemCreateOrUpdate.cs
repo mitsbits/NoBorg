@@ -18,8 +18,8 @@ namespace Borg.Cms.Basic.Lib.Features.Content.Commands
     {
         public ContentItemCreateOrUpdateCommand()
         {
-            
         }
+
         public ContentItemCreateOrUpdateCommand(string title, string slug, string subtitle, string body, DateTimeOffset publishDate, string author, DateTimeOffset? lastRevisionDate, int recordId = 0)
         {
             Title = title;

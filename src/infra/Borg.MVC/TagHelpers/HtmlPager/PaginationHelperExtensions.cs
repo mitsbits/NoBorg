@@ -1,17 +1,14 @@
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace Borg.MVC.TagHelpers.HtmlPager
 {
     internal static class PaginationHelperExtensions
     {
-
-
         internal static IDictionary<string, string[]> ToDictionary(this QueryString query)
         {
-
             if (!query.HasValue) return new Dictionary<string, string[]>();
             var q = query.Value.TrimStart('?').Split('&');
             return q.Select(x => Tuple.Create<string, string>(x.Split('=')[0], (x.Split('=').Length > 1) ? x.Split('=')[1] : string.Empty))

@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Navigation;
-using Borg.Cms.Basic.Lib.Features.Navigation.Commands;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
+using Borg.Platform.EF.CMS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -27,13 +27,13 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                 {
                     Group = id,
                     Records = string.IsNullOrWhiteSpace(id)
-                        ? new NavigationItemRecord[0]
+                        ? new NavigationItemState[0]
                         : (await Dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
-                    SelectedRecord = new NavigationItemRecord() { Group = id, Id = -1, ParentId = -1 }
+                    SelectedState = null
                 };
                 if (row.HasValue && model.Records.Any(x => x.Id == row))
-                    model.SelectedRecord = model.Records.Single(x => x.Id == row);
-                SetPageTitle($"Menu {id}", model.SelectedRecord != null ? model.SelectedRecord.Display : "");
+                    model.SelectedState = model.Records.Single(x => x.Id == row);
+                SetPageTitle($"Menu {id}", model.SelectedState != null ? model.SelectedState.Article.Title : "");
                 return View(model);
             }
             return View();
@@ -58,7 +58,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         //}
 
         [HttpPost("")]
-        public async Task<IActionResult> Item(NavigationItemRecordCreateOrUpdateCommand model)
+        public async Task<IActionResult> Item(NavigationItemStateCreateOrUpdateCommand model)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         [HttpGet("Delete/{id:alpha}/{row:int}")]
         public async Task<IActionResult> Delete(string id, int row)
         {
-            var model = new NavigationItemRecordDeleteCommand() { Group = id, RecordId = row };
+            var model = new NavigationItemStateDeleteCommand() { Group = id, RecordId = row };
             if (ModelState.IsValid)
             {
                 var result = await Dispatcher.Send(model);

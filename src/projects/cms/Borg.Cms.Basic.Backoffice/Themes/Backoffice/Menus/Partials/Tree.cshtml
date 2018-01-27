@@ -3,7 +3,7 @@
     var row = default(int?);
     if (Orchestrator.Device.RouteValues.ContainsKey("row"))
     {
-        row = int.Parse(Orchestrator.Device.RouteValues["row"]);
+        row = int.Parse(Orchestrator.Device.RouteValues["row"][0]);
     }
 }
 
@@ -11,7 +11,7 @@
 
 <script device id="menu-tree-script" script-position="Bottom" weight="100">
     $(function () {
-        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"], row))';
+        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"][0], row))';
         var tree = (jsonstring);
         $('#tree').treeview({ data: tree, enableLinks: true, levels: 6, selectable: false, showCheckbox : true, showTags: true });
     });

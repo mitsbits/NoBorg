@@ -1,12 +1,14 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Navigation
-@using Borg.Cms.Basic.Lib.Features.Navigation.Commands
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@using Borg.Cms.Basic.Lib.Features.Navigation
+@using Borg.CMS
 @model Borg.Cms.Basic.Lib.Features.Navigation.ViewModels.MenusDashboardViewModel
 @{
-    var command = new NavigationItemRecordCreateOrUpdateCommand()
+    var command = new NavigationItemStateCreateOrUpdateCommand()
     {
 
         Display = "display",
         IsPublished = false,
+        IsDeleted = false,
         ParentId = 0,
         RecordId = 0,
         ItemType = NavigationItemType.Label,

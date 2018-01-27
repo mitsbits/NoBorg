@@ -10,10 +10,9 @@ namespace Borg.Platform.EF.DAL
 {
     public class ReadWriteRepository<T, TDbContext> : ReadRepository<T, TDbContext>, IWriteRepository<T>, IReadWriteRepository<T> where T : class where TDbContext : DbContext
     {
-
-
-
-        public ReadWriteRepository(TDbContext dbContext) : base(dbContext) { }
+        public ReadWriteRepository(TDbContext dbContext) : base(dbContext)
+        {
+        }
 
         public async Task<T> Create(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -44,5 +43,4 @@ namespace Borg.Platform.EF.DAL
             return Task.FromResult(result);
         }
     }
-
 }

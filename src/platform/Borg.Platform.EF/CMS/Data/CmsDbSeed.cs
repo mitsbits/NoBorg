@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Borg.Platform.EF.CMS.Data
 {
-  public  class CmsDbSeed
+    public class CmsDbSeed
     {
         private readonly CmsDbContext _db;
 
@@ -12,12 +12,9 @@ namespace Borg.Platform.EF.CMS.Data
             _db = db;
         }
 
-
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
         }
     }
-
-
 }

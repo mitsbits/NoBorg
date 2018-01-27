@@ -1,12 +1,13 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
@@ -15,6 +16,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         [UIHint("CKEDITOR")]
         public string Snippet { get; set; }
     }
+
     public class HtmlSnippetModelRequest : IRequest<QueryResult<HtmlSnippetModel>>
     {
         public HtmlSnippetModelRequest(int id)
@@ -40,9 +42,9 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             try
             {
-                var result = await _uow.QueryRepo<HtmlSnippetState>().Get(x => x.Id == message.Id);
+                var result = await _uow.QueryRepo<HtmlSnippetState>().Get(x => x.Id == message.Id, CancellationToken.None, x => x.Component);
 
-                return QueryResult<HtmlSnippetModel>.Success(new HtmlSnippetModel() { Id = result.Id, Code = result.Code, IsDeleted = result.IsDeleted, IsPublished = result.IsPublished, Snippet = result.HtmlSnippet });
+                return QueryResult<HtmlSnippetModel>.Success(new HtmlSnippetModel() { Id = result.Id, Code = result.Code, IsDeleted = result.Component.IsDeleted, IsPublished = result.Component.IsPublished, Snippet = result.HtmlSnippet });
             }
             catch (Exception e)
             {

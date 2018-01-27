@@ -1,5 +1,5 @@
-﻿using Borg.Cms.Basic.Lib.Features.Navigation;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
+using Borg.Platform.EF.CMS;
 using System;
 
 namespace Borg.Cms.Basic.Lib.Features.Content
@@ -14,6 +14,6 @@ namespace Borg.Cms.Basic.Lib.Features.Content
         public string Author { get; set; }
         public DateTimeOffset PublisheDate { get; set; }
         public DateTimeOffset? LastRevisionDate { get; set; }
-        public virtual NavigationItemRecord NavigationItemRecord { get; set; }
+        public virtual NavigationItemState NavigationItemState { get; set; }
     }
 }

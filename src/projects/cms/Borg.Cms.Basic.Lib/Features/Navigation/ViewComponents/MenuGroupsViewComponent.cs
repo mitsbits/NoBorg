@@ -1,4 +1,4 @@
-﻿using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\infra\Borg.CMS\Borg.CMS.csproj" />
     <ProjectReference Include="..\..\infra\Borg.Infra\Borg.Infra.csproj" />
   </ItemGroup>
 

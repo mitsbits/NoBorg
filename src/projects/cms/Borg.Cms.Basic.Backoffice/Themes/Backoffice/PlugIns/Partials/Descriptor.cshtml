@@ -51,6 +51,16 @@
                         <td>@(string.Join(", ", securityPlugin.Policies.Keys))</td>
                     </tr>
                 }
+                @if (Model is ITagHelpersPlugIn taghelpersPlugin)
+                {
+                    if (taghelpersPlugin.TagHelpers.Any())
+                    {
+                        <tr>
+                            <td>Tag Helpers</td>
+                            <td>@(string.Join(", ", taghelpersPlugin.TagHelpers))</td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>

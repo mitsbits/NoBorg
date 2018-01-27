@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Infra;
-using Borg.Infra.DTO;
-using Borg.MVC.Extensions;
+﻿using Borg.MVC.Extensions;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.MVC.TagHelpers
 {
@@ -15,6 +12,7 @@ namespace Borg.MVC.TagHelpers
     public class ServerResponseTagHelper : UserSessionTagHelper
     {
         private readonly IHtmlHelper _helper;
+
         public ServerResponseTagHelper(IContextAwareUserSession session, IHtmlHelper helper) : base(session)
         {
             _helper = helper;
@@ -36,8 +34,5 @@ namespace Borg.MVC.TagHelpers
             output.TagName = "";
             output.Content.SetHtmlContent(content);
         }
-
-
-
     }
 }

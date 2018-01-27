@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Device.Commands;
+﻿using Borg.Cms.Basic.Lib.Features.Device.Commands;
 using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.Features.Device.ViewModels;
 using Borg.MVC.BuildingBlocks;
@@ -9,6 +7,8 @@ using Borg.MVC.Services.Breadcrumbs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {

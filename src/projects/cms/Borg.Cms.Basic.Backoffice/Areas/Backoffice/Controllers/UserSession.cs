@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
-using Borg.Cms.Basic.Lib;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
 using Borg.MVC.Extensions;
 using Borg.MVC.Services.UserSession;
 using MediatR;
@@ -16,6 +10,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
     public class UserSessionController : BackofficeController
     {
         private readonly IContextAwareUserSession _userSession;
+
         public UserSessionController(ILoggerFactory loggerFactory, IMediator dispatcher, IContextAwareUserSession userSession) : base(loggerFactory, dispatcher)
         {
             _userSession = userSession;
@@ -30,5 +25,4 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return Redirect(redirectUrl);
         }
     }
-
 }

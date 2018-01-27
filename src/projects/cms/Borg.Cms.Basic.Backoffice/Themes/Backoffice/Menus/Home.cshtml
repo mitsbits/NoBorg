@@ -4,7 +4,7 @@
     var hasId = Orchestrator.Device.RouteValues.ContainsKey("id");
     try
     {
-        ViewBag.ContentItemRecordId = Model.SelectedRecord?.ContentItemRecordId?.ToString();
+        ViewBag.ContentItemRecordId = Model.SelectedState?.Id.ToString();
     }
     catch (Exception e)
     {

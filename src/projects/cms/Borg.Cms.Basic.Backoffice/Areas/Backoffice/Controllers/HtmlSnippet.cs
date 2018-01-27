@@ -1,11 +1,11 @@
-﻿using Borg.Cms.Basic.Lib.Features.CMS.Queries;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
+using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -17,6 +17,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         {
         }
 
+        [HttpGet("{id:int?}")]
         public async Task<IActionResult> Home(int? id)
         {
             var model = new HtmlSnippetHomeViewModel();
@@ -29,7 +30,8 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+
+        [HttpPost("")]
         public async Task<IActionResult> Home(AddOrUpdateHtmlSnippetCommand model, string redirecturl)
         {
             if (ModelState.IsValid)
@@ -39,7 +41,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                 {
                     AddErrors(result);
                 }
-               
             }
             return RedirectToLocal(redirecturl);
         }

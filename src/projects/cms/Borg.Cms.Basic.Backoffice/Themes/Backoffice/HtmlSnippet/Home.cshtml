@@ -7,11 +7,7 @@
 }
 
 <div class="box box-primary">
-    <div class="box-header ">
-        <h3 class="box-title">
-            Title
-        </h3>
-    </div>
+
     <div class="box-body">
         <div class="row">
             <div class="col-lg-3">
@@ -22,10 +18,18 @@
                             {
                                 <tr>
                                     <td>
-                                        @htmlSnippetIndex.IsDeleted
+                                        <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                                            <input type="hidden" name="id" value="@htmlSnippetIndex.Id" />
+                                            <input type="hidden" name="operation" value="deleted" />
+                                            <button comp-deleted deleted-state="@htmlSnippetIndex.IsDeleted"></button>
+                                        </form>
                                     </td>
                                     <td>
-                                        @htmlSnippetIndex.IsPublished
+                                        <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                                            <input type="hidden" name="id" value="@htmlSnippetIndex.Id" />
+                                            <input type="hidden" name="operation" value="published" />
+                                            <button comp-published published-state="@htmlSnippetIndex.IsPublished"></button>
+                                        </form>
                                     </td>
                                     <td>
                                         <a asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="@htmlSnippetIndex.Id">
@@ -39,12 +43,8 @@
                 </table>
             </div>
             <div class="col-lg-9">
-                @Html.Partial("Partials/HtmlSnippetCommand", new AddOrUpdateHtmlSnippetCommand{Id = Model.Snippet.Id, Code = Model.Snippet.Code})
-
+                @Html.Partial("Partials/HtmlSnippetCommand", new AddOrUpdateHtmlSnippetCommand { Id = Model.Snippet.Id, Code = Model.Snippet.Code, Snippet = Model.Snippet.Snippet })
             </div>
         </div>
     </div>
 </div>
-
-
-

@@ -1,7 +1,9 @@
-﻿using Borg.Infra.DTO;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
+using Borg.CMS;
+using Borg.Infra.DTO;
+using Borg.Platform.EF.CMS;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Borg.Cms.Basic.Lib.Features.Navigation.Commands;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
 {
@@ -16,35 +18,35 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
         public string Group { get; set; }
 
         [DisplayName("Menu items")]
-        public IEnumerable<NavigationItemRecord> Records { get; set; }
+        public IEnumerable<NavigationItemState> Records { get; set; }
 
         [DisplayName("Menu item")]
-        public NavigationItemRecord SelectedRecord { get; set; }
+        public NavigationItemState SelectedState { get; set; }
 
         public IEnumerable<NavigationItemType> NavigaionTypeOptions => EnumUtil.GetValues<NavigationItemType>();
 
-        //public Tidings Trees() => Records.Trees();
+        public Tidings Trees() => Records.Trees();
 
-        //public IDictionary<(int, int), Tiding> TreeDictionary() => Trees().TreeDictionary();
+        public IDictionary<(int, int), Tiding> TreeDictionary() => Trees().TreeDictionary();
 
-        //public IDictionary<(int, int), Tiding> TreeDictionaryExcludingCurrentAndChildren() =>
-        //    Records.TreeDictionaryExcludingCurrentAndChildren(SelectedRecord);
+        public IDictionary<(int, int), Tiding> TreeDictionaryExcludingCurrentAndChildren() =>
+            Records.TreeDictionaryExcludingCurrentAndChildren(SelectedState);
 
-        public NavigationItemRecordCreateOrUpdateCommand GetCommand()
+        public NavigationItemStateCreateOrUpdateCommand GetCommand()
         {
-            if (SelectedRecord == null) SelectedRecord = new NavigationItemRecord();
-            var result = new NavigationItemRecordCreateOrUpdateCommand()
+            //if (SelectedState == null) SelectedState = new NavigationItemState();
+            var result = new NavigationItemStateCreateOrUpdateCommand()
             {
-                RecordId = SelectedRecord.Id,
-                Path = SelectedRecord.Path,
-                Display = SelectedRecord.Display,
+                RecordId = SelectedState?.Id ?? default(int),
+                Path = SelectedState?.Path ?? "",
+                Display = SelectedState?.Article.Title ?? "",
                 Group = Group,
-                IsPublished = SelectedRecord.IsPublished,
-                ItemType = SelectedRecord.ItemType,
-                //ParentId = SelectedRecord.ParentId,
-                //ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
-                Weight = SelectedRecord.Weight
-
+                IsPublished = SelectedState?.Component.IsPublished ?? false,
+                IsDeleted = SelectedState?.Component.IsDeleted ?? false,
+                ItemType = SelectedState?.NavigationItemType ?? NavigationItemType.Label,
+                ParentId = SelectedState?.Taxonomy.ParentId ?? 0,
+                ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
+                Weight = SelectedState?.Taxonomy.Weight ?? 0,
             };
             return result;
         }

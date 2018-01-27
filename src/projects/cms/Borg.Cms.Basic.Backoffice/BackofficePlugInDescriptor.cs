@@ -16,10 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Borg.MVC.PlugIns.Decoration;
 
 namespace Borg.Cms.Basic.Backoffice
 {
-    public sealed class BackofficePlugInDescriptor : IPluginDescriptor, IPlugInArea, IPlugInTheme, ICanMapWhen, IPluginServiceRegistration, ISecurityPlugIn
+    public sealed class BackofficePlugInDescriptor : IPluginDescriptor, IPlugInArea, IPlugInTheme, ICanMapWhen, IPluginServiceRegistration, ISecurityPlugIn, ITagHelpersPlugIn
     {
         public string Area => "Backoffice";
         public string[] Themes => new[] { "Backoffice" };
@@ -87,6 +88,16 @@ namespace Borg.Cms.Basic.Backoffice
             var isEditor = authorizationHandlerContext.User.IsInAnyRole(CmsRoles.Author.ToString(), CmsRoles.Editor.ToString()) &&
                            authorizationHandlerContext.User.IsInRole(SystemRoles.Writer.ToString());
             return isEditor;
+        }
+
+        public string[] TagHelpers
+        {
+            get
+            {
+                var attrs = GetType().Assembly.GetTypes().Select(x => x.GetCustomAttribute<PulgInTagHelperAttribute>());
+                if (!attrs.Any(x => x != null)) return new string[0];
+                return attrs.Where(x=> x!= null).Distinct().Select(x => x.Name).ToArray();
+            }
         }
     }
 }

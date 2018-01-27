@@ -23,6 +23,7 @@ using Borg.MVC.Services.UserSession;
 using Borg.Platform.Azure.Storage.Blobs;
 using Borg.Platform.EF.Assets.Data;
 using Borg.Platform.EF.Assets.Services;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
 using MediatR;
@@ -30,6 +31,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -38,8 +40,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Platform.EF.CMS.Data;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Borg.Cms.Basic.Lib
 {

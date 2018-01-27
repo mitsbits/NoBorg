@@ -1,9 +1,7 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text.RegularExpressions;
-using Borg.MVC.Services.UserSession;
+﻿using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Borg.MVC.TagHelpers
 {
@@ -11,14 +9,13 @@ namespace Borg.MVC.TagHelpers
     {
         protected readonly IContextAwareUserSession _session;
 
-
         protected UserSessionTagHelper(IContextAwareUserSession session)
         {
             _session = session;
         }
+
         [HtmlAttributeNotBound]
         [ViewContext]
         public ViewContext ViewContext { get; set; }
-
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using Borg.Infra.Messaging;
+﻿using Borg.Infra.Messaging;
+using System;
 
 namespace Borg.Infra.DAL
 {
-    public class CommandResult: ICorrelatedResponse
+    public class CommandResult : ICorrelatedResponse
     {
         protected CommandResult()
         {

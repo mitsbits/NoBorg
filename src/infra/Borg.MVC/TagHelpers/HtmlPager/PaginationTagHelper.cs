@@ -1,5 +1,4 @@
-﻿using System;
-using Borg.Infra;
+﻿using Borg.Infra;
 using Borg.Infra.Collections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 
 namespace Borg.MVC.TagHelpers.HtmlPager
 {
@@ -50,7 +50,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
         {
             if (_provider != null)
             {
-                    Settings = GetSettings();
+                Settings = GetSettings();
             }
             if (!Query.HasValue)
             {
@@ -77,8 +77,6 @@ namespace Borg.MVC.TagHelpers.HtmlPager
             output.Attributes.SetAttribute("class", $"{Settings.ElementClass} {existsingClass}");
             output.Content.SetHtmlContent(trimmed);
             var s = output.GetString();
-
-
         }
 
         private string UrlFromViewContext(UrlHelper urlHelper, ActionDescriptor descriptor, int i)
@@ -116,6 +114,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.MinimalWithItemCountText:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -125,6 +124,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.DefaultPlusFirstAndLast:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -134,6 +134,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.Minimal:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -142,6 +143,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.MinimalWithPageCountText:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -151,6 +153,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.MinimalWithPages:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -165,6 +168,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         MaximumPageNumbersToDisplay = 10,
                     };
                     break;
+
                 case Pagination.DisplayFormat.PageNumbersOnly:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -177,6 +181,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = false,
                     };
                     break;
+
                 case Pagination.DisplayFormat.PagerInChucks:
                     resut = new Pagination.PaginationInfo(_provider)
                     {
@@ -188,6 +193,7 @@ namespace Borg.MVC.TagHelpers.HtmlPager
                         PagerInChunks = true,
                     };
                     break;
+
                 default:
                     resut = new Pagination.PaginationInfo(_provider)
                     {

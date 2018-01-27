@@ -1,8 +1,6 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Content;
 using Borg.Cms.Basic.Lib.Features.Device;
-using Borg.Cms.Basic.Lib.Features.Navigation;
 using Borg.MVC.BuildingBlocks;
-using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.Lib.System.Data
@@ -14,8 +12,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
         {
         }
 
-
-        public DbSet<NavigationItemRecord> NavigationItemRecords { get; set; }
         public DbSet<DeviceRecord> DeviceRecords { get; set; }
         public DbSet<SectionRecord> SectionRecords { get; set; }
         public DbSet<SlotRecord> SlotRecords { get; set; }
@@ -24,15 +20,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<NavigationItemRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
-            builder.Entity<NavigationItemRecord>().Ignore(x => x.Depth);
-            builder.Entity<NavigationItemRecord>().Property(x => x.Display).HasMaxLength(512).IsRequired().HasDefaultValue("");
-            builder.Entity<NavigationItemRecord>().Property(x => x.Group).HasMaxLength(3).IsRequired().HasDefaultValue("BSE");
-            builder.Entity<NavigationItemRecord>().Property(x => x.ParentId).IsRequired().HasDefaultValue(0);
-            builder.Entity<NavigationItemRecord>().Property(x => x.Path).HasMaxLength(512).HasDefaultValue("/");
-            builder.Entity<NavigationItemRecord>().HasOne(n => n.ContentItemRecord).WithOne(c => c.NavigationItemRecord)
-                .HasForeignKey<NavigationItemRecord>(x => x.ContentItemRecordId).HasConstraintName("FK_Navigation_Content");
 
             builder.Entity<DeviceRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<DeviceRecord>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");

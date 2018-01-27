@@ -46,4 +46,9 @@ namespace Borg.MVC.PlugIns.Contracts
         string[] DefinedRoles { get; }
         IDictionary<string, AuthorizationPolicy> Policies { get; }
     }
+
+    public interface ITagHelpersPlugIn : IPluginDescriptor
+    {
+        string[] TagHelpers { get; }
+    }
 }

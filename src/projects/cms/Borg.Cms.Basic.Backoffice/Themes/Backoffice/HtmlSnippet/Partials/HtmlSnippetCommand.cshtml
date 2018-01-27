@@ -1,8 +1,7 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
 @model AddOrUpdateHtmlSnippetCommand
 
-
-<form asp-route-redirecturl="@Orchestrator.Device.RelativePath()" asp-controller="HtmlSnippet" asp-action="Home" asp-area="Backoffice" method="post">
+<form asp-route-redirecturl="@Orchestrator.Device.RelativePath()" asp-route-id="" asp-controller="HtmlSnippet" asp-action="Home" asp-area="Backoffice" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Code"></label>

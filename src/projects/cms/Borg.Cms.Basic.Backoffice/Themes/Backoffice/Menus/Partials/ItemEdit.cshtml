@@ -1,5 +1,6 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Navigation.Commands
-@model NavigationItemRecordCreateOrUpdateCommand
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@using Borg
+@model Borg.Cms.Basic.Lib.Features.CMS.Commands.NavigationItemStateCreateOrUpdateCommand
 
 @{
     var isTransient = Model.RecordId <= 0;
@@ -22,6 +23,22 @@
 <div class="box box-primary box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">@formTilte</h3>
+    </div>
+    <div class="box-body">
+        <div class="pull-right margin">
+            <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                <input type="hidden" name="id" value="@Model.RecordId" />
+                <input type="hidden" name="operation" value="deleted" />
+                <button comp-deleted deleted-state="@Model.IsDeleted"></button>
+            </form>
+        </div>
+        <div class="pull-right margin">
+            <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                <input type="hidden" name="id" value="@Model.RecordId" />
+                <input type="hidden" name="operation" value="published" />
+                <button comp-published published-state="@Model.IsPublished"></button>
+            </form>
+        </div>
     </div>
     <form role="form" asp-controller="Menus" asp-action="Item" method="post" asp-route-id="">
         <div class="box-body">
@@ -80,7 +97,7 @@
                 @*<select asp-for="ItemType" asp-items="@typeOptions" class=" form-control select2"></select>*@
                 <span asp-validation-for="ItemType" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group hidden">
                 <input type="checkbox" asp-for="IsPublished" />
                 <label asp-for="IsPublished"></label>
                 <span asp-validation-for="IsPublished" class="text-danger"></span>
@@ -93,8 +110,8 @@
             {
                 <a asp-controller="ContentItems" asp-action="Item" asp-route-id="@ViewBag.ContentItemRecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
                    class="btn btn-success"><i class="fa fa-book"></i></a>
-                <a asp-controller="Menus" asp-action="Delete" asp-route-id="@Orchestrator.Device.RouteValues["id"]" asp-route-row="@Model.RecordId"
-                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                @*<a asp-controller="Menus" asp-action="Delete" asp-route-id='@(Orchestrator.Device.RouteValue<string>("id"))' asp-route-row="@Model.RecordId"
+                   class="btn btn-danger"><i class="fa fa-remove"></i></a>*@
             }
             <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
         </div>

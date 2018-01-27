@@ -1,5 +1,4 @@
-﻿using Borg.MVC.Extensions;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 
 namespace Borg.MVC.TagHelpers

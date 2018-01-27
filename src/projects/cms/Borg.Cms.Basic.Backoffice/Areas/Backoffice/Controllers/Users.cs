@@ -127,7 +127,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return Redirect(redirecturl);
         }
 
-
         [Route("UserClaim")]
         [HttpPost]
         public async Task<IActionResult> UserClaim(UserClaimCommand model, string redirecturl)

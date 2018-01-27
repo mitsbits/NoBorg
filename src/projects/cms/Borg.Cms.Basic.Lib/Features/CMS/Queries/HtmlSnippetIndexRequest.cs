@@ -1,5 +1,4 @@
 ﻿using Borg.Infra.DAL;
-using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
@@ -20,8 +19,6 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         public string Code { get; set; }
     }
 
-
-
     public class HtmlSnippetIndicesRequest : IRequest<QueryResult<IEnumerable<HtmlSnippetIndex>>>
     {
     }
@@ -41,14 +38,14 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             try
             {
-                var result = await _uow.Context.HtmlSnippetStates
+                var result = await _uow.Context.HtmlSnippetStates.Include(x => x.Component)
                     .AsNoTracking()
                     .Select(x => new HtmlSnippetIndex()
                     {
                         Id = x.Id,
                         Code = x.Code,
-                        IsDeleted = x.IsDeleted,
-                        IsPublished = x.IsPublished
+                        IsDeleted = x.Component.IsDeleted,
+                        IsPublished = x.Component.IsPublished
                     }).ToListAsync();
 
                 return QueryResult<IEnumerable<HtmlSnippetIndex>>.Success(result);
@@ -60,6 +57,4 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
             }
         }
     }
-
-
 }
