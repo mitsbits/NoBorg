@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Orchestrator.Page.Title</title>
+</head>
+<body>
+@RenderSection("head", required: false)
+<div>
+    @await RenderSectionAsync("main", required: false)
+</div>
+@RenderSection("foot", required: false)
+</body>
+</html>

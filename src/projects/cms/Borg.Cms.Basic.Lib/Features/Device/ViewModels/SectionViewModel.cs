@@ -7,6 +7,7 @@ using System.Text;
 using Borg.Cms.Basic.Lib.Features.Device.Commands;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.Platform.EF.CMS;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
@@ -14,10 +15,10 @@ namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
 {
     public class SectionViewModel
     {
-        public SectionRecord Record { get; set; }
+        public SectionState State { get; set; }
         public IEnumerable<IModuleDescriptor> Descriptors { get; set; }
 
-        public SlotCreateOrUpdateCommand  SlotCommand => new SlotCreateOrUpdateCommand(true, 0, Record.Id, "","","");
+        public SlotCreateOrUpdateCommand  SlotCommand => new SlotCreateOrUpdateCommand(true, 0, State.Id, "","","");
 
         public string[] AvailableSectionIdentifiers { get; set; }
 

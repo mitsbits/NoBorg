@@ -1,7 +1,7 @@
-﻿using Borg.Infra;
-using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.CMS.BuildingBlocks.Contracts;
+using Borg.Infra;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.BuildingBlocks
 {
     public class Slot : ISlot
     {

@@ -12,6 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Borg.Cms.Basic.Presentation.Controllers;
+using Borg.Cms.Basic.Presentation.RouteConstraints;
+using Microsoft.AspNetCore.Routing;
+using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic
 {
@@ -38,6 +44,7 @@ namespace Borg.Cms.Basic
             services.AddDistributedMemoryCache();
 
             var builder = AddBorgMvc(services);
+            builder.AddApplicationPart(typeof(PresentationController).Assembly);
             builder.ConfigureApplicationPartManager(p =>
                 p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
 
@@ -51,13 +58,71 @@ namespace Borg.Cms.Basic
 
             services.AddHangfire(x => x.UseSqlServerStorage(Settings.ConnectionStrings["db"], new SqlServerStorageOptions() { SchemaName = "hangfire" }));
 
+            services.AddScoped<IRouteConstraint, MenuRootRouteConstraint>();
+            services.AddScoped<IRouteConstraint,MenuLeafParentRouteConstraint>();
+            services.AddScoped<IRouteConstraint,MenuLeafChildRouteConstraint>();
+            //services.AddScoped< MenuRootRouteConstraint>();
+            //services.AddScoped<MenuLeafParentRouteConstraint>();
+            //services.AddScoped<MenuLeafChildRouteConstraint>();
+            //services.Configure<RouteOptions>(options =>
+            //{
+            //    options.ConstraintMap.Add(MenuRootRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuRootRouteConstraint));
+            //    options.ConstraintMap.Add(MenuLeafParentRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuLeafParentRouteConstraint));
+            //    options.ConstraintMap.Add(MenuLeafChildRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuLeafChildRouteConstraint));
+            //});
+
             services.AddSession();
             services.AddSingleton<IHostedService, Sentinel>();
             services.AddSingleton<ISentinel, Sentinel>();
             ServiceProvider = services.BuildServiceProvider();
             return ServiceProvider;
         }
+        protected void BranchPlugins(IApplicationBuilder app)
+        {
+            var mapwhenmodules = PlugInHost.SpecifyPlugins<ICanMapWhen>();
 
+            foreach (var mapwhenmodule in mapwhenmodules)
+            {
+                app.MapWhen(mapwhenmodule.MapWhenPredicate, path => mapwhenmodule.MapWhenAction(path, ConfigureRoutes));
+            }
+        }
+
+        protected void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            var scope = ServiceProvider.CreateScope();
+            using (scope)
+            {
+                var provider = scope.ServiceProvider;
+
+
+                var provs = provider.GetRequiredService<IEnumerable<IRouteConstraint>>();
+
+                var root = provs.First(x => x.GetType() == typeof(MenuRootRouteConstraint));
+                var parent = provs.First(x => x.GetType() == typeof(MenuLeafParentRouteConstraint)); 
+                var child = provs.First(x => x.GetType() == typeof(MenuLeafChildRouteConstraint)); 
+
+                routeBuilder.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
+
+                routeBuilder.MapRoute(
+                    name: "menuroot",
+                    template: "{rootmenu}",
+                    defaults: new { controller = "Menus", action = "Root", area = "Presentation" },
+                    constraints:new { rootmenu = root });
+
+                routeBuilder.MapRoute(
+                    name: "menuleaf",
+                    template: "{parentmenu}/{childmenu}",
+                    defaults: new { controller = "Menus", action = "Leaf", area = "Presentation" },
+                    constraints: new { parentmenu = parent, childmenu = child });
+
+                routeBuilder.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Home}/{id?}");
+
+            }
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
             IServiceProvider serviceProvider)

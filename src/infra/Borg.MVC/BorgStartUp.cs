@@ -97,26 +97,7 @@ namespace Borg.MVC
             return entrypointassemblies;
         }
 
-        protected void BranchPlugins(IApplicationBuilder app)
-        {
-            var mapwhenmodules = PlugInHost.SpecifyPlugins<ICanMapWhen>();
 
-            foreach (var mapwhenmodule in mapwhenmodules)
-            {
-                app.MapWhen(mapwhenmodule.MapWhenPredicate, path => mapwhenmodule.MapWhenAction(path, ConfigureRoutes));
-            }
-        }
-
-        protected static void ConfigureRoutes(IRouteBuilder routeBuilder)
-        {
-            routeBuilder.MapRoute(
-                name: "areaRoute",
-                template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
-
-            routeBuilder.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Home}/{id?}");
-        }
     }
 
     internal static class Ext

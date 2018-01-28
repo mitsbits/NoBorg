@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
@@ -44,7 +45,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         {
             try
             {
-                var repo = _uow.ReadWriteRepo<SlotRecord>();
+                var repo = _uow.ReadWriteRepo<SlotState>();
                 await repo.Delete(x => x.Id == message.RecordId);
                 await _uow.Save();
                 await _dispatcher.Publish(new SlotRecordStateChanged(message.RecordId, DmlOperation.Delete));

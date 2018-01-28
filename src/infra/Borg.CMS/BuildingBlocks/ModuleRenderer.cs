@@ -1,6 +1,6 @@
 ﻿using Borg.Infra.DTO;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.BuildingBlocks
 {
     public class ModuleRenderer 
     {

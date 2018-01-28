@@ -1,11 +1,12 @@
-﻿using Borg.Infra.DDD.Contracts;
-using Borg.MVC.BuildingBlocks;
+﻿using System;
+using Borg.CMS;
+using Borg.CMS.BuildingBlocks;
+using Borg.Infra.DDD.Contracts;
 using Newtonsoft.Json;
-using System;
 
-namespace Borg.Cms.Basic.Lib.Features.Device
+namespace Borg.Platform.EF.CMS
 {
-    public class SlotRecord : IEntity<int>
+    public class SlotState : IEntity<int>
     {
         public int Id { get; set; }
         public bool IsEnabled { get; set; }
@@ -14,7 +15,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device
         public string ModuleDecriptorJson { get; set; }
         public string ModuleGender { get; set; }
         public string ModuleTypeName { get; set; }
-        public virtual SectionRecord Section { get; set; }
+        public virtual SectionState Section { get; set; }
 
         public virtual (SectionSlotInfo slotInfo, ModuleRenderer renderer) Module()
         {

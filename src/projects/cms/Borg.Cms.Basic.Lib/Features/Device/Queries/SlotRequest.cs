@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS;
+using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 {
@@ -21,9 +23,9 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
     public class SlotRequestHandler : AsyncRequestHandler<SlotRequest, QueryResult<SlotViewModel>>
     {
         private readonly ILogger _logger;
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
-        public SlotRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow)
+        public SlotRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;
@@ -31,17 +33,17 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 
         protected override async Task<QueryResult<SlotViewModel>> HandleCore(SlotRequest message)
         {
-            var result = await _uow.Context.SlotRecords.Include(x => x.Section).ThenInclude(x => x.Device)
+            var result = await _uow.Context.SlotStates.Include(x => x.Section).ThenInclude(x => x.Device)
                 .AsNoTracking().FirstOrDefaultAsync(x => x.Id == message.RecordId);
-            var device = await _uow.Context.DeviceRecords.Include(x => x.Sections).ThenInclude(x => x.Slots).AsNoTracking()
+            var device = await _uow.Context.DeviceStates.Include(x => x.Sections).ThenInclude(x => x.Slots).AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == result.Section.DeviceId);
-            return QueryResult<SlotViewModel>.Success(new SlotViewModel() { Record = result, DeviceRecord = device });
+            return QueryResult<SlotViewModel>.Success(new SlotViewModel() { State = result, DeviceState = device });
         }
     }
 
     public class SlotViewModel
     {
-        public SlotRecord Record { get; set; }
-        public DeviceRecord DeviceRecord { get; set; }
+        public SlotState State { get; set; }
+        public DeviceState DeviceState { get; set; }
     }
 }

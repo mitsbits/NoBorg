@@ -4,30 +4,34 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Borg.Platform.EF
 {
-    public abstract class BorgDbContextFactory<TDbContext> where TDbContext : DbContext
+    public abstract class BorgDbContextFactory<TDbContext> :IDesignTimeDbContextFactory<TDbContext> where TDbContext : DbContext
     {
-        public TDbContext Create()
+        public TDbContext CreateDbContext()
         {
-            var environmentName =
-                Environment.GetEnvironmentVariable(
-                    "Hosting:Environment");
+            var envConfig = new ConfigurationBuilder()
+                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
+                .Build();
 
-            var basePath = AppContext.BaseDirectory;
+            var env = envConfig["ENVIRONMENT"];
 
-            return Create(basePath, environmentName);
+
+            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\")); 
+
+            return CreateDbContext(basePath, env);
         }
 
-        public TDbContext Create(DbContextFactoryOptions options)
+        public TDbContext CreateDbContext(DbContextFactoryOptions options)
         {
-            return Create(
+            return CreateDbContext(
                 Directory.GetCurrentDirectory(),
                 Environment.GetEnvironmentVariables()["ASPNETCORE_ENVIRONMENT"].ToString());
         }
 
-        private TDbContext Create(string basePath, string environmentName)
+        private TDbContext CreateDbContext(string basePath, string environmentName)
         {
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
 
@@ -38,7 +42,7 @@ namespace Borg.Platform.EF
 
             var config = builder.Build();
 
-            var connstr = config.GetConnectionString("borg:ConnectionsStrings:db");
+            var connstr = config["borg:ConnectionStrings:db"];
 
             if (String.IsNullOrWhiteSpace(connstr) == true)
             {
@@ -47,11 +51,11 @@ namespace Borg.Platform.EF
             }
             else
             {
-                return Create(connstr);
+                return CreateDbContext(connstr);
             }
         }
 
-        private TDbContext Create(string connectionString)
+        private TDbContext CreateDbContext(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentException(
@@ -65,6 +69,11 @@ namespace Borg.Platform.EF
 
             var instance = Activator.CreateInstance(typeof(TDbContext), BindingFlags.Public, optionsBuilder);
             return (TDbContext)instance;
+        }
+
+        public TDbContext CreateDbContext(string[] args)
+        {
+            return CreateDbContext();
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Borg.Cms.Basic.Controllers
 {
     //[TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "Templates/_BlogLayout" })]
-    [ControllerTheme("bootstrap3")]
+    [ControllerTheme("Bootstrap3")]
     public class HomeController : Controller
     {
         private readonly IDeviceStructureProvider _deviceProvider;

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Borg.CMS.BuildingBlocks;
+using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 {
@@ -24,9 +26,9 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
     public class PageLayoutRequestHandler : AsyncRequestHandler<PageLayoutRequest, QueryResult<IDeviceStructureInfo>>
     {
         private readonly ILogger _logger;
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
-        public PageLayoutRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow)
+        public PageLayoutRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;
@@ -34,7 +36,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 
         protected override async Task<QueryResult<IDeviceStructureInfo>> HandleCore(PageLayoutRequest message)
         {
-            var hit = await _uow.Context.DeviceRecords.Include(x => x.Sections).ThenInclude(x => x.Slots)
+            var hit = await _uow.Context.DeviceStates.Include(x => x.Sections).ThenInclude(x => x.Slots)
                 .AsNoTracking().FirstOrDefaultAsync(x => x.Id == message.RecordId);
             if (hit == null) return QueryResult<IDeviceStructureInfo>.Failure($"No device for id {message.RecordId}");
 

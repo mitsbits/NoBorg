@@ -3,12 +3,12 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @model SlotViewModel
 @{
-    var command = new SlotCreateOrUpdateCommand(Model.Record.IsEnabled, Model.Record.Ordinal, Model.Record.SectionId, Model.Record.ModuleDecriptorJson, Model.Record.ModuleTypeName, Model.Record.ModuleGender, Model.Record.Id);
-    ViewBag.Record = Model.Record;
+    var command = new SlotCreateOrUpdateCommand(Model.State.IsEnabled, Model.State.Ordinal, Model.State.SectionId, Model.State.ModuleDecriptorJson, Model.State.ModuleTypeName, Model.State.ModuleGender, Model.State.Id);
+    ViewBag.Record = Model.State;
 }
 <div class="row">
     <div class="col-lg-6">
-        @Html.Partial("Partials/DeviceTree", Model.DeviceRecord)
+        @Html.Partial("Partials/DeviceTree", Model.DeviceState)
     </div>
     <div class="col-lg-6">
         @Html.Partial("Partials/ModuleInfo", command)

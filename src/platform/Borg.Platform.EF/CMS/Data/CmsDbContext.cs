@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Borg.CMS.BuildingBlocks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Borg.Platform.EF.CMS.Data
 {
@@ -14,7 +16,10 @@ namespace Borg.Platform.EF.CMS.Data
         public DbSet<ArticleState> ArticleStates { get; set; }
         public DbSet<ArticleTagState> ArticleTagStates { get; set; }
         public DbSet<TaxonomyState> TaxonomyStates { get; set; }
-        public DbSet<NavigationItemState> NavigationItems { get; set; }
+        public DbSet<NavigationItemState> NavigationItemStates { get; set; }
+        public DbSet<DeviceState> DeviceStates { get; set; }
+        public DbSet<SectionState> SectionStates { get; set; }
+        public DbSet<SlotState> SlotStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -69,6 +74,31 @@ namespace Borg.Platform.EF.CMS.Data
             builder.Entity<NavigationItemState>().Ignore(x => x.Component);
             builder.Entity<NavigationItemState>().Ignore(x => x.Article);
 
+
+            builder.Entity<DeviceState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<DeviceState>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<DeviceState>().Property(x => x.RenderScheme).HasMaxLength(512).IsRequired().HasDefaultValue(DeviceRenderScheme.UnSet);
+            builder.Entity<DeviceState>().Property(x => x.Layout).HasMaxLength(512).IsRequired().HasDefaultValue("");
+
+            builder.Entity<SectionState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<SectionState>().HasIndex(x => x.DeviceId).HasName("IX_Section_DeviceId");
+            builder.Entity<SectionState>().HasIndex(x => x.Identifier).HasName("IX_Section_Identifier");
+            builder.Entity<SectionState>().HasOne(p => p.Device).WithMany(b => b.Sections)
+                .HasForeignKey(p => p.DeviceId).HasConstraintName("FK_Device_Section");
+            builder.Entity<SectionState>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<SectionState>().Property(x => x.Identifier).HasMaxLength(512).IsRequired().HasDefaultValue("");
+
+            builder.Entity<SlotState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<SlotState>().HasIndex(x => x.SectionId).HasName("IX_Slot_SectionId");
+            builder.Entity<SlotState>().HasIndex(x => x.Ordinal).HasName("IX_Slot_Ordinal");
+            builder.Entity<SlotState>().HasIndex(x => x.ModuleTypeName).HasName("IX_Slot_ModuleTypeName");
+            builder.Entity<SlotState>().HasIndex(x => x.ModuleGender).HasName("IX_Slot_ModuleGender");
+            builder.Entity<SlotState>().HasOne(p => p.Section).WithMany(b => b.Slots)
+                .HasForeignKey(p => p.SectionId).HasConstraintName("FK_Section_Slot");
+            builder.Entity<SlotState>().Property(x => x.ModuleDecriptorJson).IsRequired().HasDefaultValue("");
+            builder.Entity<SlotState>().Property(x => x.ModuleGender).IsRequired().HasMaxLength(64).HasDefaultValue("");
+            builder.Entity<SlotState>().Property(x => x.ModuleTypeName).IsRequired().HasMaxLength(1024).HasDefaultValue("");
+
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
                 entityType.Relational().Schema = "cms";
@@ -76,7 +106,22 @@ namespace Borg.Platform.EF.CMS.Data
         }
     }
 
-    public class CmsDbContextFactory : BorgDbContextFactory<CmsDbContext>
+    public class CmsDbContextFactory : IDesignTimeDbContextFactory<CmsDbContext>
     {
+        private readonly string _dbConnKey = "db";
+
+        public CmsDbContextFactory()
+        {
+        }
+
+
+
+        CmsDbContext IDesignTimeDbContextFactory<CmsDbContext>.CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
+            optionsBuilder.UseSqlServer("Server=.\\d2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
+
+            return new CmsDbContext(optionsBuilder.Options);
+        }
     }
 }

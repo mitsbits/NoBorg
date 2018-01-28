@@ -40,6 +40,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -219,7 +222,17 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CorrelationBehavior<,>));
 
             services.AddSingleton<IModuleDescriptorProvider, ModuleDescriptorProvider>();
-            services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>();
+
+            services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>( );
+
+            var entrypointassemblies = assembliesToScan.Where(x =>
+                    x.GetTypes().Any(t => t.GetCustomAttributes<PlugInEntryPointControllerAttribute>() != null)).Distinct()
+                .ToArray();
+
+            services.Add(new ServiceDescriptor(typeof(IDeviceLayoutFileProvider),
+                (p) => new DeviceLayoutFileProvider(environment, settings, p.GetRequiredService<IPlugInHost>(),
+                    p.GetRequiredService<IRazorViewEngine>(), entrypointassemblies), ServiceLifetime.Singleton));
+
             services.AddScoped<IDeviceStructureProvider, DeviceStructureProvider>();
 
             services.AddScoped<DiscoveryDbSeed>();

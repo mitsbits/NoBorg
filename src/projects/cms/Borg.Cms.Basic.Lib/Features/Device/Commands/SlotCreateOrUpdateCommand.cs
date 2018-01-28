@@ -9,10 +9,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
-    public class SlotCreateOrUpdateCommand : CommandBase<CommandResult<SlotRecord>>
+    public class SlotCreateOrUpdateCommand : CommandBase<CommandResult<SlotState>>
     {
         public SlotCreateOrUpdateCommand()
         {
@@ -56,7 +57,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         public string ModuleDecriptorJson { get; set; }
     }
 
-    public class SlotCreateOrUpdateCommandHandler : AsyncRequestHandler<SlotCreateOrUpdateCommand, CommandResult<SlotRecord>>
+    public class SlotCreateOrUpdateCommandHandler : AsyncRequestHandler<SlotCreateOrUpdateCommand, CommandResult<SlotState>>
     {
         private readonly ILogger _logger;
 
@@ -71,16 +72,16 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
             _logger = loggerFactory.CreateLogger(GetType());
         }
 
-        protected override async Task<CommandResult<SlotRecord>> HandleCore(SlotCreateOrUpdateCommand message)
+        protected override async Task<CommandResult<SlotState>> HandleCore(SlotCreateOrUpdateCommand message)
         {
             try
             {
                 var isTransient = message.RecordId == 0;
-                var repo = _uow.ReadWriteRepo<SlotRecord>();
-                SlotRecord slot;
+                var repo = _uow.ReadWriteRepo<SlotState>();
+                SlotState slot;
                 if (isTransient)
                 {
-                    slot = new SlotRecord()
+                    slot = new SlotState()
                     {
                         IsEnabled = message.IsEnabled,
                         Ordinal = message.Ordinal,
@@ -94,12 +95,12 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                     await _uow.Save();
                     _logger.Info("Created slot {@slot}", slot);
                     await _dispatcher.Publish(new SlotRecordStateChanged(slot.Id, DmlOperation.Create));
-                    return CommandResult<SlotRecord>.Success(slot);
+                    return CommandResult<SlotState>.Success(slot);
                 }
 
                 slot = await repo.Get(x => x.Id == message.RecordId);
                 if (slot == null)
-                    return CommandResult<SlotRecord>.FailureWithEmptyPayload(
+                    return CommandResult<SlotState>.FailureWithEmptyPayload(
                         $"No slot found for id {message.RecordId}");
                 slot.SectionId = message.SectionId;
                 slot.IsEnabled = message.IsEnabled;
@@ -111,14 +112,14 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 await repo.Update(slot);
                 await _uow.Save();
                 await _dispatcher.Publish(new SlotRecordStateChanged(slot.Id, DmlOperation.Update));
-                slot = await _uow.QueryRepo<SlotRecord>()
+                slot = await _uow.QueryRepo<SlotState>()
                     .Get(x => x.Id == slot.Id, CancellationToken.None, record => record.Section);
-                return CommandResult<SlotRecord>.Success(slot);
+                return CommandResult<SlotState>.Success(slot);
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating new section from {@message} - {exception}", message, ex.ToString());
-                return CommandResult<SlotRecord>.FailureWithEmptyPayload(ex.ToString());
+                return CommandResult<SlotState>.FailureWithEmptyPayload(ex.ToString());
             }
         }
     }

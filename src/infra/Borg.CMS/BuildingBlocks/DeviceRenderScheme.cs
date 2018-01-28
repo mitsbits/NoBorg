@@ -1,4 +1,4 @@
-﻿namespace Borg.MVC.BuildingBlocks
+﻿namespace Borg.CMS.BuildingBlocks
 {
     public static class DeviceRenderScheme
     {

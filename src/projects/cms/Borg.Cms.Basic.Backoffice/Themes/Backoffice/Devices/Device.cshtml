@@ -1,5 +1,7 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
-@model Borg.Cms.Basic.Lib.Features.Device.DeviceRecord
+@using Borg.CMS.BuildingBlocks
+@using Microsoft.EntityFrameworkCore
+@model Borg.Platform.EF.CMS.DeviceState
 
 @{
     var newSectionCommand = new SectionCreateOrUpdateCommand("", Model.Id, DeviceRenderScheme.UnSet, "");

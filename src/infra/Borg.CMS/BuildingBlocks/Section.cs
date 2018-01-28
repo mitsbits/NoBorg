@@ -1,9 +1,9 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Borg.CMS.BuildingBlocks.Contracts;
 using Borg.Infra;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.BuildingBlocks
 {
     public class Section : ISection
     {
@@ -16,7 +16,7 @@ namespace Borg.MVC.BuildingBlocks
 
         public string FriendlyName { get; set; }
 
-        ICollection<ISlot> ISection.Slots => Slots.Cast<ISlot>().ToList();
+        ICollection<ISlot> ISection.Slots => Enumerable.Cast<ISlot>(Slots).ToList();
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
         public ICollection<Slot> Slots { get; protected set; }
 
@@ -24,7 +24,7 @@ namespace Borg.MVC.BuildingBlocks
         {
             Preconditions.NotNull(info, nameof(info));
             Preconditions.NotNull(module, nameof(module));
-            var slot = Slots.FirstOrDefault(x => x.SectionSlotInfo.Ordinal == info.Ordinal
+            var slot = Enumerable.FirstOrDefault(Slots, x => x.SectionSlotInfo.Ordinal == info.Ordinal
                                      && x.SectionSlotInfo.SectionIdentifier == info.SectionIdentifier);
 
             if (slot != null) Slots.Remove(slot);

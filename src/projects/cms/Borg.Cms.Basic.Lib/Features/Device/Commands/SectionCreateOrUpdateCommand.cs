@@ -9,10 +9,12 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.CMS.BuildingBlocks;
+using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
-    public class SectionCreateOrUpdateCommand : CommandBase<CommandResult<SectionRecord>>
+    public class SectionCreateOrUpdateCommand : CommandBase<CommandResult<SectionState>>
     {
         public SectionCreateOrUpdateCommand()
         {
@@ -46,7 +48,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
     }
 
-    public class SectionCreateOrUpdateCommandHandler : AsyncRequestHandler<SectionCreateOrUpdateCommand, CommandResult<SectionRecord>>
+    public class SectionCreateOrUpdateCommandHandler : AsyncRequestHandler<SectionCreateOrUpdateCommand, CommandResult<SectionState>>
     {
         private readonly ILogger _logger;
 
@@ -61,26 +63,26 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
             _logger = loggerFactory.CreateLogger(GetType());
         }
 
-        protected override async Task<CommandResult<SectionRecord>> HandleCore(SectionCreateOrUpdateCommand message)
+        protected override async Task<CommandResult<SectionState>> HandleCore(SectionCreateOrUpdateCommand message)
         {
             try
             {
                 var isTransient = message.RecordId == 0;
-                var repo = _uow.ReadWriteRepo<SectionRecord>();
-                SectionRecord section;
+                var repo = _uow.ReadWriteRepo<SectionState>();
+                SectionState section;
                 if (isTransient)
                 {
-                    section = new SectionRecord() { FriendlyName = message.FriendlyName, DeviceId = message.DeviceId, RenderScheme = message.RenderScheme, Identifier = message.Identifier, Id = message.RecordId };
+                    section = new SectionState() { FriendlyName = message.FriendlyName, DeviceId = message.DeviceId, RenderScheme = message.RenderScheme, Identifier = message.Identifier, Id = message.RecordId };
                     await repo.Create(section);
                     await _uow.Save();
                     _logger.Info("Created sction {@section}", section);
                     await _dispatcher.Publish(new SectionRecordStateChanged(section.Id, DmlOperation.Create));
-                    return CommandResult<SectionRecord>.Success(section);
+                    return CommandResult<SectionState>.Success(section);
                 }
 
                 section = await repo.Get(x => x.Id == message.RecordId);
                 if (section == null)
-                    return CommandResult<SectionRecord>.FailureWithEmptyPayload(
+                    return CommandResult<SectionState>.FailureWithEmptyPayload(
                         $"No section found for id {message.RecordId}");
                 section.FriendlyName = message.FriendlyName;
                 section.DeviceId = message.DeviceId;
@@ -90,12 +92,12 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 await repo.Update(section);
                 await _uow.Save();
                 await _dispatcher.Publish(new SectionRecordStateChanged(section.Id, DmlOperation.Update));
-                return CommandResult<SectionRecord>.Success(section);
+                return CommandResult<SectionState>.Success(section);
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating new section from {@message} - {exception}", message, ex.ToString());
-                return CommandResult<SectionRecord>.FailureWithEmptyPayload(ex.ToString());
+                return CommandResult<SectionState>.FailureWithEmptyPayload(ex.ToString());
             }
         }
     }

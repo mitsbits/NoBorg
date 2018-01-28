@@ -20,6 +20,7 @@
     <Folder Include="Areas\Documents\" />
     <Folder Include="Areas\BlogEngine\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="_Themes\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj" />
+    <ProjectReference Include="..\Borg.Cms.Basic.Presentation\Borg.Cms.Basic.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

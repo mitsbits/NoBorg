@@ -1,8 +1,7 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
-using System;
+﻿using Borg.CMS.BuildingBlocks.Contracts;
 using Borg.Infra;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.BuildingBlocks
 {
     public class SectionSlotInfo : ISectionSlotInfo
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Borg.CMS.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {

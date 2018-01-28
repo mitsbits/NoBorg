@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.MVC.Services.Breadcrumbs;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -21,8 +22,10 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         public async Task<IActionResult> Home(string id, int? row)
         {
             SetPageTitle(string.IsNullOrWhiteSpace(id) ? "Navigational Menus" : $"Navigational Menus {id.ToUpper()}");
+            Breadcrumbs(new BreadcrumbLink("Menus", Url.Action("Home", "Menus", new { id = "" })));
             if (!string.IsNullOrWhiteSpace(id))
             {
+                Breadcrumbs(new BreadcrumbLink(id, Url.Action("Home", "Menus", new { id = id })));
                 var model = new MenuViewModel
                 {
                     Group = id,
@@ -32,30 +35,16 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                     SelectedState = null
                 };
                 if (row.HasValue && model.Records.Any(x => x.Id == row))
+                {
                     model.SelectedState = model.Records.Single(x => x.Id == row);
+                    Breadcrumbs(new BreadcrumbLabel(model.SelectedState.Article.Title));
+                }
                 SetPageTitle($"Menu {id}", model.SelectedState != null ? model.SelectedState.Article.Title : "");
                 return View(model);
             }
             return View();
         }
 
-        //[Route("group/{id?}")]
-        //public async Task<IActionResult> Group(string id, int? row)
-        //{
-        //    SetPageTitle($"Menu {id}");
-        //    var model = new MenuViewModel
-        //    {
-        //        Group = id,
-        //        Records = string.IsNullOrWhiteSpace(id)
-        //            ? new NavigationItemRecord[0]
-        //            : (await _dispatcher.Send(new MenuGroupRecordsRequest(id))).Payload,
-        //        SelectedRecord = new NavigationItemRecord() { Group = id }
-        //    };
-        //    if (row.HasValue && model.Records.Any(x => x.Id == row))
-        //        model.SelectedRecord = model.Records.Single(x => x.Id == row);
-        //    SetPageTitle($"Menu {id}", model.SelectedRecord != null ? model.SelectedRecord.Display : "");
-        //    return View(model);
-        //}
 
         [HttpPost("")]
         public async Task<IActionResult> Item(NavigationItemStateCreateOrUpdateCommand model)

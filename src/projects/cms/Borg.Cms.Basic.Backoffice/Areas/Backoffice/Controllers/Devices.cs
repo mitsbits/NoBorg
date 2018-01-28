@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -17,6 +18,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
     {
         private readonly IModuleDescriptorProvider _modules;
         private readonly IDeviceLayoutFileProvider _deviceLayoutFiles;
+        
 
         public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules, IDeviceLayoutFileProvider deviceLayoutFiles) : base(loggerFactory, dispatcher)
         {
@@ -92,14 +94,14 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             var selectedLayout = layouts.FirstOrDefault(x => x.MatchesPath(reposnse.Payload.Device.Layout));
             var model = new SectionViewModel
             {
-                Record = reposnse.Payload,
+                State = reposnse.Payload,
                 Descriptors = _modules.Descriptors(),
                 AvailableSectionIdentifiers = selectedLayout != null ? selectedLayout.SectionIdentifiers : new string[0]
             };
             var device = PageDevice<Device>();
             device.Breadcrumbs.Add(new BreadcrumbLink("Devices", Url.Action("Home", "Devices", new { id = "" })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.Record.Device.Id })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.FriendlyName, Url.Action("Section", "Devices", new { id = model.Record.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.State.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.State.Device.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.State.FriendlyName, Url.Action("Section", "Devices", new { id = model.State.Id })));
             PageDevice(device);
             return View(model);
         }
@@ -137,14 +139,14 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         {
             var reposnse = await Dispatcher.Send(new SlotRequest(id));
 
-            SetPageTitle($"Section: {reposnse.Payload.Record.Section.FriendlyName} Slot: {reposnse.Payload.Record.Module(reposnse.Payload.Record.Section.Identifier).renderer.FriendlyName}", $"Device: {reposnse.Payload.Record.Section.Device.FriendlyName}");
+            SetPageTitle($"Section: {reposnse.Payload.State.Section.FriendlyName} Slot: {reposnse.Payload.State.Module(reposnse.Payload.State.Section.Identifier).renderer.FriendlyName}", $"Device: {reposnse.Payload.State.Section.Device.FriendlyName}");
 
             var model = reposnse.Payload;
             var device = PageDevice<Device>();
             device.Breadcrumbs.Add(new BreadcrumbLink("Devices", Url.Action("Home", "Devices", new { id = "" })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.Section.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.Record.Section.Device.Id })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(model.Record.Section.FriendlyName, Url.Action("Section", "Devices", new { id = model.Record.Section.Id })));
-            device.Breadcrumbs.Add(new BreadcrumbLink(reposnse.Payload.Record.Module(reposnse.Payload.Record.Section.Identifier).renderer.FriendlyName, Url.Action("Slot", "Devices", new { id = model.Record.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.State.Section.Device.FriendlyName, Url.Action("Home", "Devices", new { id = model.State.Section.Device.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(model.State.Section.FriendlyName, Url.Action("Section", "Devices", new { id = model.State.Section.Id })));
+            device.Breadcrumbs.Add(new BreadcrumbLink(reposnse.Payload.State.Module(reposnse.Payload.State.Section.Identifier).renderer.FriendlyName, Url.Action("Slot", "Devices", new { id = model.State.Id })));
             PageDevice(device);
             return View(model);
         }

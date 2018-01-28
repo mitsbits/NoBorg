@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
@@ -44,8 +45,8 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         {
             try
             {
-                var repo = _uow.ReadWriteRepo<DeviceRecord>();
-                var sections = await _uow.QueryRepo<SectionRecord>().Find(x => x.DeviceId == message.RecordId, null);
+                var repo = _uow.ReadWriteRepo<DeviceState>();
+                var sections = await _uow.QueryRepo<SectionState>().Find(x => x.DeviceId == message.RecordId, null);
                 foreach (var section in sections)
                 {
                     await _dispatcher.Send(new SectionDeleteCommand(section.Id));

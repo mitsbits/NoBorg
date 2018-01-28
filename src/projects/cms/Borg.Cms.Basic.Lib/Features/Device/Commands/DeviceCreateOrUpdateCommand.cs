@@ -11,10 +11,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.CMS.BuildingBlocks;
+using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
-    public class DeviceCreateOrUpdateCommand : CommandBase<CommandResult<DeviceRecord>>
+    public class DeviceCreateOrUpdateCommand : CommandBase<CommandResult<DeviceState>>
     {
         public DeviceCreateOrUpdateCommand()
         {
@@ -43,7 +45,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
     }
 
-    public class DeviceCreateOrUpdateCommandHandler : AsyncRequestHandler<DeviceCreateOrUpdateCommand, CommandResult<DeviceRecord>>
+    public class DeviceCreateOrUpdateCommandHandler : AsyncRequestHandler<DeviceCreateOrUpdateCommand, CommandResult<DeviceState>>
     {
         private readonly ILogger _logger;
 
@@ -61,31 +63,31 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
             _logger = loggerFactory.CreateLogger(GetType());
         }
 
-        protected override async Task<CommandResult<DeviceRecord>> HandleCore(DeviceCreateOrUpdateCommand message)
+        protected override async Task<CommandResult<DeviceState>> HandleCore(DeviceCreateOrUpdateCommand message)
         {
             try
             {
                 var isTransient = message.RecordId == 0;
-                var repo = _uow.ReadWriteRepo<DeviceRecord>();
-                DeviceRecord device;
+                var repo = _uow.ReadWriteRepo<DeviceState>();
+                DeviceState device;
                 if (isTransient)
                 {
-                    device = new DeviceRecord() { FriendlyName = message.FriendlyName, Layout = message.Layout, RenderScheme = message.RenderScheme };
+                    device = new DeviceState() { FriendlyName = message.FriendlyName, Layout = message.Layout, RenderScheme = message.RenderScheme };
                     var file = (await _deviceLayoutFiles.LayoutFiles()).FirstOrDefault(x => x.MatchesPath(message.Layout));
                     foreach (var fileSectionIdentifier in file.SectionIdentifiers)
                     {
-                        device.Sections.Add(new SectionRecord() { FriendlyName = fileSectionIdentifier, Identifier = fileSectionIdentifier, RenderScheme = message.RenderScheme });
+                        device.Sections.Add(new SectionState() { FriendlyName = fileSectionIdentifier, Identifier = fileSectionIdentifier, RenderScheme = message.RenderScheme });
                     }
                     await repo.Create(device);
                     await _uow.Save();
                     _logger.Info("Created device {@device}", device);
                     await _dispatcher.Publish(new DeviceRecordStateChanged(device.Id, DmlOperation.Create));
-                    return CommandResult<DeviceRecord>.Success(device);
+                    return CommandResult<DeviceState>.Success(device);
                 }
 
                 device = await repo.Get(x => x.Id == message.RecordId);
                 if (device == null)
-                    return CommandResult<DeviceRecord>.FailureWithEmptyPayload(
+                    return CommandResult<DeviceState>.FailureWithEmptyPayload(
                         $"No device found for id {message.RecordId}");
                 device.FriendlyName = message.FriendlyName;
                 device.Layout = message.Layout;
@@ -93,12 +95,12 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 await repo.Update(device);
                 await _uow.Save();
                 await _dispatcher.Publish(new DeviceRecordStateChanged(device.Id, DmlOperation.Update));
-                return CommandResult<DeviceRecord>.Success(device);
+                return CommandResult<DeviceState>.Success(device);
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating new device from {@message} - {exception}", message, ex.ToString());
-                return CommandResult<DeviceRecord>.FailureWithEmptyPayload(ex.ToString());
+                return CommandResult<DeviceState>.FailureWithEmptyPayload(ex.ToString());
             }
         }
     }

@@ -81,6 +81,35 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.ToTable("ComponentStates","cms");
                 });
 
+            modelBuilder.Entity("Borg.Platform.EF.CMS.DeviceState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FriendlyName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Layout")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("RenderScheme")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("UnSet")
+                        .HasMaxLength(512);
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.ToTable("DeviceStates","cms");
+                });
+
             modelBuilder.Entity("Borg.Platform.EF.CMS.HtmlSnippetState", b =>
                 {
                     b.Property<int>("Id");
@@ -128,7 +157,86 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasIndex("GroupCode")
                         .HasName("IX_Navigation_GroupCode");
 
-                    b.ToTable("NavigationItems","cms");
+                    b.ToTable("NavigationItemStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.SectionState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DeviceId");
+
+                    b.Property<string>("FriendlyName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("RenderScheme");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("DeviceId")
+                        .HasName("IX_Section_DeviceId");
+
+                    b.HasIndex("Identifier")
+                        .HasName("IX_Section_Identifier");
+
+                    b.ToTable("SectionStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.SlotState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsEnabled");
+
+                    b.Property<string>("ModuleDecriptorJson")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("");
+
+                    b.Property<string>("ModuleGender")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("ModuleTypeName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(1024);
+
+                    b.Property<int>("Ordinal");
+
+                    b.Property<int>("SectionId");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("ModuleGender")
+                        .HasName("IX_Slot_ModuleGender");
+
+                    b.HasIndex("ModuleTypeName")
+                        .HasName("IX_Slot_ModuleTypeName");
+
+                    b.HasIndex("Ordinal")
+                        .HasName("IX_Slot_Ordinal");
+
+                    b.HasIndex("SectionId")
+                        .HasName("IX_Slot_SectionId");
+
+                    b.ToTable("SlotStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.TagState", b =>
@@ -227,6 +335,24 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasOne("Borg.Platform.EF.CMS.TaxonomyState", "Taxonomy")
                         .WithOne("NavigationItem")
                         .HasForeignKey("Borg.Platform.EF.CMS.NavigationItemState", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.SectionState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.DeviceState", "Device")
+                        .WithMany("Sections")
+                        .HasForeignKey("DeviceId")
+                        .HasConstraintName("FK_Device_Section")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.SlotState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.SectionState", "Section")
+                        .WithMany("Slots")
+                        .HasForeignKey("SectionId")
+                        .HasConstraintName("FK_Section_Slot")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

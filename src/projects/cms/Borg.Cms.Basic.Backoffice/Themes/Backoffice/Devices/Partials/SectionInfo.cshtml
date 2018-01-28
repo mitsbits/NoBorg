@@ -1,4 +1,5 @@
-﻿@model Borg.Cms.Basic.Lib.Features.Device.Commands.SectionCreateOrUpdateCommand
+﻿@using Borg.CMS.BuildingBlocks
+@model Borg.Cms.Basic.Lib.Features.Device.Commands.SectionCreateOrUpdateCommand
 @{
     var schemeoptions = DeviceRenderScheme.Schemes().Select(x => new SelectListItem() { Value = x, Text = x });
     var isTransient = Model.RecordId <= 0;
