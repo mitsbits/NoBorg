@@ -7,16 +7,39 @@
                  select part.AsEnumerable();
 }
 
-@foreach (var split in splits)
-{
-    <div class="row">
-        @foreach (var descriptor in split)
-        {
-            <div class="col-lg-3">
-                @Html.Partial("Partials/Descriptor", descriptor)
-            </div>
-        }
+
+<div class="row">
+    <div class="col-md-12">
+        <ul id="container" class="tiles-wrap">
+            @foreach (var descriptor in Model)
+            {
+                <li>
+                    @Html.Partial("Partials/Descriptor", descriptor)
+                </li>
+            }
+        </ul>
     </div>
-}
+
+</div>
 
 
+
+<script device id="puginsscript" type="text/javascript" script-position="Bottom" weight="100">
+    (function () {
+        function getWindowWidth() {
+            return Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+        }
+        // Instantiate wookmark after all images have been loaded
+        var wookmark;
+        imagesLoaded('#container', function () {
+            wookmark = new Wookmark('#container', {
+                itemWidth: 300, // Optional min width of a grid item
+                outerOffset: 20, // Optional the distance from grid to parent
+                flexibleWidth: function () {
+                    // Return a maximum width depending on the viewport
+                    return getWindowWidth() < 1024 ? '100%' : '50%';
+                }
+            });
+        });
+    })();
+</script>

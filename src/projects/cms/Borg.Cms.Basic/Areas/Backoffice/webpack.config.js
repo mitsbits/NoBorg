@@ -43,6 +43,7 @@ module.exports = function (env) {
                 { from: 'node_modules/jsoneditor/dist/', to: 'jsoneditor/' },
                 { from: 'node_modules/bootstrap-treeview/dist/', to: 'bootstrap-treeview/' },
                 { from: 'node_modules/moment/min/moment-with-locales.min.js', to: 'moment.js' },
+                { from: 'node_modules/wookmark/wookmark.min.js', to: 'wookmark.js' },
                 { from: 'node_modules/ckeditor/', to: 'ckeditor/' },
                 { from: 'Areas/Backoffice/Static/assets/', to: 'assets/' },
                 { from: 'Areas/Backoffice/Static/js/site.js', to: 'site.js' },
