@@ -12,9 +12,10 @@ using System;
 namespace Borg.Platform.EF.CMS.Data.Migrations
 {
     [DbContext(typeof(CmsDbContext))]
-    partial class CmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180130081232_five")]
+    partial class five
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,12 +122,6 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue("UnSet")
                         .HasMaxLength(512);
-
-                    b.Property<string>("Theme")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue("")
-                        .HasMaxLength(512)
-                        .IsUnicode(true);
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", true);

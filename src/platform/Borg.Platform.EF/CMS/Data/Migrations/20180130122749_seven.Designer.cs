@@ -12,9 +12,10 @@ using System;
 namespace Borg.Platform.EF.CMS.Data.Migrations
 {
     [DbContext(typeof(CmsDbContext))]
-    partial class CmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180130122749_seven")]
+    partial class seven
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +81,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasIndex("DeviceId")
                         .IsUnique();
 
-                    b.ToTable("ComponentDeviceState","cms");
+                    b.ToTable("ComponentDeviceStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentState", b =>
@@ -125,8 +126,8 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.Property<string>("Theme")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue("")
-                        .HasMaxLength(512)
-                        .IsUnicode(true);
+                        .HasMaxLength(256)
+                        .IsUnicode(false);
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", true);
