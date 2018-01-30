@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -25,9 +26,9 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
     public class SectionRequestHandler : AsyncRequestHandler<SectionRequest, QueryResult<SectionState>>
     {
         private readonly ILogger _logger;
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
-        public SectionRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow)
+        public SectionRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;

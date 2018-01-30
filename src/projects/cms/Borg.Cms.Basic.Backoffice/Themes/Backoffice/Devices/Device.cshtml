@@ -15,7 +15,7 @@
     <div class="col-lg-4">
         <div class="box">
             <div class="box-body">
-                @Html.Partial("Partials/DeviceInfo", new DeviceCreateOrUpdateCommand(Model.FriendlyName, Model.Layout, Model.RenderScheme, Model.Id))
+                @Html.Partial("Partials/DeviceInfo", new DeviceCreateOrUpdateCommand(Model.FriendlyName, Model.Layout, Model.RenderScheme, Model.Id) { Theme = Model.Theme })
             </div>
         </div>
         <div class="box">

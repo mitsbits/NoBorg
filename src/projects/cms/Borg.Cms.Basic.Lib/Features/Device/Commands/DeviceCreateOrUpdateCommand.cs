@@ -1,8 +1,9 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Device.Events;
-using Borg.Cms.Basic.Lib.System.Data;
+using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DAL;
-using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.Platform.EF.CMS;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -11,8 +12,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.CMS.BuildingBlocks;
-using Borg.Platform.EF.CMS;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
@@ -40,6 +39,9 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
         [DisplayName("Layout")]
         public string Layout { get; set; }
 
+        [DisplayName("Theme")]
+        public string Theme { get; set; }
+
         [Required]
         [DisplayName("Render Scheme")]
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
@@ -49,13 +51,13 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
     {
         private readonly ILogger _logger;
 
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
         private readonly IMediator _dispatcher;
 
         private readonly IDeviceLayoutFileProvider _deviceLayoutFiles;
 
-        public DeviceCreateOrUpdateCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow, IMediator dispatcher, IDeviceLayoutFileProvider deviceLayoutFiles)
+        public DeviceCreateOrUpdateCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher, IDeviceLayoutFileProvider deviceLayoutFiles)
         {
             _uow = uow;
             _dispatcher = dispatcher;
@@ -72,7 +74,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 DeviceState device;
                 if (isTransient)
                 {
-                    device = new DeviceState() { FriendlyName = message.FriendlyName, Layout = message.Layout, RenderScheme = message.RenderScheme };
+                    device = new DeviceState() { FriendlyName = message.FriendlyName, Layout = message.Layout, RenderScheme = message.RenderScheme, Theme = message.Theme };
                     var file = (await _deviceLayoutFiles.LayoutFiles()).FirstOrDefault(x => x.MatchesPath(message.Layout));
                     foreach (var fileSectionIdentifier in file.SectionIdentifiers)
                     {
@@ -92,6 +94,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
                 device.FriendlyName = message.FriendlyName;
                 device.Layout = message.Layout;
                 device.RenderScheme = message.RenderScheme;
+                device.Theme = message.Theme;
                 await repo.Update(device);
                 await _uow.Save();
                 await _dispatcher.Publish(new DeviceRecordStateChanged(device.Id, DmlOperation.Update));

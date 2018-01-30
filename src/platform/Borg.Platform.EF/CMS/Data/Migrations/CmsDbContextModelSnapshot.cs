@@ -80,7 +80,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasIndex("DeviceId")
                         .IsUnique();
 
-                    b.ToTable("ComponentDeviceState","cms");
+                    b.ToTable("ComponentDeviceStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentState", b =>
@@ -125,8 +125,8 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.Property<string>("Theme")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue("")
-                        .HasMaxLength(512)
-                        .IsUnicode(true);
+                        .HasMaxLength(256)
+                        .IsUnicode(false);
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", true);

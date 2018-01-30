@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -18,7 +17,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
     {
         private readonly IModuleDescriptorProvider _modules;
         private readonly IDeviceLayoutFileProvider _deviceLayoutFiles;
-        
 
         public DevicesController(ILoggerFactory loggerFactory, IMediator dispatcher, IModuleDescriptorProvider modules, IDeviceLayoutFileProvider deviceLayoutFiles) : base(loggerFactory, dispatcher)
         {
@@ -59,6 +57,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         [HttpPost("edit")]
         public async Task<IActionResult> Edit(DeviceCreateOrUpdateCommand model)
         {
+            model.Theme = (await _deviceLayoutFiles.LayoutFile(model.Layout))?.Theme;
             if (ModelState.IsValid)
             {
                 var result = await Dispatcher.Send(model);

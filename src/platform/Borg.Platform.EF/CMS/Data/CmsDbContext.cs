@@ -19,6 +19,8 @@ namespace Borg.Platform.EF.CMS.Data
         public DbSet<NavigationItemState> NavigationItemStates { get; set; }
         public DbSet<DeviceState> DeviceStates { get; set; }
         public DbSet<SectionState> SectionStates { get; set; }
+        public DbSet<ComponentDeviceState> ComponentDeviceStates { get; set; }
+        
         public DbSet<SlotState> SlotStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -74,11 +76,11 @@ namespace Borg.Platform.EF.CMS.Data
             builder.Entity<NavigationItemState>().Ignore(x => x.Component);
             builder.Entity<NavigationItemState>().Ignore(x => x.Article);
 
-
             builder.Entity<DeviceState>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<DeviceState>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
             builder.Entity<DeviceState>().Property(x => x.RenderScheme).HasMaxLength(512).IsRequired().HasDefaultValue(DeviceRenderScheme.UnSet);
             builder.Entity<DeviceState>().Property(x => x.Layout).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<DeviceState>().Property(x => x.Theme).HasMaxLength(256).IsUnicode(false).IsRequired(false).HasDefaultValue("");
 
             builder.Entity<SectionState>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<SectionState>().HasIndex(x => x.DeviceId).HasName("IX_Section_DeviceId");
@@ -99,6 +101,10 @@ namespace Borg.Platform.EF.CMS.Data
             builder.Entity<SlotState>().Property(x => x.ModuleGender).IsRequired().HasMaxLength(64).HasDefaultValue("");
             builder.Entity<SlotState>().Property(x => x.ModuleTypeName).IsRequired().HasMaxLength(1024).HasDefaultValue("");
 
+            builder.Entity<ComponentDeviceState>().HasKey(t => new { t.ComponentId, t.DeviceId }).ForSqlServerIsClustered();
+            builder.Entity<ComponentDeviceState>().HasOne(pt => pt.Component).WithOne(x => x.ComponentDevice);
+            builder.Entity<ComponentDeviceState>().HasOne(pt => pt.Device).WithOne(x => x.ComponentDevice);
+
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
                 entityType.Relational().Schema = "cms";
@@ -113,8 +119,6 @@ namespace Borg.Platform.EF.CMS.Data
         public CmsDbContextFactory()
         {
         }
-
-
 
         CmsDbContext IDesignTimeDbContextFactory<CmsDbContext>.CreateDbContext(string[] args)
         {

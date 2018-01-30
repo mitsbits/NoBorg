@@ -1,5 +1,5 @@
-﻿using System;
-using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.MVC.BuildingBlocks.Contracts;
+using System;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -8,6 +8,7 @@ namespace Borg.MVC.BuildingBlocks
         public string Theme { get; set; }
         public string FullPath { get; set; }
         public string[] SectionIdentifiers { get; set; }
+
         public bool MatchesPath(string absolutePath)
         {
             if (string.Equals(absolutePath, FullPath, StringComparison.CurrentCultureIgnoreCase)) return true;
@@ -18,7 +19,6 @@ namespace Borg.MVC.BuildingBlocks
                 return string.Equals(global, FullPath, StringComparison.CurrentCultureIgnoreCase);
             }
             return false;
-
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {
@@ -7,5 +8,6 @@ namespace Borg.MVC.BuildingBlocks.Contracts
         Task<IDeviceStructureInfo> PageLayout(int id);
 
         Task<IDeviceStructureInfo> PageLayout(string layout);
+        Task<IEnumerable<IDeviceStructureInfo>> PageLayouts();
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Content;
-using Borg.Cms.Basic.Lib.Features.Device;
-using Borg.MVC.BuildingBlocks;
-using Borg.Platform.EF.CMS;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.Lib.System.Data
@@ -18,8 +15,6 @@ namespace Borg.Cms.Basic.Lib.System.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-
 
             builder.Entity<ContentItemRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<ContentItemRecord>().Property(x => x.Title).HasMaxLength(512).IsRequired().HasDefaultValue("");

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Borg.CMS;
-using Borg.CMS.BuildingBlocks;
+﻿using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -11,6 +10,8 @@ namespace Borg.Platform.EF.CMS
         public string FriendlyName { get; set; }
         public string Layout { get; set; }
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
+        public string Theme { get; set; }
         public ICollection<SectionState> Sections { get; set; } = new HashSet<SectionState>();
+        internal virtual ComponentDeviceState ComponentDevice { get; set; }
     }
 }

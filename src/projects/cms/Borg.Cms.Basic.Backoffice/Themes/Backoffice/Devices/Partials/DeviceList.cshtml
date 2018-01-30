@@ -3,6 +3,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Theme</th>
             <th>Scheme</th>
             <th>Layout</th>
             <th></th>
@@ -13,6 +14,7 @@
         {
             <tr role="row" data-id="@item.Id">
                 <td>   <a asp-controller="Devices" asp-action="Home" asp-route-id="@item.Id">@item.FriendlyName</a>     </td>
+                <td>@item.Theme</td>
                 <td>@item.RenderScheme</td>
                 <td title="@item.Layout">@System.IO.Path.GetFileNameWithoutExtension(item.Layout)</td>
                 <td class="text-right">

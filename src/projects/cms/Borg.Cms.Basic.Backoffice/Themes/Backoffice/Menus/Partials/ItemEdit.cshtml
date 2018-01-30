@@ -40,6 +40,9 @@
             </form>
         </div>
     </div>
+    <div class="box-body">
+        @await Component.InvokeAsync("ComponentDevice", new { componentId = Model.RecordId })
+    </div>
     <form role="form" asp-controller="Menus" asp-action="Item" method="post" asp-route-id="">
         <div class="box-body">
 
@@ -58,20 +61,22 @@
                 <input type="text" class="form-control" asp-for="Path" placeholder="@Html.NameFor(x => x.Path)">
                 <span asp-validation-for="Path" class="text-danger"></span>
             </div>
-            <div clas="row">
-                <div class="form-group col-md-6">
-                    <label asp-for="Group"></label>
-                    <input type="hidden" asp-for="Group">
-                    <input type="text" class="form-control" placeholder="@Model.Group" disabled="disabled">
-                    <span asp-validation-for="Group" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="Weight"></label>
-                    <input type="text" class="form-control" asp-for="Weight" placeholder="@Html.NameFor(x => x.Weight)">
-                    <span asp-validation-for="Weight" class="text-danger"></span>
+            <div class="form-group">
+                <div clas="row">
+                    <div class="form-group col-md-5 no-padding">
+                        <label asp-for="Group"></label>
+                        <input type="hidden" asp-for="Group">
+                        <input type="text" class="form-control" placeholder="@Model.Group" disabled="disabled">
+                        <span asp-validation-for="Group" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-5 no-padding col-md-offset-2">
+                        <label asp-for="Weight"></label>
+                        <input type="text" class="form-control" asp-for="Weight" placeholder="@Html.NameFor(x => x.Weight)">
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+
                 </div>
             </div>
-
             <div class="form-group">
                 <label asp-for="ParentId"></label>
                 <select asp-for="ParentId" asp-items="@parentOptions" class=" form-control select2"></select>
@@ -111,7 +116,7 @@
                 <a asp-controller="ContentItems" asp-action="Item" asp-route-id="@ViewBag.ContentItemRecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
                    class="btn btn-success"><i class="fa fa-book"></i></a>
                 @*<a asp-controller="Menus" asp-action="Delete" asp-route-id='@(Orchestrator.Device.RouteValue<string>("id"))' asp-route-row="@Model.RecordId"
-                   class="btn btn-danger"><i class="fa fa-remove"></i></a>*@
+                    class="btn btn-danger"><i class="fa fa-remove"></i></a>*@
             }
             <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
         </div>

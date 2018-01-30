@@ -16,6 +16,8 @@ using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
 using Borg.MVC.Services;
 using Borg.MVC.Services.Editors;
 using Borg.MVC.Services.ServerResponses;
@@ -30,6 +32,7 @@ using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,9 +43,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.MVC.PlugIns.Contracts;
-using Borg.MVC.PlugIns.Decoration;
-using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -223,7 +223,7 @@ namespace Borg.Cms.Basic.Lib
 
             services.AddSingleton<IModuleDescriptorProvider, ModuleDescriptorProvider>();
 
-            services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>( );
+            services.AddSingleton<IDeviceLayoutFileProvider, DeviceLayoutFileProvider>();
 
             var entrypointassemblies = assembliesToScan.Where(x =>
                     x.GetTypes().Any(t => t.GetCustomAttributes<PlugInEntryPointControllerAttribute>() != null)).Distinct()

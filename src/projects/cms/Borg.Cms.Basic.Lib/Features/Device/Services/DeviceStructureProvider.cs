@@ -1,4 +1,5 @@
-﻿using Borg.Cms.Basic.Lib.Features.Device.Queries;
+﻿using System.Collections.Generic;
+using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra;
 using Borg.MVC.BuildingBlocks.Contracts;
@@ -7,16 +8,18 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Services
 {
     public class DeviceStructureProvider : IDeviceStructureProvider
     {
         private readonly IMediator _dispatcher;
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
-        public DeviceStructureProvider(IMediator dispatcher, IUnitOfWork<BorgDbContext> uow)
+        public DeviceStructureProvider(IMediator dispatcher, IUnitOfWork<CmsDbContext> uow)
         {
             _dispatcher = dispatcher;
             _uow = uow;
@@ -48,6 +51,12 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Services
             }
 
             return null;
+        }
+
+        public async Task<IEnumerable<IDeviceStructureInfo>> PageLayouts()
+        {
+            var query = _uow.Context.DeviceStates.Include(d => d.Sections).ThenInclude(s => s.Slots).AsNoTracking();
+            return (await query.ToListAsync()).Select(x => x.DeviceStructureInfo());
         }
     }
 }

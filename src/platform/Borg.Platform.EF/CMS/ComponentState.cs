@@ -12,5 +12,14 @@ namespace Borg.Platform.EF.CMS
         internal virtual HtmlSnippetState HtmlSnippet { get; set; }
         internal virtual ArticleState Article { get; set; }
         internal virtual TaxonomyState Taxonomy { get; set; }
+        internal virtual ComponentDeviceState ComponentDevice { get; set; }
+    }
+
+    public class ComponentDeviceState
+    {
+        public int ComponentId { get; set; }
+        public virtual ComponentState Component { get;  set; }
+        public int DeviceId { get; set; }
+        public virtual DeviceState Device { get;  set; }
     }
 }
