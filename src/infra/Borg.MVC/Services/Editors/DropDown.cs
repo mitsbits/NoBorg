@@ -25,7 +25,7 @@ namespace Borg.MVC.Services.Editors
             Options = options == null || !options.Any() ? new List<Tiding>() : options.Select(x => new Tiding() { Key = x.Key, Value = x.Value, Hint = "option" }).ToList();
         }
 
-        public DropDown(string value, IDictionary<string, IDictionary<string, string>> options) : this()
+        public DropDown(string value, IDictionary<string, IDictionary<string, string>> options) : this(value)
         {
             if (options != null && options.Any())
             {
@@ -56,7 +56,7 @@ namespace Borg.MVC.Services.Editors
             return new[] { Tuple.Create(0, Value) };
         }
 
-        public IEnumerable<SelectListItem> DropDownItems()
+        public IEnumerable<SelectListItem> DropDownItems(bool insertEmpty = false,string emptyvalue = "", string emptydisplay="...")
         {
             var result = new List<SelectListItem>();
             foreach (var option in Options.AsEnumerable())
@@ -69,21 +69,21 @@ namespace Borg.MVC.Services.Editors
                         {
                             if (@group.Name.Length > 0)
                             {
-                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value, Group = @group });
+                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value, Group = @group, Selected = item.Value == Value});
                             }
                             else
                             {
-                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value });
+                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value, Selected = item.Value == Value });
                             }
                         }
                     }
                 }
                 else
                 {
-                    result.Add(new SelectListItem() { Value = option.Key, Text = option.Value });
+                    result.Add(new SelectListItem() { Value = option.Key, Text = option.Value, Selected = option.Value == Value });
                 }
             }
-
+            if (insertEmpty) result.Insert(0, new SelectListItem(){ Value = emptyvalue, Text = emptydisplay, Selected = emptyvalue == Value });
             return result;
         }
 

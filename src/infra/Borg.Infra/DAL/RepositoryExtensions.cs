@@ -44,5 +44,13 @@ namespace Borg.Infra.DAL
             var data = await repo.Find(predicate, 1, 1, null, cancellationToken, paths);
             return data.TotalRecords > 0 ? data.Records[0] : null;
         }
+
+        public static async Task<bool> Exists<T>(this IQueryRepository<T> repo, Expression<Func<T, bool>> predicate,
+            CancellationToken cancellationToken = default(CancellationToken)) where T : class
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var data = await repo.Find(predicate, 1, 1, null, cancellationToken);
+            return data.TotalRecords > 0 ;
+        }
     }
 }

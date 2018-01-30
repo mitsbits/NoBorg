@@ -36,12 +36,24 @@
             <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
                 <input type="hidden" name="id" value="@Model.RecordId" />
                 <input type="hidden" name="operation" value="published" />
+
                 <button comp-published published-state="@Model.IsPublished"></button>
             </form>
         </div>
     </div>
     <div class="box-body">
-        @await Component.InvokeAsync("ComponentDevice", new { componentId = Model.RecordId })
+        <form asp-controller="Components" asp-action="ComponentDevice" method="post" asp-route-id="" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+            <div class="row">
+                <div class="col-md-9"> @await Component.InvokeAsync("ComponentDevice", new { componentId = Model.RecordId })</div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="width: 100%;">&nbsp;</label>
+
+                        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <form role="form" asp-controller="Menus" asp-action="Item" method="post" asp-route-id="">
         <div class="box-body">

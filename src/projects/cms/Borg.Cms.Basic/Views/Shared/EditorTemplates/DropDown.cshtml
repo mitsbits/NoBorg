@@ -5,16 +5,16 @@
 
 <div class="form-group">
     <label asp-for="@Model"></label>
-    <select id="@Model.HtmlId" class="form-control" asp-for="@Model.Value" asp-items="@Model.DropDownItems()"></select>
+    <select id="@Model.HtmlId" class="form-control" asp-for="@Model.Value" asp-items="@Model.DropDownItems(true, "0")"></select>
 </div>
-<script type="text/javascript" device id="@(Model.HtmlId)_script">
+<script type="text/javascript" device id="@(Model.HtmlId)_script" script-position="Bottom" weight="101">
     $(function() {
         $("#" + '@Model.HtmlId').select2({
             width: 'resolve',
             tags: false,
             multiple: false,
             placeholder: 'Select an option',
-            theme: "bootstrap"
+            //theme: "bootstrap"
         });
     });
 </script>
