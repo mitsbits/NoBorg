@@ -4,7 +4,7 @@ using Borg.MVC.Conventions;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Borg.Cms.Basic.Presentation.Controllers
+namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
 {
     [PlugInEntryPointController("Presentation")]
     [ControllerTheme("Bootstrap3")]

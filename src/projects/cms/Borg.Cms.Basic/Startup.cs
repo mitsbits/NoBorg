@@ -1,12 +1,16 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery;
 using Borg.Cms.Basic.Lib.Features;
 using Borg.Cms.Basic.Lib.System;
+using Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers;
+using Borg.Cms.Basic.Presentation.RouteConstraints;
 using Borg.MVC;
+using Borg.MVC.PlugIns.Contracts;
 using Hangfire;
 using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,10 +18,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Borg.Cms.Basic.Presentation.Controllers;
-using Borg.Cms.Basic.Presentation.RouteConstraints;
-using Microsoft.AspNetCore.Routing;
-using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic
 {
@@ -59,8 +59,8 @@ namespace Borg.Cms.Basic
             services.AddHangfire(x => x.UseSqlServerStorage(Settings.ConnectionStrings["db"], new SqlServerStorageOptions() { SchemaName = "hangfire" }));
 
             services.AddScoped<IRouteConstraint, MenuRootRouteConstraint>();
-            services.AddScoped<IRouteConstraint,MenuLeafParentRouteConstraint>();
-            services.AddScoped<IRouteConstraint,MenuLeafChildRouteConstraint>();
+            services.AddScoped<IRouteConstraint, MenuLeafParentRouteConstraint>();
+            services.AddScoped<IRouteConstraint, MenuLeafChildRouteConstraint>();
             //services.AddScoped< MenuRootRouteConstraint>();
             //services.AddScoped<MenuLeafParentRouteConstraint>();
             //services.AddScoped<MenuLeafChildRouteConstraint>();
@@ -77,6 +77,7 @@ namespace Borg.Cms.Basic
             ServiceProvider = services.BuildServiceProvider();
             return ServiceProvider;
         }
+
         protected void BranchPlugins(IApplicationBuilder app)
         {
             var mapwhenmodules = PlugInHost.SpecifyPlugins<ICanMapWhen>();
@@ -94,12 +95,11 @@ namespace Borg.Cms.Basic
             {
                 var provider = scope.ServiceProvider;
 
-
                 var provs = provider.GetRequiredService<IEnumerable<IRouteConstraint>>();
 
                 var root = provs.First(x => x.GetType() == typeof(MenuRootRouteConstraint));
-                var parent = provs.First(x => x.GetType() == typeof(MenuLeafParentRouteConstraint)); 
-                var child = provs.First(x => x.GetType() == typeof(MenuLeafChildRouteConstraint)); 
+                var parent = provs.First(x => x.GetType() == typeof(MenuLeafParentRouteConstraint));
+                var child = provs.First(x => x.GetType() == typeof(MenuLeafChildRouteConstraint));
 
                 routeBuilder.MapRoute(
                     name: "areaRoute",
@@ -109,7 +109,7 @@ namespace Borg.Cms.Basic
                     name: "menuroot",
                     template: "{rootmenu}",
                     defaults: new { controller = "Menus", action = "Root", area = "Presentation" },
-                    constraints:new { rootmenu = root });
+                    constraints: new { rootmenu = root });
 
                 routeBuilder.MapRoute(
                     name: "menuleaf",
@@ -120,9 +120,9 @@ namespace Borg.Cms.Basic
                 routeBuilder.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Home}/{id?}");
-
             }
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
             IServiceProvider serviceProvider)

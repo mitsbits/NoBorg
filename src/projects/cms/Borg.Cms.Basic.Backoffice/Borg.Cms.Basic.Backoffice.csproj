@@ -9,6 +9,7 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Areas\Backoffice\Views\Articles\Item.cshtml" />
     <Content Remove="Themes\Backoffice\HtmlSnippet\Home.cshtml" />
     <Content Remove="Themes\Backoffice\HtmlSnippet\Partials\HtmlSnippetCommand.cshtml" />
     <Content Remove="Themes\Backoffice\PlugIns\Partials\Descriptor.cshtml" />

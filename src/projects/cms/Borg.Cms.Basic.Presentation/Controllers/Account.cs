@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Auth;
+﻿using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.Features.Auth.Events;
 using Borg.Cms.Basic.Lib.Features.Auth.Login;
@@ -17,6 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Presentation.Controllers
 {

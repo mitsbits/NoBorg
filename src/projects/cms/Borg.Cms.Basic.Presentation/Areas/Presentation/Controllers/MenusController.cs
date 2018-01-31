@@ -1,16 +1,14 @@
-﻿using Borg.MVC.BuildingBlocks;
-using Borg.MVC.Conventions;
+﻿using Borg.MVC.Conventions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Borg.Cms.Basic.Presentation.Controllers
+namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
 {
     [ControllerTheme("Bootstrap3")]
     public class MenusController : PresentationController
     {
         public IActionResult Root(string rootmenu)
         {
-            
-           SetPageTitle(rootmenu);
+            SetPageTitle(rootmenu);
             return View();
         }
 
