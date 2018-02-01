@@ -1,4 +1,6 @@
 ﻿using Borg.Infra.DDD.Contracts;
+using Borg.Platform.EF.CMS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -15,11 +17,16 @@ namespace Borg.Platform.EF.CMS
         internal virtual ComponentDeviceState ComponentDevice { get; set; }
     }
 
-    public class ComponentDeviceState
+    public class ComponentStateMap : EntityMap<ComponentState, CmsDbContext>
     {
-        public int ComponentId { get; set; }
-        public virtual ComponentState Component { get;  set; }
-        public int DeviceId { get; set; }
-        public virtual DeviceState Device { get;  set; }
+        public override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.HasSequence<int>("ComponentStatesSQC", "cms")
+                .StartsAt(1)
+                .IncrementsBy(1);
+
+            builder.Entity<ComponentState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<ComponentState>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR cms.ComponentStatesSQC");
+        }
     }
 }

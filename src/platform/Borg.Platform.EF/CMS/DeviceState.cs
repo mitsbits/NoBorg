@@ -1,6 +1,8 @@
 ﻿using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
 using System.Collections.Generic;
+using Borg.Platform.EF.CMS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -13,5 +15,17 @@ namespace Borg.Platform.EF.CMS
         public string Theme { get; set; }
         public ICollection<SectionState> Sections { get; set; } = new HashSet<SectionState>();
         internal virtual ComponentDeviceState ComponentDevice { get; set; }
+    }
+
+    public class DeviceStateMap : EntityMap<DeviceState, CmsDbContext>
+    {
+        public override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<DeviceState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<DeviceState>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<DeviceState>().Property(x => x.RenderScheme).HasMaxLength(512).IsRequired().HasDefaultValue(DeviceRenderScheme.UnSet);
+            builder.Entity<DeviceState>().Property(x => x.Layout).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<DeviceState>().Property(x => x.Theme).HasMaxLength(256).IsUnicode(false).IsRequired(false).HasDefaultValue("");
+        }
     }
 }

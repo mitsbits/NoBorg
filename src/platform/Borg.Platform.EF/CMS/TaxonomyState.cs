@@ -1,4 +1,6 @@
 ﻿using Borg.Infra.DDD.Contracts;
+using Borg.Platform.EF.CMS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -11,5 +13,19 @@ namespace Borg.Platform.EF.CMS
         public double Weight { get; set; }
         public virtual ArticleState Article { get; set; }
         internal virtual NavigationItemState NavigationItem { get; set; }
+    }
+
+    public class TaxonomyStateMap : EntityMap<TaxonomyState, CmsDbContext>
+    {
+        public override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<TaxonomyState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<TaxonomyState>().Property(x => x.Id).ValueGeneratedNever();
+            builder.Entity<TaxonomyState>().Property(x => x.ParentId).IsRequired().HasDefaultValue(0);
+            builder.Entity<TaxonomyState>().HasOne(x => x.Article).WithOne(a => a.Taxonomy);
+            builder.Entity<TaxonomyState>().HasIndex(x => x.ArticleId).IsUnique(true).HasName("IX_Taxonomy_ArticleId");
+            builder.Entity<TaxonomyState>().HasIndex(x => x.ParentId).IsUnique(false).HasName("IX_Taxonomy_ParentId");
+            builder.Entity<TaxonomyState>().HasOne(x => x.Component).WithOne(x => x.Taxonomy).HasForeignKey<TaxonomyState>(x => x.Id);
+        }
     }
 }

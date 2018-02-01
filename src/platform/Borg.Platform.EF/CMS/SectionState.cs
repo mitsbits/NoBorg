@@ -2,6 +2,8 @@
 using Borg.CMS;
 using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
+using Borg.Platform.EF.CMS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -14,5 +16,20 @@ namespace Borg.Platform.EF.CMS
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
         public ICollection<SlotState> Slots { get; set; } = new HashSet<SlotState>();
         public virtual DeviceState Device { get; set; }
+    }
+
+
+    public class SectionStateMap : EntityMap<SectionState, CmsDbContext>
+    {
+        public override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<SectionState>().HasKey(x => x.Id).ForSqlServerIsClustered();
+            builder.Entity<SectionState>().HasIndex(x => x.DeviceId).HasName("IX_Section_DeviceId");
+            builder.Entity<SectionState>().HasIndex(x => x.Identifier).HasName("IX_Section_Identifier");
+            builder.Entity<SectionState>().HasOne(p => p.Device).WithMany(b => b.Sections)
+                .HasForeignKey(p => p.DeviceId).HasConstraintName("FK_Device_Section");
+            builder.Entity<SectionState>().Property(x => x.FriendlyName).HasMaxLength(512).IsRequired().HasDefaultValue("");
+            builder.Entity<SectionState>().Property(x => x.Identifier).HasMaxLength(512).IsRequired().HasDefaultValue("");
+        }
     }
 }
