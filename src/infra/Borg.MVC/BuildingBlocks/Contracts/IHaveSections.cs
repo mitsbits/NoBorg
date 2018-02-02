@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Borg.CMS.BuildingBlocks.Contracts;
+﻿using Borg.CMS.BuildingBlocks.Contracts;
+using System.Collections.Generic;
 
 namespace Borg.MVC.BuildingBlocks.Contracts
 {

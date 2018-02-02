@@ -1,12 +1,11 @@
-﻿using Borg.Cms.Basic.Lib.System.Data;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
+using Borg.Platform.EF.CMS.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
-using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {

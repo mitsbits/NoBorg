@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Borg.Platform.EF.CMS
 {

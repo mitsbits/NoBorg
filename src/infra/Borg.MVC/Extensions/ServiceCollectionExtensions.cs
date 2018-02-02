@@ -1,6 +1,6 @@
 ﻿using Borg.Infra;
 using Borg.Infra.Storage;
-using Borg.MVC;
+using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.ServerResponses;
@@ -8,7 +8,6 @@ using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using Borg.Infra.Storage.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

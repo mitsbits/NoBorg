@@ -34,6 +34,7 @@ namespace Borg.Infra
 
             SynchronizationContext.SetSynchronizationContext(oldContext);
         }
+
         [DebuggerStepThrough]
         public static T RunSync<T>(Func<Task<T>> task)
         {

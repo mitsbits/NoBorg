@@ -1,10 +1,9 @@
 ﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 @model UserSessionViewModel
 
-    
 <form method="post" asp-controller="UserSession" asp-action="SessionSettings" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" role="form">
     <h3 class="control-sidebar-heading">User Session Settings</h3>
-    <input type="hidden" asp-for="UserIdentifier"/>
+    <input type="hidden" asp-for="UserIdentifier" />
     <input type="hidden" asp-for="UserName" />
     <input type="hidden" asp-for="SessionStart" />
     <div class="form-group">
@@ -22,9 +21,8 @@
     <div class="form-group">
         <label class="control-sidebar-subheading">
             @Html.DisplayNameFor(m => m.RowsPerPage)
-           
         </label>
-        <input type="text" class="form-control" asp-for="RowsPerPage"/>
+        <input type="text" class="form-control" asp-for="RowsPerPage" />
         <p>
             Controls the max number of rows that appear on each data page on a grid
         </p>
@@ -35,7 +33,6 @@
         <button type="submit" class="btn btn-default btn-flat btn-block">
             <span class="glyphicon glyphicon-floppy-disk"></span>
         </button>
- 
     </div>
     <!-- /.form-group -->
 

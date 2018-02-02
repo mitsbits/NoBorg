@@ -19,7 +19,6 @@ namespace Borg.Platform.EF.CMS
             builder.Entity<ArticleTagState>().HasKey(t => new { t.ArticleId, t.TagId }).ForSqlServerIsClustered();
             builder.Entity<ArticleTagState>().HasOne(pt => pt.Article).WithMany("ArticleTags").OnDelete(DeleteBehavior.ClientSetNull);
             builder.Entity<ArticleTagState>().HasOne(pt => pt.Tag).WithMany("ArticleTags").OnDelete(DeleteBehavior.ClientSetNull);
-
         }
     }
 }

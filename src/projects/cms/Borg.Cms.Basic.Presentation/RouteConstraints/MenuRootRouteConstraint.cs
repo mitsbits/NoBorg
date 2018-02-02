@@ -1,5 +1,4 @@
-﻿using System;
-using Borg.MVC.PlugIns.Decoration;
+﻿using Borg.MVC.PlugIns.Decoration;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -49,7 +48,6 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly List<string> _bucket = new List<string>();
         public const string ROUTE_IDENTIFIER = "parentmenu";
-   
 
         public MenuLeafParentRouteConstraint(IUnitOfWork<CmsDbContext> uow)
         {
@@ -60,7 +58,6 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values,
             RouteDirection routeDirection)
         {
- 
             return _bucket.Contains(values[routeKey]?.ToString().ToLowerInvariant());
         }
 
@@ -68,10 +65,10 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         {
             var roots = _uow.Context.NavigationItemStates.AsNoTracking();
             var q = from r in roots
-                join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
-                from l in rls.DefaultIfEmpty()
-                where l != null
-                select r.Path;
+                    join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
+                    from l in rls.DefaultIfEmpty()
+                    where l != null
+                    select r.Path;
 
             _bucket.AddRange(q.ToList().Select(x => x.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
         }
@@ -84,7 +81,6 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         private readonly List<string> _bucket = new List<string>();
         public const string ROUTE_IDENTIFIER = "childmenu";
 
-
         public MenuLeafChildRouteConstraint(IUnitOfWork<CmsDbContext> uow)
         {
             _uow = uow;
@@ -94,7 +90,6 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values,
             RouteDirection routeDirection)
         {
-
             return _bucket.Contains(values[routeKey]?.ToString().ToLowerInvariant());
         }
 
@@ -102,10 +97,10 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         {
             var roots = _uow.Context.NavigationItemStates.AsNoTracking();
             var q = from r in roots
-                join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
-                from l in rls.DefaultIfEmpty()
-                where l != null
-                select l.Path;
+                    join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
+                    from l in rls.DefaultIfEmpty()
+                    where l != null
+                    select l.Path;
 
             _bucket.AddRange(q.ToList().Select(x => x.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
         }

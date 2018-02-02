@@ -1,5 +1,4 @@
-﻿using System;
-using Borg.Cms.Basic.Lib.Discovery.Data;
+﻿using Borg.Cms.Basic.Lib.Discovery.Data;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Platform.EF.Assets.Data;
@@ -7,6 +6,7 @@ using Borg.Platform.EF.CMS.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Borg.Cms.Basic
 {
@@ -14,7 +14,6 @@ namespace Borg.Cms.Basic
     {
         public static void Main(string[] args)
         {
-
             var host = BuildWebHost(args);
 
             Seed(host);
@@ -22,13 +21,10 @@ namespace Borg.Cms.Basic
             host.Run();
         }
 
-
-
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
-
 
         private static void Seed(IWebHost host)
         {

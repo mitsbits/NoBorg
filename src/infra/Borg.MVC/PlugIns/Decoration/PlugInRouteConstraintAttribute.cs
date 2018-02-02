@@ -6,7 +6,8 @@ namespace Borg.MVC.PlugIns.Decoration
     public class PlugInRouteConstraintAttribute : Attribute
     {
         public string Name { get; }
-        public PlugInRouteConstraintAttribute(string name) :base()
+
+        public PlugInRouteConstraintAttribute(string name) : base()
         {
             Name = name;
         }

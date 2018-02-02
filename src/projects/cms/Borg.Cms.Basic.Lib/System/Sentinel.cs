@@ -1,13 +1,13 @@
 ﻿using Borg.Infra.Services;
+using Borg.Infra.Services.BackgroundServices;
 using Borg.MVC.PlugIns.Contracts;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra.Services.BackgroundServices;
-using Hangfire;
 
 namespace Borg.Cms.Basic.Lib.System
 {
@@ -29,6 +29,7 @@ namespace Borg.Cms.Basic.Lib.System
         }
 
         #region IHostedService
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.Info("Sentiner started & executing.");
@@ -45,7 +46,8 @@ namespace Borg.Cms.Basic.Lib.System
             _logger.Info("Sentiner stoping.");
             return base.StopAsync(cancellationToken);
         }
-        #endregion
+
+        #endregion IHostedService
 
         public Task FireAndForget<TJob>(TJob job, params string[] args) where TJob : IEnqueueJob
         {

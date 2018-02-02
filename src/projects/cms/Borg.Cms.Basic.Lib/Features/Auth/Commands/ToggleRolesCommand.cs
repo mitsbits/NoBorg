@@ -38,8 +38,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
             _db = db;
         }
 
-
-
         protected override async Task<CommandResult> HandleCore(ToggleRolesCommand message)
         {
             try
@@ -66,11 +64,11 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
                 _logger.LogDebug(2, "Set roles for user : {user}", message.Email);
 
                 var rolesQuery = from r in _db.Roles
-                    join ur in _db.UserRoles on r.Id equals ur.RoleId
-                    join atlasUser in _db.Users on ur.UserId equals atlasUser.Id
-                    orderby r.Name
-                    where atlasUser.Email == message.Email
-                    select r.Name;
+                                 join ur in _db.UserRoles on r.Id equals ur.RoleId
+                                 join atlasUser in _db.Users on ur.UserId equals atlasUser.Id
+                                 orderby r.Name
+                                 where atlasUser.Email == message.Email
+                                 select r.Name;
 
                 var urls = rolesQuery.ToArray();
 

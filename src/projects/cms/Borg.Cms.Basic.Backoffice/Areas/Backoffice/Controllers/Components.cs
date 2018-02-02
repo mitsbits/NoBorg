@@ -1,9 +1,9 @@
-﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
+using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -13,6 +13,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         public ComponentsController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
         {
         }
+
         [HttpPost("ComponentDevice")]
         public async Task<IActionResult> ComponentDevice(ComponentDeviceViewModel model, string redirecturl)
         {

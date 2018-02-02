@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Borg.Infra;
+using System;
 using System.Text;
 using System.Threading.Tasks;
-using Borg.Infra;
 
 namespace Borg
 {

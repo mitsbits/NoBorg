@@ -1,8 +1,8 @@
 ﻿using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
-using System.Collections.Generic;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {

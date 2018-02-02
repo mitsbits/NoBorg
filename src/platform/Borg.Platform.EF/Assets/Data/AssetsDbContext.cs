@@ -6,7 +6,6 @@ namespace Borg.Platform.EF.Assets.Data
     {
         public AssetsDbContext(DbContextOptions<AssetsDbContext> option) : base(option)
         {
-
         }
 
         public DbSet<FileRecord> FileRecords { get; set; }
@@ -23,13 +22,9 @@ namespace Borg.Platform.EF.Assets.Data
                 .StartsAt(1)
                 .IncrementsBy(1);
 
-
             builder.HasSequence<int>("FilesSQC", "assets")
                 .StartsAt(1)
                 .IncrementsBy(1);
-
-
-
 
             builder.Entity<FileRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<FileRecord>().Property(x => x.Id).ValueGeneratedNever();
@@ -52,7 +47,7 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<VersionRecord>().HasOne(x => x.AssetRecord).WithMany(x => x.Versions)
                 .HasForeignKey(x => x.AssetRecordId).HasConstraintName("FK_Asset_Version");
             builder.Entity<VersionRecord>().HasIndex(x => x.FileRecordId).HasName("IX_Version_FileRecordId");
-            builder.Entity<VersionRecord>().HasIndex(x => new{ x.AssetRecordId, x.Version}).IsUnique().HasName("PK_Version_Asset");
+            builder.Entity<VersionRecord>().HasIndex(x => new { x.AssetRecordId, x.Version }).IsUnique().HasName("PK_Version_Asset");
 
             builder.Entity<AssetRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<AssetRecord>().Property(x => x.Id).ValueGeneratedNever();

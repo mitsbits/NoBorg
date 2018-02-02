@@ -1,5 +1,5 @@
-﻿using System;
-using Borg.MVC.Services.UserSession;
+﻿using Borg.MVC.Services.UserSession;
+using System;
 
 namespace Borg.MVC.Extensions
 {

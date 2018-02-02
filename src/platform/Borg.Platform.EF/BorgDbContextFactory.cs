@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace Borg.Platform.EF
 {
-    public abstract class BorgDbContextFactory<TDbContext> :IDesignTimeDbContextFactory<TDbContext> where TDbContext : DbContext
+    public abstract class BorgDbContextFactory<TDbContext> : IDesignTimeDbContextFactory<TDbContext> where TDbContext : DbContext
     {
         public TDbContext CreateDbContext()
         {
@@ -18,8 +18,7 @@ namespace Borg.Platform.EF
 
             var env = envConfig["ENVIRONMENT"];
 
-
-            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\")); 
+            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
 
             return CreateDbContext(basePath, env);
         }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Borg.CMS.BuildingBlocks;
+﻿using Borg.CMS.BuildingBlocks;
 using Borg.MVC.BuildingBlocks;
 using Borg.Platform.EF.CMS;
+using System;
 
 namespace Borg
 {

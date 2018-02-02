@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Borg.Infra.Storage.Assets.Contracts;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using Borg.Infra.Storage.Assets.Contracts;
 
 namespace Borg.Infra.Storage.Assets
 {

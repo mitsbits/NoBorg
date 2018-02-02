@@ -1,6 +1,6 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks.Contracts;
 using System;
-using Borg.Infra;
 
 namespace Borg.MVC.Extensions
 {

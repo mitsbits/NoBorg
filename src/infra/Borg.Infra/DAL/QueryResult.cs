@@ -1,5 +1,5 @@
-﻿using System;
-using Borg.Infra.Messaging;
+﻿using Borg.Infra.Messaging;
+using System;
 
 namespace Borg.Infra.DAL
 {
@@ -24,6 +24,7 @@ namespace Borg.Infra.DAL
         {
             return new QueryResult { Outcome = TransactionOutcome.Failure, Errors = errors };
         }
+
         private Guid _correlationId = Guid.Empty;
         public Guid CorrelationId => _correlationId;
 

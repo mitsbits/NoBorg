@@ -8,6 +8,7 @@ namespace Borg.MVC.BuildingBlocks.Contracts
         Task<IDeviceStructureInfo> PageLayout(int id);
 
         Task<IDeviceStructureInfo> PageLayout(string layout);
+
         Task<IEnumerable<IDeviceStructureInfo>> PageLayouts();
     }
 }

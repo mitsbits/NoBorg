@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.System.Data;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 {
@@ -15,11 +13,9 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
     {
         public DevicesRequest()
         {
-         
         }
-
-  
     }
+
     public class DevicesRequestHandler : AsyncRequestHandler<DevicesRequest, QueryResult<IEnumerable<DeviceState>>>
     {
         private readonly ILogger _logger;
@@ -39,7 +35,4 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
             return QueryResult<IEnumerable<DeviceState>>.Success(results);
         }
     }
-
-
-
 }

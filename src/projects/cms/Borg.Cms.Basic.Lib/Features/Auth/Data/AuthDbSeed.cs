@@ -1,12 +1,11 @@
-﻿using Borg.MVC;
+﻿using Borg.Infra;
+using Borg.MVC.PlugIns.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Infra;
-using Borg.MVC.PlugIns.Contracts;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Data
 {
@@ -36,7 +35,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
             await EnsureDefaultUser();
         }
 
-
         private async Task EnsurPlugInRoles()
         {
             var securityPlaugins = _plugInHost.SecurityPlugIns();
@@ -59,7 +57,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
                 }
             }
         }
-
 
         private async Task EnsureDefaultUser()
         {

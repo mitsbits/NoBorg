@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Borg.MVC.PlugIns.Contracts;
+﻿using Borg.MVC.PlugIns.Contracts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
 
 namespace Borg.Cms.Basic.Lib.Discovery.Contracts
 {
@@ -11,6 +9,4 @@ namespace Borg.Cms.Basic.Lib.Discovery.Contracts
     {
         IDictionary<Type, Func<ModelBuilder, bool>> Entities { get; }
     }
-
-
 }

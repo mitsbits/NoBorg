@@ -9,6 +9,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Events
         {
             Id = id;
         }
+
         public int Id { get; }
     }
 }

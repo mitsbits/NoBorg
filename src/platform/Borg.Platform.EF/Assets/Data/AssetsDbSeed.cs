@@ -1,10 +1,9 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.Assets.Data
 {
-  public  class AssetsDbSeed
+    public class AssetsDbSeed
     {
         private readonly AssetsDbContext _db;
 
@@ -13,12 +12,9 @@ namespace Borg.Platform.EF.Assets.Data
             _db = db;
         }
 
-
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
         }
     }
-
-
 }

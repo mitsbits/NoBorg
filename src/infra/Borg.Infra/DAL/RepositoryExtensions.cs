@@ -50,7 +50,7 @@ namespace Borg.Infra.DAL
         {
             cancellationToken.ThrowIfCancellationRequested();
             var data = await repo.Find(predicate, 1, 1, null, cancellationToken);
-            return data.TotalRecords > 0 ;
+            return data.TotalRecords > 0;
         }
     }
 }

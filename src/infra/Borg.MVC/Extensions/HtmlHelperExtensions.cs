@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Borg.CMS.BuildingBlocks.Contracts;
+using Borg.Infra.DTO;
+using Borg.MVC.BuildingBlocks;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
@@ -6,14 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Borg.CMS.BuildingBlocks.Contracts;
-using Borg.Infra.DTO;
-using Borg.MVC.BuildingBlocks;
-using Borg.MVC.BuildingBlocks.Contracts;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Borg.MVC
 {
@@ -29,12 +27,10 @@ namespace Borg.MVC
             var sb = new StringBuilder();
             foreach (var item in items)
             {
-
                 using (var writer = new IndentedTextWriter(new StringWriter(sb)))
                 {
                     try
                     {
-
                         if (item.Module.ModuleGender == ModuleGender.ViewComponent.Flavor)
                         {
                             var tx = item.Module.Parameters.FirstOrDefault(x => x.Key == "AssemblyQualifiedName").Value;
@@ -43,15 +39,12 @@ namespace Borg.MVC
                             result.WriteTo(writer, HtmlEncoder.Default);
                         }
 
-
-
                         if (item.Module.ModuleGender == ModuleGender.PartialView.Flavor)
                         {
                             var view = item.Module.Parameters.FirstOrDefault(x => x.Key == "view").Value;
                             var result = await html.PartialAsync(view, new Tidings(item.Module.Parameters));
                             result.WriteTo(writer, HtmlEncoder.Default);
                         }
-
 
                         //var toRender = item.Module as IHtmlHelperRendersMe;
                         //toRender?.Render(html);

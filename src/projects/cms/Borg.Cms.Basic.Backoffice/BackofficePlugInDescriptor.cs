@@ -4,6 +4,7 @@ using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Borg.MVC.PlugIns.Decoration;
 
 namespace Borg.Cms.Basic.Backoffice
 {
@@ -96,7 +96,7 @@ namespace Borg.Cms.Basic.Backoffice
             {
                 var attrs = GetType().Assembly.GetTypes().Select(x => x.GetCustomAttribute<PulgInTagHelperAttribute>());
                 if (!attrs.Any(x => x != null)) return new string[0];
-                return attrs.Where(x=> x!= null).Distinct().Select(x => x.Name).ToArray();
+                return attrs.Where(x => x != null).Distinct().Select(x => x.Name).ToArray();
             }
         }
     }

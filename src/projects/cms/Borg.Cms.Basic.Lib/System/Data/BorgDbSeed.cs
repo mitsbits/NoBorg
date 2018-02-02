@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using Borg.Infra;
-using Borg.MVC;
+﻿using Borg.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.System.Data
 {
-
     public class BorgDbSeed
     {
         private readonly BorgDbContext _db;
@@ -26,7 +24,4 @@ namespace Borg.Cms.Basic.Lib.System.Data
             await _db.Database.MigrateAsync();
         }
     }
-
-
-
 }

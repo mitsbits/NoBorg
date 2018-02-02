@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Borg.Cms.Basic.Lib.Features.Device.Queries;
-using Borg.Cms.Basic.Lib.System.Data;
+﻿using Borg.Cms.Basic.Lib.Features.Device.Queries;
 using Borg.Infra;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Services
 {

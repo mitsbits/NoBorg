@@ -7,11 +7,10 @@ namespace Borg.Infra
         IPaginationInfoStyle Style { get; }
     }
 
-
-
     public class NullPaginationSettingsProvider : IPaginationSettingsProvider
     {
         private static readonly IPaginationInfoStyle _paginationInfoStyle;
+
         static NullPaginationSettingsProvider()
         {
             _paginationInfoStyle = new PaginationInfoStyle();
@@ -22,7 +21,8 @@ namespace Borg.Infra
 
     public class FactoryPaginationSettingsProvider<TSettings> : IPaginationSettingsProvider where TSettings : IPaginationInfoStyle
     {
-        private  readonly TSettings _paginationInfoStyle;
+        private readonly TSettings _paginationInfoStyle;
+
         public FactoryPaginationSettingsProvider(Func<TSettings> factory)
         {
             _paginationInfoStyle = factory.Invoke();
@@ -34,6 +34,7 @@ namespace Borg.Infra
     public class InstancePaginationSettingsProvider<TSettings> : IPaginationSettingsProvider where TSettings : IPaginationInfoStyle
     {
         private readonly TSettings _paginationInfoStyle;
+
         public InstancePaginationSettingsProvider(TSettings instance)
         {
             _paginationInfoStyle = instance;

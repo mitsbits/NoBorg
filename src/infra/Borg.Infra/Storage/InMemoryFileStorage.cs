@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Borg.Infra.Storage.Contracts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Infra.Storage
 {
@@ -104,7 +104,7 @@ namespace Borg.Infra.Storage
                     return false;
 
                 _storage[targetpath] = _storage[path];
-                (_storage[targetpath].Item1  as FileSpecDefinition).ModifyPath(targetpath);
+                (_storage[targetpath].Item1 as FileSpecDefinition).ModifyPath(targetpath);
             }
 
             return true;

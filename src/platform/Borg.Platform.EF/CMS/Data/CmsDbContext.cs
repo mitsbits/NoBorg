@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Borg;
 
 namespace Borg.Platform.EF.CMS.Data
 {
@@ -33,7 +31,7 @@ namespace Borg.Platform.EF.CMS.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var maptype = typeof(EntityMap<,>);
-           
+
             var maps = GetType().Assembly.GetTypes().Where(t => t.IsSubclassOfRawGeneric(maptype) && !t.IsAbstract && t.BaseType.GenericTypeArguments[1] == GetType());
 
             foreach (var map in maps)
@@ -63,7 +61,7 @@ namespace Borg.Platform.EF.CMS.Data
         CmsDbContext IDesignTimeDbContextFactory<CmsDbContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
-            optionsBuilder.UseSqlServer("Server=.\\d2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
+            optionsBuilder.UseSqlServer("Server=.\\sql2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
 
             return new CmsDbContext(optionsBuilder.Options);
         }

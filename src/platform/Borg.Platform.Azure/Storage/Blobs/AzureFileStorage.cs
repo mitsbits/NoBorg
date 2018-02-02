@@ -1,4 +1,4 @@
-﻿using Borg.Infra.Storage;
+﻿using Borg.Infra.Storage.Contracts;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Platform.Azure.Storage.Blobs
 {

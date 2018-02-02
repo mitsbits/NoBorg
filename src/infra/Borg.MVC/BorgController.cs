@@ -86,13 +86,15 @@ namespace Borg.MVC
         #endregion Pager
 
         #region Nreadcrumbs
+
         protected virtual void Breadcrumbs(params BreadcrumbItem[] Breadcrumb)
         {
             var device = PageDevice<Device>();
             device.Breadcrumbs.AddRange(Breadcrumb);
             PageDevice(device);
-        } 
-        #endregion
+        }
+
+        #endregion Nreadcrumbs
 
         #region AddErrors
 

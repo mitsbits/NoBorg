@@ -1,8 +1,8 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Infra;
 using Borg.Infra.DAL;
 using Borg.Infra.DDD;
 using Borg.Infra.Services;
-using Borg.MVC;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +15,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra;
 
 namespace Borg.Cms.Basic.Lib.Features.Auth.Register
 {

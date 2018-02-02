@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Borg.Infra.Services.BackgroundServices
 {
@@ -9,10 +6,8 @@ namespace Borg.Infra.Services.BackgroundServices
     {
     }
 
-    public interface IEnqueueJob: IBackgroundJob
+    public interface IEnqueueJob : IBackgroundJob
     {
         Task Execute(string[] args);
     }
-
-
 }

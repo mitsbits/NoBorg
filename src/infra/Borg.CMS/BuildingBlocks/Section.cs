@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Borg.CMS.BuildingBlocks.Contracts;
+﻿using Borg.CMS.BuildingBlocks.Contracts;
 using Borg.Infra;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Borg.CMS.BuildingBlocks
 {
@@ -12,7 +12,7 @@ namespace Borg.CMS.BuildingBlocks
             Slots = new HashSet<Slot>();
         }
 
-        public string Identifier { get;  set; }
+        public string Identifier { get; set; }
 
         public string FriendlyName { get; set; }
 

@@ -1,19 +1,17 @@
-﻿using System;
-using Borg.Infra;
+﻿using Borg.Infra;
 using Borg.Infra.Services.AssemblyProvider;
 using Borg.MVC.PlugIns;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
 using Borg.MVC.Services.Themes;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -55,6 +53,7 @@ namespace Borg.MVC
             EntryPointAssemblies = ViewEngineProvidersForPluginThemes(services, AssembliesToScan);
             return services;
         }
+
         protected IMvcBuilder AddBorgMvc(IServiceCollection services)
         {
             var mvcbuilder = services.AddMvc();
@@ -62,11 +61,10 @@ namespace Borg.MVC
             {
                 mvcbuilder.AddApplicationPart(entrypointassembly);
             }
-           
-
 
             return mvcbuilder;
         }
+
         protected void PopulateSettings(IServiceCollection services)
         {
             services.Config(Configuration.GetSection("Borg"), () => Settings);
@@ -96,8 +94,6 @@ namespace Borg.MVC
             });
             return entrypointassemblies;
         }
-
-
     }
 
     internal static class Ext

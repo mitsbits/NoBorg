@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Borg.Infra;
+using System;
 using System.Collections.Generic;
-using Borg.Infra;
 
 namespace Borg.MVC.BuildingBlocks
 {

@@ -1,6 +1,5 @@
 ﻿using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
-using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Borg.Cms.Basic.Lib.Features.Content.Modules

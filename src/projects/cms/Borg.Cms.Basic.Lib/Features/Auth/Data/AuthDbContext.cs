@@ -9,7 +9,6 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
         public AuthDbContext(DbContextOptions<AuthDbContext> options)
             : base(options)
         {
-            
         }
 
         public DbSet<RegistrationRequest> RegistrationRequests { get; set; }

@@ -9,7 +9,8 @@ namespace Borg.MVC.BuildingBlocks
     public class DeviceLayoutFilter : ActionFilterAttribute
     {
         private readonly IPageOrchestrator<IPageContent, IDevice> _orchestrator;
-        public DeviceLayoutFilter(IPageOrchestrator<IPageContent, IDevice> orchestrator, string layout = ""):base()
+
+        public DeviceLayoutFilter(IPageOrchestrator<IPageContent, IDevice> orchestrator, string layout = "") : base()
         {
             Preconditions.NotNull(orchestrator, nameof(orchestrator));
             _orchestrator = orchestrator;

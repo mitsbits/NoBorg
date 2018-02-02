@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using Borg.Infra;
 using Borg.Infra.Collections;
 using Borg.Infra.Storage;
@@ -13,12 +8,16 @@ using Borg.Platform.EF.Assets.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Platform.EF.Assets.Services
 {
     public class EfAssetsSequencedDatabaseService : EFAssetsDatabaseService<int>
     {
-
         protected readonly ILogger _logger;
         protected readonly AssetsDbContext _db;
 
@@ -27,8 +26,8 @@ namespace Borg.Platform.EF.Assets.Services
             _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             Preconditions.NotNull(db, nameof(db));
             _db = db;
-
         }
+
         public override async Task<int> AssetNextFromSequence()
         {
             return await SequnceInternal("assets.AssetsSQC");
@@ -118,7 +117,6 @@ namespace Borg.Platform.EF.Assets.Services
             };
         }
 
-
         private async Task<int> SequnceInternal(string sqc)
         {
             var conn = _db.Database.GetDbConnection(); //do not dispose connection, it is managed by the context
@@ -126,8 +124,6 @@ namespace Borg.Platform.EF.Assets.Services
             {
                 try
                 {
-
-
                     command.CommandText = $"SELECT NEXT VALUE FOR {sqc}";
                     if (conn.State == ConnectionState.Closed) await conn.OpenAsync();
                     var result = await command.ExecuteScalarAsync();

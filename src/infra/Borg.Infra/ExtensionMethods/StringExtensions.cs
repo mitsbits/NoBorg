@@ -52,6 +52,7 @@ namespace Borg
             var repeatedStrArray = Enumerable.Repeat(c.ToCharArray(), times).SelectMany(x => x);
             return new string(repeatedStrArray.ToArray());
         }
+
         public static bool IsNullOrWhiteSpace(this string str)
         {
             return string.IsNullOrWhiteSpace(str);

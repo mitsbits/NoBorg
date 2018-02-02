@@ -1,8 +1,8 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.CMS.BuildingBlocks;
+using Borg.CMS.BuildingBlocks.Contracts;
+using Borg.MVC.BuildingBlocks.Contracts;
 using System.Collections.Generic;
 using System.Linq;
-using Borg.CMS.BuildingBlocks;
-using Borg.CMS.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {

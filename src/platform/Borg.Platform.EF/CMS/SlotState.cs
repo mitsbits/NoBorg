@@ -1,10 +1,9 @@
-﻿using System;
-using Borg.CMS;
-using Borg.CMS.BuildingBlocks;
+﻿using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
 
 namespace Borg.Platform.EF.CMS
 {

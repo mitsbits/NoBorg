@@ -1,4 +1,6 @@
-﻿using Borg.Infra;
+﻿using Borg.CMS.BuildingBlocks;
+using Borg.CMS.BuildingBlocks.Contracts;
+using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.Breadcrumbs;
@@ -10,10 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using Borg.CMS.BuildingBlocks;
-using Borg.CMS.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {

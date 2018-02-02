@@ -1,4 +1,3 @@
-
 //import 'bootstrap/dist/css/bootstrap.css'
 //import 'admin-lte/dist/css/AdminLTE.css'
 //import 'icheck/skins/all.css'
@@ -11,4 +10,3 @@
 
 //window.$ = jquery;
 //window.jQuery = jquery;
-

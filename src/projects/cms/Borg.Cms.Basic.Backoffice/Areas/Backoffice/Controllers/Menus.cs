@@ -1,13 +1,13 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 using Borg.Cms.Basic.Lib.Features.Navigation.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
+using Borg.MVC.Services.Breadcrumbs;
 using Borg.Platform.EF.CMS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.MVC.Services.Breadcrumbs;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -44,7 +44,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             }
             return View();
         }
-
 
         [HttpPost("")]
         public async Task<IActionResult> Item(NavigationItemStateCreateOrUpdateCommand model)

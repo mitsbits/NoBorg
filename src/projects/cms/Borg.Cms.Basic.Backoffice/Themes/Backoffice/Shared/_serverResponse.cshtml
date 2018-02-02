@@ -3,7 +3,6 @@
 @using Borg.Infra.DTO
 @using Microsoft.AspNetCore.Hosting
 
-
 @{
     Func<IServerResponse, string> _containerClass = (msg) =>
     {
@@ -60,7 +59,6 @@
     };
 }
 
-
 @if (UserSession.Messages.Any())
 {
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel">
@@ -68,7 +66,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h3 class="modal-title pull-left" >
+                    <h3 class="modal-title pull-left">
                         <i class="fa fa-envelope"></i>
                     </h3>
                     <div class="modal-tools pull-right">
@@ -93,7 +91,6 @@
                             }
                         }
                     }
-
                 </div>
             </div>
         </div>

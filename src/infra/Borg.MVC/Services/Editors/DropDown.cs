@@ -56,7 +56,7 @@ namespace Borg.MVC.Services.Editors
             return new[] { Tuple.Create(0, Value) };
         }
 
-        public IEnumerable<SelectListItem> DropDownItems(bool insertEmpty = false,string emptyvalue = "", string emptydisplay="...")
+        public IEnumerable<SelectListItem> DropDownItems(bool insertEmpty = false, string emptyvalue = "", string emptydisplay = "...")
         {
             var result = new List<SelectListItem>();
             foreach (var option in Options.AsEnumerable())
@@ -69,7 +69,7 @@ namespace Borg.MVC.Services.Editors
                         {
                             if (@group.Name.Length > 0)
                             {
-                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value, Group = @group, Selected = item.Value == Value});
+                                result.Add(new SelectListItem() { Value = item.Key, Text = item.Value, Group = @group, Selected = item.Value == Value });
                             }
                             else
                             {
@@ -83,7 +83,7 @@ namespace Borg.MVC.Services.Editors
                     result.Add(new SelectListItem() { Value = option.Key, Text = option.Value, Selected = option.Value == Value });
                 }
             }
-            if (insertEmpty) result.Insert(0, new SelectListItem(){ Value = emptyvalue, Text = emptydisplay, Selected = emptyvalue == Value });
+            if (insertEmpty) result.Insert(0, new SelectListItem() { Value = emptyvalue, Text = emptydisplay, Selected = emptyvalue == Value });
             return result;
         }
 

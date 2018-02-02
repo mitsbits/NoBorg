@@ -8,7 +8,7 @@
 
         public static string[] Schemes()
         {
-            return new[] {UnSet, Detail, List};
+            return new[] { UnSet, Detail, List };
         }
     }
 }

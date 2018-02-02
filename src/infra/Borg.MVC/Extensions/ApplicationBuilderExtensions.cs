@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-
-
+using System;
 
 namespace Borg.MVC.Extensions
 {
@@ -46,10 +44,13 @@ namespace Borg.MVC.Extensions
 
         private class EmptyStartup
         {
-            public void ConfigureServices(IServiceCollection services) { }
+            public void ConfigureServices(IServiceCollection services)
+            {
+            }
 
-            public void Configure(IApplicationBuilder app) { }
+            public void Configure(IApplicationBuilder app)
+            {
+            }
         }
     }
-
 }

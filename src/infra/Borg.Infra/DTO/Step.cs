@@ -1,5 +1,5 @@
-﻿using System;
-using Borg.Infra.Collections.Hierarchy;
+﻿using Borg.Infra.Collections.Hierarchy;
+using System;
 
 namespace Borg.Infra.DTO
 {

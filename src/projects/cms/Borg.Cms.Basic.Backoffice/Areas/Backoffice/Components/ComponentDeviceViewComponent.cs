@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Services.Editors;
 using Borg.Platform.EF.CMS;
@@ -12,6 +6,10 @@ using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 {
@@ -44,8 +42,8 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
     {
         public ComponentDeviceViewModel()
         {
-            
         }
+
         public ComponentDeviceViewModel(int componentId, DropDown deviceId)
         {
             ComponentId = componentId;
@@ -53,9 +51,8 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
         }
 
         public int ComponentId { get; set; }
+
         [DisplayName("Device")]
         public DropDown DeviceId { get; set; }
-
-
     }
 }

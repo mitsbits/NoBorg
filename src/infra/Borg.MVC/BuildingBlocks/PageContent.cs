@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Borg.MVC.BuildingBlocks
+﻿namespace Borg.MVC.BuildingBlocks
 {
     public class PageContent : IPageContent
     {

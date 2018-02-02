@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Borg.CMS;
-using Borg.CMS.BuildingBlocks;
+﻿using Borg.CMS.BuildingBlocks;
 using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -17,7 +16,6 @@ namespace Borg.Platform.EF.CMS
         public ICollection<SlotState> Slots { get; set; } = new HashSet<SlotState>();
         public virtual DeviceState Device { get; set; }
     }
-
 
     public class SectionStateMap : EntityMap<SectionState, CmsDbContext>
     {

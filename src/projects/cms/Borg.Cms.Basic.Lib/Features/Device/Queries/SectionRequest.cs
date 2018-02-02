@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.System.Data;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Queries
 {
@@ -20,6 +15,7 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Queries
         {
             RecordId = recordId;
         }
+
         public int RecordId { get; }
     }
 

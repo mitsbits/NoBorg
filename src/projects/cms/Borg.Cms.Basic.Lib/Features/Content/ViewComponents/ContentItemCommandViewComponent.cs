@@ -1,13 +1,13 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Content.Commands;
 using Borg.Cms.Basic.Lib.Features.Content.Queries;
+using Borg.MVC.BuildingBlocks;
+using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Borg.MVC.BuildingBlocks;
-using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.MVC.Extensions;
 
 namespace Borg.Cms.Basic.Lib.Features.Content.ViewComponents
 {
