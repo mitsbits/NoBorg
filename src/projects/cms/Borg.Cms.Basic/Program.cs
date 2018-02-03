@@ -1,6 +1,7 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery.Data;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.System.Data;
+using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Platform.EF.Assets.Data;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.AspNetCore;
@@ -41,6 +42,8 @@ namespace Borg.Cms.Basic
                 cmsseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
                 var discoveryseed = scope.ServiceProvider.GetRequiredService<DiscoveryDbSeed>();
                 discoveryseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                var documentseed = scope.ServiceProvider.GetRequiredService<DocumentsDbSeed>();
+                documentseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
             }
         }
     }

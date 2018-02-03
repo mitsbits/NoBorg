@@ -1,15 +1,15 @@
-﻿using Borg.Infra.Storage.Assets.Contracts;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Borg.Infra.Storage.Assets.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Conventions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Controllers
+namespace Borg.Cms.Basic.Presentation.Controllers
 {
     //[TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "Templates/_BlogLayout" })]
     [ControllerTheme("Bootstrap3")]

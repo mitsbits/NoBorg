@@ -11,7 +11,7 @@ namespace Borg.Infra
 
         public JsonNetSerializer(JsonSerializerSettings settings = null)
         {
-            _settings = settings ?? new JsonSerializerSettings();
+            _settings = settings ?? new JsonSerializerSettings(){ TypeNameHandling = TypeNameHandling.Auto };
         }
 
         public Task<object> DeserializeAsync(byte[] value, Type objectType)

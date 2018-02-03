@@ -1,4 +1,6 @@
 ﻿using System;
+using Borg.Infra.Serializer;
+using Newtonsoft.Json;
 
 namespace Borg.Infra.Storage.Assets.Contracts
 {
@@ -9,7 +11,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
             Id = id;
             Name = name;
         }
-
+        [JsonConverter(typeof(ConcreteConverter<VersionInfoDefinition>))]
         public IVersionInfo CurrentFile { get; set; }
         public string Name { get; }
 

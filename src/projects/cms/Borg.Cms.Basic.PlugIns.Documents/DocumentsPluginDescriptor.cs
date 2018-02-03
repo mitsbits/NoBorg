@@ -1,11 +1,16 @@
 ﻿using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers;
+using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
+using Borg.Platform.EF.Contracts;
+using Borg.Platform.EF.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,7 +26,15 @@ namespace Borg.Cms.Basic.PlugIns.Documents
 
         public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings, Assembly[] assembliesToScan)
         {
-            return services.RegisterDiscoveryServices(this);
+            services.RegisterDiscoveryServices(this);
+            services.AddDbContext<DocumentsDbContext>(options =>
+            {
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "documents")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
+                options.EnableSensitiveDataLogging(hostingEnvironment.IsDevelopment() || hostingEnvironment.EnvironmentName.EndsWith("local"));
+            });
+            services.AddScoped<IUnitOfWork<DocumentsDbContext>, UnitOfWork<DocumentsDbContext>>();
+            services.AddScoped<DocumentsDbSeed>();
+            return services;
         }
 
         public Tidings BackofficeEntryPointAction => new Tidings

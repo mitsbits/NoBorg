@@ -1,0 +1,111 @@
+﻿@{
+    var uploadid = Guid.NewGuid().ToString();
+}
+<div class="box box-primary box-solid with-border">
+
+    <div class="box-body">
+        <form id="form" name="form" asp-controller="Uploader" asp-action="Home" asp-area="Documents" enctype="multipart/form-data" method="post">
+            <label class="btn btn-primary btn-file btn-block btn-flat btn-lg">
+                <span class="glyphicon glyphicon-cloud-upload"></span>
+                Browse <input id="files" name="files" type="file" class="hidden" /> <!--onchange="uploadFiles('files');"-->
+            </label>
+        </form>
+    </div>
+
+    <div class="box-footer">
+        <div id="progress" class="progress" style="display: none;">
+            <div class="progress-bar progress-bar-primary progress-bar-striped" style="width: 0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <div id="outcome" style="display: none;">
+            <a href="#" class="btn btn-success btn-block btn-flat btn-lg"></a>
+        </div>
+    </div>
+</div>
+
+<script device id="ajaxuploadscript" weight="100">
+    $(function () {
+
+        var intervalId;
+        var targetUrl = '@Url.Action("Item", "Home", new {area = "Documents"})';
+        var breaker = false;
+
+        function uploadFiles(inputId) {
+
+            breaker = false;
+        $("div#outcome").hide();
+        var input = document.getElementById(inputId);
+        var files = input.files;
+        var formData = new FormData();
+
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        startUpdatingProgressIndicator();
+        $.ajax(
+            {
+                url: '@Url.Action("Home", "Uploader", new {area="Documents", uploadid = uploadid })',
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function (data) {
+                    stopUpdatingProgressIndicator();
+
+                    $("#progress").hide(700);
+                    $("#progress div").css({ width: "0" });
+                }
+            }
+        );
+        }
+
+    function startUpdatingProgressIndicator() {
+        $("#progress").show();
+
+        intervalId = setInterval(
+            function () {
+
+                $.post(
+                    '@Url.Action("Progress", "Uploader", new {area="Documents", uploadid = uploadid })',
+                    function (progress) {
+                        console.debug(JSON.stringify(progress));
+                        if (!breaker) {
+                            if (progress.result) {
+                                var item = progress.payload[0];
+
+                                var id = item.currentFile.fileSpec.id;
+                                var url = targetUrl + "/" + id;
+                                $("div#outcome a").attr("href", url);
+                                $("div#outcome a").text(item.name);
+                                $("div#outcome").show(300, function () {
+                                    stopUpdatingProgressIndicator();
+                                    breaker = false;
+
+                            });
+
+                        }
+                        else
+                        {
+                            var val = progress.val;
+                            if (val !== "-1") {
+                            $("#progress div").css({ width: val + "%" });
+                            breaker = false;
+                            //$("#label").html(progress + "%")
+                                }
+                        }
+                        }
+                    }
+                );
+            },
+            10
+        );
+    }
+
+    function stopUpdatingProgressIndicator() {
+        clearInterval(intervalId);
+    }
+
+     $('#files').on("change", function () { uploadFiles('files'); });
+    });
+</script>
