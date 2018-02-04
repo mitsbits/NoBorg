@@ -1,0 +1,23 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
+@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model IEnumerable<DocumentForOwnerViewModel>
+
+@{
+    var parts = (Model.Count() / 5) + 1;
+    var i = 0;
+    var splits = from item in Model
+                 group item by i++ % parts into part
+                 select part.AsEnumerable();
+}
+
+@foreach (var split in splits)
+{
+    <div class="row">
+        @foreach (var doc in split)
+        {
+            <div class="col-md-3">
+                @Html.Partial("Components/LatestUserDocuments/Partials/Document", doc)
+            </div>
+        }
+    </div>
+}

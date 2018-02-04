@@ -33,7 +33,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("0");
 
-                    b.Property<int>("DocumentState");
+                    b.Property<int>("DocumentBehaviourState");
 
                     b.Property<string>("Name")
                         .IsRequired()

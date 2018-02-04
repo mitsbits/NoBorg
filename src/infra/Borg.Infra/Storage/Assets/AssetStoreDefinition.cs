@@ -28,6 +28,11 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         public abstract Task<TAsset> AddNewVersion(TKey id, byte[] content, string fileName);
 
+        public async Task<IVersionInfo> CheckOut(TKey id)
+        {
+            return await _assetStoreDatabaseService.CheckOut(id);
+        }
+
         public abstract Task<TAsset> Create(string name, byte[] content, string fileName);
 
         public abstract Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);

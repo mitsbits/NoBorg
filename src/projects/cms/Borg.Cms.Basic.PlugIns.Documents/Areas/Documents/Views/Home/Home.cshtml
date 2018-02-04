@@ -1,12 +1,14 @@
-﻿@{
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
+@using Borg.Infra.DTO
+@{
     Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
-    var uploadid = Guid.NewGuid().ToString();
-}
 
+}
 
 <div class="row">
     <div class="col-md-3">
-     @Html.Partial("SimpleUploader")
+        @Html.Partial("SimpleUploader")
     </div>
 </div>
 
+@await Component.InvokeAsync(typeof(LatestUserDocumentsViewComponent), new Tidings(new[] { new Tiding("count", "8") }))

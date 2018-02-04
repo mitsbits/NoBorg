@@ -18,6 +18,8 @@ namespace Borg.Platform.EF.Assets.Services
 
         public abstract Task Create(AssetInfoDefinition<TKey> asset);
 
+        public abstract Task<VersionInfoDefinition> CheckOut(TKey id);
+
         public abstract Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
     }
 }

@@ -1,5 +1,9 @@
-﻿using Borg.Infra.Caching.Contracts;
+﻿using Borg.Cms.Basic.PlugIns.Documents.Commands;
+using Borg.Infra.Caching.Contracts;
+using Borg.Infra.DAL;
+using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,11 +20,13 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
     {
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
         private readonly ICacheStore _cache;
+        private readonly IMediator _dispatcher;
 
-        public UploaderController(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore, ICacheStore cache) : base(loggerFactory)
+        public UploaderController(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore, ICacheStore cache, IMediator dispatcher) : base(loggerFactory)
         {
             _assetStore = assetStore;
             _cache = cache;
+            _dispatcher = dispatcher;
         }
 
         [HttpPost]
@@ -58,14 +64,25 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
                             await _cache.SetSliding(cacheKey, pr, TimeSpan.FromSeconds(60));
                             //await Task.Delay(100); // It is only to make the process slower
                         }
+
                         bucket.Add(await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), output.ToArray(), filename));
                     }
                 }
             }
 
             await _cache.Remove(cacheKey);
-            await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(5));
-            return Ok();
+            CommandResult commResult = CommandResult.Success();
+            foreach (var assetInfoDefinition in bucket)
+            {
+                commResult = await _dispatcher.Send(new DocumentOwnerAssociationCommand(assetInfoDefinition.Id, User.Identity.Name,
+                    DocumentOwnerAssociationOperation.AddToUserCollection));
+            }
+            if (commResult.Succeded)
+            {
+                await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(5));
+                return Ok();
+            }
+            return BadRequest(commResult.Errors);
         }
 
         [HttpPost]

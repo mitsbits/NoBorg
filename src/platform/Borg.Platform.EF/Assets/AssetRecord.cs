@@ -12,7 +12,7 @@ namespace Borg.Platform.EF.Assets
 
         public ICollection<VersionRecord> Versions { get; set; } = new HashSet<VersionRecord>();
 
-        public DocumentState DocumentState { get; set; }
+        public DocumentBehaviourState DocumentBehaviourState { get; set; }
         public int CurrentVersion { get; set; } = 0;
     }
 }

@@ -15,6 +15,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         Task<TAsset> AddNewVersion(TKey id, byte[] content, string fileName);
 
+        Task<IVersionInfo> CheckOut(TKey id);
+
         Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
 
         event AssetCreatedEventHandler<TKey> AssetCreated;
@@ -31,6 +33,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<IPagedResult<AssetInfoDefinition<TKey>>> Find(IEnumerable<TKey> ids);
 
         Task Create(AssetInfoDefinition<TKey> asset);
+
+        Task<VersionInfoDefinition> CheckOut(TKey id);
 
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
     }

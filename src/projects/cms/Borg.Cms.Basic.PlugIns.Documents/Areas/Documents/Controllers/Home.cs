@@ -1,8 +1,9 @@
-﻿using Borg.Infra.Storage.Assets.Contracts;
+﻿using Borg.Cms.Basic.PlugIns.Documents.Commands;
+using Borg.Cms.Basic.PlugIns.Documents.Queries;
 using Borg.MVC.Conventions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
@@ -10,11 +11,11 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
     [ControllerTheme("Backoffice")]
     public class HomeController : DocumentsController
     {
-        private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
+        private readonly IMediator _dispatcher;
 
-        public HomeController(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore) : base(loggerFactory)
+        public HomeController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory)
         {
-            _assetStore = assetStore;
+            _dispatcher = dispatcher;
         }
 
         public IActionResult Home()
@@ -25,11 +26,49 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 
         public async Task<IActionResult> Item(int id)
         {
-            var hits = await _assetStore.Projections(new[] { id });
-            if (!hits.Any()) return NotFound($"no document for id {id}");
-            var doc = hits.First();
-            SetPageTitle(doc.Name, doc.CurrentFile.FileSpec.MimeType);
-            return View(doc);
+            var result = await _dispatcher.Send(new DocumentRequest(id));
+            if (!result.Succeded)
+            {
+                return View("404");
+            }
+            var model = result.Payload;
+            SetPageTitle(model.Asset.Name, $"v: {model.Asset.CurrentFile.Version} mt: {model.Asset.CurrentFile.FileSpec.MimeType}");
+            return View(result.Payload);
+        }
+
+        [HttpPost("[area]/[controller]/ToggleState")]
+        public async Task<IActionResult> ToggleState(ToggleStateModel model, string redirecturl)
+        {
+            if (model.operation == "deleted")
+            {
+                var result = await _dispatcher.Send(new ToggleDocumentDeletedStateCommand(model.id));
+                if (!result.Succeded) AddErrors(result);
+            }
+            if (model.operation == "published")
+            {
+                var result = await _dispatcher.Send(new ToggleDocumentPublishedStateCommand(model.id));
+                if (!result.Succeded) AddErrors(result);
+            }
+
+            return RedirectToLocal(redirecturl);
+        }
+
+        [HttpPost("[area]/[controller]/CheckOut")]
+        public async Task<IActionResult> CheckOut(int documentId, string redirecturl)
+        {
+            var command = new CheckOutCommand(documentId, User.Identity.Name);
+            var result = await _dispatcher.Send(command);
+            if (!result.Succeded)
+            {
+                AddErrors(result);
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
+        public class ToggleStateModel
+        {
+            public string operation { get; set; }
+            public int id { get; set; }
         }
     }
 }

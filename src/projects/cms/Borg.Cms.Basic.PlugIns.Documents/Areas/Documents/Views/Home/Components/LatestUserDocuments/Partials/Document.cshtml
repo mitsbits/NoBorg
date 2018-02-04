@@ -1,0 +1,28 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
+@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model DocumentForOwnerViewModel
+@{
+    var stateclass = (!Model.Document.IsDeleted && Model.Document.IsPublished) ? "success" : "danger";
+}
+<div class="box box-@stateclass box-solid">
+
+    <div class="box-header with-border bg-gray">
+        <h3 class="box-title text-@stateclass">@Model.Asset.Name</h3>
+        <div class="box-tools pull-right">
+            <span doc-checkout checked-out-state="@Model.Asset.InProgress()"></span>
+            <span doc-deleted deleted-state="@Model.Document.IsDeleted"></span>
+            <span doc-published published-state="@Model.Document.IsPublished"></span>
+        </div>
+    </div>
+    <div class="box-body">
+        <p><label>version: @Model.Asset.CurrentFile.Version</label></p>
+        <p>
+            <label>mime type @Model.Asset.CurrentFile.FileSpec.MimeType</label>
+        </p>
+        <p>
+            <a asp-controller="Home" asp-action="Item" asp-route-id="@Model.Document.Id">
+                @Model.Document.Id - @Model.Owner.AssociatedOn.ToString("dd/MM/yy HH:mm") UTC
+            </a>
+        </p>
+    </div>
+</div>

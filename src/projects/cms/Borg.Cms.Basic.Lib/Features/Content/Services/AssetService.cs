@@ -1,4 +1,5 @@
-﻿using Borg.Infra.Storage.Assets.Contracts;
+﻿using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Microsoft.Extensions.Logging;
 using System;

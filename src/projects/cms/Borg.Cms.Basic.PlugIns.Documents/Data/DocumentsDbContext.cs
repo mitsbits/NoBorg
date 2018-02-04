@@ -18,6 +18,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
 
         public DbSet<DocumentState> DocumentStates { get; set; }
         public DbSet<DocumentOwnerState> DocumentOwnerStates { get; set; }
+        public DbSet<DocumentCheckOutState> DocumentCheckOutStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

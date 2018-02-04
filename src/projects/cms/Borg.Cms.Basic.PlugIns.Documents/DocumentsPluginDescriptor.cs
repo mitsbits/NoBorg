@@ -22,7 +22,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents
     public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
     {
         public string Area => "Documents";
-        public string Title => "Documents Management";
+        public string Title => "Documents";
 
         public IServiceCollection Configure(IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings, Assembly[] assembliesToScan)
         {

@@ -13,6 +13,7 @@
     <Content Remove="Themes\Backoffice\HtmlSnippet\Home.cshtml" />
     <Content Remove="Themes\Backoffice\HtmlSnippet\Partials\HtmlSnippetCommand.cshtml" />
     <Content Remove="Themes\Backoffice\PlugIns\Partials\Descriptor.cshtml" />
+    <Content Remove="Themes\Backoffice\Shared\404.cshtml" />
     <Content Remove="Themes\Backoffice\Shared\Components\ComponentDevice\Default.cshtml" />
     <Content Remove="Themes\Backoffice\Shared\Layout\NavigationHeader.cshtml" />
     <Content Remove="Themes\Backoffice\Users\Partials\UserAvatar.cshtml" />

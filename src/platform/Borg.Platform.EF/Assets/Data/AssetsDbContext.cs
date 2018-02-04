@@ -54,7 +54,7 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<AssetRecord>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR assets.AssetsSQC");
             builder.Entity<AssetRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
             builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
-            builder.Entity<AssetRecord>().Property(x => x.DocumentState).IsRequired();
+            builder.Entity<AssetRecord>().Property(x => x.DocumentBehaviourState).IsRequired();
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {

@@ -91,6 +91,49 @@ namespace Borg.Platform.EF.Assets.Services
             }
         }
 
+        public override async Task<VersionInfoDefinition> CheckOut(int id)
+        {
+            try
+            {
+                var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == id);
+                if (asset.DocumentBehaviourState == DocumentBehaviourState.InProgress)
+                {
+                    throw new InvalidOperationException($"Asset with id {id} is in progress");
+                }
+                var currentVersion = asset.Versions.Single(v => v.Version == asset.CurrentVersion);
+                var currentFile = await _db.FileRecords.AsNoTracking().FirstAsync(x => x.Id == currentVersion.FileRecordId);
+                var newFileRecord = new FileRecord()
+                {
+                    CreationDate = currentFile.CreationDate,
+                    FullPath = currentFile.FullPath,
+                    LastRead = currentFile.LastRead,
+                    LastWrite = currentFile.LastWrite,
+                    MimeType = currentFile.MimeType,
+                    Name = currentFile.Name,
+                    SizeInBytes = currentFile.SizeInBytes,
+                    Id = await FileNextFromSequence()
+                };
+                _db.FileRecords.Add(newFileRecord);
+
+                var checkoutversion = new VersionRecord()
+                {
+                    Version = currentVersion.Version + 1,
+                    AssetRecordId = id,
+                    FileRecordId = newFileRecord.Id,
+                    Id = await SequnceInternal("assets.VersionsSQC")
+                };
+                asset.Versions.Add(checkoutversion);
+                asset.DocumentBehaviourState = DocumentBehaviourState.InProgress;
+                await _db.SaveChangesAsync();
+
+                return new VersionInfoDefinition(checkoutversion.Version, new FileSpecDefinition(newFileRecord.FullPath, newFileRecord.Name, newFileRecord.CreationDate, newFileRecord.LastWrite, newFileRecord.LastRead, newFileRecord.SizeInBytes, newFileRecord.MimeType));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public override async Task<AssetInfoDefinition<int>> AddVersion(AssetInfoDefinition<int> hit, FileSpecDefinition<int> fileSpec, VersionInfoDefinition versionSpec)
         {
             var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == hit.Id);

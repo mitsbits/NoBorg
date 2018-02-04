@@ -2,14 +2,10 @@
 {
     public interface IDocumentBehaviour
     {
-        IVersionInfo CheckOut();
-
-        IVersionInfo Checkin(IVersionInfo edit);
-
-        DocumentState DocumentState { get; }
+        DocumentBehaviourState DocumentBehaviourState { get; }
     }
 
-    public enum DocumentState
+    public enum DocumentBehaviourState
     {
         Commited = 1,
         InProgress = 2

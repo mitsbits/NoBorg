@@ -1,5 +1,31 @@
-﻿@model Borg.Infra.Storage.Assets.Contracts.AssetInfoDefinition<int>
+﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model DocumentViewModel
 @{
     Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
-
 }
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+
+            <form asp-controller="Home" asp-action="ToggleState" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post" class="pull-right margin">
+                <input type="hidden" name="id" value="@Model.Document.Id" />
+                <input type="hidden" name="operation" value="deleted" />
+                <button doc-deleted deleted-state="@Model.Document.IsDeleted"></button>
+            </form>
+
+            <form asp-controller="Home" asp-action="ToggleState" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post" class="pull-right margin">
+                <input type="hidden" name="id" value="@Model.Document.Id" />
+                <input type="hidden" name="operation" value="published" />
+                <button doc-published published-state="@Model.Document.IsPublished"></button>
+            </form>
+            @if (!Model.Asset.InProgress())
+            {
+                <form asp-controller="Home" asp-action="CheckOut" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post" class="pull-right margin">
+                    <input type="hidden" name="documentId" value="@Model.Document.Id" />
+                    <button class="btn  btn-outline btn-sm bg-black" type="submit" title="Check Out"><span class="glyphicon glyphicon-download"></span></button>
+                </form>
+            }
+        </div>
+    </div>
+</div>
