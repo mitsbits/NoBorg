@@ -1,0 +1,11 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model DocumentViewModel
+@{
+    if (!Model.InProgress)
+    {
+        <form asp-controller="Home" asp-action="CheckOut" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post" class="pull-right margin">
+            <input type="hidden" name="documentId" value="@Model.Document.Id" />
+            <button class="btn  btn-outline btn-sm bg-black" type="submit" title="Check Out"><span class="glyphicon glyphicon-download"></span></button>
+        </form>
+    }
+}

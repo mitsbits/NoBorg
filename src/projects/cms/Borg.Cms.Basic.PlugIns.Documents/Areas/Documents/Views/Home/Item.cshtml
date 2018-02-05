@@ -19,13 +19,9 @@
                 <input type="hidden" name="operation" value="published" />
                 <button doc-published published-state="@Model.Document.IsPublished"></button>
             </form>
-            @if (!Model.Asset.InProgress())
-            {
-                <form asp-controller="Home" asp-action="CheckOut" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post" class="pull-right margin">
-                    <input type="hidden" name="documentId" value="@Model.Document.Id" />
-                    <button class="btn  btn-outline btn-sm bg-black" type="submit" title="Check Out"><span class="glyphicon glyphicon-download"></span></button>
-                </form>
-            }
+
+            @Html.Partial("Components/LatestUserDocuments/Partials/CheckOut", Model)
+            @Html.Partial("Components/LatestUserDocuments/Partials/CheckIn", Model)
         </div>
     </div>
 </div>

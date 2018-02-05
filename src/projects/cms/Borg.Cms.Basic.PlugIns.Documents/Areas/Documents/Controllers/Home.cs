@@ -65,10 +65,19 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             return RedirectToLocal(redirecturl);
         }
 
-        public class ToggleStateModel
+        [HttpPost("[area]/[controller]/CheckIn")]
+        public async Task<IActionResult> CheckIn(CheckInCommand model, string redirecturl)
         {
-            public string operation { get; set; }
-            public int id { get; set; }
+     
+            var result = await _dispatcher.Send(model);
+            if (!result.Succeded)
+            {
+                AddErrors(result);
+            }
+            return RedirectToLocal(redirecturl);
         }
+
+
     }
+    public class CheckInViewModel { }
 }

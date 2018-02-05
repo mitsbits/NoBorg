@@ -1,0 +1,17 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Commands
+@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model DocumentViewModel
+@{
+    if (Model.InProgress)
+    {
+        if (Model.CurrentCheckOut().CheckedOutBy == UserSession.UserName)
+        {
+            @Html.Partial("Components/LatestUserDocuments/Partials/CheckInUpload", new CheckInCommand(Model.Document.Id, UserSession.UserName))
+        }
+        else
+        {
+            <span doc-checkout checked-out-state="@Model.InProgress"></span>
+        }
+
+    }
+}

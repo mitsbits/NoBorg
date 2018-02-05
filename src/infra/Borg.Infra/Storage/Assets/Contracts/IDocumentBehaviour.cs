@@ -7,7 +7,7 @@
 
     public enum DocumentBehaviourState
     {
-        Commited = 1,
-        InProgress = 2
+        Commited = 0,
+        InProgress = 1
     }
 }

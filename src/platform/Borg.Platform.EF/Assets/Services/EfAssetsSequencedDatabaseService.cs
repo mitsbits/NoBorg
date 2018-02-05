@@ -40,21 +40,16 @@ namespace Borg.Platform.EF.Assets.Services
 
         public override async Task<IPagedResult<AssetInfoDefinition<int>>> Find(IEnumerable<int> ids)
         {
-            var versions = await _db.VersionRecords
-                .Include(x => x.AssetRecord).Include(x => x.FileRecord)
-                .AsNoTracking()
-                .Where(x => ids.Contains(x.AssetRecordId))
-                .ToListAsync();
+            var sts = await _db.AssetRecords.Include(x => x.Versions).ThenInclude(x => x.FileRecord)
+                .AsNoTracking().Where(x => ids.Contains(x.Id)).ToListAsync();
 
-            var assets = versions.Select(version =>
-                new AssetInfoDefinition<int>(version.AssetRecordId, version.AssetRecord.Name)
-                {
-                    CurrentFile = new VersionInfoDefinition(version.Version,
-                        new FileSpecDefinition<int>(version.FileRecordId, version.FileRecord.FullPath,
-                            version.FileRecord.Name, version.FileRecord.CreationDate, version.FileRecord.LastWrite,
-                            version.FileRecord.LastRead, version.FileRecord.SizeInBytes, version.FileRecord.MimeType))
-                }).ToArray();
+            var assets = sts.Select(x => new AssetInfoDefinition<int>(x.Id, x.Name, x.DocumentBehaviourState)).ToArray();
 
+            foreach (var assetInfoDefinition in assets)
+            {
+                var r = sts.Single(x => x.Id == assetInfoDefinition.Id);
+                assetInfoDefinition.CurrentFile = new VersionInfoDefinition(r.CurrentVersion, r.Versions.Single(v => v.Version == r.CurrentVersion).FileRecord);
+            }
             return new PagedResult<AssetInfoDefinition<int>>(assets, 1, assets.Length, assets.Length);
         }
 
@@ -124,6 +119,7 @@ namespace Borg.Platform.EF.Assets.Services
                 };
                 asset.Versions.Add(checkoutversion);
                 asset.DocumentBehaviourState = DocumentBehaviourState.InProgress;
+                _db.Entry(asset).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
 
                 return new VersionInfoDefinition(checkoutversion.Version, new FileSpecDefinition(newFileRecord.FullPath, newFileRecord.Name, newFileRecord.CreationDate, newFileRecord.LastWrite, newFileRecord.LastRead, newFileRecord.SizeInBytes, newFileRecord.MimeType));

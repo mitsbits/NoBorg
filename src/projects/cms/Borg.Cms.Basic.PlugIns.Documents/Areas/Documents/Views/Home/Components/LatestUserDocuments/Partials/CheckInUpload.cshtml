@@ -1,0 +1,31 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Commands
+@model CheckInCommand
+
+<form asp-controller="Home" asp-action="CheckIn" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" enctype="multipart/form-data" method="post" class="pull-right margin">
+    <input type="hidden" asp-for="DocumentId" />
+    <input type="hidden" asp-for="UserHandle" />
+    <div class="form-group">
+        <label class="btn btn-primary btn-file btn-flat btn-sm">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            Browse <input id="file" type="file" class="hidden" asp-for="File" />
+        </label>
+        <button class="btn  btn-flat btn-sm btn-primary" type="submit" title="Check Out"><span class="glyphicon glyphicon-upload"></span></button>
+    </div>
+</form>
+
+
+
+
+<script device id="uploadscript" weight="100">
+    $(function () {
+
+
+        function showfiles() {
+
+            alert($('#file').val());
+        }
+
+
+        $('#file').on("change", function () { showfiles(); });
+    });
+</script>

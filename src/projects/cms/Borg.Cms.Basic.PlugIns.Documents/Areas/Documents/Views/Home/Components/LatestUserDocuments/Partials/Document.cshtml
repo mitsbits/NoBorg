@@ -9,7 +9,7 @@
     <div class="box-header with-border bg-gray">
         <h3 class="box-title text-@stateclass">@Model.Asset.Name</h3>
         <div class="box-tools pull-right">
-            <span doc-checkout checked-out-state="@Model.Asset.InProgress()"></span>
+            <span doc-checkout checked-out-state="@Model.InProgress"></span>
             <span doc-deleted deleted-state="@Model.Document.IsDeleted"></span>
             <span doc-published published-state="@Model.Document.IsPublished"></span>
         </div>
