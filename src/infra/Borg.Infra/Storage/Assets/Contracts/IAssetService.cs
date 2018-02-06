@@ -1,6 +1,7 @@
 ﻿using Borg.Infra.Collections;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Borg.Infra.Storage.Assets.Contracts
@@ -19,6 +20,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
 
+        Task<Stream> CurrentFile(TKey assetId);
+
         event AssetCreatedEventHandler<TKey> AssetCreated;
 
         event VersionCreatedEventHandler<TKey> VersionCreated;
@@ -35,6 +38,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task Create(AssetInfoDefinition<TKey> asset);
 
         Task<VersionInfoDefinition> CheckOut(TKey id);
+
+        Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
 
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
     }

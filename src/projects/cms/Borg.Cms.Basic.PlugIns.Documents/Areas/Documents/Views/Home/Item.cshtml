@@ -4,6 +4,15 @@
     Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
 }
 
+@section contentheader{ 
+    <h1>
+        @Orchestrator.Page.Title
+        <small id="subtitle"><a asp-controller="Uploader" asp-action="Asset" asp-route-id="@Model.Asset.Id" target="_blank">@Orchestrator.Page.Subtitle</a></small>
+    </h1>
+    @Html.Partial("Layout/Breadcrumbs")
+}
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-6">

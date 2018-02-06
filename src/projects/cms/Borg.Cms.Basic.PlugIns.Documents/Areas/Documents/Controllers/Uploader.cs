@@ -29,6 +29,16 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             _dispatcher = dispatcher;
         }
 
+        public async Task<IActionResult> Asset(int id)
+        {
+            var asset = (await _assetStore.Projections(new[] {id})).First();
+
+            var stream = await _assetStore.CurrentFile(id);
+            stream.Seek(0, 0);
+            return File(stream, asset.CurrentFile.FileSpec.MimeType,
+                asset.CurrentFile.FileSpec.Name);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Home(IList<IFormFile> files, string uploadid)
         {

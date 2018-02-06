@@ -40,6 +40,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         public event AssetCreatedEventHandler<TKey> AssetCreated;
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
+        public abstract Task<Stream> CurrentFile(TKey assetId);
 
         protected virtual void OnAssetCreated(AssetCreatedEventArgs<TKey> e)
         {
@@ -52,6 +53,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
             var handler = VersionCreated;
             handler?.Invoke(e);
         }
+
+  
     }
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>
@@ -70,6 +73,23 @@ namespace Borg.Infra.Storage.Assets.Contracts
             return await ProjectionsInternal(ids);
         }
 
+        public override async Task<Stream> CurrentFile(TKey assetId)
+        {
+            var filespec = await _assetStoreDatabaseService.CurrentFile(assetId);
+            var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
+            var strean = new MemoryStream();
+            using (var storage = _fileStorageFactory.Invoke())
+            using (var scoped = storage.Scope(directory))
+            {
+
+                using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
+                {
+                   await fstream.CopyToAsync(strean);
+                }
+            }
+            return strean;
+        }
+
         public override async Task<AssetInfoDefinition<TKey>> Create(string name, byte[] content, string fileName)
         {
             return await CreateInternal(name, content, fileName);
@@ -84,12 +104,12 @@ namespace Borg.Infra.Storage.Assets.Contracts
             var hit = hits.First();
             var fileId = await _assetStoreDatabaseService.FileNextFromSequence();
             var fileSpec = new FileSpecDefinition<TKey>(fileId);
-            var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(fileSpec);
+            var directory = await _assetDirectoryStrategy.ParentFolder(fileSpec);
 
             //upload file
             IFileSpec uploaded;
             using (var storage = _fileStorageFactory.Invoke())
-            using (var scoped = storage.Scope(parentDirecotry))
+            using (var scoped = storage.Scope(directory))
             {
                 var exists = await scoped.Exists(fileName);
                 if (exists) fileName = await _conflictingNamesResolver.Resolve(fileName);
