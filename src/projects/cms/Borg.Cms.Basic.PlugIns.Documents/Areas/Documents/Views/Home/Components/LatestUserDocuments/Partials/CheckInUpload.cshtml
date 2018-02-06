@@ -1,6 +1,5 @@
 ﻿@using Borg.Cms.Basic.PlugIns.Documents.Commands
 @model CheckInCommand
-
 <form asp-controller="Home" asp-action="CheckIn" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" enctype="multipart/form-data" method="post" class="pull-right margin">
     <input type="hidden" asp-for="DocumentId" />
     <input type="hidden" asp-for="UserHandle" />
@@ -9,23 +8,24 @@
             <span class="glyphicon glyphicon-cloud-upload"></span>
             Browse <input id="file" type="file" class="hidden" asp-for="File" />
         </label>
-        <button class="btn  btn-flat btn-sm btn-primary" type="submit" title="Check Out"><span class="glyphicon glyphicon-upload"></span></button>
+
+        <button id="filedisplay" class="btn  btn-flat btn-sm btn-primary"  type="submit" title="Check Out"><span class="glyphicon glyphicon-upload"></span></button>
     </div>
 </form>
-
-
-
-
 <script device id="uploadscript" weight="100">
     $(function () {
 
+        $("input[type=file]#file").click(function(){
+            $(this).val("");
+        });
 
-        function showfiles() {
+        $("input[type=file]#file").change(function () {
 
-            alert($('#file').val());
-        }
-
-
-        $('#file').on("change", function () { showfiles(); });
+      
+            $("#filedisplay").text($(this).val());
+            $("#filedisplay").attr('title', $(this).val());
+            $("#filedisplay").attr('style', "width: 12em;overflow: hidden;text-overflow: ellipsis; " );
+          
+        });
     });
 </script>
