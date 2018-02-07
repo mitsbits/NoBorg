@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Borg.Infra.Storage.Assets.Contracts
@@ -17,6 +18,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<TAsset> AddNewVersion(TKey id, byte[] content, string fileName);
 
         Task<IVersionInfo> CheckOut(TKey id);
+        Task<IVersionInfo> CheckIn(TKey id, byte[] content, string fileName);
 
         Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
 
@@ -38,9 +40,19 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task Create(AssetInfoDefinition<TKey> asset);
 
         Task<VersionInfoDefinition> CheckOut(TKey id);
+        Task<VersionInfoDefinition> CheckIn(TKey id, FileSpecDefinition<TKey> fileSpec);
 
         Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
 
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
+    }
+
+    public static class IAssetStoreDatabaseServiceExtensions
+    {
+        public static async Task<AssetInfoDefinition<TKey>> Get<TKey>(this IAssetStoreDatabaseService<TKey> store, TKey id) where TKey : IEquatable<TKey>
+        {
+            var hits = await store.Find(new[] {id});
+            return hits.SingleOrDefault();
+        }
     }
 }

@@ -1,13 +1,14 @@
-﻿using Borg.Infra.Storage.Contracts;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Contracts;
+using Microsoft.Extensions.Logging;
 
-namespace Borg.Infra.Storage.Assets.Contracts
+namespace Borg.Infra.Storage.Assets
 {
     public abstract class AssetStoreDefinition<TAsset, TKey> : IAssetStore<TAsset, TKey> where TAsset : IAssetInfo<TKey> where TKey : IEquatable<TKey>
     {
@@ -33,11 +34,13 @@ namespace Borg.Infra.Storage.Assets.Contracts
             return await _assetStoreDatabaseService.CheckOut(id);
         }
 
+        public abstract Task<IVersionInfo> CheckIn(TKey id, byte[] content, string fileName);
+
         public abstract Task<TAsset> Create(string name, byte[] content, string fileName);
 
         public abstract Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
 
-        public event AssetCreatedEventHandler<TKey> AssetCreated;
+        public event Contracts.AssetCreatedEventHandler<TKey> AssetCreated;
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
         public abstract Task<Stream> CurrentFile(TKey assetId);
@@ -54,7 +57,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
             handler?.Invoke(e);
         }
 
-  
+
     }
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>
@@ -68,6 +71,41 @@ namespace Borg.Infra.Storage.Assets.Contracts
             return await AddNewVersionInternal(id, content, fileName);
         }
 
+        public override async Task<IVersionInfo> CheckIn(TKey id, byte[] content, string fileName)
+        {
+            try
+            {
+
+                var fileId = await _assetStoreDatabaseService.FileNextFromSequence();
+                var fileSpec = new FileSpecDefinition<TKey>(fileId);
+                var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(fileSpec);
+
+                //upload file
+                IFileSpec uploaded;
+                using (var storage = _fileStorageFactory.Invoke())
+                using (var scoped = storage.Scope(parentDirecotry))
+                {
+                    var exists = await scoped.Exists(fileName);
+                    if (exists) fileName = await _conflictingNamesResolver.Resolve(fileName);
+                    using (var stream = new MemoryStream(content))
+                    {
+                        await scoped.SaveFile(fileName, stream, CancellationToken.None);
+                        uploaded = await scoped.GetFileInfo(fileName, CancellationToken.None);
+                    }
+                }
+
+                fileSpec = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, fileName, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
+                await _assetStoreDatabaseService.CheckIn(id, fileSpec);
+                var asset = await _assetStoreDatabaseService.Get(id);
+                return new VersionInfoDefinition(asset.CurrentFile.Version, asset.CurrentFile.FileSpec);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                throw;
+            }
+        }
+
         public override async Task<IEnumerable<AssetInfoDefinition<TKey>>> Projections(IEnumerable<TKey> ids)
         {
             return await ProjectionsInternal(ids);
@@ -75,19 +113,29 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         public override async Task<Stream> CurrentFile(TKey assetId)
         {
-            var filespec = await _assetStoreDatabaseService.CurrentFile(assetId);
-            var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
-            var strean = new MemoryStream();
-            using (var storage = _fileStorageFactory.Invoke())
-            using (var scoped = storage.Scope(directory))
+            try
             {
 
-                using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
+                var filespec = await _assetStoreDatabaseService.CurrentFile(assetId);
+                var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
+                var strean = new MemoryStream();
+                using (var storage = _fileStorageFactory.Invoke())
+                using (var scoped = storage.Scope(directory))
                 {
-                   await fstream.CopyToAsync(strean);
+
+                    using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
+                    {
+                        await fstream.CopyToAsync(strean);
+                    }
                 }
+                return strean;
+
             }
-            return strean;
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                throw;
+            }
         }
 
         public override async Task<AssetInfoDefinition<TKey>> Create(string name, byte[] content, string fileName)
