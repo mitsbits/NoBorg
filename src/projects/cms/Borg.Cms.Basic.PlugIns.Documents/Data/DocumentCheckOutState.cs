@@ -25,7 +25,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
     {
         public override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<DocumentCheckOutState>().HasKey(x => new { DoecumentId = x.DocumentId, x.CheckedOutBy }).ForSqlServerIsClustered();
+            builder.Entity<DocumentCheckOutState>().HasKey(x => new { DoecumentId = x.DocumentId, x.CheckedOutBy, x.CheckedOutOn }).ForSqlServerIsClustered();
             builder.Entity<DocumentCheckOutState>().Property(x => x.DocumentId).ValueGeneratedNever();
             builder.Entity<DocumentCheckOutState>().Property(x => x.CheckedOutBy).IsRequired().HasMaxLength(256).IsUnicode(false);
             builder.Entity<DocumentCheckOutState>().Property(x => x.CheckedOutOn).IsRequired().HasDefaultValueSql("GETUTCDATE()");
