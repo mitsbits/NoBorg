@@ -15,11 +15,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Reflection;
+using Borg.MVC.PlugIns.Decoration;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
-    public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration
+    public sealed class DocumentsPluginDescriptor : IPluginDescriptor, IPlugInArea, ICanMapWhen, IPluginServiceRegistration, ITagHelpersPlugIn
     {
         public string Area => "Documents";
         public string Title => "Documents";
@@ -54,5 +56,15 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             path.UseSession();
             path.UseMvc(routeHandler);
         };
+
+        public string[] TagHelpers
+        {
+            get
+            {
+                var attrs = GetType().Assembly.GetTypes().Select(x => x.GetCustomAttribute<PulgInTagHelperAttribute>());
+                if (!attrs.Any(x => x != null)) return new string[0];
+                return attrs.Where(x => x != null).Distinct().Select(x => x.Name).ToArray();
+            }
+        }
     }
 }
