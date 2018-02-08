@@ -29,6 +29,8 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             _dispatcher = dispatcher;
         }
 
+
+        [HttpGet]
         public async Task<IActionResult> Asset(int id)
         {
             var asset = (await _assetStore.Projections(new[] {id})).First();

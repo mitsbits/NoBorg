@@ -1,5 +1,6 @@
 ﻿using Borg.Infra.Storage.Contracts;
 using System;
+using System.IO;
 
 namespace Borg.Infra.Storage
 {
@@ -36,6 +37,7 @@ namespace Borg.Infra.Storage
             LastRead = lastRead;
             SizeInBytes = sizeInBytes;
             MimeType = string.IsNullOrWhiteSpace(mimeType) ? fullPath.GetMimeType() : mimeType;
+            Extension = Path.GetExtension(fullPath);
         }
 
         public string FullPath { get; protected set; }
@@ -45,6 +47,7 @@ namespace Borg.Infra.Storage
         public DateTime? LastRead { get; protected set; }
         public long SizeInBytes { get; }
         public string MimeType { get; }
+        public string Extension { get; }
 
         [Obsolete("not a good idea, copy instead", false)]
         public void ModifyPath(string newPath)

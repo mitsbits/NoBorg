@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Borg.Infra.Storage.Contracts.IMimeTypeSpec>
+@{
+    Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
+
+}
+
+
+
+<table clas="table table-responsive">
+    @foreach (var row in Model)
+    {
+        <tr>
+            <th>@row.Extension</th>
+            <td>@row.MimeType</td>
+        </tr>
+    }
+</table>

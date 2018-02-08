@@ -14,6 +14,8 @@ namespace Borg.Platform.EF.Assets
         public DateTime? LastRead { get; set; }
         public long SizeInBytes { get; set; }
         public string MimeType { get; set; }
+        public string Extension { get; set; }
         public virtual VersionRecord VersionRecord { get; set; }
+        internal virtual MimeTypeRecord MimeTypeRecord { get; set; }
     }
 }

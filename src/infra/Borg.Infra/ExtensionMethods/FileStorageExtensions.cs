@@ -15,7 +15,7 @@ namespace Borg
     public static class FileStorageExtensions
     {
         internal static readonly string mimesPath = "Borg.Infra.Storage.mimes.json";
-        private static readonly IDictionary<string, string> _mappings;
+        internal static readonly IDictionary<string, string> _mappings;
 
         static FileStorageExtensions()
         {
@@ -29,6 +29,8 @@ namespace Borg
                 }
             }
         }
+
+
 
         public static Stream GetFileStream(this IFileStorage storage, string path)
         {

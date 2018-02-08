@@ -2,6 +2,7 @@
 using Borg.Infra.Storage;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,9 +20,17 @@ namespace Borg.Platform.EF.Assets.Services
         public abstract Task Create(AssetInfoDefinition<TKey> asset);
 
         public abstract Task<VersionInfoDefinition> CheckOut(TKey id);
-        public abstract  Task<VersionInfoDefinition> CheckIn(TKey id, FileSpecDefinition<TKey> fileSpec);
-        public abstract  Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
+
+        public abstract Task<VersionInfoDefinition> CheckIn(TKey id, FileSpecDefinition<TKey> fileSpec);
+
+        public abstract Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
 
         public abstract Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
+
+        public abstract Task<bool> TryAdd(IMimeTypeSpec mimeType);
+
+        public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
+
+        public abstract Task<IMimeTypeSpec> GetFromExtension(string extension);
     }
 }

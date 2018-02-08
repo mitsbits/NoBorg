@@ -12,9 +12,10 @@ using System;
 namespace Borg.Platform.EF.Assets.Data.Migrations
 {
     [DbContext(typeof(AssetsDbContext))]
-    partial class AssetsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180208184256_assets3")]
+    partial class assets3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,11 +57,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("GetUtcDate()");
 
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasDefaultValue("")
-                        .HasMaxLength(64);
-
                     b.Property<string>("FullPath")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -91,9 +87,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", true);
-
-                    b.HasIndex("Extension")
-                        .HasName("IX_FileRecord_Extension");
 
                     b.HasIndex("FullPath")
                         .HasName("IX_File_FullPath");
@@ -146,15 +139,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                         .HasName("PK_Version_Asset");
 
                     b.ToTable("VersionRecords","assets");
-                });
-
-            modelBuilder.Entity("Borg.Platform.EF.Assets.FileRecord", b =>
-                {
-                    b.HasOne("Borg.Platform.EF.Assets.MimeTypeRecord", "MimeTypeRecord")
-                        .WithMany("Files")
-                        .HasForeignKey("Extension")
-                        .HasConstraintName("FK_MimeTypes_Records")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.Assets.VersionRecord", b =>

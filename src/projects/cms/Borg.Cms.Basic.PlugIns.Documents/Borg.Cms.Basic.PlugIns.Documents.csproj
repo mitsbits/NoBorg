@@ -10,19 +10,7 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="Areas\Documents\Views\Home\Components\LatestUserDocuments\Default.cshtml" />
-    <Content Remove="Areas\Documents\Views\Home\Components\LatestUserDocuments\Partials\CheckIn.cshtml" />
-    <Content Remove="Areas\Documents\Views\Home\Components\LatestUserDocuments\Partials\CheckInUpload.cshtml" />
-    <Content Remove="Areas\Documents\Views\Home\Components\LatestUserDocuments\Partials\CheckOut.cshtml" />
-    <Content Remove="Areas\Documents\Views\Home\Components\LatestUserDocuments\Partials\Document.cshtml" />
-    <Content Remove="Areas\Documents\Views\Home\Item.cshtml" />
-    <Content Remove="Areas\Documents\Views\Shared\SimpleUploader.cshtml" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="Areas\Documents\Views\_ViewStart.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />

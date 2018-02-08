@@ -1,4 +1,5 @@
 ﻿using Borg.Infra.Collections;
+using Borg.Infra.Storage.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,13 +12,14 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
     public delegate Task VersionCreatedEventHandler<TKey>(VersionCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
-    public interface IAssetStore<TAsset, TKey> where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
+    public interface IAssetStore<TAsset, TKey> : IMimeTypestoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
     {
         Task<TAsset> Create(string name, byte[] content, string fileName);
 
         Task<TAsset> AddNewVersion(TKey id, byte[] content, string fileName);
 
         Task<IVersionInfo> CheckOut(TKey id);
+
         Task<IVersionInfo> CheckIn(TKey id, byte[] content, string fileName);
 
         Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
@@ -29,7 +31,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         event VersionCreatedEventHandler<TKey> VersionCreated;
     }
 
-    public interface IAssetStoreDatabaseService<TKey> where TKey : IEquatable<TKey>
+    public interface IAssetStoreDatabaseService<TKey> : IMimeTypestoreDatabaseService where TKey : IEquatable<TKey>
     {
         Task<TKey> AssetNextFromSequence();
 
@@ -40,6 +42,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task Create(AssetInfoDefinition<TKey> asset);
 
         Task<VersionInfoDefinition> CheckOut(TKey id);
+
         Task<VersionInfoDefinition> CheckIn(TKey id, FileSpecDefinition<TKey> fileSpec);
 
         Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
@@ -47,12 +50,27 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
     }
 
+    public interface IMimeTypestoreDatabaseService
+    {
+        Task<bool> TryAdd(IMimeTypeSpec mimeType);
+
+        Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
+
+        Task<IMimeTypeSpec> GetFromExtension(string extension);
+    }
+
     public static class IAssetStoreDatabaseServiceExtensions
     {
         public static async Task<AssetInfoDefinition<TKey>> Get<TKey>(this IAssetStoreDatabaseService<TKey> store, TKey id) where TKey : IEquatable<TKey>
         {
-            var hits = await store.Find(new[] {id});
+            var hits = await store.Find(new[] { id });
             return hits.SingleOrDefault();
+        }
+
+        public static async Task<IMimeTypeSpec> GetFromFileName(this IMimeTypestoreDatabaseService service, string fiename)
+        {
+            var ext = Path.GetExtension(fiename);
+            return await service.GetFromExtension(ext);
         }
     }
 }

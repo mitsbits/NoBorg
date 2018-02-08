@@ -11,6 +11,7 @@ namespace Borg.Platform.EF.Assets.Data
         public DbSet<FileRecord> FileRecords { get; set; }
         public DbSet<VersionRecord> VersionRecords { get; set; }
         public DbSet<AssetRecord> AssetRecords { get; set; }
+        public DbSet<MimeTypeRecord> MimeTypeRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -38,6 +39,8 @@ namespace Borg.Platform.EF.Assets.Data
                 .HasForeignKey<VersionRecord>(x => x.FileRecordId).HasConstraintName("FK_Version_File");
             builder.Entity<FileRecord>().Property(x => x.MimeType).HasMaxLength(256).IsRequired().HasDefaultValue("");
             builder.Entity<FileRecord>().HasIndex(x => x.FullPath).HasName("IX_File_FullPath");
+            builder.Entity<FileRecord>().Property(x => x.Extension).IsRequired().HasMaxLength(64).HasDefaultValue("");
+            builder.Entity<FileRecord>().HasIndex(x => x.Extension).HasName("IX_FileRecord_Extension").IsUnique(false);
 
             builder.Entity<VersionRecord>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<VersionRecord>().Property(x => x.Id).ValueGeneratedNever();
@@ -55,6 +58,13 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<AssetRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
             builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
             builder.Entity<AssetRecord>().Property(x => x.DocumentBehaviourState).IsRequired();
+
+
+            builder.Entity<MimeTypeRecord>().HasKey(x => x.Extension).ForSqlServerIsClustered();
+            builder.Entity<MimeTypeRecord>().Property(x => x.Extension).IsRequired().HasMaxLength(64).IsUnicode(true).ValueGeneratedNever();
+            builder.Entity<MimeTypeRecord>().Property(x => x.MimeType).IsRequired().HasMaxLength(256).IsUnicode(true).ValueGeneratedNever();
+            builder.Entity<MimeTypeRecord>().HasMany(x => x.Files).WithOne(x => x.MimeTypeRecord)
+                .HasForeignKey(x => x.Extension).HasConstraintName("FK_MimeTypes_Records");
 
             foreach (var entityType in builder.Model.GetEntityTypes())
             {

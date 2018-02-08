@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -71,6 +72,7 @@ namespace Borg.Platform.EF.Assets.Services
                         LastRead = asset.CurrentFile.FileSpec.LastRead,
                         LastWrite = asset.CurrentFile.FileSpec.LastWrite,
                         MimeType = asset.CurrentFile.FileSpec.MimeType,
+                        Extension = Path.GetExtension(asset.CurrentFile.FileSpec.FullPath),
                         Name = asset.CurrentFile.FileSpec.Name,
                         SizeInBytes = asset.CurrentFile.FileSpec.SizeInBytes
                     }
@@ -104,6 +106,7 @@ namespace Borg.Platform.EF.Assets.Services
                     LastRead = currentFile.LastRead,
                     LastWrite = currentFile.LastWrite,
                     MimeType = currentFile.MimeType,
+                    Extension = currentFile.Extension,
                     Name = currentFile.Name,
                     SizeInBytes = currentFile.SizeInBytes,
                     Id = await FileNextFromSequence()
@@ -154,6 +157,7 @@ namespace Borg.Platform.EF.Assets.Services
                     LastRead = fileSpec.LastRead,
                     LastWrite = fileSpec.LastWrite,
                     MimeType = fileSpec.MimeType,
+                    Extension = Path.GetExtension(fileSpec.FullPath),
                     Name = fileSpec.Name,
                     SizeInBytes = fileSpec.SizeInBytes,
                     Id = fileSpec.Id
@@ -202,6 +206,7 @@ namespace Borg.Platform.EF.Assets.Services
                     LastRead = fileSpec.LastRead,
                     LastWrite = fileSpec.LastWrite,
                     MimeType = fileSpec.MimeType,
+                    Extension = Path.GetExtension(fileSpec.FullPath),
                     Name = fileSpec.Name,
                     SizeInBytes = fileSpec.SizeInBytes
                 }
@@ -212,6 +217,38 @@ namespace Borg.Platform.EF.Assets.Services
             {
                 CurrentFile = new VersionInfoDefinition(versionSpec.Version, fileSpec)
             };
+        }
+
+        public override async Task<bool> TryAdd(IMimeTypeSpec mimeType)
+        {
+            var hit = await _db.MimeTypeRecords.SingleAsync(x => x.Extension.ToLower() == mimeType.Extension.ToLower());
+            MimeTypeRecord newrecord = null;
+            if (hit == null)
+            {
+                newrecord = new MimeTypeRecord()
+                {
+                    Extension = mimeType.Extension,
+                    MimeType = mimeType.MimeType
+                };
+                await _db.MimeTypeRecords.AddAsync(newrecord);
+            }
+            await _db.SaveChangesAsync();
+            var added = newrecord != null;
+            if (added) _logger.Info("Added new mimetype to db {@mime}", newrecord);
+            return added;
+        }
+
+        public override async Task<IEnumerable<IMimeTypeSpec>> MimeTypes()
+        {
+            var hits = await _db.MimeTypeRecords.AsNoTracking().OrderBy(x => x.Extension).ToArrayAsync();
+            return hits.Select(x => new MimeTypeSpec(x.Extension, x.MimeType));
+        }
+
+        public override async Task<IMimeTypeSpec> GetFromExtension(string extension)
+        {
+            var hit = await _db.MimeTypeRecords.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Extension.ToLower() == extension.ToLower());
+            return new MimeTypeSpec(hit.Extension, hit.MimeType);
         }
 
         private async Task<int> SequnceInternal(string sqc)

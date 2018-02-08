@@ -15,8 +15,13 @@
                 </a>
             </li>
             <li>
-                <a asp-area="Documents" asp-controller="Home" asp-route-id="">
+                <a asp-area="Documents" asp-controller="Home" asp-action="Home" asp-route-id="">
                     <i class="fa fa-book"></i> <span>Documents</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="Documents" asp-controller="MimeTypes" asp-action="Home" asp-route-id="">
+                    <i class="fa fa-file-code-o"></i> <span>Mime Types</span>
                 </a>
             </li>
             @*<li class="treeview">

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Contracts;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Infra.Storage.Assets.Contracts;
-using Borg.Infra.Storage.Contracts;
-using Microsoft.Extensions.Logging;
 
 namespace Borg.Infra.Storage.Assets
 {
@@ -43,6 +43,7 @@ namespace Borg.Infra.Storage.Assets
         public event Contracts.AssetCreatedEventHandler<TKey> AssetCreated;
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
+
         public abstract Task<Stream> CurrentFile(TKey assetId);
 
         protected virtual void OnAssetCreated(AssetCreatedEventArgs<TKey> e)
@@ -57,7 +58,20 @@ namespace Borg.Infra.Storage.Assets
             handler?.Invoke(e);
         }
 
+        public async Task<bool> TryAdd(IMimeTypeSpec mimeType)
+        {
+            return await _assetStoreDatabaseService.TryAdd(mimeType);
+        }
 
+        public async Task<IEnumerable<IMimeTypeSpec>> MimeTypes()
+        {
+            return await _assetStoreDatabaseService.MimeTypes();
+        }
+
+        public async Task<IMimeTypeSpec> GetFromExtension(string extension)
+        {
+            return await _assetStoreDatabaseService.GetFromExtension(extension);
+        }
     }
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>
@@ -75,7 +89,6 @@ namespace Borg.Infra.Storage.Assets
         {
             try
             {
-
                 var fileId = await _assetStoreDatabaseService.FileNextFromSequence();
                 var fileSpec = new FileSpecDefinition<TKey>(fileId);
                 var parentDirecotry = await _assetDirectoryStrategy.ParentFolder(fileSpec);
@@ -115,21 +128,18 @@ namespace Borg.Infra.Storage.Assets
         {
             try
             {
-
                 var filespec = await _assetStoreDatabaseService.CurrentFile(assetId);
                 var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
                 var strean = new MemoryStream();
                 using (var storage = _fileStorageFactory.Invoke())
                 using (var scoped = storage.Scope(directory))
                 {
-
                     using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
                     {
                         await fstream.CopyToAsync(strean);
                     }
                 }
                 return strean;
-
             }
             catch (Exception e)
             {
@@ -206,7 +216,7 @@ namespace Borg.Infra.Storage.Assets
             }
 
             //persist to database
-            var filespc = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, name, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
+            var filespc = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, fileName, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
             var versionspc = new VersionInfoDefinition(1, filespc);
             definition.CurrentFile = versionspc;
             await _assetStoreDatabaseService.Create(definition);

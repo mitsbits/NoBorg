@@ -16,5 +16,6 @@ namespace Borg.Infra.Storage.Contracts
         DateTime? LastRead { get; }
         long SizeInBytes { get; }
         string MimeType { get; }
+        string Extension { get; }
     }
 }
