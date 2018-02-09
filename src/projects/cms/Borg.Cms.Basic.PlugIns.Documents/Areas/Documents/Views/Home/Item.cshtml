@@ -1,10 +1,12 @@
-﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
+@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@using Borg.Infra.DTO
 @model DocumentViewModel
 @{
     Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
 }
 
-@section contentheader{ 
+@section contentheader{
     <h1>
         @Orchestrator.Page.Title
         <small id="subtitle"><a asp-controller="Uploader" asp-action="Asset" asp-route-id="@Model.Asset.Id" target="_blank">@Orchestrator.Page.Subtitle</a></small>
@@ -31,6 +33,14 @@
 
             @Html.Partial("Components/LatestUserDocuments/Partials/CheckOut", Model)
             @Html.Partial("Components/LatestUserDocuments/Partials/CheckIn", Model)
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(DocumentHistoryViewComponent), new Tidings(new Tiding[] { new Tiding(Tidings.DefinedKeys.Id, Model.Document.Id.ToString()) }))
         </div>
     </div>
 </div>

@@ -72,6 +72,11 @@ namespace Borg.Infra.Storage.Assets
         {
             return await _assetStoreDatabaseService.GetFromExtension(extension);
         }
+
+        public async Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId)
+        {
+            return await _assetStoreDatabaseService.AssetVersions(assetId);
+        }
     }
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>

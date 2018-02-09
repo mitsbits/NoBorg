@@ -61,8 +61,8 @@ namespace Borg.Cms.Basic
                 assetseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
                 var cmsseed = scope.ServiceProvider.GetRequiredService<CmsDbSeed>();
                 cmsseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
-                var discoveryseed = scope.ServiceProvider.GetRequiredService<DiscoveryDbSeed>();
-                discoveryseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                //var discoveryseed = scope.ServiceProvider.GetRequiredService<DiscoveryDbSeed>();
+                //discoveryseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
                 var documentseed = scope.ServiceProvider.GetRequiredService<DocumentsDbSeed>();
                 documentseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
             }

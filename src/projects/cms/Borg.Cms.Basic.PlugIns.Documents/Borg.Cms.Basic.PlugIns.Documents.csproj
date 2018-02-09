@@ -10,6 +10,10 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Areas\Documents\Views\Home\Components\DocumentHistory\Default.cshtml" />
+  </ItemGroup>
+
 
 
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
 {
     public class LatestUserDocumentsViewComponent : ViewComponentModule<Tidings>
     {
-        private const string _viewKey = "view";
+
         private const string _countKey = "count";
 
         private readonly IUnitOfWork<DocumentsDbContext> _uow;
@@ -52,7 +52,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
                     Asset = assets.FirstOrDefault(x => x.Id == documentOwnerState.DocumentId)
                 });
             }
-            if (tidings.ContainsKey(_viewKey) && !string.IsNullOrWhiteSpace(tidings[_viewKey])) return View(tidings[_viewKey], bucket);
+            if (tidings.ContainsKey(Tidings.DefinedKeys.View) && !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View])) return View(tidings[Tidings.DefinedKeys.View], bucket);
             return View(bucket);
         }
     }

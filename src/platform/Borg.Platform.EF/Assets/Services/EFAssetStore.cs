@@ -32,5 +32,6 @@ namespace Borg.Platform.EF.Assets.Services
         public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
 
         public abstract Task<IMimeTypeSpec> GetFromExtension(string extension);
+        public abstract  Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
     }
 }

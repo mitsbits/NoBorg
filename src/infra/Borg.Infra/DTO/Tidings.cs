@@ -48,6 +48,7 @@ namespace Borg.Infra.DTO
             public const string Name = "Name";
             public const string Display = "Display";
             public const string Payload = "Payload";
+            public const string View = "View";
         }
 
         #region ICollection

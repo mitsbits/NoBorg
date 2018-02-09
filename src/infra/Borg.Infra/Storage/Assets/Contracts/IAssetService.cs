@@ -12,7 +12,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
     public delegate Task VersionCreatedEventHandler<TKey>(VersionCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
-    public interface IAssetStore<TAsset, TKey> : IMimeTypestoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
+    public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypestoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
     {
         Task<TAsset> Create(string name, byte[] content, string fileName);
 
@@ -31,7 +31,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
         event VersionCreatedEventHandler<TKey> VersionCreated;
     }
 
-    public interface IAssetStoreDatabaseService<TKey> : IMimeTypestoreDatabaseService where TKey : IEquatable<TKey>
+    public interface IAssetStoreDatabaseService<TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypestoreDatabaseService where TKey : IEquatable<TKey>
     {
         Task<TKey> AssetNextFromSequence();
 
@@ -58,6 +58,13 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         Task<IMimeTypeSpec> GetFromExtension(string extension);
     }
+
+
+    public interface IVersionStoreDatabaseService<in TKey> where TKey : IEquatable<TKey>
+    {
+        Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
+    }
+
 
     public static class IAssetStoreDatabaseServiceExtensions
     {

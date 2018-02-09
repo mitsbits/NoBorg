@@ -1,0 +1,24 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model DocumentHistoryViewModel
+
+    
+<table>
+    <thead>
+    <tr>
+        <th>v</th>
+        <th>c</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    @foreach (var t in Model.Rows())
+    {
+        <tr>
+            <td>
+                @t.version.FileSpec.Name
+            </td>
+            <td>@t.checkOut.CheckedIn</td>
+        </tr>
+    }
+    </tbody>
+</table>

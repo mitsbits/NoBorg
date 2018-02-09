@@ -253,6 +253,14 @@ namespace Borg.Platform.EF.Assets.Services
             return new MimeTypeSpec(hit.Extension, hit.MimeType);
         }
 
+        public override async Task<IEnumerable<IVersionInfo>> AssetVersions(int assetId)
+        {
+            var hits = await _db.VersionRecords.Include(v => v.FileRecord).AsNoTracking()
+                .Where(v => v.AssetRecordId == assetId).ToArrayAsync();
+            return hits.Select(x => new VersionInfoDefinition(x.Version,
+                new FileSpecDefinition(x.FileRecord.FullPath, x.FileRecord.Name, x.FileRecord.CreationDate, x.FileRecord.LastWrite, x.FileRecord.LastRead, x.FileRecord.SizeInBytes, x.FileRecord.MimeType)));
+        }
+
         private async Task<int> SequnceInternal(string sqc)
         {
             var conn = _db.Database.GetDbConnection(); //do not dispose connection, it is managed by the context
