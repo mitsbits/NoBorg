@@ -153,10 +153,10 @@ namespace Borg.Cms.Basic
                 path.UseSession();
                 path.UseMvc(ConfigureRoutes);
             });
-            GlobalConfiguration.Configuration
-                .UseActivator(new ContainerJobActivator(serviceProvider));
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            //GlobalConfiguration.Configuration
+            //    .UseActivator(new ContainerJobActivator(serviceProvider));
+            //app.UseHangfireServer();
+            //app.UseHangfireDashboard();
             app.UseMvc(ConfigureRoutes);
         }
     }

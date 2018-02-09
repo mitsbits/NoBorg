@@ -61,9 +61,11 @@ namespace Borg.Platform.EF.CMS.Data
         CmsDbContext IDesignTimeDbContextFactory<CmsDbContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
-            optionsBuilder.UseSqlServer("Server=.\\d2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
+            optionsBuilder.UseSqlServer("Server=.\\sql2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "cms"));
 
             return new CmsDbContext(optionsBuilder.Options);
         }
     }
+
+
 }

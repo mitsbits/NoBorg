@@ -5,21 +5,40 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
+using Borg.Infra.Services;
+using Microsoft.Extensions.Logging;
+
 
 namespace Borg.Platform.EF
 {
     public abstract class BorgDbContextFactory<TDbContext> : IDesignTimeDbContextFactory<TDbContext> where TDbContext : DbContext
     {
+
+     //   protected ILogger _logger;
+
+        protected BorgDbContextFactory()
+        {
+        ///    _logger = ApplicationLogging.CreateLogger(GetType());
+        }
+
         public TDbContext CreateDbContext()
         {
             var envConfig = new ConfigurationBuilder()
                 .AddEnvironmentVariables(prefix: "ASPNETCORE_")
                 .Build();
 
+
+       //     _logger.Info("*********************************{@envconfig}", envConfig);
+
             var env = envConfig["ENVIRONMENT"];
+
+
+      //      _logger.Info("*********************************{@env}", env);
 
             var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
 
+
+     //       _logger.Info("*********************************{@basePath}", basePath);
             return CreateDbContext(basePath, env);
         }
 
@@ -33,7 +52,6 @@ namespace Borg.Platform.EF
         private TDbContext CreateDbContext(string basePath, string environmentName)
         {
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{environmentName}.json", true)

@@ -8,6 +8,13 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Borg.Infra;
+using Borg.Infra.Services;
+using Borg.MVC.Util;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
 
 namespace Borg.Cms.Basic
 {
@@ -15,10 +22,24 @@ namespace Borg.Cms.Basic
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Borg Cms Basic";
             var host = BuildWebHost(args);
 
-            Seed(host);
+            var appConfig = HostUtility.AppConfiguration(args);
+            var settings = new BorgSettings();
+            appConfig.GetSection("atlas").Bind(settings);
 
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("System", LogEventLevel.Information)
+                .WriteTo.ColoredConsole()
+                .CreateLogger();
+
+            ApplicationLogging.SetFactory(host.Services.GetRequiredService<ILoggerFactory>());
+
+            Seed(host);
             host.Run();
         }
 

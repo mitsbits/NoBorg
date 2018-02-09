@@ -92,40 +92,42 @@ namespace Borg.Platform.EF.Assets.Services
         {
             try
             {
-                var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == id);
+                var asset = await _db.AssetRecords.FirstOrDefaultAsync(x => x.Id == id);
+                var versions = await _db.VersionRecords.AsNoTracking().Where(x => x.AssetRecordId == id).ToListAsync();
                 if (asset.DocumentBehaviourState == DocumentBehaviourState.InProgress)
                 {
                     throw new InvalidOperationException($"Asset with id {id} is in Progress");
                 }
-                var currentVersion = asset.Versions.Single(v => v.Version == asset.CurrentVersion);
-                var currentFile = await _db.FileRecords.AsNoTracking().FirstAsync(x => x.Id == currentVersion.FileRecordId);
-                var newFileRecord = new FileRecord()
-                {
-                    CreationDate = currentFile.CreationDate,
-                    FullPath = currentFile.FullPath,
-                    LastRead = currentFile.LastRead,
-                    LastWrite = currentFile.LastWrite,
-                    MimeType = currentFile.MimeType,
-                    Extension = currentFile.Extension,
-                    Name = currentFile.Name,
-                    SizeInBytes = currentFile.SizeInBytes,
-                    Id = await FileNextFromSequence()
-                };
-                _db.FileRecords.Add(newFileRecord);
+                var currentVersion = versions.Single(v => v.Version == asset.CurrentVersion);
+                //var currentFile = await _db.FileRecords.AsNoTracking().FirstAsync(x => x.Id == currentVersion.FileRecordId);
+                var currentFile = await _db.FileRecords.FirstAsync(x => x.Id == currentVersion.FileRecordId);
+                //var newFileRecord = new FileRecord()
+                //{
+                //    CreationDate = currentFile.CreationDate,
+                //    FullPath = currentFile.FullPath,
+                //    LastRead = currentFile.LastRead,
+                //    LastWrite = currentFile.LastWrite,
+                //    MimeType = currentFile.MimeType,
+                //    Extension = currentFile.Extension,
+                //    Name = currentFile.Name,
+                //    SizeInBytes = currentFile.SizeInBytes,
+                //    Id = await FileNextFromSequence()
+                //};
+                //_db.FileRecords.Add(newFileRecord);
 
                 var checkoutversion = new VersionRecord()
                 {
                     Version = currentVersion.Version + 1,
                     AssetRecordId = id,
-                    FileRecordId = newFileRecord.Id,
-                    Id = await SequnceInternal("assets.VersionsSQC")
+                    FileRecordId = currentFile.Id,
+                    //Id = await SequnceInternal("assets.VersionsSQC")
                 };
-                asset.Versions.Add(checkoutversion);
-                asset.DocumentBehaviourState = DocumentBehaviourState.InProgress;
-                _db.Entry(asset).State = EntityState.Modified;
+                await _db.VersionRecords.AddAsync(checkoutversion);
                 await _db.SaveChangesAsync();
-
-                return new VersionInfoDefinition(checkoutversion.Version, new FileSpecDefinition(newFileRecord.FullPath, newFileRecord.Name, newFileRecord.CreationDate, newFileRecord.LastWrite, newFileRecord.LastRead, newFileRecord.SizeInBytes, newFileRecord.MimeType));
+                asset = _db.AssetRecords.Find(id);
+                asset.DocumentBehaviourState = DocumentBehaviourState.InProgress;
+                await _db.SaveChangesAsync();
+                return new VersionInfoDefinition(checkoutversion.Version, new FileSpecDefinition(currentFile.FullPath, currentFile.Name, currentFile.CreationDate, currentFile.LastWrite, currentFile.LastRead, currentFile.SizeInBytes, currentFile.MimeType));
             }
             catch (Exception ex)
             {

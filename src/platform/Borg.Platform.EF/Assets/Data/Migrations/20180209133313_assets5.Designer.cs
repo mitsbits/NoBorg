@@ -12,9 +12,10 @@ using System;
 namespace Borg.Platform.EF.Assets.Data.Migrations
 {
     [DbContext(typeof(AssetsDbContext))]
-    partial class AssetsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180209133313_assets5")]
+    partial class assets5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +28,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.AssetRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NEXT VALUE FOR assets.AssetsSQC");
 
                     b.Property<int>("CurrentVersion")
@@ -51,7 +51,6 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
             modelBuilder.Entity("Borg.Platform.EF.Assets.FileRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NEXT VALUE FOR assets.FilesSQC");
 
                     b.Property<DateTime>("CreationDate")
@@ -138,6 +137,7 @@ namespace Borg.Platform.EF.Assets.Data.Migrations
                         .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasIndex("FileRecordId")
+                        .IsUnique()
                         .HasName("IX_Version_FileRecordId");
 
                     b.HasIndex("Version")
