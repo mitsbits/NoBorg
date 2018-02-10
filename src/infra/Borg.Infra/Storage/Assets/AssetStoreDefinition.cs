@@ -40,6 +40,8 @@ namespace Borg.Infra.Storage.Assets
 
         public abstract Task<IEnumerable<TAsset>> Projections(IEnumerable<TKey> ids);
 
+        public abstract Task<Stream> VersionFile(TKey assetId, int version);
+
         public event Contracts.AssetCreatedEventHandler<TKey> AssetCreated;
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
@@ -134,6 +136,30 @@ namespace Borg.Infra.Storage.Assets
             try
             {
                 var filespec = await _assetStoreDatabaseService.CurrentFile(assetId);
+                var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
+                var strean = new MemoryStream();
+                using (var storage = _fileStorageFactory.Invoke())
+                using (var scoped = storage.Scope(directory))
+                {
+                    using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
+                    {
+                        await fstream.CopyToAsync(strean);
+                    }
+                }
+                return strean;
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                throw;
+            }
+        }
+
+        public override async Task<Stream> VersionFile(TKey assetId, int version)
+        {
+            try
+            {
+                var filespec = await _assetStoreDatabaseService.VersionFile(assetId, version);
                 var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
                 var strean = new MemoryStream();
                 using (var storage = _fileStorageFactory.Invoke())

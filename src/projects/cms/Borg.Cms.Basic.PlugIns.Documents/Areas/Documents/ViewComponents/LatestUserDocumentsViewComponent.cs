@@ -16,7 +16,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
 {
     public class LatestUserDocumentsViewComponent : ViewComponentModule<Tidings>
     {
-
         private const string _countKey = "count";
 
         private readonly IUnitOfWork<DocumentsDbContext> _uow;

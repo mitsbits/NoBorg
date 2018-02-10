@@ -27,11 +27,14 @@ namespace Borg.Platform.EF.Assets.Services
 
         public abstract Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
 
+        public abstract Task<FileSpecDefinition<TKey>> VersionFile(TKey id, int version);
+
         public abstract Task<bool> TryAdd(IMimeTypeSpec mimeType);
 
         public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
 
         public abstract Task<IMimeTypeSpec> GetFromExtension(string extension);
-        public abstract  Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
+
+        public abstract Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
     }
 }

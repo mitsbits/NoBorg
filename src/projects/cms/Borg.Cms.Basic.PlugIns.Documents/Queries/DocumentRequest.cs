@@ -43,7 +43,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Queries
                 var result = new DocumentViewModel
                 {
                     Document = (await _uow.QueryRepo<DocumentState>().Find(x => x.Id == message.DocumentId, null,
-                        CancellationToken.None, d => d.Owners, d=> d.CheckOuts))[0],
+                        CancellationToken.None, d => d.Owners, d => d.CheckOuts))[0],
                     Asset = (await _assetStore.Projections(new[] { message.DocumentId })).First()
                 };
                 return QueryResult<DocumentViewModel>.Success(result);

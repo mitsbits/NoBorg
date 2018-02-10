@@ -29,13 +29,23 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             _dispatcher = dispatcher;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Asset(int id)
         {
-            var asset = (await _assetStore.Projections(new[] {id})).First();
+            var asset = (await _assetStore.Projections(new[] { id })).First();
 
             var stream = await _assetStore.CurrentFile(id);
+            stream.Seek(0, 0);
+            return File(stream, asset.CurrentFile.FileSpec.MimeType,
+                asset.CurrentFile.FileSpec.Name);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Version(int id, int version)
+        {
+            var asset = (await _assetStore.Projections(new[] { id })).First();
+
+            var stream = await _assetStore.VersionFile(id, version);
             stream.Seek(0, 0);
             return File(stream, asset.CurrentFile.FileSpec.MimeType,
                 asset.CurrentFile.FileSpec.Name);
@@ -73,26 +83,25 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
                             await output.WriteAsync(buffer, 0, readBytes);
                             totalReadBytes += readBytes;
                             pr.Reads(totalReadBytes);
-                            await _cache.SetSliding(cacheKey, pr, TimeSpan.FromSeconds(60));
-                            //await Task.Delay(100); // It is only to make the process slower
+                            await _cache.SetSliding(cacheKey, pr, TimeSpan.FromSeconds(5));
+                            await Task.Delay(100); // It is only to make the process slower
                         }
-
-                        bucket.Add(await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), output.ToArray(), filename));
+                        var definition = await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), output.ToArray(), filename);
+                        bucket.Add(definition);
                     }
                 }
             }
 
-            await _cache.Remove(cacheKey);
             CommandResult commResult = CommandResult.Success();
             foreach (var assetInfoDefinition in bucket)
             {
-                commResult = await _dispatcher.Send(new DocumentOwnerAssociationCommand(assetInfoDefinition.Id, User.Identity.Name,
-                    DocumentOwnerAssociationOperation.AddToUserCollection));
+                commResult = await _dispatcher.Send(new DocumentInitialCommitCommand(assetInfoDefinition.Id, User.Identity.Name));
             }
             if (commResult.Succeded)
             {
-                await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(5));
-                return Ok();
+                await _cache.Remove(cacheKey);
+                await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(2));
+                return Ok(new { name = bucket[0].Name, url = Url.Action("Item", "Home", new { area = "documents", id = bucket[0].Id }) });
             }
             return BadRequest(commResult.Errors);
         }
@@ -120,7 +129,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Json(new { val = "-1" });
+                return Json(new { result = true, val = "-1" });
             }
         }
 

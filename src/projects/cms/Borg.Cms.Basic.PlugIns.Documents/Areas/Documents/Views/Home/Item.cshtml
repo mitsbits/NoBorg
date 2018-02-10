@@ -14,7 +14,6 @@
     @Html.Partial("Layout/Breadcrumbs")
 }
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-6">
@@ -37,7 +36,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
             @await Component.InvokeAsync(typeof(DocumentHistoryViewComponent), new Tidings(new Tiding[] { new Tiding(Tidings.DefinedKeys.Id, Model.Document.Id.ToString()) }))

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Infra.Storage.Assets;
+﻿using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
-    public class MimeTypesController :DocumentsController
+    public class MimeTypesController : DocumentsController
     {
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
+
         public MimeTypesController(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore) : base(loggerFactory)
         {
             _assetStore = assetStore;

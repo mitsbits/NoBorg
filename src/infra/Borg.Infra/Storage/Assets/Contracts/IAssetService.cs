@@ -26,6 +26,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         Task<Stream> CurrentFile(TKey assetId);
 
+        Task<Stream> VersionFile(TKey assetId, int version);
+
         event AssetCreatedEventHandler<TKey> AssetCreated;
 
         event VersionCreatedEventHandler<TKey> VersionCreated;
@@ -48,6 +50,8 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<FileSpecDefinition<TKey>> CurrentFile(TKey id);
 
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
+
+        Task<FileSpecDefinition<TKey>> VersionFile(TKey id, int version);
     }
 
     public interface IMimeTypestoreDatabaseService
@@ -59,12 +63,10 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<IMimeTypeSpec> GetFromExtension(string extension);
     }
 
-
     public interface IVersionStoreDatabaseService<in TKey> where TKey : IEquatable<TKey>
     {
         Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
     }
-
 
     public static class IAssetStoreDatabaseServiceExtensions
     {

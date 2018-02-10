@@ -16,7 +16,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.ViewComponents
 {
     public class DocumentHistoryViewComponent : ViewComponentModule<Tidings>
     {
-  
         private readonly ILogger _logger;
 
         private readonly IUnitOfWork<DocumentsDbContext> _uow;

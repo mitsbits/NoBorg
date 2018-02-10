@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Borg.Cms.Basic.PlugIns.Documents.Data;
+﻿using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra.Storage.Assets;
+using System.Linq;
 using DocumentState = Borg.Cms.Basic.PlugIns.Documents.Data.DocumentState;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.ViewModels

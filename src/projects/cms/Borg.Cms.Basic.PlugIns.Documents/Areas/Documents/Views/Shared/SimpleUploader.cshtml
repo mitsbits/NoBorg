@@ -28,11 +28,9 @@
 
         var intervalId;
         var targetUrl = '@Url.Action("Item", "Home", new {area = "Documents"})';
-        var breaker = false;
 
         function uploadFiles(inputId) {
 
-            breaker = false;
         $("div#outcome").hide();
         var input = document.getElementById(inputId);
         var files = input.files;
@@ -51,10 +49,15 @@
                 contentType: false,
                 type: "POST",
                 success: function (data) {
+                    alert(JSON.stringify(data));
                     stopUpdatingProgressIndicator();
-
+                    var nme = data.name;
+                    var itmurl = data.url;
                     $("#progress").hide(700);
                     $("#progress div").css({ width: "0" });
+                    $("div#outcome a").attr("href", itmurl);
+                    $("div#outcome a").text(nme);
+                    $("div#outcome").show(300);
                 }
             }
         );
@@ -70,7 +73,7 @@
                     '@Url.Action("Progress", "Uploader", new {area="Documents", uploadid = uploadid })',
                     function (progress) {
                         console.debug(JSON.stringify(progress));
-                        if (!breaker) {
+
                             if (progress.result) {
                                 var item = progress.payload[0];
 
@@ -80,7 +83,6 @@
                                 $("div#outcome a").text(item.name);
                                 $("div#outcome").show(300, function () {
                                     stopUpdatingProgressIndicator();
-                                    breaker = false;
 
                             });
 
@@ -90,11 +92,14 @@
                             var val = progress.val;
                             if (val !== "-1") {
                             $("#progress div").css({ width: val + "%" });
-                            breaker = false;
-                            //$("#label").html(progress + "%")
+
+                            if (val == "100") {
+                                stopUpdatingProgressIndicator();
+                            }
+
                                 }
                         }
-                        }
+
                     }
                 );
             },

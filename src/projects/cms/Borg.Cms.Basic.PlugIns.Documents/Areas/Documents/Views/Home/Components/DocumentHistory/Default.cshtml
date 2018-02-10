@@ -1,24 +1,43 @@
 ﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
 @model DocumentHistoryViewModel
 
-    
-<table>
-    <thead>
-    <tr>
-        <th>v</th>
-        <th>c</th>
-    </tr>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Version history</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Size</th>
+                    <th>checkOut</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model.Rows())
+                {
+                    <tr>
+                        <td>
+                            <a asp-area="Documents" asp-controller="Uploader" asp-action="Version" asp-route-id="@Orchestrator.Device.RouteValues["id"][0]" asp-route-version="@t.version.Version" target="_blank">
+                                @t.version.FileSpec.Name
+                            </a>
+                        </td>
+                        <td>
+                            @t.version.FileSpec.SizeInBytes.SizeDisplay()
+                        </td>
+                        <td>
+                            @if (t.checkOut != null)
+                            {
+                                @t.checkOut.CheckedIn
 
-    </thead>
-    <tbody>
-    @foreach (var t in Model.Rows())
-    {
-        <tr>
-            <td>
-                @t.version.FileSpec.Name
-            </td>
-            <td>@t.checkOut.CheckedIn</td>
-        </tr>
-    }
-    </tbody>
-</table>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

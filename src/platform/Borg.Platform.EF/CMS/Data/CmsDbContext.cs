@@ -66,6 +66,4 @@ namespace Borg.Platform.EF.CMS.Data
             return new CmsDbContext(optionsBuilder.Options);
         }
     }
-
-
 }

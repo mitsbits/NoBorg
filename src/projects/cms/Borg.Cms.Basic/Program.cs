@@ -1,20 +1,19 @@
-﻿using Borg.Cms.Basic.Lib.Discovery.Data;
-using Borg.Cms.Basic.Lib.Features.Auth.Data;
+﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
 using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
+using Borg.Infra;
+using Borg.Infra.Services;
+using Borg.MVC.Util;
 using Borg.Platform.EF.Assets.Data;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using Borg.Infra;
-using Borg.Infra.Services;
-using Borg.MVC.Util;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using System;
 
 namespace Borg.Cms.Basic
 {
@@ -28,7 +27,6 @@ namespace Borg.Cms.Basic
             var appConfig = HostUtility.AppConfiguration(args);
             var settings = new BorgSettings();
             appConfig.GetSection("atlas").Bind(settings);
-
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()

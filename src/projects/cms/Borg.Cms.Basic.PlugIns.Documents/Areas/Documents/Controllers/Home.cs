@@ -68,7 +68,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
         [HttpPost("[area]/[controller]/CheckIn")]
         public async Task<IActionResult> CheckIn(CheckInCommand model, string redirecturl)
         {
-     
             var result = await _dispatcher.Send(model);
             if (!result.Succeded)
             {
@@ -76,8 +75,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             }
             return RedirectToLocal(redirecturl);
         }
-
-
     }
+
     public class CheckInViewModel { }
 }

@@ -194,6 +194,19 @@ namespace Borg.Platform.EF.Assets.Services
             return new FileSpecDefinition<int>(file.Id, file.FullPath, file.Name, file.CreationDate, file.LastWrite, file.LastRead, file.SizeInBytes, file.MimeType);
         }
 
+        public override async Task<FileSpecDefinition<int>> VersionFile(int id, int version)
+        {
+            var q = from f in _db.FileRecords
+                    join v in _db.VersionRecords on f.Id equals v.FileRecordId
+                    join a in _db.AssetRecords on v.AssetRecordId equals a.Id
+                    where f.VersionRecord.AssetRecordId == id && f.VersionRecord.Version == version
+                    select f;
+
+            var file = await q.FirstAsync();
+
+            return new FileSpecDefinition<int>(file.Id, file.FullPath, file.Name, file.CreationDate, file.LastWrite, file.LastRead, file.SizeInBytes, file.MimeType);
+        }
+
         public override async Task<AssetInfoDefinition<int>> AddVersion(AssetInfoDefinition<int> hit, FileSpecDefinition<int> fileSpec, VersionInfoDefinition versionSpec)
         {
             var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == hit.Id);
