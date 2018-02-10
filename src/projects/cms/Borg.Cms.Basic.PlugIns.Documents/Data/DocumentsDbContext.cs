@@ -20,6 +20,9 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
         public DbSet<DocumentOwnerState> DocumentOwnerStates { get; set; }
         public DbSet<DocumentCheckOutState> DocumentCheckOutStates { get; set; }
 
+        public DbSet<MimeTypeGroupingState> MimeTypeGroupingStates { get; set; }
+        public DbSet<MimeTypeGroupingExtensionState> MimeTypeGroupingExtensionStates { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var maptype = typeof(EntityMap<,>);
@@ -53,7 +56,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
         DocumentsDbContext IDesignTimeDbContextFactory<DocumentsDbContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DocumentsDbContext>();
-            optionsBuilder.UseSqlServer("Server=.\\sql2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "documents"));
+            optionsBuilder.UseSqlServer("Server=.\\d2016;Database=db;Trusted_Connection=True;MultipleActiveResultSets=true;", x => x.MigrationsHistoryTable("__MigrationsHistory", "documents"));
 
             return new DocumentsDbContext(optionsBuilder.Options);
         }

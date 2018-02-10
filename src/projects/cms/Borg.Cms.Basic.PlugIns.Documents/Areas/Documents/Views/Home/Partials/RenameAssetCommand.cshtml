@@ -1,0 +1,23 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.Commands
+@model RenameAssetCommand
+<div class="box box-primary box-solid">
+<div class="box-header with-border">
+    <h3 class="box-title">Rename Document</h3>
+</div>
+<div class="box-body">
+
+<form method="post" asp-controller="Home" asp-action="Rename" asp-area="Documents" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" >
+    <input type="hidden" asp-for="DocumentId"/>
+    <input type="hidden" asp-for="CorrelationId"/>
+    <input type="hidden" asp-for="Timestamp"/>
+
+    <div class="input-group">
+        <input type="text" class="form-control" asp-for="NewName">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-check"></i></button>
+        </span>
+    </div>
+
+</form>
+    </div>
+</div>

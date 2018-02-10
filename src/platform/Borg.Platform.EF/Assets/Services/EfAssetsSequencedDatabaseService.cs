@@ -207,6 +207,17 @@ namespace Borg.Platform.EF.Assets.Services
             return new FileSpecDefinition<int>(file.Id, file.FullPath, file.Name, file.CreationDate, file.LastWrite, file.LastRead, file.SizeInBytes, file.MimeType);
         }
 
+        public override async Task RenameAsset(int id, string newName)
+        {
+            var hit = await _db.AssetRecords.FirstOrDefaultAsync(x => x.Id == id);
+            if (hit == null)
+            {
+                _logger.Warn("Could not find asset with id {id}", id);
+            }
+            if (hit.Name != newName) hit.Name = newName;
+            await _db.SaveChangesAsync();
+        }
+
         public override async Task<AssetInfoDefinition<int>> AddVersion(AssetInfoDefinition<int> hit, FileSpecDefinition<int> fileSpec, VersionInfoDefinition versionSpec)
         {
             var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == hit.Id);
@@ -257,6 +268,12 @@ namespace Borg.Platform.EF.Assets.Services
         {
             var hits = await _db.MimeTypeRecords.AsNoTracking().OrderBy(x => x.Extension).ToArrayAsync();
             return hits.Select(x => new MimeTypeSpec(x.Extension, x.MimeType));
+        }
+
+        public override async Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions)
+        {
+            var q = from m in _db.MimeTypeRecords join extension in extensions on m.Extension equals extension select m;
+            return (await q.ToArrayAsync()).Select(x => new MimeTypeSpec(x.Extension, x.MimeType));
         }
 
         public override async Task<IMimeTypeSpec> GetFromExtension(string extension)

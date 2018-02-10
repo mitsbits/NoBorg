@@ -1,27 +1,32 @@
 ﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
 @model DocumentHistoryViewModel
+@{
+    string CurrentRowClass(int v) => Model.CurrentVersion() == v ? "active" : "";
+}
 
-<div class="box">
-    <div class="box-header">
+<div class="box box-primary box-solid">
+    <div class="box-header with-border">
         <h3 class="box-title">Version history</h3>
     </div>
-    <!-- /.box-header -->
+
     <div class="box-body no-padding">
         <table class="table table-condensed">
             <thead>
                 <tr>
+                    <th style="width: 10px;"></th>
                     <th>File</th>
                     <th>Size</th>
-                    <th>checkOut</th>
+                    <th>Check in</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var t in Model.Rows())
                 {
-                    <tr>
+                    <tr class="@CurrentRowClass(t.version.Version)">
+                        <td><strong>@t.version.Version</strong></td>
                         <td>
-                            <a asp-area="Documents" asp-controller="Uploader" asp-action="Version" asp-route-id="@Orchestrator.Device.RouteValues["id"][0]" asp-route-version="@t.version.Version" target="_blank">
-                                @t.version.FileSpec.Name
+                            <a asp-area="Documents" asp-controller="Uploader" asp-action="Version" asp-route-id="@Orchestrator.Device.RouteValues["id"][0]" asp-route-version="@t.version.Version" target="_blank" title="@t.version.FileSpec.Name">
+                                <div style=" white-space: nowrap; overflow: hidden;text-overflow: ellipsis; width: 120px;">@t.version.FileSpec.Name</div>
                             </a>
                         </td>
                         <td>
@@ -30,7 +35,16 @@
                         <td>
                             @if (t.checkOut != null)
                             {
-                                @t.checkOut.CheckedIn
+                                if (t.checkOut.CheckedIn)
+                                {
+                                    <span>@t.checkOut.CheckedInBy</span>
+                                    <span>@t.checkOut.CheckedinOn.Value.ToLocalTime().ToString("dd/MM/yy HH:mm")</span>
+
+                                }
+                                else
+                                {
+                                    <span>@t.checkOut.CheckedOutBy</span>
+                                }
 
                             }
                         </td>
@@ -39,5 +53,4 @@
             </tbody>
         </table>
     </div>
-    <!-- /.box-body -->
 </div>

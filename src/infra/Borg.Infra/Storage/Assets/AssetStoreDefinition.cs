@@ -42,6 +42,11 @@ namespace Borg.Infra.Storage.Assets
 
         public abstract Task<Stream> VersionFile(TKey assetId, int version);
 
+        public async Task RenameAsset(TKey id, string newName)
+        {
+            await _assetStoreDatabaseService.RenameAsset(id, newName);
+        }
+
         public event Contracts.AssetCreatedEventHandler<TKey> AssetCreated;
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
@@ -68,6 +73,11 @@ namespace Borg.Infra.Storage.Assets
         public async Task<IEnumerable<IMimeTypeSpec>> MimeTypes()
         {
             return await _assetStoreDatabaseService.MimeTypes();
+        }
+
+        public async Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions)
+        {
+            return await _assetStoreDatabaseService.MimeTypes(extensions);
         }
 
         public async Task<IMimeTypeSpec> GetFromExtension(string extension)

@@ -29,9 +29,12 @@ namespace Borg.Platform.EF.Assets.Services
 
         public abstract Task<FileSpecDefinition<TKey>> VersionFile(TKey id, int version);
 
+        public abstract Task RenameAsset(TKey id, string newName);
+
         public abstract Task<bool> TryAdd(IMimeTypeSpec mimeType);
 
         public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
+        public abstract  Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions);
 
         public abstract Task<IMimeTypeSpec> GetFromExtension(string extension);
 

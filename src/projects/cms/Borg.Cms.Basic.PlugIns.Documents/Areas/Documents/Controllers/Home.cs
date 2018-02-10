@@ -75,6 +75,18 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             }
             return RedirectToLocal(redirecturl);
         }
+
+
+        [HttpPost("[area]/[controller]/Rename")]
+        public async Task<IActionResult> Rename(RenameAssetCommand model, string redirecturl)
+        {
+            var result = await _dispatcher.Send(model);
+            if (!result.Succeded)
+            {
+                AddErrors(result);
+            }
+            return RedirectToLocal(redirecturl);
+        }
     }
 
     public class CheckInViewModel { }

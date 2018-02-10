@@ -30,5 +30,10 @@ namespace Borg.Cms.Basic.PlugIns.Documents.ViewModels
 
             return q.ToArray();
         }
+
+        public int CurrentVersion()
+        {
+            return CheckOuts.Where(x => x.CheckedIn).Max(x => x.CheckOutVersion);
+        }
     }
 }

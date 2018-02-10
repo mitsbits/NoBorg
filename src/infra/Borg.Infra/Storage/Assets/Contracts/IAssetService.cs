@@ -12,7 +12,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
     public delegate Task VersionCreatedEventHandler<TKey>(VersionCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
-    public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypestoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
+    public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
     {
         Task<TAsset> Create(string name, byte[] content, string fileName);
 
@@ -28,12 +28,14 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
         Task<Stream> VersionFile(TKey assetId, int version);
 
+        Task RenameAsset(TKey id, string newName);
+
         event AssetCreatedEventHandler<TKey> AssetCreated;
 
         event VersionCreatedEventHandler<TKey> VersionCreated;
     }
 
-    public interface IAssetStoreDatabaseService<TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypestoreDatabaseService where TKey : IEquatable<TKey>
+    public interface IAssetStoreDatabaseService<TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService where TKey : IEquatable<TKey>
     {
         Task<TKey> AssetNextFromSequence();
 
@@ -52,13 +54,17 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task<AssetInfoDefinition<TKey>> AddVersion(AssetInfoDefinition<TKey> hit, FileSpecDefinition<TKey> fileSpec, VersionInfoDefinition versionSpec);
 
         Task<FileSpecDefinition<TKey>> VersionFile(TKey id, int version);
+
+        Task RenameAsset(TKey id, string newName);
     }
 
-    public interface IMimeTypestoreDatabaseService
+    public interface IMimeTypeStoreDatabaseService
     {
         Task<bool> TryAdd(IMimeTypeSpec mimeType);
 
         Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
+
+        Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions);
 
         Task<IMimeTypeSpec> GetFromExtension(string extension);
     }
@@ -76,7 +82,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
             return hits.SingleOrDefault();
         }
 
-        public static async Task<IMimeTypeSpec> GetFromFileName(this IMimeTypestoreDatabaseService service, string fiename)
+        public static async Task<IMimeTypeSpec> GetFromFileName(this IMimeTypeStoreDatabaseService service, string fiename)
         {
             var ext = Path.GetExtension(fiename);
             return await service.GetFromExtension(ext);
