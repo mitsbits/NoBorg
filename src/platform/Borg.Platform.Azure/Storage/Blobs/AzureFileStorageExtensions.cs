@@ -20,7 +20,7 @@ namespace Borg.Platform.Azure.Storage.Blobs
             if (blob.Properties.Length == -1)
                 return null;
             var created = blob.Properties.LastModified?.UtcDateTime ?? default(DateTime); //TODO: this sucks big time
-            return new FileSpecDefinition(blob.SnapshotQualifiedUri.ToString(), blob.Name, created, created, default(DateTime?), blob.Properties.Length);
+            return new FileSpecDefinition(blob.Uri.AbsoluteUri, blob.Name, created, created, default(DateTime?), blob.Properties.Length);
         }
     }
 }

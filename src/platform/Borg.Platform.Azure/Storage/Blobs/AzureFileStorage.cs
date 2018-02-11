@@ -65,6 +65,7 @@ namespace Borg.Platform.Azure.Storage.Blobs
         {
             cancellationToken.ThrowIfCancellationRequested();
             var blockBlob = _container.GetBlockBlobReference(path);
+            blockBlob.Properties.ContentType = path.GetMimeType();
             await blockBlob.UploadFromStreamAsync(stream).AnyContext();
 
             return true;
