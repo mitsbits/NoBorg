@@ -43,8 +43,8 @@
             @await Component.InvokeAsync(typeof(DocumentHistoryViewComponent), new Tidings(new Tiding[] { new Tiding(Tidings.DefinedKeys.Id, Model.Document.Id.ToString()) }))
         </div>
         <div class="col-md-4">
-  
-                    @Html.Partial("Partials/RenameAssetCommand", new RenameAssetCommand(Model.Document.Id, Model.Asset.Name))
+
+            @Html.Partial("Partials/RenameAssetCommand", new RenameAssetCommand(Model.Document.Id, Model.Asset.Name))
         </div>
     </div>
 </div>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features;
+﻿using Borg.Cms.Basic.Lib.Features;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Cms.Basic.PlugIns.Documents.Events;
 using Borg.Infra.DAL;
@@ -14,12 +9,18 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Commands
 {
     public class CheckInCommand : CommandBase<CommandResult>
     {
-        public CheckInCommand() { }
+        public CheckInCommand()
+        {
+        }
 
         public CheckInCommand(int documentId, string userHandle)
         {
@@ -53,13 +54,11 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
             {
                 DocumenCheckInEvent @event = null;
 
-
                 var checkout =
                     await _uow.Context.DocumentCheckOutStates.SingleAsync(x =>
                         x.DocumentId == message.DocumentId && !x.CheckedIn);
 
                 if (checkout == null) return CommandResult.Failure($"There is no pennding version for document with id {message.DocumentId}");
-
 
                 using (var stream = new MemoryStream())
                 {
@@ -70,11 +69,9 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
                     checkout.CheckedInBy = message.UserHandle;
                     checkout.CheckedinOn = DateTimeOffset.UtcNow;
                     await _uow.ReadWriteRepo<DocumentCheckOutState>().Update(checkout);
-        
+
                     @event = new DocumenCheckInEvent(message.DocumentId, message.UserHandle, CheckInversion.Version);
                 }
-
-
 
                 await _uow.Save();
                 if (@event != null) _dispatcher.Publish(@event); //fire and forget
@@ -86,7 +83,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
                 return CommandResult.Failure(ex.ToString());
             }
         }
-
 
         private string EnsureCorrectFilename(string filename)
         {

@@ -9,7 +9,11 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleTagsAssociation\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Item.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticleTags.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ComponentStateButtons.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Partials\RenameArticleCommand.cshtml" />
     <Content Remove="Themes\Backoffice\HtmlSnippet\Home.cshtml" />
     <Content Remove="Themes\Backoffice\HtmlSnippet\Partials\HtmlSnippetCommand.cshtml" />
     <Content Remove="Themes\Backoffice\PlugIns\Partials\Descriptor.cshtml" />

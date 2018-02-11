@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using Borg.Infra.Storage.Assets;
+﻿using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Data
 {
@@ -10,6 +10,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
     {
         private readonly DocumentsDbContext _db;
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
+
         public DocumentsDbSeed(DocumentsDbContext db, IAssetStore<AssetInfoDefinition<int>, int> assetStore)
         {
             _db = db;
@@ -33,7 +34,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Data
                 hit = new MimeTypeGroupingState() { Name = groupingName };
                 foreach (var mimeTypeSpec in imagemimes)
                 {
-                    hit.Extensions.Add(new MimeTypeGroupingExtensionState() { Extension = mimeTypeSpec.Extension});
+                    hit.Extensions.Add(new MimeTypeGroupingExtensionState() { Extension = mimeTypeSpec.Extension });
                 }
                 await _db.MimeTypeGroupingStates.AddAsync(hit);
             }

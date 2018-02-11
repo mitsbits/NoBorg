@@ -1,9 +1,10 @@
 ﻿using Borg.Infra.DAL;
+using Borg.Infra.Messaging;
 using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 {
-    public class NavigationItemStateChanged : INotification
+    public class NavigationItemStateChanged : MessageBase, INotification
     {
         public NavigationItemStateChanged(int id, DmlOperation dmlOperation)
         {

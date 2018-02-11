@@ -41,5 +41,19 @@ namespace Borg.Infra.Caching
             var expiration = DateTimeOffset.UtcNow.Add(period);
             await store.SetAbsolute<T>(key, instance, expiration);
         }
+
+        /// <summary>
+        /// forever is ten years from now
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="store"></param>
+        /// <param name="key"></param>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static async Task SetForEver<T>(this ICacheStore store, string key, T instance)
+        {
+            var expiration = DateTimeOffset.UtcNow.AddYears(10);
+            await store.SetAbsolute<T>(key, instance, expiration);
+        }
     }
 }

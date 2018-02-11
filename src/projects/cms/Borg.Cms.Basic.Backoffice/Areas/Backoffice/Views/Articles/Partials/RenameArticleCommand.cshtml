@@ -1,0 +1,20 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@model RenameArticleCommand
+<div class="box box-solid box-primary">
+    <form method="post" asp-controller="Articles" asp-action="Rename" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" >
+        <input type="hidden" asp-for="RecordId"/>
+        <input type="hidden" asp-for="CorrelationId"/>
+        <input type="hidden" asp-for="Timestamp"/>
+
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon" data-toggle="tooltip" title="Also set slug">
+                    <input type="checkbox" asp-for="AlsoSetSlug" class="" >
+                </span>
+                <input type="text" class="form-control" asp-for="NewTitle">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-check"></i></button>
+                </span>
+            </div>
+ 
+    </form>
+</div>

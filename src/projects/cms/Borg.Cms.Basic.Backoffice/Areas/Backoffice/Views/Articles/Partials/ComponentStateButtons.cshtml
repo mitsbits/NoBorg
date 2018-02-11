@@ -1,0 +1,16 @@
+﻿@model Borg.Platform.EF.CMS.ArticleState
+
+<div class="pull-right">
+    <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="operation" value="published" />
+        <button comp-published published-state="@Model.Component.IsPublished"></button>
+    </form>
+</div>
+<div class="pull-right" style="margin-right: 10px;">
+    <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="operation" value="deleted" />
+        <button comp-deleted deleted-state="@Model.Component.IsDeleted"></button>
+    </form>
+</div>

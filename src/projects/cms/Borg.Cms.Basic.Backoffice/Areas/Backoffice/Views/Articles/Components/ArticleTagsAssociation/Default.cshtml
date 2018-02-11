@@ -1,0 +1,54 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@model ArticleTagsAssociationViewModel
+@{
+    var existingtags = Model.Tags.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Tag});
+}
+    
+ <form asp-controller="Tags" asp-action="AssociateAtricleTags" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">   
+     <input type="hidden" asp-for="ArticleId"/>
+<div class="form-group">
+<select id="tagsuggestions" asp-for="Selection" asp-items="@existingtags" class="form-control"></select>
+</div>
+     <button type="submit"> submit</button>
+ </form>
+
+<script device id="tagsuggestionscript" weight="110" script-position="Bottom">
+
+    var ownersUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
+
+    var pageSize = 30;
+
+    $("select#tagsuggestions").select2({
+        allowClear: true,
+        multiple: true,
+        tags: true,
+        tokenSeparators: [",", " "],
+        ajax: {
+            url: ownersUrl,
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+
+                return {
+                    searchTerm: params.q,
+                    pageNum: params.page || 1,
+                    pageSize: pageSize
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data.Results,
+                    pagination: {
+                        more: (params.page * pageSize) < data.Total
+                    }
+                };
+            },
+            cache: true,
+            formatSelectionCssClass: function (data, container) { return "tag-item"; },
+        }
+    });
+
+
+</script>

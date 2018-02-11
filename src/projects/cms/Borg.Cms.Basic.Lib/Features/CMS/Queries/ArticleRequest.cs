@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
@@ -35,9 +36,16 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             try
             {
-                var result = await _uow.QueryRepo<ArticleState>().Get(x => x.Id == message.RecordId, CancellationToken.None, a => a.Tags, a => a.Component);
+                var article = await _uow.Context.ArticleStates.Include(a => a.ArticleTags).ThenInclude(at => at.Tag)
+                    .Include(a => a.Component).FirstOrDefaultAsync(x => x.Id == message.RecordId);
+                if (article == null)
+                {
+                    _logger.Warn("Article with id {id} was not found", message.RecordId);
+                    return QueryResult<ArticleState>.Failure(
+                        $"Article with id {message.RecordId} was not found");
+                }
 
-                return QueryResult<ArticleState>.Success(result);
+                return QueryResult<ArticleState>.Success(article);
             }
             catch (Exception e)
             {

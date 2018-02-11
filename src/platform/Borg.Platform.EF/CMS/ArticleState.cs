@@ -15,7 +15,7 @@ namespace Borg.Platform.EF.CMS
         public string Slug { get; set; }
         public string Body { get; set; }
         internal virtual TaxonomyState Taxonomy { get; set; }
-        private ICollection<ArticleTagState> ArticleTags { get; } = new List<ArticleTagState>();
+        public virtual ICollection<ArticleTagState> ArticleTags { get; } = new List<ArticleTagState>();
 
         [NotMapped]
         public virtual IEnumerable<TagState> Tags => ArticleTags.Select(e => e.Tag);

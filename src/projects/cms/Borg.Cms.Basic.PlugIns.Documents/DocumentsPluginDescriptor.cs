@@ -3,6 +3,7 @@ using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
+using Borg.MVC.PlugIns.Decoration;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +18,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
-using Borg.MVC.PlugIns.Decoration;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {

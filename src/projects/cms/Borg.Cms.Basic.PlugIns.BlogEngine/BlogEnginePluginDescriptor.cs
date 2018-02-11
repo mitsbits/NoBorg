@@ -1,7 +1,6 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery;
 using Borg.Cms.Basic.Lib.Discovery.Contracts;
 using Borg.Cms.Basic.Lib.Features.Auth;
-using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.Blogs.Controllers;
 using Borg.Cms.Basic.PlugIns.BlogEngine.Domain;
 using Borg.Infra;
 using Borg.Infra.DTO;
@@ -19,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.BlogEngine.Controllers;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {
