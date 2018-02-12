@@ -53,6 +53,8 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                     return CommandResult.Failure(notfoundmessage);
                 }
                 article.ArticleTags.Clear();
+                await _uow.ReadWriteRepo<ArticleState>().Update(article);
+                await _uow.Save();
                 foreach (var messageTag in message.Tags)
                 {
                     var tag = messageTag.Trim();

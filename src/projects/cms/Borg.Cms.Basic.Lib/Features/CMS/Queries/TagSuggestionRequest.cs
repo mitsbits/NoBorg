@@ -12,7 +12,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
     public class TagSuggestionRequest : IRequest<QueryResult<Select2PagedResult>>
     {
-        public TagSuggestionRequest(string searchTerm, int pageSize = 1, int pageNum = 30)
+        public TagSuggestionRequest(string searchTerm, int pageNum  = 1, int pageSize  = 30)
         {
             SearchTerm = searchTerm;
             PageSize = pageSize;
@@ -39,9 +39,10 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             try
             {
-                var result = await _uow.QueryRepo<TagState>().Find(x => x.Tag.Contains(message.SearchTerm),
+                var term = message.SearchTerm.ToUpper();
+                var result = await _uow.QueryRepo<TagState>().Find(x => x.TagNormalized.StartsWith(term),
                     message.PageNum, message.PageSize, SortBuilder.Get<TagState>().Add(x => x.Tag).Build());
-                var hits = result.Records.Select(x => new Select2Result() { id = x.Id.ToString(), text = x.Tag }).ToList();
+                var hits = result.Records.Select(x => new Select2Result() { id = x.Tag, text = x.Tag }).ToList();
                 var page = new Select2PagedResult() { Total = result.TotalRecords, Results = hits };
 
                 return QueryResult<Select2PagedResult>.Success(page);

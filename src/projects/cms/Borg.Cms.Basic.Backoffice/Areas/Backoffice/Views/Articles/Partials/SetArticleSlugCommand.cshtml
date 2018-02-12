@@ -1,0 +1,18 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@model SetArticleSlugCommand
+<h4 class="text-primary">Slug</h4>
+<div class="box box-solid box-primary">
+    <form method="post" asp-controller="Articles" asp-action="SetSlug" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" >
+        <input type="hidden" asp-for="RecordId"/>
+        <input type="hidden" asp-for="CorrelationId"/>
+        <input type="hidden" asp-for="Timestamp"/>
+
+        <div class="input-group input-group">
+            <input type="text" class="form-control" asp-for="Slug">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-check"></i></button>
+            </span>
+        </div>
+ 
+    </form>
+</div>

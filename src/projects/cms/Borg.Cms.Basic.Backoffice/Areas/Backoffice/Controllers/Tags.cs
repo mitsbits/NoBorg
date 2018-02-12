@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features;
 using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
@@ -16,12 +17,13 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TagOptions(string searchTerm, int? pageSize, int? pageNum)
-        {
+        public async Task<IActionResult> TagOptions(string searchTerm, int? pageNum, int? pageSize)
+       {
+            if (string.IsNullOrWhiteSpace(searchTerm)) return Json( new Select2PagedResult());
             pageSize = pageSize ?? 30;
             pageNum = pageNum ?? 1;
             var result = await Dispatcher.Send(new TagSuggestionRequest(searchTerm, pageNum.Value, pageSize.Value));
-            return Json(new { Data = result });
+            return Json( result.Payload );
         }
 
         [HttpPost]

@@ -1,16 +1,34 @@
 ﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 @model ArticleTagsAssociationViewModel
 @{
-    var existingtags = Model.Tags.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Tag});
+    var existingtags = Model.Tags.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Tag });
 }
-    
- <form asp-controller="Tags" asp-action="AssociateAtricleTags" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">   
-     <input type="hidden" asp-for="ArticleId"/>
-<div class="form-group">
-<select id="tagsuggestions" asp-for="Selection" asp-items="@existingtags" class="form-control"></select>
+<div class="box box-primary box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Tags</h3>
+    </div>
+    <form asp-controller="Tags" asp-action="AssociateAtricleTags" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <div class="box-body">
+
+            <input type="hidden" asp-for="ArticleId" />
+            <div class="form-group">
+
+                <select id="tagsuggestions" asp-for="Selection" asp-items="@existingtags" class="form-control">
+                    @foreach (var select in Model.Selection)
+                    {
+                        <option selected="selected">@select</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-primary btn-flat pull-right" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+        </div>
+    </form>
 </div>
-     <button type="submit"> submit</button>
- </form>
+
 
 <script device id="tagsuggestionscript" weight="110" script-position="Bottom">
 
@@ -22,30 +40,32 @@
         allowClear: true,
         multiple: true,
         tags: true,
+        theme: "classic",
         tokenSeparators: [",", " "],
         ajax: {
             url: ownersUrl,
             dataType: 'json',
             delay: 250,
             data: function (params) {
-
+                console.debug(JSON.stringify(params));
                 return {
-                    searchTerm: params.q,
+                    searchTerm: params.term,
                     pageNum: params.page || 1,
                     pageSize: pageSize
                 };
             },
             processResults: function (data, params) {
                 params.page = params.page || 1;
-
+                console.debug(JSON.stringify(data));
+                console.debug(JSON.stringify(params));
                 return {
-                    results: data.Results,
+                    results: data.results,
                     pagination: {
-                        more: (params.page * pageSize) < data.Total
+                        more: (params.page * pageSize) < data.total
                     }
                 };
             },
-            cache: true,
+            cache: false,
             formatSelectionCssClass: function (data, container) { return "tag-item"; },
         }
     });

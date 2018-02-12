@@ -29,8 +29,22 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return View("404");
         }
 
-        [HttpPost]
+        [HttpPost("Rename")]
         public async Task<IActionResult> Rename(RenameArticleCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
+        [HttpPost("SetSlug")]
+        public async Task<IActionResult> SetSlug(SetArticleSlugCommand model, string redirecturl)
         {
             if (ModelState.IsValid)
             {
