@@ -90,7 +90,7 @@ namespace Borg.Infra.Services.Slugs
             }
 
             source = MultipleHyphens.Replace(WordDelimiters.Replace(source, "-"), "-");
-            return source;
+            return source.ToLowerInvariant();
         }
     }
 }

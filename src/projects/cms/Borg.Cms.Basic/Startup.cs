@@ -44,8 +44,8 @@ namespace Borg.Cms.Basic
 
             var builder = AddBorgMvc(services);
             builder.AddApplicationPart(typeof(PresentationController).Assembly);
-            builder.ConfigureApplicationPartManager(p =>
-                p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
+            //builder.ConfigureApplicationPartManager(p =>
+            //    p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
 
             services.AddAuthorization(options =>
             {
@@ -130,6 +130,7 @@ namespace Borg.Cms.Basic
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStatusCodePagesWithReExecute("/error/page{0}");
             app.UseStaticFiles();
 
             BranchPlugins(app);

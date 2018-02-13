@@ -61,6 +61,7 @@ namespace Borg.MVC
             {
                 mvcbuilder.AddApplicationPart(entrypointassembly);
             }
+           
 
             return mvcbuilder;
         }
@@ -86,7 +87,8 @@ namespace Borg.MVC
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
-
+                options.PageViewLocationFormats.Add("/Themes/Bootstrap3/Shared/{0}.cshtml");
+                
                 foreach (var entrypointassembly in entrypointassemblies)
                 {
                     options.FileProviders.Add(new EmbeddedFileProvider(entrypointassembly));

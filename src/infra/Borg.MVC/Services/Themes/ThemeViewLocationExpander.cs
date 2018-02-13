@@ -14,6 +14,7 @@ namespace Borg.MVC.Services.Themes
             {
                 context.Values[THEME_KEY] = context.ActionContext.ActionDescriptor.Properties[THEME_KEY].ToString();
             }
+       
         }
 
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)

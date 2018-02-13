@@ -9,17 +9,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 ">
-            @Html.Partial("Partials/RenameArticleCommand", new RenameArticleCommand() { RecordId = Model.Id, NewTitle = Model.Title })
-
+            <div class="row">
+                <div class="col-md-6">@Html.Partial("Partials/RenameArticleCommand", new RenameArticleCommand() { RecordId = Model.Id, NewTitle = Model.Title })</div>
+                <div class="col-md-6">@Html.Partial("Partials/SetArticleSlugCommand", new SetArticleSlugCommand() { RecordId = Model.Id, Slug = Model.Slug })</div>
+            </div>
         </div>
-        <div class="col-xs-2 ">  @Html.Partial("Partials/ComponentStateButtons", Model)</div>
+        <div class="col-xs-2 ">@Html.Partial("Partials/ComponentStateButtons", Model)</div>
     </div>
 </div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
 
-            @Html.Partial("Partials/SetArticleSlugCommand", new SetArticleSlugCommand() { RecordId = Model.Id, Slug = Model.Slug })
         </div>
         <div class="col-md-6">
             @(await Component.InvokeAsync(typeof(ArticleTagsAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
