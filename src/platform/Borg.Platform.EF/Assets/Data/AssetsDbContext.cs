@@ -58,7 +58,6 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<AssetRecord>().Property(x => x.CurrentVersion).IsRequired().HasDefaultValueSql("0");
             builder.Entity<AssetRecord>().Property(x => x.DocumentBehaviourState).IsRequired();
 
-
             builder.Entity<MimeTypeRecord>().HasKey(x => x.Extension).ForSqlServerIsClustered();
             builder.Entity<MimeTypeRecord>().Property(x => x.Extension).IsRequired().HasMaxLength(64).IsUnicode(true).ValueGeneratedNever();
             builder.Entity<MimeTypeRecord>().Property(x => x.MimeType).IsRequired().HasMaxLength(256).IsUnicode(true).ValueGeneratedNever();

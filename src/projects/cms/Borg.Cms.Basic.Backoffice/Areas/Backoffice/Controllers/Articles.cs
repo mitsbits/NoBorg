@@ -1,10 +1,10 @@
-﻿using Borg.Cms.Basic.Lib.Features.CMS.Queries;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
+using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -24,7 +24,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             {
                 SetPageTitle(result.Payload.Title);
                 return View(result.Payload);
-
             }
             return View("404");
         }

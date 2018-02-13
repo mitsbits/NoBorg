@@ -6,15 +6,19 @@
 @using Borg.Cms.Basic.Lib.Features.CMS.Commands
 @using Borg.Infra.DTO
 @model Borg.Platform.EF.CMS.ArticleState
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 margin"> @Html.Partial("Partials/ComponentStateButtons", Model)</div>
-    </div>      
+        <div class="col-xs-10 ">
+            @Html.Partial("Partials/RenameArticleCommand", new RenameArticleCommand() { RecordId = Model.Id, NewTitle = Model.Title })
+
+        </div>
+        <div class="col-xs-2 ">  @Html.Partial("Partials/ComponentStateButtons", Model)</div>
+    </div>
 </div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            @Html.Partial("Partials/RenameArticleCommand", new RenameArticleCommand() { RecordId = Model.Id, NewTitle = Model.Title })
+
             @Html.Partial("Partials/SetArticleSlugCommand", new SetArticleSlugCommand() { RecordId = Model.Id, Slug = Model.Slug })
         </div>
         <div class="col-md-6">

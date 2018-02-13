@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Borg.Infra.Messaging;
+﻿using Borg.Infra.Messaging;
 using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
