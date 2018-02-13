@@ -15,6 +15,7 @@ namespace Borg.Platform.EF.CMS
         internal virtual ArticleState Article { get; set; }
         internal virtual TaxonomyState Taxonomy { get; set; }
         internal virtual ComponentDeviceState ComponentDevice { get; set; }
+        internal virtual PageMetadataState PageMetadata { get; set; }
     }
 
     public class ComponentStateMap : EntityMap<ComponentState, CmsDbContext>

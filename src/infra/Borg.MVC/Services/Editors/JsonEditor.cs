@@ -21,6 +21,13 @@ namespace Borg.MVC.Services.Editors
             set => SetValue(nameof(Value), value);
         }
 
+        [JsonIgnore]
+        public dynamic Template
+        {
+            get => GetValue<dynamic>(nameof(Template));
+            set => SetValue(nameof(Template), value);
+        }
+
         public override Tuple<int, string>[] ValueModel()
         {
             return new[] { Tuple.Create(0, Value) };

@@ -1,0 +1,19 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@model ArticlePageMetadataViewModel
+    @{
+        var templ = new {
+            text = "Html Meta",
+            title = "Html Meta",
+            className = "jsoneditor-type-object",
+            field = "HtmlMetaTemplate",
+            value = new{
+                Content = "",
+                HttpEquiv = "",
+                Name = "",
+                Scheme = ""
+            }
+        };
+        Model.HtmlMetas.Template = templ;
+    }
+<h1>Hallo</h1>
+@Html.EditorFor(m=>m.HtmlMetas)

@@ -25,7 +25,7 @@ namespace Borg.Platform.EF.CMS.Data
         public DbSet<DeviceState> DeviceStates { get; set; }
         public DbSet<SectionState> SectionStates { get; set; }
         public DbSet<ComponentDeviceState> ComponentDeviceStates { get; set; }
-
+        public DbSet<PageMetadataState> PageMetadataStates { get; set; }
         public DbSet<SlotState> SlotStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

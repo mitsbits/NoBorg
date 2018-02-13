@@ -1,6 +1,28 @@
 ﻿@using Borg.MVC.Services.Editors
+@using Newtonsoft.Json
 @model JsonEditor
 <input type="hidden" asp-for="HtmlId" />
+@*@Html.Raw(templ)*@
+@{
+    var templ = @" {
+        text: 'Tiding',
+        title: 'Insert a Tiding',
+        className: 'jsoneditor-type-object',
+        field: 'TidingTemplate',
+        value: {
+            Key: '',
+            Value: '',
+            Weight: 0.1,
+            Depth: 0,
+            HumanKey: '',
+            Hint: '',
+            Flag: ''
+        }";
+    if (Model.Template != null)
+    {
+        templ = JsonConvert.SerializeObject(Model.Template);
+    }
+}
 
 <div class="form-group" id="@Model.HtmlId">
 
@@ -31,11 +53,13 @@
 <script device id="@(Model.HtmlId)_script">
         $(function () {
 
+            var temp = JSON.parse('@Html.Raw(templ)');
+            var temps = [temp];
             var container = document.getElementById('@Model.HtmlId' + '_jsoneditor');
             var initialText = $( '#' + '@Model.HtmlId' + '_jsonValueBox').val();
             var options = {
                 modes: ['text', 'code', 'tree', 'form', 'view'],
-                mode: 'text',
+                mode: 'tree',
                 ace: ace,
                 search: false,
                 sortObjectKeys: true,
@@ -44,24 +68,9 @@
                     $('#' + '@Model.HtmlId' + '_jsonValueBox').val(json);
 
                 },
-                templates: [
-                    {
-                        text: 'Tiding',
-                        title: 'Insert a Tiding',
-                        className: 'jsoneditor-type-object',
-                        field: 'TidingTemplate',
-                        value: {
-                            Key: "",
-                            Value: "",
-                            Weight: 0.1,
-                            Depth: 0,
-                            HumanKey: "",
-                            Hint: "",
-                            Flag: ""
-                        }
-                    }
-                ]
+                templates: temps
             }
+
 
             var editor = new JSONEditor(container, options, @Html.Raw(Model.Value));
 

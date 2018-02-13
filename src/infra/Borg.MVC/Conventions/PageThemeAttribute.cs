@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Borg.MVC.Conventions
 {
-    public class PageThemeAttribute : Attribute, IPageApplicationModelConvention
+    public class PageThemeAttribute : Attribute, IActionModelConvention
     {
         private readonly string _theme;
 
@@ -13,9 +13,9 @@ namespace Borg.MVC.Conventions
         }
 
 
-        public void Apply(PageApplicationModel model)
+        public void Apply(ActionModel action)
         {
-            model.Properties["theme"] = _theme;
+            action.Properties["theme"] = _theme;
         }
     }
 }

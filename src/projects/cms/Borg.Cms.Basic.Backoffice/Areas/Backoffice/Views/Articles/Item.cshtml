@@ -20,7 +20,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-
+            @(await Component.InvokeAsync(typeof(ArticlePageMetadataViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
         </div>
         <div class="col-md-6">
             @(await Component.InvokeAsync(typeof(ArticleTagsAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
