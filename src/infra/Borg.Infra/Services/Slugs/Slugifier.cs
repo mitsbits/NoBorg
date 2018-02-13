@@ -27,6 +27,7 @@ namespace Borg.Infra.Services.Slugs
             if (source == null) return string.Empty;
 
             source = InterceptSource(source);
+            source = source.RemoveDiacritics();
 
             foreach (var nternationalCharacterToAsciiService in _internationalCharacterMappers)
             {

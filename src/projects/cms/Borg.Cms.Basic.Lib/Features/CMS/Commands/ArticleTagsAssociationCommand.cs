@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.Infra.Services.Slugs;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
@@ -18,9 +16,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
         public int RecordId { get; set; }
 
         public string[] Tags { get; set; }
-
     }
-
 
     public class ArticleTagsAssociationCommandHandler : AsyncRequestHandler<ArticleTagsAssociationCommand, CommandResult>
     {
@@ -64,14 +60,14 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         hit = new TagState()
                         {
                             Tag = tag,
-                            TagNormalized = tag.ToUpperInvariant(),
+                            TagNormalized = tag.RemoveDiacritics().ToUpperInvariant(),
                             TagSlug = _slugifier.Slugify(tag, 1024),
                             Component = new ComponentState() { IsDeleted = false, IsPublished = true }
                         };
                         hit = await _uow.ReadWriteRepo<TagState>().Create(hit);
                     }
                     await _uow.ReadWriteRepo<ArticleTagState>()
-                        .Create(new ArticleTagState() {ArticleId = message.RecordId, TagId = hit.Id});
+                        .Create(new ArticleTagState() { ArticleId = message.RecordId, TagId = hit.Id });
                 }
                 await _uow.Save();
                 return CommandResult.Success();
