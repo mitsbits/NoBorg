@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Services.Editors;
@@ -12,6 +8,8 @@ using Borg.Platform.EF.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 {
@@ -19,11 +17,13 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
     {
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly ILogger _logger;
+
         public ArticlePageMetadataViewComponent(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;
         }
+
         public async Task<IViewComponentResult> InvokeAsync(Tidings tidings)
         {
             if (!tidings.ContainsKey(Tidings.DefinedKeys.Id))
@@ -48,10 +48,12 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
             catch (Exception e)
             {
                 _logger.Error(e);
-       
             }
-            var model = new ArticlePageMetadataViewModel();
-            model.HtmlMetas = new JsonEditor(JsonConvert.SerializeObject(collection));
+            var model = new ArticlePageMetadataViewModel
+            {
+                HtmlMetas = new JsonEditor(JsonConvert.SerializeObject(collection)),
+                RecordId = id
+            };
             if (tidings.ContainsKey(Tidings.DefinedKeys.View) && !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View])) return View(tidings[Tidings.DefinedKeys.View], model);
             return View(model);
         }
@@ -59,6 +61,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 
     public class ArticlePageMetadataViewModel
     {
+        public int RecordId { get; set; }
         public JsonEditor HtmlMetas { get; set; }
     }
 }

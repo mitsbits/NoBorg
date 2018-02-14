@@ -1,6 +1,5 @@
 ﻿using Borg.Infra.DTO;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,9 +57,9 @@ namespace Borg.MVC.Services.Editors
             set => SetValue(nameof(Options), value);
         }
 
-        public override Tuple<int, string>[] ValueModel()
+        public override (int index, string value)[] ValueModel()
         {
-            return ValueContainers.Select((x, i) => Tuple.Create(i, x.Value)).ToArray();
+            return ValueContainers.Select((x, i) => (index: i, value: x.Value)).ToArray();
         }
     }
 

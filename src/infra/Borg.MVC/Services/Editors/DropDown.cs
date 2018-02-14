@@ -1,7 +1,6 @@
 ﻿using Borg.Infra.DTO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,9 +50,9 @@ namespace Borg.MVC.Services.Editors
             set => SetValue(nameof(Options), value);
         }
 
-        public override Tuple<int, string>[] ValueModel()
+        public override (int index, string value)[] ValueModel()
         {
-            return new[] { Tuple.Create(0, Value) };
+            return new[] { (index: 0, value: Value) };
         }
 
         public IEnumerable<SelectListItem> DropDownItems(bool insertEmpty = false, string emptyvalue = "", string emptydisplay = "...")

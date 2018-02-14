@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System;
 
 namespace Borg.MVC.Conventions
 {
@@ -11,7 +11,6 @@ namespace Borg.MVC.Conventions
         {
             _theme = theme;
         }
-
 
         public void Apply(ActionModel action)
         {

@@ -1,9 +1,11 @@
-﻿using Borg.Cms.Basic.Lib.Features.CMS.Commands;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
+using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
@@ -48,6 +50,21 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             if (ModelState.IsValid)
             {
                 var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
+        [HttpPost("SetHtmlMetas")]
+        public async Task<IActionResult> SetHtmlMetas(ArticlePageMetadataViewModel model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var command = new ArticleHtmlMetasCommand() { RecordId = model.RecordId, HtmlMetas = model.HtmlMetas.ValueModel()[0].value };
+                var result = await Dispatcher.Send(command);
                 if (!result.Succeded)
                 {
                     AddErrors(result);

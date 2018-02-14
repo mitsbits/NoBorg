@@ -18,7 +18,6 @@ namespace Borg.MVC.Services.Themes
             {
                 var c = context;
             }
-       
         }
 
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)

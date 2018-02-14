@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace Borg.MVC.Services.Editors
 {
@@ -30,11 +29,13 @@ namespace Borg.MVC.Services.Editors
             set => SetValue(nameof(MaxValue), value);
         }
 
-        public override Tuple<int, string>[] ValueModel()
+        public override (int index, string value)[] ValueModel()
         {
-            var mn = Tuple.Create(0, MinValue.ToString());
-            var mx = Tuple.Create(1, MaxValue.ToString());
-            return new[] { mn, mx };
+            return new[]
+            {
+                (index: 0, value: MinValue.ToString()),
+                (index: 1, value: MaxValue.ToString()),
+            };
         }
     }
 

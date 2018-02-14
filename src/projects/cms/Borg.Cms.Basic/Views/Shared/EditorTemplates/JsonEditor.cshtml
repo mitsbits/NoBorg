@@ -5,19 +5,19 @@
 @*@Html.Raw(templ)*@
 @{
     var templ = @" {
-        text: 'Tiding',
-        title: 'Insert a Tiding',
-        className: 'jsoneditor-type-object',
-        field: 'TidingTemplate',
-        value: {
-            Key: '',
-            Value: '',
-            Weight: 0.1,
-            Depth: 0,
-            HumanKey: '',
-            Hint: '',
-            Flag: ''
-        }";
+text: 'Tiding',
+title: 'Insert a Tiding',
+className: 'jsoneditor-type-object',
+field: 'TidingTemplate',
+value: {
+Key: '',
+Value: '',
+Weight: 0.1,
+Depth: 0,
+HumanKey: '',
+Hint: '',
+Flag: ''
+}";
     if (Model.Template != null)
     {
         templ = JsonConvert.SerializeObject(Model.Template);
@@ -25,8 +25,11 @@
 }
 
 <div class="form-group" id="@Model.HtmlId">
+    @if (!Model.HideLabel)
+    {
+        <label asp-for="@Model"></label>
 
-    <label asp-for="@Model"></label>
+    }
     <input type="hidden" asp-for="Value" class="form-control hidden" id="@(Model.HtmlId)_jsonValueBox" />
     <span asp-validation-for="Value" class="text-danger"></span>
     <div id="@(Model.HtmlId)_jsoneditor" style="min-height: 400px; height: 400px;"></div>
@@ -71,9 +74,9 @@
                 templates: temps
             }
 
-
             var editor = new JSONEditor(container, options, @Html.Raw(Model.Value));
 
+            editor.setText(initialText);
             // set json
             //$("#modulesselect").change(function () {
             //    var v = $(this).val();
