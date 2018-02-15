@@ -18,13 +18,13 @@ namespace Borg.CMS.BuildingBlocks
 
         ICollection<ISlot> ISection.Slots => Enumerable.Cast<ISlot>(Slots).ToList();
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
-        public ICollection<Slot> Slots { get; protected set; }
+        public ICollection<Slot> Slots { get;  set; }
 
         public void DefineSlot(SectionSlotInfo info, ModuleRenderer module)
         {
             Preconditions.NotNull(info, nameof(info));
             Preconditions.NotNull(module, nameof(module));
-            var slot = Enumerable.FirstOrDefault(Slots, x => x.SectionSlotInfo.Ordinal == info.Ordinal
+            var slot = Slots.FirstOrDefault(x => x.SectionSlotInfo.Ordinal == info.Ordinal
                                      && x.SectionSlotInfo.SectionIdentifier == info.SectionIdentifier);
 
             if (slot != null) Slots.Remove(slot);

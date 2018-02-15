@@ -1,3 +1,5 @@
-﻿<h1>Root</h1>
+﻿@foreach (var section in Orchestrator.Device.Sections)
+{
 
-@Layout
+    @Html.RenderViewSection(Component, section)
+}

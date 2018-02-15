@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Borg.Infra.Caching
+namespace Borg
 {
     public static class CacheStoreExtensions
     {/// <summary>

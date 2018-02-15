@@ -20,7 +20,6 @@
     <Folder Include="Areas\Documents\" />
     <Folder Include="Areas\BlogEngine\" />
     <Folder Include="wwwroot\" />
-    <Folder Include="_Themes\" />
   </ItemGroup>
 
   <ItemGroup>

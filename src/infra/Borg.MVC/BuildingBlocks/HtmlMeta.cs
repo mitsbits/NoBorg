@@ -1,7 +1,6 @@
 ﻿using System;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -55,10 +54,5 @@ namespace Borg.MVC.BuildingBlocks
                 return IsHttpEquiv ? "HTTPEQUIV" : "BASIC";
             }
         }
-    }
-
-    [JsonArray(false)]
-    public class HtmlMetaSet : List<HtmlMeta>
-    {
     }
 }

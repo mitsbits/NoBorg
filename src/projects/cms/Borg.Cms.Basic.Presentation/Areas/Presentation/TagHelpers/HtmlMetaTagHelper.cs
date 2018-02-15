@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.MVC.BuildingBlocks;
-using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Linq;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
 {
@@ -26,6 +22,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             _orchestrator.TryContextualize(ViewContext);
@@ -53,12 +50,10 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
                         tag.MergeAttribute("content", meta.Content);
                         output.Content.AppendHtml(tag.GetString());
                     }
-           
                 }
-           
+
                 output.TagName = "";
             }
-      
         }
     }
 }
