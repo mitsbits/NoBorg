@@ -1,14 +1,19 @@
-﻿using Borg.MVC.Conventions;
+﻿using System.Threading.Tasks;
+using Borg.Cms.Basic.Presentation.Queries;
+using Borg.MVC.Conventions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
 {
     [ControllerTheme("Bootstrap3")]
     public class MenusController : PresentationController
     {
-        public IActionResult Root(string rootmenu)
+        public async Task< IActionResult> Root(string rootmenu)
         {
-            SetPageTitle(rootmenu);
+            var result = await Dispatcher.Send(new MenuRootPageContentRequest(rootmenu));
+            PageContent(result.Payload);
             return View();
         }
 
@@ -16,6 +21,10 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
         {
             SetPageTitle(parentmenu + "/" + childmenu);
             return View();
+        }
+
+        public MenusController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
+        {
         }
     }
 }

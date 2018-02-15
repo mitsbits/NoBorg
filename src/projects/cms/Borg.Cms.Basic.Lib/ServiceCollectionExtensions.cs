@@ -16,6 +16,7 @@ using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Filters;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
 using Borg.MVC.Services;

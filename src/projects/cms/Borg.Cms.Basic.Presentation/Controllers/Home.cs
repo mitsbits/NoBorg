@@ -30,33 +30,7 @@ namespace Borg.Cms.Basic.Presentation.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult FileIt()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> FileIt(List<IFormFile> files)
-        {
-            long size = files.Sum(f => f.Length);
 
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    using (var stream = new MemoryStream())
-                    {
-                        await formFile.CopyToAsync(stream);
-
-                        await _assetStore.Create(formFile.Name, stream.ToArray(), formFile.FileName);
-                    }
-                }
-            }
-            return Ok(new { count = files.Count, size, filePath });
-        }
     }
 }

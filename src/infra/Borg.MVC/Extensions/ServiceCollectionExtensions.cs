@@ -3,6 +3,7 @@ using Borg.Infra.Storage;
 using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Filters;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;

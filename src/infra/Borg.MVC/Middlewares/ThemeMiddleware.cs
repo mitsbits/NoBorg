@@ -18,9 +18,7 @@ namespace Borg.MVC.Middlewares
         public Task Invoke(HttpContext context)
         {
             context.Request.HttpContext.Items["theme"] = _theme;
-
-            // Call the next delegate/middleware in the pipeline
-            return this._next(context);
+            return _next(context);
         }
     }
 }

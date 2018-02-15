@@ -2,7 +2,10 @@
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Conventions;
 using Borg.MVC.PlugIns.Decoration;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
 {
@@ -10,6 +13,18 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
     [ControllerTheme("Bootstrap3")]
     public class PresentationController : Controller
     {
+
+        protected readonly IMediator Dispatcher;
+        protected readonly ILogger Logger;
+
+
+        public PresentationController(ILoggerFactory loggerFactory, IMediator dispatcher)
+        {
+            Logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
+            Dispatcher = dispatcher;
+        }
+
+
         #region Page Content
 
         [NonAction]

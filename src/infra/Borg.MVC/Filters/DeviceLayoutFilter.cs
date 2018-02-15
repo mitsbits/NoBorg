@@ -1,10 +1,11 @@
 ﻿using Borg.Infra;
+using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.MVC.Filters
 {
     public class DeviceLayoutFilter : ActionFilterAttribute
     {
@@ -18,13 +19,6 @@ namespace Borg.MVC.BuildingBlocks
         }
 
         private string Layout { get; }
-
-        //public override void OnResultExecuting(ResultExecutingContext context)
-        //{
-        //    base.OnResultExecuting(context);
-        //    _orchestrator.TryContextualize(context.Controller as Controller);
-        //    _orchestrator.Device.Layout = Layout;
-        //}
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

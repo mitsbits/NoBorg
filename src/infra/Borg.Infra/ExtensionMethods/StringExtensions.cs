@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Borg.Infra.Comparers;
 
 namespace Borg
 {
@@ -75,6 +77,36 @@ namespace Borg
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+        public static int IndexOfWhitespaceAgnostic(this IEnumerable<string> source, string check)
+        {
+            var result = -1;
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (!source.Any()) return result;
+            var collection = source.ToArray();
+            var comparer = new WhitespaceAgnosticComparer();
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (comparer.Equals(collection[i], check)) result = i;
+                if (result >= 0) break;
+            }
+            return result;
+        }
+
+        public static bool EqualsWhitespaceAgnostic(this string source, string check)
+        {
+            var comparer = new WhitespaceAgnosticComparer();
+            return comparer.Equals(source, check);
+        }
+
+        public static bool ContainsWhitespaceAgnostic(this IEnumerable<string> source, string check)
+        {
+            return source.IndexOfWhitespaceAgnostic(check) >= 0;
+        }
+        public static IEnumerable<string> DistincetWhitespaceAgnostic(this IEnumerable<string> source, string check)
+        {
+            return source.Distinct(new WhitespaceAgnosticComparer());
         }
     }
 }

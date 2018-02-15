@@ -1,7 +1,13 @@
-﻿namespace Borg.MVC.BuildingBlocks
+﻿using Borg.MVC.BuildingBlocks.Contracts;
+using System.Collections.Generic;
+
+namespace Borg.MVC.BuildingBlocks
 {
     public class PageContent : IPageContent
     {
+        public HtmlMetaSet Metas { get; } = new HtmlMetaSet();
+       
+        HtmlMetaSet IPageContent.Metas => Metas;
         public string Title { get; set; }
         public string Subtitle { get; set; }
 
