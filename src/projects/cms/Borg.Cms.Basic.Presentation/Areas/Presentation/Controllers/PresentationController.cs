@@ -13,17 +13,14 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
     [ControllerTheme("Bootstrap3")]
     public class PresentationController : Controller
     {
-
         protected readonly IMediator Dispatcher;
         protected readonly ILogger Logger;
-
 
         public PresentationController(ILoggerFactory loggerFactory, IMediator dispatcher)
         {
             Logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             Dispatcher = dispatcher;
         }
-
 
         #region Page Content
 

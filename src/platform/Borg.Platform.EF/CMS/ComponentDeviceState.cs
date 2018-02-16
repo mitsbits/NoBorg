@@ -18,6 +18,8 @@ namespace Borg.Platform.EF.CMS
             builder.Entity<ComponentDeviceState>().HasKey(t => new { t.ComponentId, t.DeviceId }).ForSqlServerIsClustered();
             builder.Entity<ComponentDeviceState>().HasOne(pt => pt.Component).WithOne(x => x.ComponentDevice);
             builder.Entity<ComponentDeviceState>().HasOne(pt => pt.Device).WithOne(x => x.ComponentDevice);
+            builder.Entity<ComponentDeviceState>().HasIndex(x => x.ComponentId).IsUnique(false).HasName("IX_ComponentDeviceState_ComponentId");
+            builder.Entity<ComponentDeviceState>().HasIndex(x => x.DeviceId).IsUnique(false).HasName("IX_ComponentDeviceState_DeviceId");
         }
     }
 }

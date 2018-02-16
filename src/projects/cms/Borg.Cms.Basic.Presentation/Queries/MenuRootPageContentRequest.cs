@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Presentation.Queries
 {
-    public class MenuRootPageContentRequest : IRequest<QueryResult<IPageContent>>
+    public class MenuRootPageContentRequest : IRequest<QueryResult<(int componentId, IPageContent content)>>
     {
         public MenuRootPageContentRequest(string menuSlug)
         {
@@ -25,7 +23,7 @@ namespace Borg.Cms.Basic.Presentation.Queries
         public string MenuSlug { get; }
     }
 
-    public class MenuRootPageContentRequestHandler : AsyncRequestHandler<MenuRootPageContentRequest, QueryResult<IPageContent>>
+    public class MenuRootPageContentRequestHandler : AsyncRequestHandler<MenuRootPageContentRequest, QueryResult<(int componentId, IPageContent content)>>
     {
         private readonly ILogger _logger;
         private readonly IUnitOfWork<CmsDbContext> _uow;
@@ -36,7 +34,7 @@ namespace Borg.Cms.Basic.Presentation.Queries
             _uow = uow;
         }
 
-        protected override async Task<QueryResult<IPageContent>> HandleCore(MenuRootPageContentRequest message)
+        protected override async Task<QueryResult<(int componentId, IPageContent content)>> HandleCore(MenuRootPageContentRequest message)
         {
             try
             {
@@ -62,12 +60,12 @@ namespace Borg.Cms.Basic.Presentation.Queries
                     Body = new[] { hit.Body },
                 };
                 result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
-                return QueryResult<IPageContent>.Success(result);
+                return QueryResult<(int componentId, IPageContent content)>.Success((componentId: id, content: result));
             }
             catch (Exception e)
             {
                 _logger.Error(e);
-                return QueryResult<IPageContent>.Failure(e.Message);
+                return QueryResult<(int componentId, IPageContent content)>.Failure(e.Message);
             }
         }
     }

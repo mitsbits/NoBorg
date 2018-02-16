@@ -2,6 +2,7 @@
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
@@ -10,7 +11,6 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
     {
         private readonly IMenuProvider _menuProvider;
 
-        private const string _viewKey = "view";
         private const string _groupKey = "group";
 
         public MenuViewComponent(IMenuProvider menuProvider)
@@ -20,9 +20,18 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
 
         public async Task<IViewComponentResult> InvokeAsync(Tidings tidings)
         {
-            var tree = await _menuProvider.Tree(tidings[_groupKey]);
-            if (tidings.ContainsKey(_viewKey) && !string.IsNullOrWhiteSpace(tidings[_viewKey])) return View(tidings[_viewKey], tree);
-            return View(tree);
+            try
+            {
+                var tree = await _menuProvider.Tree(tidings[_groupKey]);
+                if (tidings.ContainsKey(Tidings.DefinedKeys.View) &&
+                    !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]))
+                    return View(tidings[Tidings.DefinedKeys.View], tree);
+                return View(tree);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 

@@ -38,17 +38,25 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Queries
 
         protected override async Task<QueryResult<IEnumerable<NavigationItemState>>> HandleCore(MenuGroupRecordsRequest message)
         {
-            Expression<Func<NavigationItemState, bool>> predicate = (x) => x.GroupCode.ToLower() == message.Group.ToLower();
-
-            if (message.ExcludeSupressed)
+            try
             {
-                predicate = (x) => x.GroupCode.ToLower() == message.Group.ToLower() && x.Taxonomy.Component.IsPublished && !x.Taxonomy.Component.IsDeleted;
-            }
-            var set = await _uow.Context.NavigationItemStates.Include(x => x.Taxonomy).ThenInclude(x => x.Component)
-                    .Include(x => x.Taxonomy).ThenInclude(x => x.Article)
-                    .Where(predicate).ToListAsync();
+                Expression<Func<NavigationItemState, bool>> predicate = (x) => x.GroupCode.ToLower() == message.Group.ToLower();
 
-            return QueryResult<IEnumerable<NavigationItemState>>.Success(set);
+                if (message.ExcludeSupressed)
+                {
+                    predicate = (x) => x.GroupCode.ToLower() == message.Group.ToLower() && x.Taxonomy.Component.IsPublished && !x.Taxonomy.Component.IsDeleted;
+                }
+                var set = await _uow.Context.NavigationItemStates.Include(x => x.Taxonomy).ThenInclude(x => x.Component)
+                        .Include(x => x.Taxonomy).ThenInclude(x => x.Article)
+                        .Where(predicate).ToListAsync();
+
+                return QueryResult<IEnumerable<NavigationItemState>>.Success(set);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                return QueryResult<IEnumerable<NavigationItemState>>.Failure(e.Message);
+            }
         }
     }
 }

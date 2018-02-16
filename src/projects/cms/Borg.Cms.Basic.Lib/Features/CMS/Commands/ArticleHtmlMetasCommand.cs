@@ -1,11 +1,13 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Events;
 using Borg.Infra.DAL;
 using Borg.Infra.Services.Slugs;
+using Borg.MVC.BuildingBlocks;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,16 +15,16 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
-    public class SetArticleSlugCommand : CommandBase<CommandResult>
+    public class ArticleHtmlMetasCommand : CommandBase<CommandResult>
     {
         [Required]
         public int RecordId { get; set; }
 
-        [DisplayName("Slug")]
-        public string Slug { get; set; }
+        [DisplayName("Html Metas")]
+        public string HtmlMetas { get; set; }
     }
 
-    public class SetArticleSlugCommandHandler : AsyncRequestHandler<SetArticleSlugCommand, CommandResult>
+    public class ArticleHtmlMetasCommandHandler : AsyncRequestHandler<ArticleHtmlMetasCommand, CommandResult>
     {
         private readonly ILogger _logger;
 
@@ -32,7 +34,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 
         private readonly ISlugifierService _slugifier;
 
-        public SetArticleSlugCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher, ISlugifierService slugifier)
+        public ArticleHtmlMetasCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher, ISlugifierService slugifier)
         {
             _uow = uow;
             _dispatcher = dispatcher;
@@ -40,11 +42,11 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
             _logger = loggerFactory.CreateLogger(GetType());
         }
 
-        protected override async Task<CommandResult> HandleCore(SetArticleSlugCommand message)
+        protected override async Task<CommandResult> HandleCore(ArticleHtmlMetasCommand message)
         {
             try
             {
-                ArticleRenamedEvent @event = null;
+                ArticleHtmlMetasChangedEvent @event = null;
                 var article = await _uow.ReadWriteRepo<ArticleState>().Get(x => x.Id == message.RecordId);
                 if (article == null)
                 {
@@ -52,18 +54,26 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                     return CommandResult.Failure($"Article with id {message.RecordId} was not found");
                 }
 
-                var oldslug = article.Slug;
-                var newslug = message.Slug;
-                article.Slug = newslug;
-                await _uow.ReadWriteRepo<ArticleState>().Update(article);
+                var pagemetadata = await _uow.ReadWriteRepo<PageMetadataState>().Get(x => x.Id == message.RecordId);
+                if (pagemetadata == null)
+                {
+                    pagemetadata = new PageMetadataState() { Id = message.RecordId, HtmlMetaJsonText = message.HtmlMetas };
+                    await _uow.ReadWriteRepo<PageMetadataState>().Create(pagemetadata);
+                }
+                else
+                {
+                    pagemetadata.HtmlMetaJsonText = message.HtmlMetas;
+                    await _uow.ReadWriteRepo<PageMetadataState>().Update(pagemetadata);
+                }
+
                 await _uow.Save();
-                @event = new ArticleRenamedEvent(message.RecordId, article.Title, article.Title, oldslug, newslug);
+                @event = new ArticleHtmlMetasChangedEvent(message.RecordId, JsonConvert.DeserializeObject<HtmlMeta[]>(pagemetadata.HtmlMetaJsonText));
                 _dispatcher.Publish(@event);
                 return CommandResult.Success();
             }
             catch (Exception ex)
             {
-                _logger.LogError(1, ex, "Error renaming articlet from {@message} - {exception}", message, ex.ToString());
+                _logger.LogError(1, ex, "Error setting Html Metas for article from {@message} - {exception}", message, ex.ToString());
                 return CommandResult<HtmlSnippetState>.FailureWithEmptyPayload(ex.ToString());
             }
         }

@@ -1,6 +1,5 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 using Borg.Cms.Basic.Lib.Features.Navigation.ViewModels;
-using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

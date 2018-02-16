@@ -1,7 +1,7 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Device.Events;
-using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {

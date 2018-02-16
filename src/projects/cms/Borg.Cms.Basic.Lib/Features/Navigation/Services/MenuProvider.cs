@@ -33,7 +33,7 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Services
             //                where !parentActive || !l.IsPublished
             //                select l.Id).ToList();
             //var filteredSet = set.Where(x => !toRemove.Contains(x.Id));
-            return new MenuContainer() { Group = @group/*, Trees = filteredSet.Trees()*/ };
+            return new MenuContainer() { Group = @group, Trees = set.Trees() };
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Borg.CMS.BuildingBlocks;
 using Borg.MVC.BuildingBlocks;
 using Borg.Platform.EF.CMS;
-using System;
 
 namespace Borg
 {
-    internal static class DeviceStateExtensions
+    public static class DeviceStateExtensions
     {
         public static DeviceStructureInfo DeviceStructureInfo(this DeviceState hit)
         {
@@ -24,14 +23,8 @@ namespace Borg
                 };
                 foreach (var slotRecord in sectionRecord.Slots)
                 {
-                    try
-                    {
-                        var values = slotRecord.Module(sectionRecord.Identifier);
-                        section.DefineSlot(values.slotInfo, values.renderer);
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    var values = slotRecord.Module(sectionRecord.Identifier);
+                    section.DefineSlot(values.slotInfo, values.renderer);
                 }
                 result.Sections.Add(section);
             }

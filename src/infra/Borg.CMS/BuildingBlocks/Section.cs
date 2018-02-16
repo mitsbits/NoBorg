@@ -18,7 +18,7 @@ namespace Borg.CMS.BuildingBlocks
 
         ICollection<ISlot> ISection.Slots => Enumerable.Cast<ISlot>(Slots).ToList();
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
-        public ICollection<Slot> Slots { get;  set; }
+        public ICollection<Slot> Slots { get; set; }
 
         public void DefineSlot(SectionSlotInfo info, ModuleRenderer module)
         {

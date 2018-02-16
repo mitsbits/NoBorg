@@ -1,6 +1,6 @@
-﻿using System;
-using Borg.MVC.BuildingBlocks.Contracts;
+﻿using Borg.MVC.BuildingBlocks.Contracts;
 using Newtonsoft.Json;
+using System;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -36,14 +36,19 @@ namespace Borg.MVC.BuildingBlocks
 
         [JsonIgnore]
         public virtual bool ShouldRender => !string.IsNullOrWhiteSpace(Content) && (!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(HttpEquiv));
+
         [JsonIgnore]
         public virtual bool IsHttpEquiv => !string.IsNullOrWhiteSpace(HttpEquiv);
+
         [JsonIgnore]
         public virtual bool IsOpenGraph => !string.IsNullOrWhiteSpace(Name) && Name.StartsWith("og:", StringComparison.CurrentCultureIgnoreCase);
+
         [JsonIgnore]
-        public virtual bool IsTwitterCard => !string.IsNullOrWhiteSpace(Name)  && Name.StartsWith("twitter:", StringComparison.CurrentCultureIgnoreCase);
+        public virtual bool IsTwitterCard => !string.IsNullOrWhiteSpace(Name) && Name.StartsWith("twitter:", StringComparison.CurrentCultureIgnoreCase);
+
         [JsonIgnore]
         public virtual bool IsBasic => TypeIdentifier == "BASIC";
+
         [JsonIgnore]
         public virtual string TypeIdentifier
         {
