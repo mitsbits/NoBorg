@@ -3,7 +3,7 @@
 @using Borg.Infra.DTO
 @using Borg.MVC
 @{
-    IgnoreBody();
+    
 }
 <!DOCTYPE html>
 
@@ -27,11 +27,12 @@
                 </button>
                 <a class="navbar-brand" href="@_settings.Tenant.Endpoint">@_settings.Tenant.ServiceTag</a>
             </div>
-            @await RenderSectionAsync("menu", required: false)
+            @await RenderSectionAsync("menu", required: true)
         </div>
     </nav>
     <div class="container">
-        @await RenderSectionAsync("main", required: false)
+        @await RenderSectionAsync("main", required: true)
+        @RenderBody()
     </div>
 
     <script src="~/dist/jquery.js"></script>

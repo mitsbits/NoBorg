@@ -1,5 +1,7 @@
 ﻿@foreach (var section in Orchestrator.Device.Sections)
 {
 
-    @await Html.RenderViewSection(Component, section)
+
+    DefineSection(section.Identifier, async () => await Output.WriteAsync((await Html.RenderViewSection(Component, section)).ToString()));
+
 }
