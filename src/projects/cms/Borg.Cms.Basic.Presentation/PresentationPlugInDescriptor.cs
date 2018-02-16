@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Presentation
 {
-    public sealed class PresentationPlugInDescriptor : IPluginDescriptor, IPlugInTheme, IPlugInArea, IPluginServiceRegistration, ITagHelpersPlugIn
+    public sealed class PresentationPlugInDescriptor : IPluginDescriptor, IPlugInTheme, IPlugInArea, IPluginServiceRegistration, ITagHelpersPlugIn, IViewComponentslugIn
     {
         public string Title => "Presentation";
 
@@ -36,6 +36,17 @@ namespace Borg.Cms.Basic.Presentation
                 return attrs.Where(x => x != null).Distinct().Select(x => x.Name).ToArray();
             }
         }
+
+        public string[] ViewComponents
+        {
+            get
+            {
+                var attrs = GetType().Assembly.GetTypes().Select(x => x.GetCustomAttribute<PulgInViewComponentAttribute>());
+                if (!attrs.Any(x => x != null)) return new string[0];
+                return attrs.Where(x => x != null).Distinct().Select(x => x.Name).ToArray();
+            }
+        }
+
     }
 
 

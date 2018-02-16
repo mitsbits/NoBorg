@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row">
         <div id="main_header" class="col-md-12">
-
             <div class="box box-primary box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title">@Model.Title</h3>
@@ -14,9 +13,7 @@
                             <i class="fa fa-minus"></i>
                         </button>
                     </div>
-                    <!-- /.box-tools -->
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <table class="table table-condensed">
                         <tbody>
@@ -64,10 +61,19 @@
                                     </tr>
                                 }
                             }
+                            @if (Model is IViewComponentslugIn viewComponentslugin)
+                            {
+                                if (viewComponentslugin.ViewComponents.Any())
+                                {
+                                    <tr>
+                                        <td>View Components</td>
+                                        <td>@(string.Join(", ", viewComponentslugin.ViewComponents))</td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
-                <!-- /.box-body -->
             </div>
         </div>
     </div>

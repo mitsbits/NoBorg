@@ -1,12 +1,14 @@
-﻿using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
+﻿using System;
+using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
+using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
+namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
 {
+    [PulgInViewComponent("Menu")]
     public class MenuViewComponent : ViewComponentModule<Tidings>
     {
         private readonly IMenuProvider _menuProvider;
@@ -22,7 +24,7 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.Modules
         {
             try
             {
-                var tree = await _menuProvider.Tree(tidings[_groupKey]);
+                var tree = await _menuProvider.Tree(tidings[(string)_groupKey]);
                 if (tidings.ContainsKey(Tidings.DefinedKeys.View) &&
                     !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]))
                     return View(tidings[Tidings.DefinedKeys.View], tree);

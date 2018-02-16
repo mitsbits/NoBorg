@@ -51,4 +51,8 @@ namespace Borg.MVC.PlugIns.Contracts
     {
         string[] TagHelpers { get; }
     }
+    public interface IViewComponentslugIn : IPluginDescriptor
+    {
+        string[] ViewComponents { get; }
+    }
 }
