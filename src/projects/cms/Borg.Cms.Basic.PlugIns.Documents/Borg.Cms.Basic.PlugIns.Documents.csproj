@@ -13,6 +13,8 @@
   <ItemGroup>
     <Content Remove="Areas\Documents\Views\Home\Components\DocumentHistory\Default.cshtml" />
     <Content Remove="Areas\Documents\Views\Home\Partials\RenameAssetCommand.cshtml" />
+    <Content Remove="Areas\Documents\Views\MimeTypes\Groupings.cshtml" />
+    <Content Remove="Areas\Documents\Views\MimeTypes\Partials\Groupimg.cshtml" />
   </ItemGroup>
 
 

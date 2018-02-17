@@ -1,0 +1,20 @@
+﻿@model IPagedResult<Borg.Cms.Basic.PlugIns.Documents.ViewModels.MimeTypeGroupimgRowViewModel>
+@{
+    Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
+    var parts = (Model.Count() / 4) + 1;
+    var i = 0;
+    var splits = from item in Model
+                 group item by i++ % parts into part
+                 select part.AsEnumerable();
+}
+@foreach (var split in splits)
+{
+    <div class="row">
+        @foreach (var item in split)
+        {
+            <div class="col-md-3">
+                @Html.Partial("Partials/Groupimg", item)
+            </div>
+        }
+    </div>
+}

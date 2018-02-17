@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Cms.Basic.Lib.Features;
 
 namespace Borg.Cms.Basic
 {
@@ -153,10 +154,10 @@ namespace Borg.Cms.Basic
                 path.UseSession();
                 path.UseMvc(ConfigureRoutes);
             });
-            //GlobalConfiguration.Configuration
-            //    .UseActivator(new ContainerJobActivator(serviceProvider));
-            //app.UseHangfireServer();
-            //app.UseHangfireDashboard();
+            GlobalConfiguration.Configuration
+                .UseActivator(new ContainerJobActivator(serviceProvider));
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
             app.UseMvc(ConfigureRoutes);
         }
     }

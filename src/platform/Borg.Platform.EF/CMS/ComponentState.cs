@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DDD.Contracts;
+﻿using System.Collections.Generic;
+using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace Borg.Platform.EF.CMS
         internal virtual TaxonomyState Taxonomy { get; set; }
         internal virtual ComponentDeviceState ComponentDevice { get; set; }
         internal virtual PageMetadataState PageMetadata { get; set; }
+        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations{ get; set; }
     }
 
     public class ComponentStateMap : EntityMap<ComponentState, CmsDbContext>

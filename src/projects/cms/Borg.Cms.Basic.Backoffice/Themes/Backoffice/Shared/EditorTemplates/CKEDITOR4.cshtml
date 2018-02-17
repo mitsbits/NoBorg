@@ -1,0 +1,21 @@
+﻿@using Borg.Infra.Services
+@model string
+
+@{
+    var htmlId = Randomize.String(7, "abcdefghijklmnopqrstuvwxyz");
+}
+
+<textarea id="@htmlId" asp-for="@Model"></textarea>
+
+
+
+<script id="cke4src" device src="dist/ckeditor4/ckeditor.js" script-position="Bottom" weight="200"></script>
+<script id="cke4srcjadp" device src="dist/ckeditor4/adapters/jquery.js" script-position="Bottom" weight="205"></script>
+
+<script device id="@(htmlId)_script"  weight="210" script-position="Bottom">
+
+    $(function() {
+        $('textarea#' + '@htmlId').ckeditor();
+    });
+
+</script>

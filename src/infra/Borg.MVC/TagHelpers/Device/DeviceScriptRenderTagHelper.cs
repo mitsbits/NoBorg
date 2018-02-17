@@ -30,7 +30,7 @@ namespace Borg.MVC.TagHelpers
                 return;
             }
 
-            var sorted = device.Scripts.Cast<Tiding>().Where(x => x.Hint == ScriptPosition.ToString()).OrderByDescending(x => x.Weight).ThenBy(x => x.Key);
+            var sorted = device.Scripts.Cast<Tiding>().Where(x => x.Hint == ScriptPosition.ToString()).OrderBy(x => x.Weight).ThenBy(x => x.Key);
 
             foreach (var script in sorted)
             {

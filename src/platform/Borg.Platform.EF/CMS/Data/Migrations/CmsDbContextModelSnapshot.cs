@@ -83,6 +83,26 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.ToTable("ComponentDeviceStates","cms");
                 });
 
+            modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDocumentAssociationState", b =>
+                {
+                    b.Property<int>("ComponentId");
+
+                    b.Property<int>("DocumentId");
+
+                    b.Property<int>("FileId");
+
+                    b.Property<int>("Version");
+
+                    b.HasKey("ComponentId", "DocumentId")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("Version");
+
+                    b.ToTable("ComponentDocumentAssociationStates","cms");
+                });
+
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentState", b =>
                 {
                     b.Property<int>("Id")
@@ -382,6 +402,15 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasOne("Borg.Platform.EF.CMS.DeviceState", "Device")
                         .WithOne("ComponentDevice")
                         .HasForeignKey("Borg.Platform.EF.CMS.ComponentDeviceState", "DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDocumentAssociationState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
+                        .WithMany("ComponentDocumentAssociations")
+                        .HasForeignKey("ComponentId")
+                        .HasConstraintName("FK_Components_Documents")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

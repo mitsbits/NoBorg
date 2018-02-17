@@ -1,0 +1,11 @@
+﻿@using Borg.Cms.Basic.PlugIns.Documents.ViewModels
+@model MimeTypeGroupimgRowViewModel
+<div class="info-box">
+    <span class="info-box-icon bg-black-gradient"><i class="fa fa-files-o"></i></span>
+
+    <div class="info-box-content">
+        <span class="info-box-text">@Model.Name</span>
+        <span class="info-box-number">@Model.MimeTypesCount.ToString("###")</span>
+    </div>
+    <!-- /.info-box-content -->
+</div>
