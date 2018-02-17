@@ -6,6 +6,8 @@ namespace Borg.Infra.Services
     public static class Randomize
     {
         public const string Alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        public const string LettersArray = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public const string NumbersArray = "0123456789";
 
         public static string String(int length, string alphabet = Alphabet)
         {
@@ -19,6 +21,16 @@ namespace Borg.Infra.Services
                     .Take(length)
                     .Select(randomByte => alphabet[randomByte % alphabet.Length])
             );
+        }
+
+        public static string Letters(int length)
+        {
+            return String(length, LettersArray);
+        }
+
+        public static string Numbers(int length)
+        {
+            return String(length, NumbersArray);
         }
 
         private static byte RandomByte()

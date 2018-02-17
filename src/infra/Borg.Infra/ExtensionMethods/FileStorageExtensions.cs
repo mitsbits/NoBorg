@@ -30,8 +30,6 @@ namespace Borg
             }
         }
 
-
-
         public static Stream GetFileStream(this IFileStorage storage, string path)
         {
             return AsyncHelpers.RunSync(() => storage.GetFileStream(path));

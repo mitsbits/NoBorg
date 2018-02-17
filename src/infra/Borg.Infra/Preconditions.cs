@@ -41,6 +41,19 @@ namespace Borg.Infra
             return value;
         }
 
+        [ContractAnnotation("value:null => halt")]
+        public static DateTime NotEmpty(DateTime value, [InvokerParameterName, NotNull] string parameterName)
+        {
+            if (value.Equals(default(DateTime)))
+            {
+                NotEmpty(parameterName, nameof(parameterName));
+
+                throw new ArgumentNullException(parameterName);
+            }
+
+            return value;
+        }
+
         public static TEnum IsDefined<TEnum>(TEnum value, [InvokerParameterName, NotNull] string parameterName) where TEnum : struct
         {
             if (!Enum.IsDefined(typeof(TEnum), value))

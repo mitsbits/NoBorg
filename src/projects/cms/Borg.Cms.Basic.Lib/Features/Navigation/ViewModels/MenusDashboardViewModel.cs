@@ -4,6 +4,7 @@ using Borg.Infra.DTO;
 using Borg.Platform.EF.CMS;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Borg.Infra.Services;
 
 namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
 {

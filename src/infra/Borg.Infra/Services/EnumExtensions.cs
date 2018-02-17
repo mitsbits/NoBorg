@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Borg
+namespace Borg.Infra.Services
 {
     public static class EnumUtil
     {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Borg.Infra.Comparers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Borg.Infra.Comparers;
 
 namespace Borg
 {
@@ -104,6 +104,7 @@ namespace Borg
         {
             return source.IndexOfWhitespaceAgnostic(check) >= 0;
         }
+
         public static IEnumerable<string> DistincetWhitespaceAgnostic(this IEnumerable<string> source, string check)
         {
             return source.Distinct(new WhitespaceAgnosticComparer());

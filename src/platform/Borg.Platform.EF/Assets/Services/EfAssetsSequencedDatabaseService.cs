@@ -291,6 +291,17 @@ namespace Borg.Platform.EF.Assets.Services
                 new FileSpecDefinition(x.FileRecord.FullPath, x.FileRecord.Name, x.FileRecord.CreationDate, x.FileRecord.LastWrite, x.FileRecord.LastRead, x.FileRecord.SizeInBytes, x.FileRecord.MimeType)));
         }
 
+        public override async Task<IFileSpec<int>> Spec(int fileId)
+        {
+            var hit = await _db.FileRecords.AsNoTracking().FirstOrDefaultAsync(x => x.Id == fileId);
+            if (hit == null)
+            {
+                _logger.Warn("Could not find file for id {id}", fileId);
+                return null;
+            }
+            return new FileSpecDefinition<int>(hit.Id, hit.FullPath, hit.Name, hit.CreationDate, hit.LastWrite, hit.LastRead, hit.SizeInBytes, hit.MimeType);
+        }
+
         private async Task<int> SequnceInternal(string sqc)
         {
             var conn = _db.Database.GetDbConnection(); //do not dispose connection, it is managed by the context

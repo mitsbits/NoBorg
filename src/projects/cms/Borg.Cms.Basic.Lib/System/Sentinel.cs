@@ -49,19 +49,29 @@ namespace Borg.Cms.Basic.Lib.System
 
         #endregion IHostedService
 
-        public Task FireAndForget<TJob>(TJob job, params string[] args) where TJob : IEnqueueJob
+        public Task FireAndForget<TJob>(params string[] args) where TJob : IEnqueueJob
         {
-            var jobHandle = BackgroundJob.Enqueue<TJob>(j => j.Execute(args).AnyContext());
-            return Task.FromResult(jobHandle);
+            try
+            {
+
+
+                var jobHandle = BackgroundJob.Enqueue<TJob>(j => j.Execute(args));
+                return Task.FromResult(jobHandle);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
-        public Task Schedule<TJob>(TJob job, DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
+        public Task Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
         {
             var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args).AnyContext(), executeAt);
             return Task.FromResult(jobHandle);
         }
 
-        public Task Recur<TJob>(TJob job, string jobHandle, string cronExpression, TimeZoneInfo timeZoneInfo, params string[] args) where TJob : IEnqueueJob
+        public Task Recur<TJob>(string jobHandle, string cronExpression, TimeZoneInfo timeZoneInfo, params string[] args) where TJob : IEnqueueJob
         {
             RecurringJob.AddOrUpdate<TJob>(jobHandle, j => j.Execute(args).AnyContext(), cronExpression, timeZoneInfo);
             return Task.CompletedTask;

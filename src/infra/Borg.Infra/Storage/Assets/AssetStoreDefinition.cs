@@ -51,6 +51,8 @@ namespace Borg.Infra.Storage.Assets
 
         public event VersionCreatedEventHandler<TKey> VersionCreated;
 
+        public event FileCreatedEventHandler<TKey> FileCreated;
+
         public abstract Task<Stream> CurrentFile(TKey assetId);
 
         protected virtual void OnAssetCreated(AssetCreatedEventArgs<TKey> e)
@@ -62,6 +64,12 @@ namespace Borg.Infra.Storage.Assets
         protected virtual void OnVersionCreated(VersionCreatedEventArgs<TKey> e)
         {
             var handler = VersionCreated;
+            handler?.Invoke(e);
+        }
+
+        protected virtual void OnFileCreated(FileCreatedEventArgs<TKey> e)
+        {
+            var handler = FileCreated;
             handler?.Invoke(e);
         }
 
@@ -89,6 +97,14 @@ namespace Borg.Infra.Storage.Assets
         {
             return await _assetStoreDatabaseService.AssetVersions(assetId);
         }
+
+        #region IFileStore
+
+        public abstract Task<IFileSpec<TKey>> Spec(TKey fileId);
+
+        public abstract Task<(Stream file, IFileSpec<TKey> spec)> FileSpec(TKey fileId);
+
+        #endregion IFileStore
     }
 
     public class AssetStoreBase<TKey> : AssetStoreDefinition<AssetInfoDefinition<TKey>, TKey> where TKey : IEquatable<TKey>
@@ -127,6 +143,7 @@ namespace Borg.Infra.Storage.Assets
                 fileSpec = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, fileName, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
                 await _assetStoreDatabaseService.CheckIn(id, fileSpec);
                 var asset = await _assetStoreDatabaseService.Get(id);
+                OnFileCreated(new FileCreatedEventArgs<TKey>(fileId, fileSpec.MimeType));
                 return new VersionInfoDefinition(asset.CurrentFile.Version, asset.CurrentFile.FileSpec);
             }
             catch (Exception e)
@@ -164,6 +181,39 @@ namespace Borg.Infra.Storage.Assets
                 throw;
             }
         }
+
+        #region IFileStore
+
+        public override async Task<IFileSpec<TKey>> Spec(TKey fileId)
+        {
+            return await _assetStoreDatabaseService.Spec(fileId);
+        }
+
+        public override async Task<(Stream file, IFileSpec<TKey> spec)> FileSpec(TKey fileId)
+        {
+            try
+            {
+                var filespec = await _assetStoreDatabaseService.Spec(fileId);
+                var directory = await _assetDirectoryStrategy.ParentFolder(filespec);
+                var strean = new MemoryStream();
+                using (var storage = _fileStorageFactory.Invoke())
+                using (var scoped = storage.Scope(directory))
+                {
+                    using (var fstream = await scoped.GetFileStream(Path.GetFileName(filespec.FullPath)))
+                    {
+                        await fstream.CopyToAsync(strean);
+                    }
+                }
+                return (file: strean, spec: filespec);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                throw;
+            }
+        }
+
+        #endregion IFileStore
 
         public override async Task<Stream> VersionFile(TKey assetId, int version)
         {
@@ -224,7 +274,12 @@ namespace Borg.Infra.Storage.Assets
             var versionSpec = new VersionInfoDefinition(-1, filespc);
 
             //return
-            return await _assetStoreDatabaseService.AddVersion(hit, fileSpec, versionSpec);
+            var result = await _assetStoreDatabaseService.AddVersion(hit, fileSpec, versionSpec);
+
+            OnVersionCreated(new VersionCreatedEventArgs<TKey>(id, versionSpec.Version));
+            OnFileCreated(new FileCreatedEventArgs<TKey>(fileId, fileSpec.MimeType));
+
+            return result;
         }
 
         private async Task<IEnumerable<AssetInfoDefinition<TKey>>> ProjectionsInternal(IEnumerable<TKey> ids)
@@ -265,7 +320,7 @@ namespace Borg.Infra.Storage.Assets
             //raise events
             OnAssetCreated(new AssetCreatedEventArgs<TKey>(id));
             OnVersionCreated(new VersionCreatedEventArgs<TKey>(id, 1));
-
+            OnFileCreated(new FileCreatedEventArgs<TKey>(fileSpec.Id, filespc.MimeType));
             //retuen
             return definition;
         }

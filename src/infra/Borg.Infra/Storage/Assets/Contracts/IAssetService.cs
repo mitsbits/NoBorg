@@ -3,7 +3,6 @@ using Borg.Infra.Storage.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Borg.Infra.Storage.Assets.Contracts
@@ -12,7 +11,9 @@ namespace Borg.Infra.Storage.Assets.Contracts
 
     public delegate Task VersionCreatedEventHandler<TKey>(VersionCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
-    public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
+    public delegate Task FileCreatedEventHandler<TKey>(FileCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
+
+    public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService, IFileStore<TKey> where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
     {
         Task<TAsset> Create(string name, byte[] content, string fileName);
 
@@ -33,9 +34,18 @@ namespace Borg.Infra.Storage.Assets.Contracts
         event AssetCreatedEventHandler<TKey> AssetCreated;
 
         event VersionCreatedEventHandler<TKey> VersionCreated;
+
+        event FileCreatedEventHandler<TKey> FileCreated;
     }
 
-    public interface IAssetStoreDatabaseService<TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService where TKey : IEquatable<TKey>
+    public interface IFileStore<TKey> where TKey : IEquatable<TKey>
+    {
+        Task<IFileSpec<TKey>> Spec(TKey fileId);
+
+        Task<(Stream file, IFileSpec<TKey> spec)> FileSpec(TKey fileId);
+    }
+
+    public interface IAssetStoreDatabaseService<TKey> : IVersionStoreDatabaseService<TKey>, IFileStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService where TKey : IEquatable<TKey>
     {
         Task<TKey> AssetNextFromSequence();
 
@@ -58,6 +68,11 @@ namespace Borg.Infra.Storage.Assets.Contracts
         Task RenameAsset(TKey id, string newName);
     }
 
+    public interface IFileStoreDatabaseService<TKey> where TKey : IEquatable<TKey>
+    {
+        Task<IFileSpec<TKey>> Spec(TKey fileId);
+    }
+
     public interface IMimeTypeStoreDatabaseService
     {
         Task<bool> TryAdd(IMimeTypeSpec mimeType);
@@ -72,20 +87,5 @@ namespace Borg.Infra.Storage.Assets.Contracts
     public interface IVersionStoreDatabaseService<in TKey> where TKey : IEquatable<TKey>
     {
         Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
-    }
-
-    public static class IAssetStoreDatabaseServiceExtensions
-    {
-        public static async Task<AssetInfoDefinition<TKey>> Get<TKey>(this IAssetStoreDatabaseService<TKey> store, TKey id) where TKey : IEquatable<TKey>
-        {
-            var hits = await store.Find(new[] { id });
-            return hits.SingleOrDefault();
-        }
-
-        public static async Task<IMimeTypeSpec> GetFromFileName(this IMimeTypeStoreDatabaseService service, string fiename)
-        {
-            var ext = Path.GetExtension(fiename);
-            return await service.GetFromExtension(ext);
-        }
     }
 }

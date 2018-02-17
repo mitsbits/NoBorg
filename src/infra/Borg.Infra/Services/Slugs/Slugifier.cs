@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +11,16 @@ namespace Borg.Infra.Services.Slugs
 
     public class Slugifier : ISlugifierService
     {
+        private readonly ILogger _logger;
         private readonly IEnumerable<InternationalCharacterToASCIIService> _internationalCharacterMappers;
 
-        public Slugifier(IEnumerable<InternationalCharacterToASCIIService> internationalCharacterMappers)
+        public Slugifier(ILoggerFactory loggerFactory, IEnumerable<InternationalCharacterToASCIIService> internationalCharacterMappers)
         {
+            _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _internationalCharacterMappers = internationalCharacterMappers ?? throw new ArgumentNullException(nameof(internationalCharacterMappers));
         }
+
+        #region IStringSlugifierService
 
         protected SlugifierExecutingInterceptor SlugifierExecuting;
 
@@ -92,5 +98,43 @@ namespace Borg.Infra.Services.Slugs
             source = MultipleHyphens.Replace(WordDelimiters.Replace(source, "-"), "-");
             return source.ToLowerInvariant();
         }
+
+        #endregion IStringSlugifierService
+
+        #region IDateSlugifierService
+
+        public string Slugify(DateTime source)
+        {
+            Preconditions.NotEmpty(source, nameof(source));
+            var sb = new StringBuilder(source.ToString("YYYYMMDD"));
+            if (source.TimeOfDay != TimeSpan.Zero)
+            {
+                sb.Append(source.TimeOfDay.Seconds.ToString());
+            }
+            return sb.ToString();
+        }
+
+        public bool TryDeSlugify(string slug, out DateTime date)
+        {
+            try
+            {
+                var datePart = slug.Substring(0, 8);
+                date = new DateTime(int.Parse(datePart.Substring(0, 4)), int.Parse(datePart.Substring(4, 2)), int.Parse(datePart.Substring(6, 2)));
+                if (slug.Length > 8)
+                {
+                    var mins = int.Parse(slug.Substring(8));
+                    date = date.Add(TimeSpan.FromSeconds(mins));
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                date = default(DateTime);
+                _logger.Warn("faied to convert {slug} to date - {@exception}", slug, e);
+                return false;
+            }
+        }
+
+        #endregion IDateSlugifierService
     }
 }

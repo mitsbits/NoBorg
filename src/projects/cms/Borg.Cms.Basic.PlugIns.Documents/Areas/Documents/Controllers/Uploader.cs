@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.PlugIns.Documents.Events;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
@@ -27,6 +28,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             _assetStore = assetStore;
             _cache = cache;
             _dispatcher = dispatcher;
+            _assetStore.FileCreated += args=> _dispatcher.Publish(new FileCreatedEvent(args.RecordId, args.MimeType));
         }
 
         [HttpGet]
@@ -98,13 +100,13 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             foreach (var assetInfoDefinition in bucket)
             {
                 commResult = await _dispatcher.Send(new DocumentInitialCommitCommand(assetInfoDefinition.Id, User.Identity.Name));
+              
             }
-            if (commResult.Succeded)
-            {
-                await _cache.Remove(cacheKey);
-                await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(2));
-                return Ok(new { name = bucket[0].Name, url = Url.Action("Item", "Home", new { area = "documents", id = bucket[0].Id }) });
-            }
+
+            await _cache.Remove(cacheKey);
+            await _cache.SetSliding(cacheResultKey, bucket, TimeSpan.FromMinutes(2));
+            return Ok(new { name = bucket[0].Name, url = Url.Action("Item", "Home", new { area = "documents", id = bucket[0].Id }) });
+
             return BadRequest(commResult.Errors);
         }
 

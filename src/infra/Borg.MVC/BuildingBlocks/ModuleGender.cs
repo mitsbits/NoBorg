@@ -25,7 +25,7 @@ namespace Borg.MVC.BuildingBlocks
             return _flavorDescription;
         }
 
-        public string Flavor { get { return ToString(); } }
+        public string Flavor => ToString();
 
         public static ModuleGender Parse(string flavorDescription)
         {

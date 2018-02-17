@@ -19,6 +19,7 @@ namespace Borg.Cms.Basic.Lib.Features
             {
                 return scope.ServiceProvider.GetRequiredService(jobType);
             }
+                  
         }
     }
 }

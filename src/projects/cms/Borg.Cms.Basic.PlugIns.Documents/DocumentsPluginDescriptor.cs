@@ -18,6 +18,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
+using Borg.Cms.Basic.PlugIns.Documents.Consumers;
+using Borg.Cms.Basic.PlugIns.Documents.Services;
+using Borg.Infra.Services.BackgroundServices;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Platform.Azure.Storage.Blobs;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
@@ -36,6 +43,18 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             });
             services.AddScoped<IUnitOfWork<DocumentsDbContext>, UnitOfWork<DocumentsDbContext>>();
             services.AddScoped<DocumentsDbSeed>();
+
+            services.AddScoped<IImageSizesStore<int>>(provider =>
+            {
+                return new ImageSizesStore(loggerFactory,
+                    provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
+                    () => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.ImagesCacheFolder),
+                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings);
+
+            });
+
+
+            services.AddScoped<CacheJpgJob>();
             return services;
         }
 

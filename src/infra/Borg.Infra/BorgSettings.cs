@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Borg.Infra.Storage.Assets;
 
 namespace Borg.Infra
 {
@@ -9,10 +10,13 @@ namespace Borg.Infra
         public StorageSettings Storage { get; set; }
         public TenantSettings Tenant { get; set; }
         public AuthSettings Auth { get; set; }
+        public VisualSettings Visual { get; set; }
     }
 
     public class StorageSettings
     {
+        public string ImagesCacheEndpoint { get; set; } = "http://127.0.0.1:10000/devstoreaccount1";
+        public string ImagesCacheFolder { get; set; } = "cache";
         public string Folder { get; set; }
         public string AssetStoreContainer { get; set; }
         public string AzureStorageConnection { get; set; }
@@ -39,5 +43,10 @@ namespace Borg.Infra
             public string Email { get; set; }
             public string[] Roles { get; set; } = new string[0];
         }
+    }
+
+    public class VisualSettings
+    {
+        public Dictionary<string, int> SizePixels { get; set; } = new Dictionary<string, int>();
     }
 }

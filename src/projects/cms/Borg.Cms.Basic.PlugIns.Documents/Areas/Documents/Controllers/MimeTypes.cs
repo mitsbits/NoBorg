@@ -1,10 +1,10 @@
-﻿using Borg.Infra.Storage.Assets;
+﻿using Borg.Cms.Basic.PlugIns.Documents.Queries;
+using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.PlugIns.Documents.Queries;
-using MediatR;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
@@ -24,8 +24,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
         {
             return View(await _assetStore.MimeTypes());
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Groupings()
