@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
 {
@@ -54,9 +55,11 @@ namespace Borg.Cms.Basic.Lib.Features.Device.ViewModels
         public IEnumerable<SelectListItem> ModuleOptions()
         {
             yield return new SelectListItem() { Text = "...", Value = "empty" };
+            var groups = Descriptors.Select(x => x.ModuleGroup).Distinct()
+                .ToDictionary(x => x, x => new SelectListGroup() { Name = x });
             foreach (var descriptor in Descriptors)
             {
-                yield return new SelectListItem() { Text = descriptor.FriendlyName, Value = descriptor.GetType().FullName.Replace(".", ""), Group = new SelectListGroup() { Name = descriptor.ModuleGroup } };
+                yield return new SelectListItem() { Text = descriptor.FriendlyName, Value = descriptor.GetType().FullName.Replace(".", ""), Group = groups[descriptor.ModuleGroup] };
             }
         }
     }

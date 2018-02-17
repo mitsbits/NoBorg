@@ -4,17 +4,16 @@ using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Linq;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
 {
     [HtmlTargetElement("page-title")]
     [PulgInTagHelper("Page Title")]
-    public sealed class PageTitleTagHelper : TagHelper
+    public sealed class HeadPageTitleTagHelper : TagHelper
     {
         private readonly IPageOrchestrator<IPageContent, IDevice> _orchestrator;
 
-        public PageTitleTagHelper(IPageOrchestrator<IPageContent, IDevice> orchestrator)
+        public HeadPageTitleTagHelper(IPageOrchestrator<IPageContent, IDevice> orchestrator)
         {
             _orchestrator = orchestrator;
         }
@@ -27,17 +26,10 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
         {
             _orchestrator.TryContextualize(ViewContext);
 
-            if (!_orchestrator.Page.Metas.Any())
-            {
-                output.SuppressOutput();
-            }
-            else
-            {
-                output.Attributes.Clear();
-                var tag = new TagBuilder("title");
-                tag.InnerHtml.Append(_orchestrator.Page.Title);
-                output.TagName = "";
-            }
+            output.Attributes.Clear();
+            output.TagName = "title";
+            output.TagMode = TagMode.StartTagAndEndTag;
+            output.Content.Append(_orchestrator.Page.Title);
         }
     }
 }

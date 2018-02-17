@@ -5,6 +5,7 @@ using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
 {
@@ -14,9 +15,11 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
         private readonly IMenuProvider _menuProvider;
 
         private const string _groupKey = "group";
+        private readonly ILogger _logger;
 
-        public MenuViewComponent(IMenuProvider menuProvider)
+        public MenuViewComponent(IMenuProvider menuProvider, ILoggerFactory loggerFactory)
         {
+            _logger = loggerFactory.CreateLogger(GetType());
             _menuProvider = menuProvider;
         }
 
@@ -24,7 +27,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
         {
             try
             {
-                var tree = await _menuProvider.Tree(tidings[(string)_groupKey]);
+                var tree = await _menuProvider.Tree(tidings[_groupKey]);
                 if (tidings.ContainsKey(Tidings.DefinedKeys.View) &&
                     !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]))
                     return View(tidings[Tidings.DefinedKeys.View], tree);
@@ -32,6 +35,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 return null;
             }
         }

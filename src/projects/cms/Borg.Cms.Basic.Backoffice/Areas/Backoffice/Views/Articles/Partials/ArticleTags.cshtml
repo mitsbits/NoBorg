@@ -1,8 +1,4 @@
-﻿
-
-<select id="tagsuggestions"></select>
-
-
+﻿<select id="tagsuggestions"></select>
 
 <script device id="tagsuggestionscript" weight="110" script-position="Bottom">
 
@@ -22,7 +18,7 @@
             data: function (params) {
 
                 return {
-                    searchTerm: params.q, 
+                    searchTerm: params.q,
                     pageNum: params.page || 1,
                     pageSize: pageSize
                 };
@@ -41,6 +37,4 @@
             formatSelectionCssClass: function (data, container) { return "tag-item"; },
         }
     });
-
-
 </script>

@@ -66,7 +66,7 @@ namespace Borg
 
         private static Tiding ToTiding(NavigationItemState state, IEnumerable<NavigationItemState> source, int level = 1)
         {
-            var tiding = new Tiding(state.Id.ToString(), state.Article.Title)
+            var tiding = new Tiding(state.Id.ToString(), state.Display)
             {
                 Weight = state.Taxonomy.Weight,
                 Flag = (state.Component.IsPublished && !state.Component.IsDeleted).ToString(),

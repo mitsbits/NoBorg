@@ -2,12 +2,12 @@
 using Borg.MVC.BuildingBlocks;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace Borg.Cms.Basic.Lib.Features.Content.Modules
+namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Modules
 {
-    public sealed class BodyViewModuleDescriptor : ViewModuleDescriptor
+    public sealed class TitleViewModuleDescriptor : ViewModuleDescriptor
     {
-        public override string FriendlyName => "Body View";
-        public override string Summary => "Body View Description";
+        public override string FriendlyName => "Title View";
+        public override string Summary => "Title View Description";
         public override string ModuleGroup => "System.Content";
 
         protected override Tidings GetDefaults()
@@ -15,8 +15,7 @@ namespace Borg.Cms.Basic.Lib.Features.Content.Modules
             var result = new Tidings
             {
                 new Tiding("AssemblyQualifiedName", typeof(RazorView).AssemblyQualifiedName),
-                new Tiding("optional-parameter", "Hello"),
-                new Tiding("view", "~/Views/Shared/Modules/Body.cshtml")
+                new Tiding("view", "Shared/Modules/Title.cshtml")
             };
             return result;
         }

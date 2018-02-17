@@ -57,6 +57,21 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return RedirectToLocal(redirecturl);
         }
 
+        [HttpPost("SetBody")]
+        public async Task<IActionResult> SetBody(ArticleBodyCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+
+            return RedirectToLocal(redirecturl);
+        }
+
         [HttpPost("SetHtmlMetas")]
         public async Task<IActionResult> SetHtmlMetas(ArticlePageMetadataViewModel model, string redirecturl)
         {

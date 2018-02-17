@@ -8,7 +8,7 @@
 @Html.TextAreaFor(x => x, new { @class = "CKEDITOR", id = htmlId, style = "height:400px;" })
 
 <script device src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js" id="ckeditor" weight="200" script-position="Bottom"></script>
-<script device id="ckeditorconfig" weight="150" script-position="Bottom">
+<script device id="@(htmlId)_ckeditorconfig" weight="150" script-position="Bottom">
     $(function () {
 
             ClassicEditor

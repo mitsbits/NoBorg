@@ -1,4 +1,2 @@
-﻿@{
-    var raw = Orchestrator.Page.Body.Any() ? Orchestrator.Page.Body[0] : "";
-}
-@Html.Raw(raw)
+﻿
+@Html.Raw(Orchestrator.Page.Body.Any() ? Orchestrator.Page.Body[0] : "")

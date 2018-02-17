@@ -104,7 +104,8 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         NavigationItemType = message.ItemType,
                         Path = message.Path,
                         Taxonomy = tx,
-                        Id = comp.Id
+                        Id = comp.Id,
+                        Display = message.Display
                     };
 
                     if (message.ParentId > 0 && !set.Any(x => x.Id == message.ParentId))
@@ -122,10 +123,10 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                     existing.GroupCode = message.Group;
                     existing.Taxonomy.ParentId = message.ParentId;
                     existing.Taxonomy.Weight = message.Weight;
-                    existing.Taxonomy.Article.Title = message.Display;
                     existing.Taxonomy.Component.IsPublished = message.IsPublished;
                     existing.Path = message.Path;
                     existing.NavigationItemType = message.ItemType;
+                    existing.Display = message.Group;
                     //await _uow.ReadWriteRepo<NavigationItemState>().Update(entity);
                     await _uow.Save();
                     _logger.Info("Update menu from {@old} to {@new}", existing, message);

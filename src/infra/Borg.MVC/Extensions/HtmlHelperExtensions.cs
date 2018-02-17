@@ -13,7 +13,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace Borg.MVC
+namespace Borg
 {
     public static class HtmlHelperExtensions
     {

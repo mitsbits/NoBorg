@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Content\Modules\" />
     <Folder Include="Features\Navigation\Modules\" />
     <Folder Include="System\ViewComponents\" />
   </ItemGroup>

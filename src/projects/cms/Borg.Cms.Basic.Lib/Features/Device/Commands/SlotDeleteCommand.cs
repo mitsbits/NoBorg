@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.Platform.EF.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib.Features.Device.Commands
 {
@@ -30,11 +31,11 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
     {
         private readonly ILogger _logger;
 
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
         private readonly IMediator _dispatcher;
 
-        public SlotDeleteCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow, IMediator dispatcher)
+        public SlotDeleteCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher)
         {
             _uow = uow;
             _dispatcher = dispatcher;

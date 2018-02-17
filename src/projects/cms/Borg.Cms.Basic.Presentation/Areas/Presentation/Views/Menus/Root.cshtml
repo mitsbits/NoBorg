@@ -1,7 +1,12 @@
-﻿@foreach (var section in Orchestrator.Device.Sections)
+﻿@using Microsoft.Extensions.Logging
+@inject ILoggerFactory _LoggerFactory
+@{
+    var _logger = _LoggerFactory.CreateLogger(GetType());
+}
+@foreach (var section in Orchestrator.Device.Sections)
 {
 
 
-    DefineSection(section.Identifier, async () => await Output.WriteAsync((await Html.RenderViewSection(Component, section)).ToString()));
+    DefineSection(section.Identifier, async () => await Output.WriteAsync((await Html.RenderViewSection(Component, section, exception => _logger.Error(exception))).ToString()));
 
 }
