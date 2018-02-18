@@ -14,8 +14,8 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
     {
         public RenameAssetCommand()
         {
-            
         }
+
         public RenameAssetCommand(int documentId, string newName)
         {
             DocumentId = documentId;

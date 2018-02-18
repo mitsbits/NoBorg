@@ -53,15 +53,13 @@ namespace Borg.Cms.Basic.Lib.System
         {
             try
             {
-
-
                 var jobHandle = BackgroundJob.Enqueue<TJob>(j => j.Execute(args));
                 return Task.FromResult(jobHandle);
             }
             catch (Exception e)
             {
-
-                throw;
+                _logger.Warn("Failed to run {job} with {@args} - reason: {exception}", typeof(TJob).Name, args, e.Message);
+                return Task.FromException(e);
             }
         }
 

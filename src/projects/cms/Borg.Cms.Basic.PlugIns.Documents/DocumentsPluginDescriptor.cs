@@ -1,11 +1,17 @@
 ﻿using Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers;
+using Borg.Cms.Basic.PlugIns.Documents.BackgroundJobs;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
+using Borg.Cms.Basic.PlugIns.Documents.Services;
 using Borg.Infra;
 using Borg.Infra.DTO;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
+using Borg.Platform.Azure.Storage.Blobs;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
+using Borg.Platform.ImageSharp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,13 +24,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
-using Borg.Cms.Basic.PlugIns.Documents.Consumers;
-using Borg.Cms.Basic.PlugIns.Documents.Services;
-using Borg.Infra.Services.BackgroundServices;
-using Borg.Infra.Storage.Assets;
-using Borg.Infra.Storage.Assets.Contracts;
-using Borg.Platform.Azure.Storage.Blobs;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
@@ -44,17 +43,18 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             services.AddScoped<IUnitOfWork<DocumentsDbContext>, UnitOfWork<DocumentsDbContext>>();
             services.AddScoped<DocumentsDbSeed>();
 
-            services.AddScoped<IImageSizesStore<int>>(provider =>
+            services.AddScoped<IStaticImageCacheStore<int>>(provider =>
             {
-                return new ImageSizesStore(loggerFactory,
+                return new StaticImageCacheStore(loggerFactory,
                     provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
                     () => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.ImagesCacheFolder),
-                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings);
-
+                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings,
+                    provider.GetRequiredService<IImageResizer>());
             });
 
+            services.AddScoped<IImageResizer, ImageResizer>();
 
-            services.AddScoped<CacheJpgJob>();
+            services.AddScoped<CacheStaticImagesForWeb>();
             return services;
         }
 

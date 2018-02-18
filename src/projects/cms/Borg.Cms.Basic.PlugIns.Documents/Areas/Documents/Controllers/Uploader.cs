@@ -1,4 +1,5 @@
 ﻿using Borg.Cms.Basic.PlugIns.Documents.Commands;
+using Borg.Cms.Basic.PlugIns.Documents.Events;
 using Borg.Infra.Caching.Contracts;
 using Borg.Infra.DAL;
 using Borg.Infra.Storage.Assets;
@@ -13,7 +14,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.PlugIns.Documents.Events;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
 {
@@ -28,7 +28,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             _assetStore = assetStore;
             _cache = cache;
             _dispatcher = dispatcher;
-            _assetStore.FileCreated += args=> _dispatcher.Publish(new FileCreatedEvent(args.RecordId, args.MimeType));
+            _assetStore.FileCreated += args => _dispatcher.Publish(new FileCreatedEvent(args.RecordId, args.MimeType));
         }
 
         [HttpGet]
@@ -100,7 +100,6 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             foreach (var assetInfoDefinition in bucket)
             {
                 commResult = await _dispatcher.Send(new DocumentInitialCommitCommand(assetInfoDefinition.Id, User.Identity.Name));
-              
             }
 
             await _cache.Remove(cacheKey);

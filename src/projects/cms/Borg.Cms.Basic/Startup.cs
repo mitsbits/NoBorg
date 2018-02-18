@@ -1,4 +1,4 @@
-﻿using Borg.Cms.Basic.Lib.Discovery;
+﻿using Borg.Cms.Basic.Lib.Features;
 using Borg.Cms.Basic.Lib.System;
 using Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers;
 using Borg.Cms.Basic.Presentation.RouteConstraints;
@@ -17,7 +17,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Borg.Cms.Basic.Lib.Features;
 
 namespace Borg.Cms.Basic
 {

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\..\..\platform\Borg.Platform.ImageSharp\Borg.Platform.ImageSharp.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
   </ItemGroup>
 
