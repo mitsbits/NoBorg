@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Auth.Commands;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -136,7 +137,25 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                 var result = await Dispatcher.Send(model);
                 if (!result.Succeded)
                 {
+                    AddErrors(result);
                     Logger.Debug($"{nameof(UsersController)} - {nameof(UserClaim)} failed for {model.Email} because {string.Join(", ", result.Errors)}");
+                }
+            }
+
+            return Redirect(redirecturl);
+        }
+
+        [Route("UserAvatar")]
+        [HttpPost]
+        public async Task<IActionResult> UserAvatar(UserAvatarCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                    Logger.Debug($"{nameof(UsersController)} - {nameof(UserAvatar)} failed for {model.Email} because {string.Join(", ", result.Errors)}");
                 }
             }
 

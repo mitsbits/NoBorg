@@ -1,13 +1,30 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
+﻿@using Borg.Cms.Basic.Lib.Features.Auth.Commands
+@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
 @using Borg.Infra
-@model UserClaimCommand
+@model UserAvatarCommand
 
 <div class="box box-default box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">Avatar</h3>
     </div>
-    <form asp-controller="Users" asp-action="UserClaim" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+    <form asp-controller="Users" asp-action="UserAvatar" enctype="multipart/form-data" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
         <div class="box-body">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        <label class="btn btn-primary btn-file btn-flat btn-block">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Browse <input id="file" type="file" class="hidden" asp-for="File" />
+                        </label>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="clearfile" class="btn btn-warning  btn-flat btn-block" type="button" title="Clear file selection">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <div class="col-md-12"> <label id="filedisplay"></label></div>
+                </div>
+            </div>
             <div class="form-group">
                 <input type="hidden" asp-for="CorrelationId" />
                 <input type="hidden" asp-for="Email" />
@@ -16,7 +33,9 @@
                 <span asp-validation-for="ClaimValue" class="text-danger"></span>
             </div>
             <div class="form-group text-center">
-                <img src="@Model.ClaimValue" class="img img-rounded" style="height: 150px; " />
+                <figure id="image" style="display: none;">
+                    <img  class="img img-rounded" style="height: 150px;" />
+                </figure>
             </div>
         </div>
         <div class="box-footer">
@@ -24,3 +43,53 @@
         </div>
     </form>
 </div>
+
+
+<script device id="uploadavatarscript" weight="100">
+    $(function () {
+
+        $("input[type=file]#file").click(function () {
+            $(this).val("");
+        });
+
+        $("input[type=file]#file").change(function () {
+
+            $("#filedisplay").text($(this).val());
+            $("#filedisplay").attr('title', $(this).val());
+ 
+
+        });
+
+        $("button#clearfile").click(function () {
+            $("input[type=file]#file").val("");
+            $("#filedisplay").text("");
+        });
+
+        var intervalId;
+
+        function stopRequestingImage() {
+            clearInterval(intervalId);
+          
+        }
+
+        function requestImage() {
+            var url = '@Model.ClaimValue';
+           
+            intervalId = setInterval(function() {
+                $.get(url, function () { })
+                    .done(function () {
+                        stopRequestingImage();
+                        $("#image img").attr('src', url);
+                        $("#image").show(300);
+
+                    })
+                    .fail(function() {
+                      
+                     });
+                },
+                300);
+        }
+
+        requestImage();
+    });
+</script>

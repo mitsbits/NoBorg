@@ -17,6 +17,13 @@
     <Content Remove="Areas\Documents\Views\MimeTypes\Partials\Groupimg.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Remove="Areas\Documents\Views\Home\Partials\CheckIn.cshtml" />
+    <EmbeddedResource Remove="Areas\Documents\Views\Home\Partials\CheckInUpload.cshtml" />
+    <EmbeddedResource Remove="Areas\Documents\Views\Home\Partials\CheckOut.cshtml" />
+    <EmbeddedResource Remove="Areas\Documents\Views\Home\Partials\Document.cshtml" />
+  </ItemGroup>
+
 
 
   <ItemGroup>

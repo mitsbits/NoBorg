@@ -1,15 +1,15 @@
-﻿using Borg.Infra.DAL;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Borg.Infra.DAL;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
-namespace Borg.Cms.Basic.Lib.Features.Auth.Management.Users
+namespace Borg.Cms.Basic.Lib.Features.Auth.Commands
 {
     public class UserClaimCommand : CommandBase<CommandResult>
     {

@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
+using Borg.CMS.Documents.Contracts;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
@@ -53,8 +54,9 @@ namespace Borg.Cms.Basic.PlugIns.Documents
             });
 
             services.AddScoped<IImageResizer, ImageResizer>();
-
+            services.AddScoped<IDocumentsService<int>, DocumentsService>();
             services.AddScoped<CacheStaticImagesForWeb>();
+
             return services;
         }
 

@@ -46,7 +46,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
                     break;
 
                 default:
-                    throw new InvalidOperationException($"Can not procees image of type {file.spec.MimeType} - file: {file.spec.Name}");
+                    _logger.Warn($"Can not procees image of type {file.spec.MimeType} - file: {file.spec.Name}");
                     break;
             }
 
@@ -90,7 +90,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
             var domain = _settings.Storage.ImagesCacheEndpoint;
             var parentDirectory = await _assetDirectoryStrategy.ParentFolder(fileId);
             var fileName = $"{fileId}_{size}.jpg";
-            return new Uri(Path.Combine(domain, parentDirectory, fileName));
+            return new Uri(Path.Combine(domain, _settings.Storage.ImagesCacheFolder, parentDirectory, fileName));
         }
     }
 }

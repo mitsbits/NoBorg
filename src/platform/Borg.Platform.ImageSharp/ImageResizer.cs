@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.Primitives;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using SixLabors.ImageSharp.Formats.Bmp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
 
 namespace Borg.Platform.ImageSharp
 {
@@ -36,15 +36,14 @@ namespace Borg.Platform.ImageSharp
                         case "image/jpeg": source = Image.Load(input, new JpegDecoder()); break;
                         case "image/png": source = Image.Load(input, new PngDecoder()); break;
                         case "image/bmp": source = Image.Load(input, new BmpDecoder()); break;
+                        case "image/gif": source = Image.Load(input, new GifDecoder()); break;
                         default: throw new InvalidOperationException($"Can not resize image of type {mime}"); break;
                     }
-                   
-                    var w = source.Width;
-                    var h = source.Height;
-                    var isHorizontal = h < w;
-                    var ratio = (float)sizeInPixels / (float)(isHorizontal ? w : h);
-                    var newWidth = (int)(w * ratio);
-                    var newHeight = (int)(h * ratio);
+       
+                    var isHorizontal = source.Height < source.Width;
+                    var ratio = (float)sizeInPixels / (float)(isHorizontal ? source.Width : source.Height);
+                    var newWidth = (int)(source.Width * ratio);
+                    var newHeight = (int)(source.Height * ratio);
                     source.Mutate(c =>
                     {
                         c.Resize(new Size(newWidth, newHeight));

@@ -71,7 +71,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Areas.Documents.Controllers
             {
                 string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
 
-                filename = this.EnsureCorrectFilename(filename);
+                filename = filename.EnsureCorrectFilenameFromUpload();
 
                 byte[] buffer = new byte[16 * 1024];
 

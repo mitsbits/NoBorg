@@ -1,10 +1,11 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
+﻿@using Borg.Cms.Basic.Lib.Features.Auth.Commands
+@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
 @using Borg.Infra
 @model UserViewModel
 
 <div class="row">
     <div class="col-md-4">
-        @await Html.PartialAsync("Partials/UserAvatar", new UserClaimCommand(Model.UserName, BorgClaimTypes.Avatar, Model.UserClaims.Any(x => x.ClaimType == BorgClaimTypes.Avatar) ? Model.UserClaims.First(x => x.ClaimType == BorgClaimTypes.Avatar).ClaimValue : "https://image.flaticon.com/icons/png/512/78/78373.png"))
+        @await Html.PartialAsync("Partials/UserAvatar", new UserAvatarCommand(Model.UserName, BorgClaimTypes.Avatar, Model.UserClaims.Any(x => x.ClaimType == BorgClaimTypes.Avatar) ? Model.UserClaims.First(x => x.ClaimType == BorgClaimTypes.Avatar).ClaimValue : "https://image.flaticon.com/icons/png/512/78/78373.png"))
     </div>
 
     <div class="col-md-4">

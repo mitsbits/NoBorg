@@ -79,6 +79,14 @@ namespace Borg
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
+        public static string EnsureCorrectFilenameFromUpload(this string filename)
+        {
+            if (filename.Contains("\\"))
+                filename = filename.Substring(filename.LastIndexOf("\\") + 1);
+
+            return filename;
+        }
+
         public static int IndexOfWhitespaceAgnostic(this IEnumerable<string> source, string check)
         {
             var result = -1;

@@ -22,4 +22,15 @@ namespace Borg
             return await service.GetFromExtension(ext);
         }
     }
+
+    public static class AssetStoreServiceExtensions
+    {
+        public static async Task<TAsset> Get<TAsset, TKey>(this IAssetStore<TAsset, TKey> store, TKey id) where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
+        {
+            var hits = await store.Projections(new[] {id});
+            return hits.SingleOrDefault();
+        }
+
+
+    }
 }
