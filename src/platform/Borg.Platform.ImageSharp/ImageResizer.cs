@@ -39,7 +39,7 @@ namespace Borg.Platform.ImageSharp
                         case "image/gif": source = Image.Load(input, new GifDecoder()); break;
                         default: throw new InvalidOperationException($"Can not resize image of type {mime}"); break;
                     }
-       
+
                     var isHorizontal = source.Height < source.Width;
                     var ratio = (float)sizeInPixels / (float)(isHorizontal ? source.Width : source.Height);
                     var newWidth = (int)(source.Width * ratio);

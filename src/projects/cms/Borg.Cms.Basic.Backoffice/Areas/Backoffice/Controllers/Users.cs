@@ -147,6 +147,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 
         [Route("UserAvatar")]
         [HttpPost]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> UserAvatar(UserAvatarCommand model, string redirecturl)
         {
             if (ModelState.IsValid)

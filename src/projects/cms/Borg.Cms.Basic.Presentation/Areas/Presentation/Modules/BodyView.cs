@@ -14,8 +14,8 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Modules
         {
             var result = new Tidings
             {
-                new Tiding("AssemblyQualifiedName", typeof(RazorView).AssemblyQualifiedName),
-                new Tiding("view", "Shared/Modules/Body.cshtml")
+                new Tiding(Tidings.DefinedKeys.AssemblyQualifiedName, typeof(RazorView).AssemblyQualifiedName),
+                new Tiding(Tidings.DefinedKeys.View, "Modules/Body")
             };
             return result;
         }

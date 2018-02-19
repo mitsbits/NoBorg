@@ -1,5 +1,4 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
-using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra;
 using Borg.Infra.Services;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -26,13 +26,15 @@ namespace Borg.Cms.Basic
 
             var appConfig = HostUtility.AppConfiguration(args);
             var settings = new BorgSettings();
-            appConfig.GetSection("atlas").Bind(settings);
+            appConfig.GetSection("borg").Bind(settings);
+            var storage = CloudStorageAccount.Parse(settings.Storage.AzureStorageConnection);
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Override("System", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .WriteTo.ColoredConsole()
+                .WriteTo.AzureTableStorageWithProperties(storage, LogEventLevel.Warning, null, "borgerrorlog", true, TimeSpan.FromMinutes(1))
                 .CreateLogger();
 
             ApplicationLogging.SetFactory(host.Services.GetRequiredService<ILoggerFactory>());
@@ -44,6 +46,7 @@ namespace Borg.Cms.Basic
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseSerilog()
                 .Build();
 
         private static void Seed(IWebHost host)

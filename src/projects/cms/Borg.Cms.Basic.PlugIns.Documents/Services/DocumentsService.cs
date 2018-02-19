@@ -1,9 +1,9 @@
-﻿using Borg.CMS.Documents.Contracts;
-using System;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.PlugIns.Documents.Commands;
+﻿using Borg.Cms.Basic.PlugIns.Documents.Commands;
+using Borg.CMS.Documents.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Services
 {

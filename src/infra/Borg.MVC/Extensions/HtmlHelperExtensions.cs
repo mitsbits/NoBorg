@@ -41,7 +41,7 @@ namespace Borg
 
                         if (item.Module.ModuleGender == ModuleGender.PartialView.Flavor)
                         {
-                            var view = item.Module.Parameters.FirstOrDefault(x => x.Key == "view").Value;
+                            var view = item.Module.Parameters.FirstOrDefault(x => x.Key == Tidings.DefinedKeys.View).Value;
                             var result = await html.PartialAsync(view, new Tidings(item.Module.Parameters));
                             result.WriteTo(writer, HtmlEncoder.Default);
                         }

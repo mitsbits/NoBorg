@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
+﻿using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
 {
@@ -51,9 +51,9 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
         {
             var result = new Tidings
             {
-                new Tiding("AssemblyQualifiedName", typeof(MenuViewComponent).AssemblyQualifiedName),
+                new Tiding(Tidings.DefinedKeys.AssemblyQualifiedName, typeof(MenuViewComponent).AssemblyQualifiedName),
                 new Tiding("group", ""),
-                new Tiding("view", "")
+                new Tiding(Tidings.DefinedKeys.View, "")
             };
             return result;
         }

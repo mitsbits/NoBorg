@@ -16,7 +16,7 @@ namespace Borg.CMS.BuildingBlocks
 
         public string FriendlyName { get; set; }
 
-        ICollection<ISlot> ISection.Slots => Enumerable.Cast<ISlot>(Slots).ToList();
+        ICollection<ISlot> ISection.Slots => Slots.Cast<ISlot>().ToList();
         public string RenderScheme { get; set; } = DeviceRenderScheme.UnSet;
         public ICollection<Slot> Slots { get; set; }
 

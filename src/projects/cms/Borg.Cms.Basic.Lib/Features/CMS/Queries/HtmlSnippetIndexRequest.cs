@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
-    public class HtmlSnippetIndex
+    public class HtmlSnippetIndex : IRequest<QueryResult<HtmlSnippetModel>>
     {
         public int Id { get; set; }
         public bool IsDeleted { get; set; }

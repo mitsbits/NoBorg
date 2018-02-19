@@ -41,19 +41,7 @@
                         @foreach (var u in Model.Records)
                         {
                             <tr class="@RowColourClass(u)">
-                                @* <td>
-                                        <form role="form" asp-controller="Users" asp-action="ToggleLockOut" method="post" asp-route-redirecturl="@Orchestrator.Device.RedirectToDevice()" class="form-inline">
-                                            <input type="hidden" value="@u.UserName" id="@nameof(u.UserName)" name="@nameof(u.UserName)" />
-                                            @if (u.LockedOut)
-                                        {
-                                                <button class="btn btn-sm btn-success btn-block" type="submit"><i class="fa fa-unlock" aria-hidden="true"></i></button>
-                                        }
-                                        else
-                                        {
-                                                <button class="btn btn-sm btn-danger btn-block" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
-                                        }
-                                        </form>
-                                    </td>*@
+
                                 <td>
                                     <a asp-controller="Users" asp-action="Item" asp-route-email="@u.UserName" class="text-@RowColourClass(u)">
                                         <i class="fa fa-@RowIconClass(u)" aria-hidden="true"></i><span> @u.UserName</span>
@@ -64,148 +52,54 @@
                                 <td>@u.LastName</td>
                                 <td>
 
-                                    <span id="@string.Format("dsp{0}", u.UserId)"><concat data="@u.Roles" empty-display="---"></concat></span>
-
-                                    @*<div class="btn-group pull-right">
-                                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-users" aria-hidden="true"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                @foreach (var role in roles)
-                                                {
-                                                    <a id="@string.Format("lnk{0}{1}", u.UserId, role)" class="lnk dropdown-item" href="#" data-elem="@u.UserId" data-id="@u.UserName" data-role="@role" data-state="@Rolestate(u,role)">
-                                                        <i id="@string.Format("ico{0}{1}", u.UserId, role)" class="fa @RoleIcon(u, role)" aria-hidden="true"></i>      @role
-                                                    </a>
-
-                                                }
-                                            </div>
-                                        </div>*@
+                                    <span id="@string.Format("dsp{0}", u.UserId)"><concat-text data="@u.Roles" empty-display="---"></concat-text></span>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-            @*</div>*@
         </div>
     </div>
 </div>
 
-@*<div class="container">
-        <div class="jumbotron">
-            <h3 class="display-4">@Orchestrator.Page.Title</h3>
-            <form role="form" asp-controller="Users" asp-action="Users" method="get">
-                <div class="form-group">
-                    <div class="input-group ">
-                        <input id="searchterm" name="searchterm" class="form-control" type="search" value="@searchterm" />
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-info pull-right">Search</button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-        </div>
+@*<script device id="users-roles-dropdown-widget" script-position="Bottom" weight="105">
+        $(function (event) {
+            var url = '@Url.Action("ToggleRole")';
+            $('a.lnk').click(function (event) {
+                var self = this;
+                var elemId = $(self).data('elem');
+                var id = $(self).data('id');
+                var role = $(self).data('role');
 
-        <table class="table  table-sm table-light">
-            <thead class="thead-inverse">
-                <tr>
+                var state = $(self).data('state');
+                var action = "add";
+                if (state === "in") { action = "remove";}
+                var postdata = { 'userId': id, 'role': role, "action" : action };
 
-                    <td style="width: 15px;"></td>
-                    <td>Email</td>
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: postdata,
+                    success: function (data) {
 
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Roles</td>
-                </tr>
-            </thead>
+                        var trgt1 = 'ico' + elemId + role;
+                        var trgt2 = 'dsp' + elemId;
+                        var el = $('#' + trgt1);
+                        if (data.action !== "add") {
+                            el.removeClass('fa').removeClass('fa-minus').addClass('fa').addClass('fa-plus');
+                            $(self).data('state', 'out');
+                        } else {
+                            el.removeClass('fa').removeClass('fa-plus').addClass('fa').addClass('fa-minus');
+                            $(self).data('state','in');
+                        }
 
-            @foreach (var u in Model.Records)
-                {
-                <tr class="@RowColourClass(u)">
-                    <td>
-                        <form role="form" asp-controller="Users" asp-action="ToggleLockOut" method="post" asp-route-redirecturl="@Orchestrator.Device.RedirectToDevice()" class="form-inline">
-                            <input type="hidden" value="@u.UserName" id="@nameof(u.UserName)" name="@nameof(u.UserName)" />
-                            @if (u.LockedOut)
-                            {
-                                <button class="btn btn-sm btn-outline-success btn-block" type="submit"><i class="fa fa-unlock" aria-hidden="true"></i></button>
-                            }
-                            else
-                            {
-                                <button class="btn btn-sm btn-outline-danger btn-block" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
-                            }
-                        </form>
-                    </td>
-                    <td>
-                        <a asp-controller="Users" asp-action="Item" asp-route-email="@u.UserName">
-                            @u.UserName
-                        </a>
-                    </td>
-
-                    <td>@u.FirstName</td>
-                    <td>@u.LastName</td>
-                    <td>
-
-                        <span id="@string.Format("dsp{0}", u.UserId)"><concat data="@u.Roles" empty-display="---"></concat></span>
-
-                        <div class="btn-group pull-right">
-                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-users" aria-hidden="true"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                @foreach (var role in roles)
-                                {
-                                    <a id="@string.Format("lnk{0}{1}", u.UserId, role)" class="lnk dropdown-item" href="#" data-elem="@u.UserId" data-id="@u.UserName" data-role="@role" data-state="@Rolestate(u,role)">
-                                        <i id="@string.Format("ico{0}{1}", u.UserId, role)" class="fa @RoleIcon(u, role)" aria-hidden="true"></i>      @role
-                                    </a>
-
-                                }
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>*@
-
-@*<script device src="https://unpkg.com/vue" id="vuejs" script-position="Bottom" weight="110"></script>*@
-
-<script device id="users-roles-dropdown-widget" script-position="Bottom" weight="105">
-    $(function (event) {
-        var url = '@Url.Action("ToggleRole")';
-        $('a.lnk').click(function (event) {
-            var self = this;
-            var elemId = $(self).data('elem');
-            var id = $(self).data('id');
-            var role = $(self).data('role');
-
-            var state = $(self).data('state');
-            var action = "add";
-            if (state === "in") { action = "remove";}
-            var postdata = { 'userId': id, 'role': role, "action" : action };
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: postdata,
-                success: function (data) {
-
-                    var trgt1 = 'ico' + elemId + role;
-                    var trgt2 = 'dsp' + elemId;
-                    var el = $('#' + trgt1);
-                    if (data.action !== "add") {
-                        el.removeClass('fa').removeClass('fa-minus').addClass('fa').addClass('fa-plus');
-                        $(self).data('state', 'out');
-                    } else {
-                        el.removeClass('fa').removeClass('fa-plus').addClass('fa').addClass('fa-minus');
-                        $(self).data('state','in');
+                        $('#' + trgt2).html(data.message);
                     }
 
-                    $('#' + trgt2).html(data.message);
-                }
+                });
 
+                event.preventDefault();
             });
-            console.debug('action: ' + action + ' state: ' + state + ' user: ' + id + ' role: ' + role);
-            event.preventDefault();
         });
-    });
-</script>
+    </script>*@

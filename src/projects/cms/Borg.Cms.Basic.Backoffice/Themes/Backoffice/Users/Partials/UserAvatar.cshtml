@@ -1,5 +1,4 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.Auth.Commands
-@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
 @using Borg.Infra
 @model UserAvatarCommand
 
@@ -76,16 +75,15 @@
             var url = '@Model.ClaimValue';
            
             intervalId = setInterval(function() {
-                $.get(url, function () { })
-                    .done(function () {
+                    $.ajax({
+                        type: "HEAD",
+                        async: true,
+                        url: url,
+                    }).done(function(message,text,jqXHR){
                         stopRequestingImage();
                         $("#image img").attr('src', url);
                         $("#image").show(300);
-
-                    })
-                    .fail(function() {
-                      
-                     });
+                    });
                 },
                 300);
         }

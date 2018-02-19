@@ -43,12 +43,15 @@ namespace Borg.Infra.DTO
         public static class DefinedKeys
         {
             public const string Id = "Id";
+            public const string Key = "Key";
+            public const string Group = "Group";
             public const string State = "State";
             public const string Identifier = "Identifier";
             public const string Name = "Name";
             public const string Display = "Display";
             public const string Payload = "Payload";
             public const string View = "View";
+            public const string AssemblyQualifiedName = "AssemblyQualifiedName";
         }
 
         #region ICollection
