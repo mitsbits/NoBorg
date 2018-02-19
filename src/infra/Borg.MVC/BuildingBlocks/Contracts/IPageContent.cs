@@ -1,6 +1,6 @@
 ﻿namespace Borg.MVC.BuildingBlocks.Contracts
 {
-    public interface IPageContent : IHaveHtmlMetas
+    public interface IPageContent : IHaveHtmlMetas, IHaveTags, IHaveComponentKey
     {
         string Title { get; }
         string Subtitle { get; }

@@ -16,5 +16,8 @@ namespace Borg.MVC.BuildingBlocks
         {
             Title = title.Trim();
         }
+
+        public TagSet Tags { get; } = new TagSet();
+        public string ComponentKey { get; set; }
     }
 }

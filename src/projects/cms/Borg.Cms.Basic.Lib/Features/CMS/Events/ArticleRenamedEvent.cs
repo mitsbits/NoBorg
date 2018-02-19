@@ -1,7 +1,5 @@
 ﻿using Borg.Infra.Messaging;
-using Borg.MVC.BuildingBlocks.Contracts;
 using MediatR;
-using System.Collections.Generic;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 {
@@ -21,31 +19,5 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Events
         public string CurrentTitle { get; }
         public string OldSlug { get; }
         public string CurrentSlug { get; }
-    }
-
-    public class ArticleHtmlMetasChangedEvent : MessageBase, INotification
-    {
-        public ArticleHtmlMetasChangedEvent(int articleId, IEnumerable<IHtmlMeta> metas)
-        {
-            ArticleId = articleId;
-            Metas = metas;
-        }
-
-        public int ArticleId { get; }
-        public IEnumerable<IHtmlMeta> Metas { get; }
-    }
-
-    public class ArticleBodyChangedEvent : MessageBase, INotification
-    {
-        public ArticleBodyChangedEvent(int articleId, string currentBody, string previousBody)
-        {
-            ArticleId = articleId;
-            CurrentBody = currentBody;
-            PrevioustBody = previousBody;
-        }
-
-        public int ArticleId { get; }
-        public string PrevioustBody { get; }
-        public string CurrentBody { get; }
     }
 }

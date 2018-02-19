@@ -47,7 +47,7 @@ namespace Borg.Cms.Basic.Presentation.Queries
                 var q = from a in _uow.Context.ArticleStates
                     .Include(x => x.Component)
                     .Include(x => x.PageMetadata)
-                    .Include(x => x.ArticleTags).ThenInclude(x => x.Tag)
+                    .Include(x => x.ArticleTags).ThenInclude(x => x.Tag).ThenInclude(x=>x.Component)
                     .AsNoTracking()
                         select a;
 
@@ -60,6 +60,8 @@ namespace Borg.Cms.Basic.Presentation.Queries
                     Body = new[] { hit.Body },
                 };
                 result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
+                result.Tags.AddRange(hit.Tags.Where(x=>x.Component.OkToDisplay()).Select(x=> new Tag(x.Tag, x.TagSlug)));
+                result.ComponentKey = id.ToString();
                 return QueryResult<(int componentId, IPageContent content)>.Success((componentId: id, content: result));
             }
             catch (Exception e)

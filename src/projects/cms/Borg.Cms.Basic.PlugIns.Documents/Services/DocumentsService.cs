@@ -18,18 +18,18 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
             _dispatcher = dispatcher;
         }
 
-        public async Task<int> StoreUserDocument(byte[] data, string filename, string userHandle)
+        public async Task<(int docid, int fileid)> StoreUserDocument(byte[] data, string filename, string userHandle)
         {
             try
             {
                 var command = new StoreUserDocumentCommand(userHandle, filename, data);
                 var result = await _dispatcher.Send(command);
-                return result.Succeded ? result.Payload : default(int);
+                return result.Succeded ? result.Payload : (docid: -1, fileid: -1);
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating document from {message} - {exception}", filename, ex.ToString());
-                return default(int);
+                return (docid: -1, fileid: -1);
             }
         }
     }

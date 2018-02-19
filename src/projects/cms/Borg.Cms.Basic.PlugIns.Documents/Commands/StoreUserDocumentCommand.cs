@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Commands
 {
-    public class StoreUserDocumentCommand : CommandBase<CommandResult<int>>
+    public class StoreUserDocumentCommand : CommandBase<CommandResult<(int docid, int fileid)>>
     {
         public StoreUserDocumentCommand(string userHandle, string filename, byte[] file)
         {
@@ -25,7 +25,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
         public string UserHandle { get; }
     }
 
-    public class StoreUserDocumentCommandHandler : AsyncRequestHandler<StoreUserDocumentCommand, CommandResult<int>>
+    public class StoreUserDocumentCommandHandler : AsyncRequestHandler<StoreUserDocumentCommand, CommandResult<(int docid, int fileid)>>
     {
         private readonly ILogger _logger;
         private readonly IMediator _dispatcher;
@@ -39,21 +39,22 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
             _assetStore.FileCreated += args => _dispatcher.Publish(new FileCreatedEvent(args.RecordId, args.MimeType));
         }
 
-        protected override async Task<CommandResult<int>> HandleCore(StoreUserDocumentCommand message)
+        protected override async Task<CommandResult<(int docid, int fileid)>> HandleCore(StoreUserDocumentCommand message)
         {
             try
             {
                 var filename = message.Filename.EnsureCorrectFilenameFromUpload();
                 var definition = await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), message.File, filename);
-                if (definition == null) return CommandResult<int>.FailureWithEmptyPayload($"Could not create document from {filename}");
+                if (definition == null) return CommandResult<(int docid, int fileid)>.FailureWithEmptyPayload($"Could not create document from {filename}");
                 var commandResult = await _dispatcher.Send(new DocumentInitialCommitCommand(definition.Id, message.UserHandle));
-                if (!commandResult.Succeded) return CommandResult<int>.FailureWithEmptyPayload(commandResult.Errors);
-                return CommandResult<int>.Success(definition.Id);
+                if (!commandResult.Succeded) return CommandResult<(int docid, int fileid)>.FailureWithEmptyPayload(commandResult.Errors);
+                var spec = await _assetStore.Spec(definition.Id);
+                return CommandResult<(int docid, int fileid)>.Success((docid: definition.Id, fileid: spec.Id));
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating document from {@message} - {exception}", message, ex.ToString());
-                return CommandResult<int>.FailureWithEmptyPayload(ex.ToString());
+                return CommandResult<(int docid, int fileid)>.FailureWithEmptyPayload(ex.ToString());
             }
         }
     }

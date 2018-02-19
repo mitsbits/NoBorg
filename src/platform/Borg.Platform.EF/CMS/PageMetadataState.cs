@@ -8,6 +8,8 @@ namespace Borg.Platform.EF.CMS
     {
         public int Id { get; set; }
         public string HtmlMetaJsonText { get; set; }
+        public int? PrimaryImageDocumentId { get; set; }
+        public int? PrimaryImageFileId { get; set; }
 
         public virtual ComponentState Component { get; set; }
         internal virtual ArticleState Article { get; set; }

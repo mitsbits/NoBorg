@@ -30,7 +30,7 @@ namespace Borg.Cms.Basic
             var storage = CloudStorageAccount.Parse(settings.Storage.AzureStorageConnection);
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Warning()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .WriteTo.ColoredConsole()

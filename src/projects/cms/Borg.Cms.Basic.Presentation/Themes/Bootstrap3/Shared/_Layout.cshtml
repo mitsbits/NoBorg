@@ -91,8 +91,9 @@
     </div>
 
     @await RenderSectionAsync("footer", required: true)
-
+    <input type="hidden" id="componentKey" value="@Orchestrator.Page.ComponentKey"/>
     <script src="~/dist/jquery.js"></script>
     <script src="~/dist/bootstrap/js/bootstrap.js"></script>
+
 </body>
 </html>

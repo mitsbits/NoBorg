@@ -4,6 +4,6 @@ namespace Borg.MVC.BuildingBlocks.Contracts
 {
     public interface IHaveHtmlMetas
     {
-        HtmlMetaSet Metas { get; } 
+        HtmlMetaSet Metas { get; }
     }
 }

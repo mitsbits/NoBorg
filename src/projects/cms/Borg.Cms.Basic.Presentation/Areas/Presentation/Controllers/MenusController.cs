@@ -20,6 +20,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             var result = await Dispatcher.Send(new MenuRootPageContentRequest(rootmenu));
             if (!result.Succeded) return BadRequest($"no menu for path {rootmenu} was found");
             var id = result.Payload.componentId;
+
             var structureresult = await Dispatcher.Send(new ComponentDeviceRequest(id));
             if (!structureresult.Succeded) return BadRequest($"no structure for path {rootmenu} was found");
             PageContent(result.Payload.content);
