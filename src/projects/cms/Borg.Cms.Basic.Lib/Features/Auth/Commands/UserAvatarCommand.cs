@@ -75,9 +75,8 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Commands
                 {
                     await message.File.CopyToAsync(stream);
                     stream.Seek(0, 0);
-                    var docId = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);
-                    var fspec = await _assetStore.CurrentFile(docId);
-                    var avatarUrl = await _cacheStore.PublicUrl(fspec.Id, VisualSize.Medium);
+                    var docId = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);     
+                    var avatarUrl = await _cacheStore.PublicUrl(docId.fileid, VisualSize.Medium);
                     return await _dispatcher.Send(new UserClaimCommand(message.Email, message.ClaimType, avatarUrl.AbsoluteUri));
                 }
             }
