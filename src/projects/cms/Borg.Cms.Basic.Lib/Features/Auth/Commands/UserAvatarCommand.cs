@@ -47,15 +47,13 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Commands
         private readonly IMediator _dispatcher;
         private readonly IStaticImageCacheStore<int> _cacheStore;
         private readonly IDocumentsService<int> _documents;
-        private readonly IAssetStoreDatabaseService<int> _assetStore;
 
-        public UserAvatarCommandHandler(ILoggerFactory loggerFactory, IMediator dispatcher, IStaticImageCacheStore<int> cacheStore, IDocumentsService<int> documents, IAssetStoreDatabaseService<int> assetStore)
+        public UserAvatarCommandHandler(ILoggerFactory loggerFactory, IMediator dispatcher, IStaticImageCacheStore<int> cacheStore, IDocumentsService<int> documents)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _dispatcher = dispatcher;
             _cacheStore = cacheStore;
             _documents = documents;
-            _assetStore = assetStore;
         }
 
         protected override async Task<CommandResult> HandleCore(UserAvatarCommand message)
@@ -75,7 +73,7 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Commands
                 {
                     await message.File.CopyToAsync(stream);
                     stream.Seek(0, 0);
-                    var docId = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);     
+                    var docId = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);
                     var avatarUrl = await _cacheStore.PublicUrl(docId.fileid, VisualSize.Medium);
                     return await _dispatcher.Send(new UserClaimCommand(message.Email, message.ClaimType, avatarUrl.AbsoluteUri));
                 }

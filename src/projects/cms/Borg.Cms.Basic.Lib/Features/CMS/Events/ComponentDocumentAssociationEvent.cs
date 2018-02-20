@@ -13,6 +13,5 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 
         public int ComponentId { get; }
         public int DocumentId { get; }
-
     }
 }

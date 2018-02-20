@@ -2,6 +2,7 @@
 using Borg.Cms.Basic.PlugIns.Documents.BackgroundJobs;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Cms.Basic.PlugIns.Documents.Services;
+using Borg.CMS.Documents.Contracts;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.Infra.Storage.Assets;
@@ -24,7 +25,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
-using Borg.CMS.Documents.Contracts;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {

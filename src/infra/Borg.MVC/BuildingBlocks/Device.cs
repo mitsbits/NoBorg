@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Borg.MVC.BuildingBlocks
 {
-    public class Device : IDevice, ICanContextualizeFromController, ICanContextualizeFromView, ICanContextualizeFromRazorPage
+    public class Device : IDevice, ICanContextualizeFromController, ICanContextualizeFromView
     {
         private const string ControllerKey = "controller";
         private const string ActionKey = "action";
@@ -91,11 +91,7 @@ namespace Borg.MVC.BuildingBlocks
 
 
         #endregion ICanContextualize
-        public void Contextualize(PageModel page)
-        {
-            Preconditions.NotNull(page, nameof(page));
-            Populate(page);
-        }
+
         #region ICanContextualizeFromView
 
         public void Contextualize(ViewContext context)

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -14,8 +13,7 @@ namespace Borg.MVC.BuildingBlocks
         IViewContextAware,
         IPageOrchestrator<IPageContent, IDevice>,
         ICanContextualizeFromController,
-        ICanContextualizeFromView,
-        ICanContextualizeFromRazorPage
+        ICanContextualizeFromView
     {
         private IPageContent _page;
         private readonly Func<IPageContent> _defaultContent = () => new PageContent() { Title = "Default" };
@@ -38,15 +36,6 @@ namespace Borg.MVC.BuildingBlocks
             Preconditions.NotNull(controller, nameof(controller));
             Bag = controller.ViewBag;
             Device.TryContextualize(controller);
-            ContextAcquired = true;
-        }
-
-        public void Contextualize(PageModel page)
-        {
-            if (ContextAcquired || Bag != null) return;
-            Preconditions.NotNull(page, nameof(page));
-            Bag = page.PageContext.ViewData;
-            Device.TryContextualize(page);
             ContextAcquired = true;
         }
 
@@ -74,6 +63,5 @@ namespace Borg.MVC.BuildingBlocks
 
         private dynamic Bag { get; set; }
         public bool ContextAcquired { get; private set; } = false;
-
     }
 }

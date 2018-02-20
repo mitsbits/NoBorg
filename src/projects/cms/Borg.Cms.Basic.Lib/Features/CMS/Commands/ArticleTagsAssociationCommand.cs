@@ -60,7 +60,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         hit = new TagState()
                         {
                             Tag = tag,
-                            TagNormalized = tag.RemoveDiacritics().ToUpperInvariant(),
+                            TagNormalized = tag.RemoveDiacritics().Replace("ς", "Σ").ToUpperInvariant(),
                             TagSlug = _slugifier.Slugify(tag, 1024),
                             Component = new ComponentState() { IsDeleted = false, IsPublished = true }
                         };

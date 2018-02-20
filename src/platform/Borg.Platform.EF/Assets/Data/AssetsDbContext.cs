@@ -33,7 +33,7 @@ namespace Borg.Platform.EF.Assets.Data
             builder.Entity<FileRecord>().Property(x => x.CreationDate).IsRequired().HasDefaultValueSql("GetUtcDate()");
             builder.Entity<FileRecord>().Property(x => x.LastWrite).IsRequired().HasDefaultValueSql("GetUtcDate()");
             builder.Entity<FileRecord>().Property(x => x.Name).HasMaxLength(512).IsRequired().HasDefaultValue("");
-            builder.Entity<FileRecord>().Property(x => x.FullPath).HasMaxLength(1024).IsRequired().HasDefaultValue("");
+            builder.Entity<FileRecord>().Property(x => x.FullPath).HasMaxLength(1024).IsUnicode(true).IsRequired().HasDefaultValue("");
             builder.Entity<FileRecord>().Property(x => x.SizeInBytes).IsRequired().HasDefaultValueSql("0");
             builder.Entity<FileRecord>().HasOne(x => x.VersionRecord).WithOne(x => x.FileRecord)
                 .HasForeignKey<VersionRecord>(x => x.FileRecordId).HasConstraintName("FK_Version_File");
