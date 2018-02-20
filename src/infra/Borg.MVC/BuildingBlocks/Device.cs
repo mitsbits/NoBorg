@@ -13,10 +13,11 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Borg.MVC.BuildingBlocks
 {
-    public class Device : IDevice, ICanContextualizeFromController, ICanContextualizeFromView
+    public class Device : IDevice, ICanContextualizeFromController, ICanContextualizeFromView, ICanContextualizeFromRazorPage
     {
         private const string ControllerKey = "controller";
         private const string ActionKey = "action";
@@ -88,8 +89,13 @@ namespace Borg.MVC.BuildingBlocks
         private bool _populated;
         public bool ContextAcquired => _populated;
 
-        #endregion ICanContextualize
 
+        #endregion ICanContextualize
+        public void Contextualize(PageModel page)
+        {
+            Preconditions.NotNull(page, nameof(page));
+            Populate(page);
+        }
         #region ICanContextualizeFromView
 
         public void Contextualize(ViewContext context)
@@ -124,6 +130,15 @@ namespace Borg.MVC.BuildingBlocks
             if (ContextAcquired) return;
 
             PopulateInternal(context.ControllerContext.ActionDescriptor, context.HttpContext, context.ViewBag, context.RouteData);
+
+            _populated = true;
+        }
+
+        private void Populate(PageModel context)
+        {
+            if (ContextAcquired) return;
+
+            PopulateInternal(new ActionDescriptor(), context.HttpContext, context.ViewData, context.RouteData);
 
             _populated = true;
         }

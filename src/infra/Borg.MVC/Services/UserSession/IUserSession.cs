@@ -1,5 +1,6 @@
 ﻿using Borg.MVC.BuildingBlocks;
 using System;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.Services.UserSession
 {

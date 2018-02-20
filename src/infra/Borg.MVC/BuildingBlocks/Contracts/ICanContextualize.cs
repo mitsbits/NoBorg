@@ -1,4 +1,4 @@
-﻿namespace Borg.MVC.BuildingBlocks
+﻿namespace Borg.MVC.BuildingBlocks.Contracts
 {
     public interface ICanContextualize
     {

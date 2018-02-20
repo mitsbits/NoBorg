@@ -73,21 +73,35 @@ namespace Borg.Cms.Basic.Backoffice
             var result = new Dictionary<string, AuthorizationPolicy>
             {
                 {
-                    "ContentEditor",
+                    nameof(ContentEditor),
                     new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
-                        .RequireAssertion(c => ContentEditorHandler(c)).Build()
+                        .RequireAssertion(c => ContentEditor(c)).Build()
+                },
+                {
+                    nameof(UserManagement),
+                    new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .RequireAssertion(c => UserManagement(c)).Build()
                 }
             };
             return result;
         }
 
-        private bool ContentEditorHandler(AuthorizationHandlerContext authorizationHandlerContext)
+        private bool ContentEditor(AuthorizationHandlerContext authorizationHandlerContext)
         {
             var isAdmin = authorizationHandlerContext.User.IsInAnyRole(SystemRoles.Admin.ToString(), SystemRoles.Developer.ToString());
             if (isAdmin) return true;
             var isEditor = authorizationHandlerContext.User.IsInAnyRole(CmsRoles.Author.ToString(), CmsRoles.Editor.ToString()) &&
                            authorizationHandlerContext.User.IsInRole(SystemRoles.Writer.ToString());
+            return isEditor;
+        }
+
+        private bool UserManagement(AuthorizationHandlerContext authorizationHandlerContext)
+        {
+            var isAdmin = authorizationHandlerContext.User.IsInAnyRole(SystemRoles.Admin.ToString(), SystemRoles.Developer.ToString());
+            if (isAdmin) return true;
+            var isEditor = authorizationHandlerContext.User.IsInAnyRole(CmsRoles.Manager.ToString());
             return isEditor;
         }
 

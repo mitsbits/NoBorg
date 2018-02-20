@@ -1,7 +1,6 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
-
-using Borg.MVC.BuildingBlocks;
+using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;

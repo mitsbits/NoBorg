@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.Services.UserSession
 {

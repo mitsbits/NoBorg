@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using Borg.Cms.Basic.Lib.Features.Auth.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -45,7 +46,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         }
 
         [HttpGet]
-        [Route("email/{email}")]
+        [Route("email/{email}")][Authorize(Policy = "UserManagement")]
         public async Task<IActionResult> Item([FromServices] RoleManager<IdentityRole> manager, string email)
         {
             var result = await Dispatcher.Send(new UserRequest(email));
