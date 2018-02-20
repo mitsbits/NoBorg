@@ -21,9 +21,13 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
     {
         [Required]
         public int RecordId { get; set; }
-        [Required][DisplayName("Clear")]
+
+        [Required]
+        [DisplayName("Clear")]
         public bool RemoveOperation { get; set; }
+
         public IFormFile File { get; set; }
+
         [Required]
         public string UserHandle { get; set; }
     }

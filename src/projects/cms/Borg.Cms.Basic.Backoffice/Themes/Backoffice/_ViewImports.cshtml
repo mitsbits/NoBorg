@@ -5,6 +5,8 @@
 @using Borg.Infra.Collections
 @using Borg.MVC.Extensions
 @using Borg
+@using Borg.Infra
+@inject BorgSettings Settings
 @inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
 @inject IContextAwareUserSession UserSession
 @inject IClaimTypeDisplayProvider ClaimTypeDisplayProvider

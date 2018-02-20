@@ -1,7 +1,7 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Device.Events;
-using Borg.Cms.Basic.Lib.System.Data;
 using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
+using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -30,11 +30,11 @@ namespace Borg.Cms.Basic.Lib.Features.Device.Commands
     {
         private readonly ILogger _logger;
 
-        private readonly IUnitOfWork<BorgDbContext> _uow;
+        private readonly IUnitOfWork<CmsDbContext> _uow;
 
         private readonly IMediator _dispatcher;
 
-        public DeviceDeleteCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<BorgDbContext> uow, IMediator dispatcher)
+        public DeviceDeleteCommandHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher)
         {
             _uow = uow;
             _dispatcher = dispatcher;
