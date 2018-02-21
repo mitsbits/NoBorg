@@ -12,6 +12,7 @@
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\AppendDocumentToComponentCommand.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\ArticleDocumentAssociations.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\CachedStaticImage.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticlePageMetadata\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleTagsAssociation\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Item.cshtml" />

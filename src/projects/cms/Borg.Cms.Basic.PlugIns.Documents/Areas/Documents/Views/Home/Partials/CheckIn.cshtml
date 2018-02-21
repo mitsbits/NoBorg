@@ -6,7 +6,7 @@
     {
         if (Model.CurrentCheckOut().CheckedOutBy == UserSession.UserName)
         {
-            @Html.Partial("Components/LatestUserDocuments/Partials/CheckInUpload", new CheckInCommand(Model.Document.Id, UserSession.UserName))
+            @Html.Partial("Partials/CheckInUpload", new CheckInCommand(Model.Document.Id, UserSession.UserName))
         }
         else
         {

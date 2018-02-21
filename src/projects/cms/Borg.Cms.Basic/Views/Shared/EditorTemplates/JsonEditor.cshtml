@@ -59,7 +59,7 @@ Flag: ''
             var temp = JSON.parse('@Html.Raw(templ)');
             var temps = [temp];
             var container = document.getElementById('@Model.HtmlId' + '_jsoneditor');
-            var initialText = $( '#' + '@Model.HtmlId' + '_jsonValueBox').val();
+            //var initialText = $( '#' + '@Model.HtmlId' + '_jsonValueBox').val();
             var options = {
                 modes: ['text', 'code', 'tree', 'form', 'view'],
                 mode: 'tree',
@@ -67,16 +67,17 @@ Flag: ''
                 search: false,
                 sortObjectKeys: true,
                 onChange: function () {
+                    if (editor != "undefined") {
                     var json = editor.getText();
                     $('#' + '@Model.HtmlId' + '_jsonValueBox').val(json);
-
+                    }
                 },
                 templates: temps
             }
 
             var editor = new JSONEditor(container, options, @Html.Raw(Model.Value));
 
-            editor.setText(initialText);
+            //editor.setText(initialText);
             // set json
             //$("#modulesselect").change(function () {
             //    var v = $(this).val();

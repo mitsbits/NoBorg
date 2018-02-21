@@ -1,0 +1,50 @@
+﻿@using Borg.Infra.Storage.Assets
+@using Borg.Infra.Storage.Assets.Contracts
+@inject IStaticImageCacheStore<int>  _static
+@model Borg.Platform.EF.CMS.ComponentDocumentAssociationState
+
+
+
+
+<img id="row_@Model.FileId" src="https://jenssegers.com/uploads/images/perceptual-128-gray.png.pagespeed.ce.QPGljreQT5.png" class="image" style="width: 26px;" />
+ 
+
+<script type="text/javascript" device id="row_@(Model.FileId)_script" script-position="Bottom" weight="200">
+    $(function() {
+        var url = '@(await _static.PublicUrl(Model.FileId, VisualSize.Tiny))';
+        var usecache = "True";
+        var intervalId;
+
+        function stopRequestingImage() {
+            clearInterval(intervalId);
+
+        }
+
+        function requestImage() {
+
+            intervalId = setInterval(function() {
+                    $.ajax({
+                        type: "HEAD",
+                        async: true,
+                        url: url,
+                    }).done(function(message, text, jqXHR) {
+                        stopRequestingImage();
+                        $("img#" + 'row_@(Model.FileId)').attr('src', url).show(300);
+                        $('img#modal_' + '@(Model.FileId)').attr('src', url); //modal pop up
+                    });
+                },
+                300);
+        }
+
+        if (usecache === "True") {
+            requestImage();
+        } else {
+            $("img#" + 'row_@Model.DocumentId').attr('src', url).show(300);
+        }
+
+    });
+
+
+
+
+</script>

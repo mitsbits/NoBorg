@@ -13,21 +13,15 @@
         <tbody>
             @foreach (var row in Model.Associations)
             {
-                //var definition = Model.Definitions.SingleOrDefault(x => x.Id == row.DocumentId);
                 <tr data-id="@row.ComponentId">
                     <td>
                         @if (imagemimes.Contains(row.MimeType))
                         {
                             <button class="btn btn-default btn-sm no-margin no-padding" data-toggle="modal" data-target="#modal-@row.DocumentId">
-                                <img src="@(await _static.PublicUrl(row.FileId, VisualSize.Tiny))" class="image" style="width: 26px;" />
+                                @await Html.PartialAsync("Components/ArticleDocumentAssociations/Partials/CachedStaticImage", row)
                             </button>
                         }
                     </td>
-                    @*<td>
-                            <a asp-area="Documents" asp-controller="Home" asp-action="Item" asp-route-id="@row.DocumentId">
-                                @definition.Name -v: @row.Version
-                            </a>
-                        </td>*@
                     <td>
                         <a asp-area="Documents" asp-controller="Uploader" asp-action="Asset" asp-route-id="@row.DocumentId" target="_blank" title="@row.Uri">
                             @System.IO.Path.GetFileName(row.Uri)
@@ -59,7 +53,7 @@
                 <div class="modal-body">
                     <p>
                         <figure class="text-center">
-                            <img src="@await _static.PublicUrl(row.FileId, VisualSize.Tiny)" class="image" />
+                            <img id="modal_@(row.FileId)" src="" class="image" />
                         </figure>
                     </p>
                     <ul>
