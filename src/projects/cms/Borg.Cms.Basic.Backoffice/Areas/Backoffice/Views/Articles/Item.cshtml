@@ -32,7 +32,8 @@
             @Html.Partial("Partials/ArticleBodyCommand", new ArticleBodyCommand() { RecordId = Model.Id, Body = Model.Body })
         </div>
         <div class="col-md-4">
-            @(await Component.InvokeAsync(typeof(ArticleDocumentAssociationsViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+            @Html.Partial("Partials/ArticlePrimaryImageCommand", Model.ArticlePrimaryImageCommand(UserSession.UserName))
+            @(await Component.InvokeAsync(typeof(ArticleDocumentAssociationsViewComponent), new Tidings(new[] {new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()),})))
         </div>
     </div>
 </div>

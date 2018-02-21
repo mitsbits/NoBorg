@@ -17,6 +17,7 @@
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleTagsAssociation\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Item.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticleBodyCommand.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticlePrimaryImageCommand.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticleTags.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Partials\ComponentStateButtons.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Partials\RenameArticleCommand.cshtml" />

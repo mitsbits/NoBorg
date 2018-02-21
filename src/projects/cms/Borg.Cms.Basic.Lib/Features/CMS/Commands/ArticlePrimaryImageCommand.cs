@@ -30,6 +30,8 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 
         [Required]
         public string UserHandle { get; set; }
+
+        public int? ExistingFile { get; set; }
     }
 
     public class ArticlePrimaryImageCommandHandler : AsyncRequestHandler<ArticlePrimaryImageCommand, CommandResult<(int documentId, int fileId)>>
