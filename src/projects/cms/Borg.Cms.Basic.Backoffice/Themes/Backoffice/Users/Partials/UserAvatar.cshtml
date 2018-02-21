@@ -1,8 +1,7 @@
 ﻿@using Borg.Cms.Basic.Lib.Features.Auth.Commands
-@using Borg.Infra
 @model UserAvatarCommand
 @{
-    var useCache = Model.ClaimValue.StartsWith(Settings.Storage.ImagesCacheEndpoint);
+    var useStaticImageCache = Model.ClaimValue.StartsWith(Settings.Storage.ImagesCacheEndpoint);
 }
 <div class="box box-default box-solid">
     <div class="box-header with-border">
@@ -48,7 +47,7 @@
 <script device id="uploadavatarscript" weight="100">
     $(function () {
 
-        var usecache = '@useCache';
+        var usecache = '@useStaticImageCache';
         var url = '@Model.ClaimValue';
 
         $("input[type=file]#file").click(function () {

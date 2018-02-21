@@ -63,7 +63,7 @@ namespace Borg.MVC.Services
 
             var root = _hostingEnvironment.ContentRootPath;
 
-            var themedPlugIns = _plugInHost.SpecifyPlugins<IPlugInTheme>();
+            var themedPlugIns = _plugInHost.FilterPluginsTo<IPlugInTheme>();
 
             foreach (var themedPlugIn in themedPlugIns)
             {

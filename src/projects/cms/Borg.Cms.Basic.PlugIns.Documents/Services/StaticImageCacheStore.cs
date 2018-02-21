@@ -42,6 +42,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
                 case ".jpg":
                 case ".png":
                 case ".bmp":
+                case ".gif":
                     result.AddRange(await PrepStaticFiles(fileId, file));
                     break;
 

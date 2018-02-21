@@ -1,0 +1,76 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@using Borg.Infra.Storage.Assets
+@using Borg.Infra.Storage.Assets.Contracts
+@model ArticleDocumentAssociationsViewModel
+@inject IStaticImageCacheStore<int>  _static
+@{
+    var imagemimes = new[] { "image/jpeg", "image/png", "image/bmp", "image/gif" };
+
+}
+
+<div class="box-body">
+    <table class="table table-condensed">
+        <tbody>
+            @foreach (var row in Model.Associations)
+            {
+                //var definition = Model.Definitions.SingleOrDefault(x => x.Id == row.DocumentId);
+                <tr data-id="@row.ComponentId">
+                    <td>
+                        @if (imagemimes.Contains(row.MimeType))
+                        {
+                            <button class="btn btn-default btn-sm no-margin no-padding" data-toggle="modal" data-target="#modal-@row.DocumentId">
+                                <img src="@(await _static.PublicUrl(row.FileId, VisualSize.Tiny))" class="image" style="width: 26px;" />
+                            </button>
+                        }
+                    </td>
+                    @*<td>
+                            <a asp-area="Documents" asp-controller="Home" asp-action="Item" asp-route-id="@row.DocumentId">
+                                @definition.Name -v: @row.Version
+                            </a>
+                        </td>*@
+                    <td>
+                        <a asp-area="Documents" asp-controller="Uploader" asp-action="Asset" asp-route-id="@row.DocumentId" target="_blank" title="@row.Uri">
+                            @System.IO.Path.GetFileName(row.Uri)
+                        </a>
+                    </td>
+                    <td>@row.MimeType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@foreach (var row in Model.Associations)
+{
+    var definition = Model.Definitions.SingleOrDefault(x => x.Id == row.DocumentId);
+    <div class="modal modal-secondary fade" id="modal-@row.DocumentId">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <a asp-area="Documents" asp-controller="Home" asp-action="Item" asp-route-id="@row.DocumentId">
+                            @definition.Name -v: @row.Version
+                        </a>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <figure class="text-center">
+                            <img src="@await _static.PublicUrl(row.FileId, VisualSize.Tiny)" class="image" />
+                        </figure>
+                    </p>
+                    <ul>
+                        <li>@await _static.PublicUrl(row.FileId, VisualSize.Tiny)</li>
+                        <li>@await _static.PublicUrl(row.FileId, VisualSize.Small)</li>
+                        <li>@await _static.PublicUrl(row.FileId, VisualSize.Medium)</li>
+                        <li>@await _static.PublicUrl(row.FileId, VisualSize.Large)</li>
+                        <li>@await _static.PublicUrl(row.FileId, VisualSize.Huge)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

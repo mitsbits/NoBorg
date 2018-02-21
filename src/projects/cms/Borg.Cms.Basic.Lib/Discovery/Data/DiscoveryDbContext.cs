@@ -24,7 +24,7 @@ namespace Borg.Cms.Basic.Lib.Discovery.Data
             var scope = BorgStartUp.ServiceProvider.CreateScope();
             var provider = scope.ServiceProvider;
             var host = provider.GetService<IPlugInHost>();
-            var plugins = host.SpecifyPlugins<IPlugInEfEntityRegistration>();
+            var plugins = host.FilterPluginsTo<IPlugInEfEntityRegistration>();
             foreach (var plugInEfRegistration in plugins)
             {
                 foreach (var entity in plugInEfRegistration.Entities.Keys)

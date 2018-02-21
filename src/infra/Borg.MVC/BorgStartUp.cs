@@ -44,7 +44,7 @@ namespace Borg.MVC
         {
             AssembliesToScan = PopulateAssemblyProviders(services);
             services.TryAddSingleton(typeof(IPlugInHost), provider => PlugInHost);
-            var registernmodules = PlugInHost.SpecifyPlugins<IPluginServiceRegistration>();
+            var registernmodules = PlugInHost.FilterPluginsTo<IPluginServiceRegistration>();
 
             foreach (var registernmodule in registernmodules)
             {
@@ -61,7 +61,6 @@ namespace Borg.MVC
             {
                 mvcbuilder.AddApplicationPart(entrypointassembly);
             }
-           
 
             return mvcbuilder;
         }
@@ -88,7 +87,7 @@ namespace Borg.MVC
             {
                 options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
                 options.PageViewLocationFormats.Add("/Themes/Bootstrap3/Shared/{0}.cshtml");
-                
+
                 foreach (var entrypointassembly in entrypointassemblies)
                 {
                     options.FileProviders.Add(new EmbeddedFileProvider(entrypointassembly));

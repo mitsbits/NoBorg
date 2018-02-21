@@ -19,7 +19,7 @@ namespace Borg.Cms.Basic.Lib.Discovery
 
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
-            var types = _host.SpecifyPlugins<IPlugInEfEntityRegistration>();
+            var types = _host.FilterPluginsTo<IPlugInEfEntityRegistration>();
             foreach (var entityType in types.SelectMany(x => x.Entities.Keys).Distinct())
             {
                 var typeName = entityType.Name + "Controller";

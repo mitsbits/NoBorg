@@ -79,7 +79,7 @@ namespace Borg.Cms.Basic
 
         protected void BranchPlugins(IApplicationBuilder app)
         {
-            var mapwhenmodules = PlugInHost.SpecifyPlugins<ICanMapWhen>();
+            var mapwhenmodules = PlugInHost.FilterPluginsTo<ICanMapWhen>();
 
             foreach (var mapwhenmodule in mapwhenmodules)
             {

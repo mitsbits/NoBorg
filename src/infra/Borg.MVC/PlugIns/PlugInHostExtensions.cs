@@ -10,19 +10,19 @@ namespace Borg
 {
     public static class PlugInExtensions
     {
-        public static IEnumerable<TPlugIn> SpecifyPlugins<TPlugIn>(this IPlugInHost host) where TPlugIn : IPluginDescriptor
+        public static IEnumerable<TPlugIn> FilterPluginsTo<TPlugIn>(this IPlugInHost host) where TPlugIn : IPluginDescriptor
         {
             return host.PlugIns.Where(t => t.GetType().IsAssignableTo(typeof(TPlugIn))).Cast<TPlugIn>();
         }
 
         public static IEnumerable<IPlugInArea> PlugInAreas(this IPlugInHost host)
         {
-            return host.SpecifyPlugins<IPlugInArea>();
+            return host.FilterPluginsTo<IPlugInArea>();
         }
 
         public static IEnumerable<ISecurityPlugIn> SecurityPlugIns(this IPlugInHost host)
         {
-            return host.SpecifyPlugins<ISecurityPlugIn>();
+            return host.FilterPluginsTo<ISecurityPlugIn>();
         }
 
         public static IServiceCollection RegisterDiscoveryServices(this IServiceCollection services, IPluginServiceRegistration descriptor)
