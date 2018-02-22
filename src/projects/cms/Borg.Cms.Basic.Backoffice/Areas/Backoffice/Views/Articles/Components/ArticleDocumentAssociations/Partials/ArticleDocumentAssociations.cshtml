@@ -28,6 +28,15 @@
                         </a>
                     </td>
                     <td>@row.MimeType</td>
+                    <td>
+                        <form asp-area="Backoffice" asp-controller="Components" asp-action="DisassociateDocument" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                            <input name="DocumentId" type="hidden" value="@row.DocumentId" />
+                            <input name="ComponentId" type="hidden" value="@row.ComponentId" />
+                            <button class="btn btn-danger btn-sm btn-flat">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

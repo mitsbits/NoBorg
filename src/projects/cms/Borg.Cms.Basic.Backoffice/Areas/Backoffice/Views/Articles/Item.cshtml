@@ -24,7 +24,6 @@
         </div>
         <div class="col-md-6">
             @(await Component.InvokeAsync(typeof(ArticleTagsAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
-           
         </div>
     </div>
     <div class="row">
@@ -33,7 +32,7 @@
         </div>
         <div class="col-md-4">
             @Html.Partial("Partials/ArticlePrimaryImageCommand", Model.ArticlePrimaryImageCommand(UserSession.UserName))
-            @(await Component.InvokeAsync(typeof(ArticleDocumentAssociationsViewComponent), new Tidings(new[] {new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()),})))
+            @(await Component.InvokeAsync(typeof(ArticleDocumentAssociationsViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
         </div>
     </div>
 </div>

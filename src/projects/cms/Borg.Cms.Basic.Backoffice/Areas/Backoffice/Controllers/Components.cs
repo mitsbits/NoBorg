@@ -57,6 +57,20 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return RedirectToLocal(redirecturl);
         }
 
+        [HttpPost("DisassociateDocument")]
+        public async Task<IActionResult> DisassociateDocument(RemoveDocumentFromComponentCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
         public class ToggleStateModel
         {
             public string operation { get; set; }

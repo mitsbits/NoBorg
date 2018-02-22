@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -17,8 +17,7 @@ namespace Borg.Platform.EF.CMS
         internal virtual TaxonomyState Taxonomy { get; set; }
         internal virtual ComponentDeviceState ComponentDevice { get; set; }
         internal virtual PageMetadataState PageMetadata { get; set; }
-        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations{ get; set; }
-
+        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations { get; set; }
 
         public bool OkToDisplay() => !IsDeleted && IsPublished;
     }
@@ -33,7 +32,6 @@ namespace Borg.Platform.EF.CMS
 
             builder.Entity<ComponentState>().HasKey(x => x.Id).ForSqlServerIsClustered();
             builder.Entity<ComponentState>().Property(x => x.Id).HasDefaultValueSql("NEXT VALUE FOR cms.ComponentStatesSQC");
-
         }
     }
 }
