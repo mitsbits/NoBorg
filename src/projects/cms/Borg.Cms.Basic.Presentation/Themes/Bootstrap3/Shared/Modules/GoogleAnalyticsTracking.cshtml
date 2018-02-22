@@ -1,0 +1,10 @@
+﻿@inject BorgSettings _settings
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=@_settings.Tenant.GoogleAnalyticsTrackingId"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '@_settings.Tenant.GoogleAnalyticsTrackingId');
+</script>

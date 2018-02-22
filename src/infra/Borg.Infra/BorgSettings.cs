@@ -25,6 +25,7 @@ namespace Borg.Infra
     {
         public string ServiceTag { get; set; }
         public string Endpoint { get; set; }
+        public string GoogleAnalyticsTrackingId { get; set; }
     }
 
     public class AuthSettings
