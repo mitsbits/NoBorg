@@ -51,6 +51,7 @@ namespace Borg.Infra.DTO
             public const string Display = "Display";
             public const string Payload = "Payload";
             public const string View = "View";
+            public const string Size = "Size";
             public const string AssemblyQualifiedName = "AssemblyQualifiedName";
         }
 

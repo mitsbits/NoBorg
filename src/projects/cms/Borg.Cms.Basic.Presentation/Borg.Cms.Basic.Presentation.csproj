@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Themes\Bootstrap3\Shared\Modules\GoogleAnalyticsTracking.cshtml" />
+    <Content Remove="Themes\Bootstrap3\Shared\Modules\PrimaryImage.cshtml" />
     <Content Remove="Themes\Bootstrap3\Shared\Modules\Tags.cshtml" />
   </ItemGroup>
 

@@ -62,6 +62,9 @@ namespace Borg.Cms.Basic.Presentation.Queries
                 result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
                 result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));
                 result.ComponentKey = id.ToString();
+                result.PrimaryImageFileId = hit.PageMetadata.PrimaryImageFileId.HasValue
+                    ? hit.PageMetadata.PrimaryImageFileId.Value.ToString()
+                    : string.Empty;  
                 return QueryResult<(int componentId, IPageContent content)>.Success((componentId: id, content: result));
             }
             catch (Exception e)

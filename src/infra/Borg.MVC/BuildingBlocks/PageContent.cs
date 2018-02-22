@@ -19,5 +19,6 @@ namespace Borg.MVC.BuildingBlocks
 
         public TagSet Tags { get; } = new TagSet();
         public string ComponentKey { get; set; }
+        public string PrimaryImageFileId { get; set; } = "";
     }
 }
