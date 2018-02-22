@@ -16,7 +16,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Borg.Platform.Azure.Storage.Blobs;
+using Microsoft.Extensions.FileProviders;
 
 namespace Borg.Cms.Basic
 {
@@ -131,7 +134,13 @@ namespace Borg.Cms.Basic
                 app.UseDeveloperExceptionPage();
             }
             app.UseStatusCodePagesWithReExecute("/error/page{0}");
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new CompositeFileProvider(
+                    new PhysicalFileProvider(env.WebRootPath),
+                    serviceProvider.GetRequiredService<AzureBlobStorageFileProvider>()
+                )
+            });
 
             BranchPlugins(app);
 

@@ -43,13 +43,13 @@ namespace Borg.Platform.Azure.Storage.Blobs
         public async Task<IFileSpec> GetFileInfo(string path, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var blob = _container.GetBlockBlobReference(path);
+            var blob = _container.GetBlockBlobReference(path.TrimStart('/'));
             try
             {
                 await blob.FetchAttributesAsync().AnyContext();
                 return blob.ToFileInfo();
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
 
             return null;
         }

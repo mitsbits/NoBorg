@@ -25,6 +25,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.FileProviders;
 
 namespace Borg.Cms.Basic.PlugIns.Documents
 {
@@ -52,6 +53,11 @@ namespace Borg.Cms.Basic.PlugIns.Documents
                     provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings,
                     provider.GetRequiredService<IImageResizer>());
             });
+
+
+            services.AddScoped<AzureBlobStorageFileProvider>(provider => new AzureBlobStorageFileProvider(
+                new AzureFileStorage(settings.Storage.AzureStorageConnection,
+                    settings.Storage.ImagesCacheFolder),"img"));
 
             services.AddScoped<IImageResizer, ImageResizer>();
             services.AddScoped<IDocumentsService<int>, DocumentsService>();
