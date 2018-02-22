@@ -24,7 +24,7 @@
                     </td>
                     <td>
                         <a asp-area="Documents" asp-controller="Uploader" asp-action="Asset" asp-route-id="@row.DocumentId" target="_blank" title="@row.Uri">
-                            @System.IO.Path.GetFileName(row.Uri)
+                            <div style="width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">   @System.IO.Path.GetFileName(row.Uri) </div>
                         </a>
                     </td>
                     <td>@row.MimeType</td>
