@@ -66,12 +66,19 @@ namespace Borg
 
         private static Tiding ToTiding(NavigationItemState state, IEnumerable<NavigationItemState> source, int level = 1)
         {
+            var path = state.Path;
+            if (level > 1)
+            {
+                var pid = state.Taxonomy.ParentId;
+                var parent = source.Single(x => x.Id == pid);
+                path = parent.Path.Trim('/') + "/" + path.Trim('/');
+            }
             var tiding = new Tiding(state.Id.ToString(), state.Display)
             {
                 Weight = state.Taxonomy.Weight,
                 Flag = (state.Component.IsPublished && !state.Component.IsDeleted).ToString(),
                 Hint = state.NavigationItemType.ToString(),
-                HumanKey = state.Path,
+                HumanKey = path,
                 Depth = level
             };
             foreach (var row in source.Where(x => x.Taxonomy.ParentId == state.Id).OrderBy(x => x.Taxonomy.Weight).ThenBy(x => x.Article.Title))

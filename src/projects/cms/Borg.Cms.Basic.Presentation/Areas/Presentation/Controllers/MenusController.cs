@@ -37,9 +37,25 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             return View();
         }
 
-        public IActionResult Leaf(string parentmenu, string childmenu)
+        public async Task<IActionResult> Leaf(string parentmenu, string childmenu)
         {
-            SetPageTitle(parentmenu + "/" + childmenu);
+            var result = await Dispatcher.Send(new MenuLeafPageContentRequest(parentmenu, childmenu));
+            if (!result.Succeded) return BadRequest($"no menu for path {parentmenu}/{childmenu} was found");
+            var id = result.Payload.componentId;
+
+            var structureresult = await Dispatcher.Send(new ComponentDeviceRequest(id));
+            if (!structureresult.Succeded) return BadRequest($"no structure for path {parentmenu}/{childmenu} was found");
+            PageContent(result.Payload.content);
+            var device = this.GetDevice<Device>();
+            device.Layout = structureresult.Payload.Layout;
+            device.RenderScheme = structureresult.Payload.RenderScheme;
+
+            foreach (var payloadSection in structureresult.Payload.Sections)
+            {
+                device.SectionAdd(payloadSection);
+            }
+            PageDevice(device);
+
             return View();
         }
     }
