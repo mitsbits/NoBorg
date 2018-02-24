@@ -8,11 +8,8 @@
     <EmbeddedResource Include="Themes\**\*.cshtml" />
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Themes\Bootstrap3\Shared\Modules\GoogleAnalyticsTracking.cshtml" />
-    <Content Remove="Themes\Bootstrap3\Shared\Modules\PrimaryImage.cshtml" />
-    <Content Remove="Themes\Bootstrap3\Shared\Modules\Tags.cshtml" />
-  </ItemGroup>
+
+
 
 
   <ItemGroup>
@@ -23,5 +20,7 @@
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
   </ItemGroup>
+
+
 
 </Project>

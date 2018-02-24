@@ -1,12 +1,13 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using System.Linq;
+using Borg.MVC.BuildingBlocks;
+using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Linq;
 
-namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
+namespace Borg.MVC.TagHelpers
 {
     [HtmlTargetElement("metas")]
     [PulgInTagHelper("Html Metas")]
@@ -25,8 +26,8 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            _orchestrator.TryContextualize(ViewContext);
-            if (!_orchestrator.Page.Metas.Any())
+            ICanContextualizeExtensions.TryContextualize((ICanContextualize) _orchestrator, (ViewContext) ViewContext);
+            if (!Enumerable.Any<HtmlMeta>(_orchestrator.Page.Metas))
             {
                 output.SuppressOutput();
             }

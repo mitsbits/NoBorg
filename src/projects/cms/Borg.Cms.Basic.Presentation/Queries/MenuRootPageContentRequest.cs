@@ -59,12 +59,18 @@ namespace Borg.Cms.Basic.Presentation.Queries
                     Title = hit.Title,
                     Body = new[] { hit.Body },
                 };
-                result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
+
                 result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));
                 result.ComponentKey = id.ToString();
-                result.PrimaryImageFileId = hit.PageMetadata.PrimaryImageFileId.HasValue
-                    ? hit.PageMetadata.PrimaryImageFileId.Value.ToString()
-                    : string.Empty;  
+
+                if (hit.PageMetadata != null)
+                {
+                    result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
+                    result.PrimaryImageFileId = hit.PageMetadata.PrimaryImageFileId.HasValue
+                        ? hit.PageMetadata.PrimaryImageFileId.Value.ToString()
+                        : string.Empty;
+                }
+
                 return QueryResult<(int componentId, IPageContent content)>.Success((componentId: id, content: result));
             }
             catch (Exception e)

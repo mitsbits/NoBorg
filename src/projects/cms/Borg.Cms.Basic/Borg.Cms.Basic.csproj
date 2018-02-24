@@ -7,12 +7,16 @@
   <ItemGroup>
     <Compile Remove="Areas\Backoffice\wwwroot\**" />
     <Compile Remove="wwwroot\dist\**" />
+    <Compile Remove="wwwroot\pres\**" />
     <Content Remove="Areas\Backoffice\wwwroot\**" />
     <Content Remove="wwwroot\dist\**" />
+    <Content Remove="wwwroot\pres\**" />
     <EmbeddedResource Remove="Areas\Backoffice\wwwroot\**" />
     <EmbeddedResource Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\pres\**" />
     <None Remove="Areas\Backoffice\wwwroot\**" />
     <None Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\pres\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
+namespace Borg.MVC.TagHelpers
 {
     [HtmlTargetElement("page-title")]
     [PulgInTagHelper("Page Title")]
@@ -24,7 +24,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            _orchestrator.TryContextualize(ViewContext);
+            ICanContextualizeExtensions.TryContextualize((ICanContextualize) _orchestrator, (ViewContext) ViewContext);
 
             output.Attributes.Clear();
             output.TagName = "title";

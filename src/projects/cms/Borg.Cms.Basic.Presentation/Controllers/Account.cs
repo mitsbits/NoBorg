@@ -22,7 +22,7 @@ namespace Borg.Cms.Basic.Presentation.Controllers
 {
     [Route("")]
     [ControllerTheme("Bootstrap3")]
-    [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_EmptyLayout" })]
+    [TypeFilter(typeof(DeviceLayoutFilter), Arguments = new object[] { "_AccountLayout" })]
     public class AccountController : BorgController
     {
         private readonly ILogger _logger;

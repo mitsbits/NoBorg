@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.TagHelpers
+namespace Borg.MVC.TagHelpers
 {
     [HtmlTargetElement("span", Attributes = "comp-deleted")]
     [PulgInTagHelper("Component Deleted State")]

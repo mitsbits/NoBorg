@@ -120,6 +120,11 @@ namespace Borg.Cms.Basic
                     constraints: new { parentmenu = parent, childmenu = child });
 
                 routeBuilder.MapRoute(
+                    name: "siteroot",
+                    template: "",
+                    defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation" });
+
+                routeBuilder.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Home}/{id?}");
             }

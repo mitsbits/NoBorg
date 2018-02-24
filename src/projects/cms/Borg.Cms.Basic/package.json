@@ -5,7 +5,9 @@
   "scripts": {
     "start": "webpack --config ./areas/backoffice/webpack.config.js --watch --progress --profile",
     "build": "webpack --config ./areas/backoffice/webpack.config.js --progress --profile",
-    "prod": "webpack --env.NODE_ENV=production --config ./areas/backoffice/webpack.config.js --progress"
+    "prod": "webpack --env.NODE_ENV=production --config ./areas/backoffice/webpack.config.js --progress",
+    "startfe": "webpack --config ./areas/presentation/webpack.config.js --watch --progress --profile"
+
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.3.1",

@@ -26,14 +26,29 @@
         </div>
     </nav>
     <div class="container">
-        @await RenderSectionAsync("main", required: true)
+        <div class="row">
+            <div class="col-md-9">        @await RenderSectionAsync("main-upper-left", required: true)</div>
+            <div class="col-md-3">@await RenderSectionAsync("main-upper-right", required: true)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await RenderSectionAsync("main-middle-left", required: true)
+            </div>
+            <div class="col-md-3">
+                @await RenderSectionAsync("main-middle-middle", required: true)
+            </div>
+            <div class="col-md-3">    @await RenderSectionAsync("main-middle-right", required: true)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @await RenderSectionAsync("main-bottom", required: true)
+            </div>
+        </div>
         @RenderBody()
     </div>
 
     @await RenderSectionAsync("footer", required: true)
 
-
     @Html.Partial("_bottomScripts")
-
 </body>
 </html>

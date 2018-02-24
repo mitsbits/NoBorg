@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Reflection;
-using Borg.Cms.Basic.Presentation.Areas.Presentation.TagHelpers;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
+using Borg.MVC.TagHelpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

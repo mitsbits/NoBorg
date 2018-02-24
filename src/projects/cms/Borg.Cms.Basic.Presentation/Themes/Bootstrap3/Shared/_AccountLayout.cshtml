@@ -1,0 +1,56 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <page-title />
+    <metas />
+
+    <link href="~/dist/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/dist/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/dist/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+    <link href="~/dist/adminlte/css/AdminLTE.css" rel="stylesheet" />
+    <link href="~/dist/adminlte/css/skins/_all-skins.css" rel="stylesheet" />
+    <link href="~/dist/icheck/skins/all.css" rel="stylesheet" />
+    <link href="~/dist/ionicons/css/ionicons.css" rel="stylesheet" />
+    <link href="~/dist/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/dist/jsoneditor/jsoneditor.css" rel="stylesheet" />
+    <link href="~/dist/bootstrap-treeview/bootstrap-treeview.min.css" rel="stylesheet" />
+    <link href="~/dist/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/dist/backoffice.css" rel="stylesheet" />
+    <script-render device script-position="Head"></script-render>
+
+</head>
+<body class="skin-black-light" style="background: #f9fafc;">
+    <div class="wrapper">
+        @RenderSection("main", required: false)
+        @RenderBody()
+    </div>
+
+    <script src="~/dist/jquery.js"></script>
+    <script src="~/dist/jquery-validation/jquery.validate.js"></script>
+    <script src="~/dist/jquery.validate.unobtrusive.js"></script>
+    <script src="~/dist/moment.js"></script>
+
+    <script src="~/dist/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/dist/icheck/icheck.js"></script>
+    <script src="~/dist/select2/js/select2.full.js"></script>
+    <script src="~/dist/jquery.dataTables.js"></script>
+
+    <script src="~/dist/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+    <script src="~/dist/jsoneditor/jsoneditor.js"></script>
+    <script src="~/dist/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+    <script src="~/dist/wookmark.js"></script>
+    <script src="~/dist/adminlte/js/adminlte.js"></script>
+
+    <script src="~/dist/site.js"></script>
+    <script-render device script-position="Bottom"></script-render>
+    @RenderSection("bottomscripts", required: false)
+</body>
+</html>
