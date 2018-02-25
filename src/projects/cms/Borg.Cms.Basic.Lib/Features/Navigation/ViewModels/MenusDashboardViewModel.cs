@@ -40,7 +40,7 @@ namespace Borg.Cms.Basic.Lib.Features.Navigation.ViewModels
             {
                 RecordId = SelectedState?.Id ?? default(int),
                 Path = SelectedState?.Path ?? "",
-                Display = SelectedState?.Article.Title ?? "",
+                Display = SelectedState?.Display,
                 Group = Group,
                 IsPublished = SelectedState?.Component.IsPublished ?? false,
                 IsDeleted = SelectedState?.Component.IsDeleted ?? false,

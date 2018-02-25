@@ -9,31 +9,11 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Default.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\AppendDocumentToComponentCommand.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\ArticleDocumentAssociations.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleDocumentAssociations\Partials\CachedStaticImage.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticlePageMetadata\Default.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Components\ArticleTagsAssociation\Default.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Item.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticleBodyCommand.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticlePrimaryImageCommand.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ArticleTags.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\ComponentStateButtons.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\RenameArticleCommand.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Articles\Partials\SetArticleSlugCommand.cshtml" />
-    <Content Remove="Themes\Backoffice\HtmlSnippet\Home.cshtml" />
-    <Content Remove="Themes\Backoffice\HtmlSnippet\Partials\HtmlSnippetCommand.cshtml" />
-    <Content Remove="Themes\Backoffice\PlugIns\Partials\Descriptor.cshtml" />
-    <Content Remove="Themes\Backoffice\Shared\404.cshtml" />
-    <Content Remove="Themes\Backoffice\Shared\Components\ComponentDevice\Default.cshtml" />
-    <Content Remove="Themes\Backoffice\Shared\EditorTemplates\CKEDITOR4.cshtml" />
-    <Content Remove="Themes\Backoffice\Shared\Layout\NavigationHeader.cshtml" />
-    <Content Remove="Themes\Backoffice\Users\Partials\UserAvatar.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Categories\Partials\AddOrUpdateCategoryGroupingCommand.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Areas\Backoffice\Views\_ViewStart.cshtml" />
-  </ItemGroup>
+
+
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
@@ -43,10 +23,6 @@
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.Windows.Forms.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+
 
 </Project>

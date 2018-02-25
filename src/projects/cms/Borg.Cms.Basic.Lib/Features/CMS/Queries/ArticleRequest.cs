@@ -36,7 +36,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
             try
             {
                 var article = await _uow.Context.ArticleStates.Include(a => a.ArticleTags).ThenInclude(at => at.Tag)
-                    .Include(a => a.Component).Include(x=>x.PageMetadata).FirstOrDefaultAsync(x => x.Id == message.RecordId);
+                    .Include(a => a.Component).Include(x => x.PageMetadata).FirstOrDefaultAsync(x => x.Id == message.RecordId);
                 if (article == null)
                 {
                     _logger.Warn("Article with id {id} was not found", message.RecordId);

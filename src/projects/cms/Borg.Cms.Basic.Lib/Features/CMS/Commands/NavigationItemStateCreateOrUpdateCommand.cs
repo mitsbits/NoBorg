@@ -2,6 +2,7 @@
 using Borg.CMS;
 using Borg.Infra.DAL;
 using Borg.Infra.DTO;
+using Borg.Infra.Services;
 using Borg.Infra.Services.Slugs;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
@@ -15,7 +16,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Infra.Services;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
@@ -127,7 +127,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                     existing.Taxonomy.Component.IsPublished = message.IsPublished;
                     existing.Path = message.Path;
                     existing.NavigationItemType = message.ItemType;
-                    existing.Display = message.Group;
+                    existing.Display = message.Display;
                     //await _uow.ReadWriteRepo<NavigationItemState>().Update(entity);
                     await _uow.Save();
                     _logger.Info("Update menu from {@old} to {@new}", existing, message);

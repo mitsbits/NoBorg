@@ -3,7 +3,7 @@
   "name": "cms.basic",
   "private": true,
   "scripts": {
-    "start": "webpack --config ./areas/backoffice/webpack.config.js --watch --progress --profile",
+    "start": "webpack --config ./areas/backoffice/webpack.config.js --watch --progress --profile,webpack --config ./areas/presentation/webpack.config.js --watch --progress --profile",
     "build": "webpack --config ./areas/backoffice/webpack.config.js --progress --profile",
     "prod": "webpack --env.NODE_ENV=production --config ./areas/backoffice/webpack.config.js --progress",
     "startfe": "webpack --config ./areas/presentation/webpack.config.js --watch --progress --profile"

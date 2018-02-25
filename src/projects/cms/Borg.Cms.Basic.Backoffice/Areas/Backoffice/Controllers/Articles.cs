@@ -86,12 +86,12 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             }
             return RedirectToLocal(redirecturl);
         }
+
         [HttpPost("SetPrimaryImage")]
         public async Task<IActionResult> SetPrimaryImage(ArticlePrimaryImageCommand command, string redirecturl)
         {
             if (ModelState.IsValid)
             {
-               
                 var result = await Dispatcher.Send(command);
                 if (!result.Succeded)
                 {

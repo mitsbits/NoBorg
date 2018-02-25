@@ -13,6 +13,7 @@ namespace Borg.Platform.EF.CMS
         public double Weight { get; set; }
         public virtual ArticleState Article { get; set; }
         internal virtual NavigationItemState NavigationItem { get; set; }
+        internal virtual CategoryState Category { get; set; }
     }
 
     public class TaxonomyStateMap : EntityMap<TaxonomyState, CmsDbContext>
@@ -26,6 +27,7 @@ namespace Borg.Platform.EF.CMS
             builder.Entity<TaxonomyState>().HasIndex(x => x.ArticleId).IsUnique(true).HasName("IX_Taxonomy_ArticleId");
             builder.Entity<TaxonomyState>().HasIndex(x => x.ParentId).IsUnique(false).HasName("IX_Taxonomy_ParentId");
             builder.Entity<TaxonomyState>().HasOne(x => x.Component).WithOne(x => x.Taxonomy).HasForeignKey<TaxonomyState>(x => x.Id);
+
         }
     }
 }

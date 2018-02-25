@@ -12,8 +12,8 @@ using System;
 namespace Borg.Platform.EF.CMS.Data.Migrations
 {
     [DbContext(typeof(CmsDbContext))]
-    [Migration("20180211151320_eight")]
-    partial class eight
+    [Migration("20180225172655_cms2")]
+    partial class cms2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,6 +66,46 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.ToTable("ArticleTagStates","cms");
                 });
 
+            modelBuilder.Entity("Borg.Platform.EF.CMS.CategoryGroupingState", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("FriendlyName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512)
+                        .IsUnicode(true);
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.ToTable("CategoryGroupingStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.CategoryState", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("FriendlyName");
+
+                    b.Property<int>("GroupingId");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(1024)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("GroupingId");
+
+                    b.ToTable("CategoryStates","cms");
+                });
+
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDeviceState", b =>
                 {
                     b.Property<int>("ComponentId");
@@ -76,12 +116,46 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasIndex("ComponentId")
-                        .IsUnique();
+                        .HasName("IX_ComponentDeviceState_ComponentId");
 
                     b.HasIndex("DeviceId")
-                        .IsUnique();
+                        .HasName("IX_ComponentDeviceState_DeviceId");
 
                     b.ToTable("ComponentDeviceStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDocumentAssociationState", b =>
+                {
+                    b.Property<int>("ComponentId");
+
+                    b.Property<int>("DocumentId");
+
+                    b.Property<int>("FileId");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("application/octet-stream")
+                        .HasMaxLength(256)
+                        .IsUnicode(true);
+
+                    b.Property<string>("Uri")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(1024)
+                        .IsUnicode(true);
+
+                    b.Property<int>("Version");
+
+                    b.HasKey("ComponentId", "DocumentId")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("Version");
+
+                    b.ToTable("ComponentDocumentAssociationStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentState", b =>
@@ -166,6 +240,13 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 {
                     b.Property<int>("Id");
 
+                    b.Property<string>("Display")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(1024)
+                        .IsUnicode(true);
+
                     b.Property<string>("GroupCode")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -183,6 +264,25 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         .HasName("IX_Navigation_GroupCode");
 
                     b.ToTable("NavigationItemStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.PageMetadataState", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("HtmlMetaJsonText")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .IsUnicode(true);
+
+                    b.Property<int?>("PrimaryImageDocumentId");
+
+                    b.Property<int?>("PrimaryImageFileId");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.ToTable("PageMetadataStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.SectionState", b =>
@@ -351,6 +451,33 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Borg.Platform.EF.CMS.CategoryGroupingState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
+                        .WithOne("CategoryGrouping")
+                        .HasForeignKey("Borg.Platform.EF.CMS.CategoryGroupingState", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.CategoryState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.CategoryGroupingState", "Grouping")
+                        .WithMany("Categories")
+                        .HasForeignKey("GroupingId")
+                        .HasConstraintName("FK_CategoryGroupings_Categories")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
+                        .WithOne("Category")
+                        .HasForeignKey("Borg.Platform.EF.CMS.CategoryState", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Borg.Platform.EF.CMS.TaxonomyState", "Taxonomy")
+                        .WithOne("Category")
+                        .HasForeignKey("Borg.Platform.EF.CMS.CategoryState", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDeviceState", b =>
                 {
                     b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
@@ -361,6 +488,15 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasOne("Borg.Platform.EF.CMS.DeviceState", "Device")
                         .WithOne("ComponentDevice")
                         .HasForeignKey("Borg.Platform.EF.CMS.ComponentDeviceState", "DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.ComponentDocumentAssociationState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
+                        .WithMany("ComponentDocumentAssociations")
+                        .HasForeignKey("ComponentId")
+                        .HasConstraintName("FK_Components_Documents")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -377,6 +513,21 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                     b.HasOne("Borg.Platform.EF.CMS.TaxonomyState", "Taxonomy")
                         .WithOne("NavigationItem")
                         .HasForeignKey("Borg.Platform.EF.CMS.NavigationItemState", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.PageMetadataState", b =>
+                {
+                    b.HasOne("Borg.Platform.EF.CMS.ArticleState", "Article")
+                        .WithOne("PageMetadata")
+                        .HasForeignKey("Borg.Platform.EF.CMS.PageMetadataState", "Id")
+                        .HasConstraintName("FK_Articles_PageMetadatas")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Borg.Platform.EF.CMS.ComponentState", "Component")
+                        .WithOne("PageMetadata")
+                        .HasForeignKey("Borg.Platform.EF.CMS.PageMetadataState", "Id")
+                        .HasConstraintName("FK_Components_PageMetadatas")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
