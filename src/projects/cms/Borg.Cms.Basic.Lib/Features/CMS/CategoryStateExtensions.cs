@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Borg.Infra.DTO;
+﻿using Borg.Infra.DTO;
 using Borg.Platform.EF.CMS;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Borg
 {
@@ -63,6 +63,7 @@ namespace Borg
                 RecurseToExclude(ref keystoexclude, int.Parse(child.Key), source);
             }
         }
+
         private static Tiding ToTiding(CategoryState state, IEnumerable<CategoryState> source, int level = 1)
         {
             var path = state.Slug;

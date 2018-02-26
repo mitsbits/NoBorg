@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.CMS.Categories.Commands;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Categories.Commands;
 using Borg.Cms.Basic.Lib.Features.CMS.Categories.Queries;
 using Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels;
 using Borg.Infra.Collections;
@@ -8,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -20,7 +20,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         }
 
         [HttpGet("")]
-        public async Task< IActionResult> Home()
+        public async Task<IActionResult> Home()
         {
             var result = await Dispatcher.Send(new CategoryGroupingIndexRequest());
             var model = new CategoryGroupingIndexViewModel()
@@ -30,12 +30,19 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             SetPageTitle("Categories");
             return View(model);
         }
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> Grouping(int id)
+
+        [HttpGet("{id:int}/{catid:int?}")]
+        public async Task<IActionResult> Grouping(int id, int? catid)
         {
             var response = await Dispatcher.Send(new CategoryGroupingAggregateRequest(id));
             SetPageTitle(response.Payload.FriendlyName);
-            return View(response.Payload);
+            var model = new CategoryGroupingViewModel()
+            {
+                AggregateRoot = response.Payload,
+                SelectedCategoryId = catid.HasValue && catid.Value > 0 ? catid.Value : default(int)
+            };
+
+            return View(model);
         }
 
         [HttpPost("GroupingCommand")]
@@ -47,7 +54,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                 var result = await Dispatcher.Send(model);
                 if (result.Succeded && isTransient)
                 {
-                    return RedirectToAction(nameof(Grouping), new {id = result.Payload.Id});
+                    return RedirectToAction(nameof(Grouping), new { id = result.Payload.Id });
                 }
             }
 

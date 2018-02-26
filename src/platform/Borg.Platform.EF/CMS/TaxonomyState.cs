@@ -27,7 +27,6 @@ namespace Borg.Platform.EF.CMS
             builder.Entity<TaxonomyState>().HasIndex(x => x.ArticleId).IsUnique(true).HasName("IX_Taxonomy_ArticleId");
             builder.Entity<TaxonomyState>().HasIndex(x => x.ParentId).IsUnique(false).HasName("IX_Taxonomy_ParentId");
             builder.Entity<TaxonomyState>().HasOne(x => x.Component).WithOne(x => x.Taxonomy).HasForeignKey<TaxonomyState>(x => x.Id);
-
         }
     }
 }

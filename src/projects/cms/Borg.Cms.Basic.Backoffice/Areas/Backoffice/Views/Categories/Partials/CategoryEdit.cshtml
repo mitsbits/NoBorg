@@ -1,0 +1,43 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels
+@model CategoryEditViewModel
+@{
+    var transientcolour = (Model.IsTransient) ? "success" : "primary";
+    var transienttitle = (Model.IsTransient) ? "New Category" : Model.FriendlyName;
+    var parentOptions = Model.ParentOptions.Select(x => new SelectListItem()
+    {
+        Value = x.Key.Item1.ToString(),
+        Text = '-'.Repeat(x.Key.Item2) + x.Value.Value
+    }).ToList();
+    parentOptions.Insert(0, new SelectListItem() { Value = "0", Text = "..." });
+}
+<div class="box box-solid box-@transientcolour">
+    <div class="box-header with-border">
+        <h3 class="box-title">@transienttitle</h3>
+    </div>
+    <div class="box-body">
+        <form>
+            <input type="hidden" asp-for="GroupingId" />
+            <input type="hidden" asp-for="RecordId" />
+            <div class="form-group">
+                <label asp-for="FriendlyName"></label>
+                <div class="input-group input-group">
+                    <span class="input-group-addon" data-toggle="tooltip" title="Also set slug">
+                        <input type="checkbox" asp-for="AlsoSetSlug" class="">
+                    </span>
+                    <input type="text" class="form-control" asp-for="FriendlyName">
+                </div>
+                <span asp-validation-for="FriendlyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug"></label>
+                <input type="text" class="form-control" asp-for="Slug">
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentId"></label>
+                <select asp-for="ParentId" asp-items="@parentOptions" class=" form-control select2"></select>
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+</div>
