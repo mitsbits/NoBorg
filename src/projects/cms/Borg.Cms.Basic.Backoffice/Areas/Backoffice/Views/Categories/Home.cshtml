@@ -16,19 +16,21 @@
                 @Html.Partial("Partials/AddOrUpdateCategoryGroupingCommand", Model.CreateCommand)
             </div>
 
-            <div class="modal-footer">
-                <p>
-                    <ul>
+            <div class="modal-body">
+               
+                    <ul class="list-inline">
                         @foreach (var g in Model.Index.Records)
                         {
                             <li>
-                                <a asp-area="Backoffice" asp-controller="Categories" asp-action="Grouping" asp-route-id="@g.Id">
+                                <a asp-area="Backoffice" asp-controller="Categories" asp-action="Grouping" asp-route-id="@g.Id" class="btn btn-default">
                                     @g.FriendlyName
+                                    <span comp-deleted deleted-state="@g.Component.IsDeleted"></span>
+                                    <span comp-published published-state="@g.Component.IsPublished"></span>
                                 </a>
                             </li>
                         }
                     </ul>
-                </p>
+              
             </div>
         </div>
         <!-- /.modal-content -->

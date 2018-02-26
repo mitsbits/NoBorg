@@ -33,7 +33,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Categories.Queries
             {
                 var hits = await _uow.Context.CategoryGroupingStates.Include(x => x.Component).AsNoTracking()
                     .ToArrayAsync();
-                if (hits.Any()) return QueryResult<IPagedResult<CategoryGroupingState>>.Failure($"No Category Groupings");
+                if (!hits.Any()) return QueryResult<IPagedResult<CategoryGroupingState>>.Failure($"No Category Groupings");
                 return QueryResult<IPagedResult<CategoryGroupingState>>.Success(new PagedResult<CategoryGroupingState>(hits, 1, hits.Length, hits.Length));
             }
             catch (Exception e)

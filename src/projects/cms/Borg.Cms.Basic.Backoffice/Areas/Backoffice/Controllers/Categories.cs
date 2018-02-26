@@ -27,14 +27,15 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             {
                 Index = !result.Succeded ? new PagedResult<CategoryGroupingState>() : result.Payload
             };
-
+            SetPageTitle("Categories");
             return View(model);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Grouping(int id)
         {
- 
-            return View();
+            var response = await Dispatcher.Send(new CategoryGroupingAggregateRequest(id));
+            SetPageTitle(response.Payload.FriendlyName);
+            return View(response.Payload);
         }
 
         [HttpPost("GroupingCommand")]

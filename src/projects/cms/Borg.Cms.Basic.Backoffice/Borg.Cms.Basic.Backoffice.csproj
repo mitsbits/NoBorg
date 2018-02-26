@@ -9,13 +9,6 @@
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Areas\Backoffice\Views\Categories\Partials\AddOrUpdateCategoryGroupingCommand.cshtml" />
-  </ItemGroup>
-
-
-
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>

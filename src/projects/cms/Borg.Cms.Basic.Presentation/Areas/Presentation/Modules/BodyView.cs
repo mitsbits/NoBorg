@@ -21,7 +21,6 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Modules
         }
     }
 
-
     public sealed class PrimaryImageViewModuleDescriptor : ViewModuleDescriptor
     {
         public override string FriendlyName => "Primary Image View";
