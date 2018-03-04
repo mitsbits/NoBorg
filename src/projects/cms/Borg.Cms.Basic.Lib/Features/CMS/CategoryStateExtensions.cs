@@ -81,7 +81,7 @@ namespace Borg
                 HumanKey = path,
                 Depth = level
             };
-            foreach (var row in source.Where(x => x.Taxonomy.ParentId == state.Id).OrderBy(x => x.Taxonomy.Weight).ThenBy(x => x.Article.Title))
+            foreach (var row in source.Where(x => x.Taxonomy.ParentId == state.Id).OrderBy(x => x.Taxonomy.Weight))
             {
                 tiding.Children.Add(ToTiding(row, source, level + 1));
             }

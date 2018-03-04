@@ -135,10 +135,9 @@
             {
                 <a asp-controller="Articles" asp-action="Item" asp-route-id="@ViewBag.ContentItemRecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
                    class="btn btn-success"><i class="fa fa-book"></i></a>
-                @*<a asp-controller="Menus" asp-action="Delete" asp-route-id='@(Orchestrator.Device.RouteValue<string>("id"))' asp-route-row="@Model.RecordId"
-                    class="btn btn-danger"><i class="fa fa-remove"></i></a>*@
+   
             }
-            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
+            <button submit-form pull-right="false"></button>
         </div>
     </form>
 </div>

@@ -22,12 +22,15 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels
                     Slug = hit.Slug,
                     RecordId = hit.Id,
                     GroupingId = hit.GroupingId,
-                    ParentOptions = TreeDictionaryExcludingCurrentAndChildren()
+                    Weight = hit.Taxonomy.Weight,
+                    ParentOptions = TreeDictionaryExcludingCurrentAndChildren(),
+                    Component = hit.Component
                 };
             }
 
             return new CategoryEditViewModel()
             {
+                GroupingId = AggregateRoot.Id,
                 ParentOptions =  TreeDictionary()
             };
         }

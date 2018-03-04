@@ -60,5 +60,22 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 
             return RedirectToLocal(redirecturl);
         }
+        [HttpPost("CategoryEdit")]
+        public async Task<IActionResult> CategoryEdit(CategoryEditViewModel model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var command = new AddOrUpdateCategoryCommand() { ParentId = model.ParentId, RecordId = model.RecordId, Slug = model.Slug, FriendlyName = model.FriendlyName, UpdateSlugFromName = model.AlsoSetSlug, Weight = model.Weight, GroupingId = model.GroupingId};
+                var result = await Dispatcher.Send(command);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                    return RedirectToLocal(redirecturl);
+                }
+                return RedirectToAction("Grouping", new {id = model.GroupingId, catid = result.Payload.Id});
+
+            }
+            return RedirectToLocal(redirecturl);
+        }
     }
 }

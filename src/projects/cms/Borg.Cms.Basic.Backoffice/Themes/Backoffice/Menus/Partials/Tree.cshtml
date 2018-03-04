@@ -11,7 +11,7 @@
 
 <script device id="menu-tree-script" script-position="Bottom" weight="100">
     $(function () {
-        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"][0], row))';
+        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"][0], row, (t, g, i) => Url.Action("Home", "Menus", new { id = g, row = t.Key })))';
         var tree = (jsonstring);
         $('#tree').treeview({ data: tree, enableLinks: true, levels: 6, selectable: false, showCheckbox : true, showTags: true });
     });

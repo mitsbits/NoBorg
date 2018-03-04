@@ -35,8 +35,10 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Categories.Queries
         {
             try
             {
-                var hit = await _uow.Context.CategoryGroupingStates.Include(x => x.Component).Include(x => x.Categories)
-                    .ThenInclude(x => x.Component).AsNoTracking().FirstOrDefaultAsync(x => x.Id == message.RecordId);
+                var hit = await _uow.Context.CategoryGroupingStates.Include(x => x.Component)
+                    .Include(x => x.Categories).ThenInclude(x => x.Component)
+                    .Include(x => x.Categories).ThenInclude(x => x.Taxonomy)
+                    .AsNoTracking().FirstOrDefaultAsync(x => x.Id == message.RecordId);
                 return hit == null ? QueryResult<CategoryGroupingState>.Failure($"No Category Grouping for {message.RecordId}") : QueryResult<CategoryGroupingState>.Success(hit);
             }
             catch (Exception e)
