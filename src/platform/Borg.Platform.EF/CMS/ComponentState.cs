@@ -19,7 +19,9 @@ namespace Borg.Platform.EF.CMS
         internal virtual PageMetadataState PageMetadata { get; set; }
         internal virtual CategoryGroupingState CategoryGrouping { get; set; }
         internal virtual CategoryState Category { get; set; }
-        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations { get; set; }
+
+        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations { get; set; } = new HashSet<ComponentDocumentAssociationState>();
+        internal virtual ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
 
         public bool OkToDisplay() => !IsDeleted && IsPublished;
     }

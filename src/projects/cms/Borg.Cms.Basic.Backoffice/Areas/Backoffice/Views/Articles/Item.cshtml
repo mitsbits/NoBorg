@@ -24,6 +24,7 @@
         </div>
         <div class="col-md-6">
             @(await Component.InvokeAsync(typeof(ArticleTagsAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+            @(await Component.InvokeAsync(typeof(CategoryComponentAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
         </div>
     </div>
     <div class="row">

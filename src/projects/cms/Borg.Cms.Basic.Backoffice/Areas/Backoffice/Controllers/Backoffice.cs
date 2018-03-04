@@ -3,6 +3,7 @@ using Borg.MVC.Conventions;
 using Borg.MVC.PlugIns.Decoration;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
@@ -18,5 +19,6 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         {
             Dispatcher = dispatcher;
         }
+
     }
 }

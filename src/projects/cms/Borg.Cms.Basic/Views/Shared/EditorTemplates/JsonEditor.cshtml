@@ -2,7 +2,7 @@
 @using Newtonsoft.Json
 @model JsonEditor
 <input type="hidden" asp-for="HtmlId" />
-@*@Html.Raw(templ)*@
+
 @{
     var templ = @" {
 text: 'Tiding',
@@ -35,31 +35,14 @@ Flag: ''
     <div id="@(Model.HtmlId)_jsoneditor" style="min-height: 400px; height: 400px;"></div>
 </div>
 
-@*<script type="text/javascript" id="@(Model.HtmlId)_script" device>
-        var containerid = '@Model.HtmlId' + "_jsoneditor";
-        var container = document.getElementById(containerid);
-        var editor = new JSONEditor(container);
 
-        // set json
-        function setJSON() {
-            var json = {
-                "Array": [1, 2, 3],
-                "Boolean": true,
-                "Null": null,
-                "Number": 123,
-                "Object": { "a": "b", "c": "d" },
-                "String": "Hello World"
-            };
-            editor.set(json);
-        }
-    </script>*@
 <script device id="@(Model.HtmlId)_script">
         $(function () {
 
             var temp = JSON.parse('@Html.Raw(templ)');
             var temps = [temp];
             var container = document.getElementById('@Model.HtmlId' + '_jsoneditor');
-            //var initialText = $( '#' + '@Model.HtmlId' + '_jsonValueBox').val();
+            var editor = "undefined";
             var options = {
                 modes: ['text', 'code', 'tree', 'form', 'view'],
                 mode: 'tree',
@@ -75,33 +58,9 @@ Flag: ''
                 templates: temps
             }
 
-            var editor = new JSONEditor(container, options, @Html.Raw(Model.Value));
+            editor = new JSONEditor(container, options, @Html.Raw(Model.Value));
 
-            //editor.setText(initialText);
-            // set json
-            //$("#modulesselect").change(function () {
-            //    var v = $(this).val();
-            //    var $item = $('#' + v);
-            //    var jtext = $item.val();
-            //    if (jtext === 'undefined') {
-            //        editor.setText('{}');
-            //        $('#moduleGenderInput').val('');
-            //        $('#jsonValueBox').val('');
-            //        editor.setMode('text');
-            //    } else {
-            //        var gender = $item.data('gender');
-            //        var type = $item.data('type');
-            //        $('#moduleGenderInput').val(gender);
-            //        $('#moduleTypeInput').val(type);
-            //        editor.setText(jtext);
-            //        editor.setMode('tree');
 
-            //        setTimeout(function () {
-            //            $('#jsonValueBox').val(jtext);
-            //        }, 800);
-            //    }
-
-            //});
 
         })
 </script>

@@ -1,12 +1,12 @@
 ﻿@model Borg.Cms.Basic.Lib.Features.CMS.Categories.Commands.AddOrUpdateCategoryGroupingCommand
 <form method="post" asp-area="Backoffice" asp-controller="Categories" asp-action="GroupingCommand" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
     <div class="input-group input-group">
-        <input type="hidden" asp-for="Timestamp"/>
-        <input type="hidden" asp-for="CorrelationId"/>
-        <input type="hidden" asp-for="RecordId"/>
+        <input type="hidden" asp-for="Timestamp" />
+        <input type="hidden" asp-for="CorrelationId" />
+        <input type="hidden" asp-for="RecordId" />
         <input type="text" class="form-control" asp-for="FriendlyName" placeholder="Category Grouping Name">
         <span class="input-group-btn">
-            <button submit-form  pull-right="false"> </button>
+            <button submit-form pull-right="false"> </button>
         </span>
     </div>
 </form>

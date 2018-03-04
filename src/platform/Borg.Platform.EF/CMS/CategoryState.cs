@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DDD.Contracts;
+﻿using System.Collections.Generic;
+using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace Borg.Platform.EF.CMS
         public virtual CategoryGroupingState Grouping { get; set; }
         public virtual TaxonomyState Taxonomy { get; set; }
         public virtual ArticleState Article => Taxonomy?.Article;
+        internal virtual ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
     }
 
     public class CategoryStateeMap : EntityMap<CategoryState, CmsDbContext>
