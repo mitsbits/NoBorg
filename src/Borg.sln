@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{3470242D-C5BE-4398-A66C-BA3D9FF2FCFE}"
 EndProject
@@ -57,7 +57,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cms", "cms", "{41C73950-54D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic", "projects\cms\Borg.Cms.Basic\Borg.Cms.Basic.csproj", "{5DB5DE13-C5DA-475F-ADEA-06D4599190EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borg.Cms.Basic.Lib", "projects\cms\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj", "{63F71201-0736-45E8-9381-60A78AA340C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Lib", "projects\cms\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj", "{63F71201-0736-45E8-9381-60A78AA340C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Platform.ImageSharp", "platform\Borg.Platform.ImageSharp\Borg.Platform.ImageSharp.csproj", "{D240719E-DD3C-4DF0-87EB-93AEDDE74D14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.CMS", "infra\Borg.CMS\Borg.CMS.csproj", "{4DF2BBA7-8C38-4494-9DFB-610A644BB18A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Backoffice", "projects\cms\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj", "{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.PlugIns.BlogEngine", "projects\cms\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj", "{92D521D0-D4B3-42D8-9228-B379DE81C40E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.PlugIns.Documents", "projects\cms\Borg.Cms.Basic.PlugIns.Documents\Borg.Cms.Basic.PlugIns.Documents.csproj", "{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Cms.Basic.Presentation", "projects\cms\Borg.Cms.Basic.Presentation\Borg.Cms.Basic.Presentation.csproj", "{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +149,30 @@ Global
 		{63F71201-0736-45E8-9381-60A78AA340C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63F71201-0736-45E8-9381-60A78AA340C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63F71201-0736-45E8-9381-60A78AA340C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D240719E-DD3C-4DF0-87EB-93AEDDE74D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D240719E-DD3C-4DF0-87EB-93AEDDE74D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D240719E-DD3C-4DF0-87EB-93AEDDE74D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D240719E-DD3C-4DF0-87EB-93AEDDE74D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF2BBA7-8C38-4494-9DFB-610A644BB18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF2BBA7-8C38-4494-9DFB-610A644BB18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF2BBA7-8C38-4494-9DFB-610A644BB18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF2BBA7-8C38-4494-9DFB-610A644BB18A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D521D0-D4B3-42D8-9228-B379DE81C40E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D521D0-D4B3-42D8-9228-B379DE81C40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D521D0-D4B3-42D8-9228-B379DE81C40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D521D0-D4B3-42D8-9228-B379DE81C40E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -166,6 +202,12 @@ Global
 		{41C73950-54D2-41F6-AE8B-DCBB42B19278} = {0575EC25-0430-47EF-A6F9-D516A7C66C7B}
 		{5DB5DE13-C5DA-475F-ADEA-06D4599190EE} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
 		{63F71201-0736-45E8-9381-60A78AA340C5} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
+		{D240719E-DD3C-4DF0-87EB-93AEDDE74D14} = {226B3D05-0B00-47A7-AF78-C4E31DA83033}
+		{4DF2BBA7-8C38-4494-9DFB-610A644BB18A} = {3470242D-C5BE-4398-A66C-BA3D9FF2FCFE}
+		{A9BBCE4A-D75B-4B4A-B1AA-05494F9EEE82} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
+		{92D521D0-D4B3-42D8-9228-B379DE81C40E} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
+		{E10FC0B3-CA03-4165-B9B1-52B13FB3C44C} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
+		{8DAFD485-9E9C-4749-BCDB-9DE1EC94D2FD} = {41C73950-54D2-41F6-AE8B-DCBB42B19278}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A383B681-DE8E-4944-8D4D-2EFFDEE3C9A7}

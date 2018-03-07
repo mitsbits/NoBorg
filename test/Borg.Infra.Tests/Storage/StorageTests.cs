@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Contracts;
 using Xunit;
 
 namespace Borg.Infra.Tests.Storage

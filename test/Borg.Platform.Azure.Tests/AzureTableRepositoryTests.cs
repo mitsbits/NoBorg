@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Borg.Platform.Azure.Storage.Tables;
 using Borg.Infra.DDD;
+using Borg.Infra.DDD.Contracts;
 
 namespace Borg.Platform.Azure.Tests
 {
