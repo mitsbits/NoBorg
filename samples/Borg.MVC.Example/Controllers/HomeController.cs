@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
 using Borg.Infra.Services.Slugs;
+using Borg.MVC.Filters;
 
 namespace Borg.Mvc.Example.Controllers
 {

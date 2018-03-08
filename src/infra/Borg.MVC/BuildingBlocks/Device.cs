@@ -23,6 +23,10 @@ namespace Borg.MVC.BuildingBlocks
         private const string ActionKey = "action";
         private const string AreaKey = "area";
 
+        private const string PageContentKey = "page";
+        private const string DeviceKey = "device";
+
+
         private readonly string[] _definedRouteKeys = { ControllerKey, ActionKey, AreaKey };
 
         #region IHaveAFriendlyName

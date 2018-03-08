@@ -27,11 +27,13 @@ namespace Borg.Cms.Basic.Presentation.Queries
     {
         private readonly ILogger _logger;
         private readonly IUnitOfWork<CmsDbContext> _uow;
+        private readonly IMediator _dispatcher;
 
-        public MenuRootPageContentRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
+        public MenuRootPageContentRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IMediator dispatcher)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;
+            _dispatcher = dispatcher;
         }
 
         protected override async Task<QueryResult<(int componentId, IPageContent content)>> HandleCore(MenuRootPageContentRequest message)
@@ -44,34 +46,7 @@ namespace Borg.Cms.Basic.Presentation.Queries
                 var id = await qc.FirstOrDefaultAsync();
                 if (id == default(int)) throw new ArgumentOutOfRangeException(nameof(id));
 
-                var q = from a in _uow.Context.ArticleStates
-                    .Include(x => x.Component)
-                    .Include(x => x.PageMetadata)
-                    .Include(x => x.ArticleTags).ThenInclude(x => x.Tag).ThenInclude(x => x.Component)
-                    .AsNoTracking()
-                        select a;
-
-                var hit = await q.FirstOrDefaultAsync(x => x.Id == id);
-                if (hit == null) throw new ArgumentOutOfRangeException(nameof(id));
-
-                var result = new PageContent()
-                {
-                    Title = hit.Title,
-                    Body = new[] { hit.Body },
-                };
-
-                result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));
-                result.ComponentKey = id.ToString();
-
-                if (hit.PageMetadata != null)
-                {
-                    result.Metas.AddRange(JsonConvert.DeserializeObject<HtmlMeta[]>(hit.PageMetadata.HtmlMetaJsonText));
-                    result.PrimaryImageFileId = hit.PageMetadata.PrimaryImageFileId.HasValue
-                        ? hit.PageMetadata.PrimaryImageFileId.Value.ToString()
-                        : string.Empty;
-                }
-
-                return QueryResult<(int componentId, IPageContent content)>.Success((componentId: id, content: result));
+                return await _dispatcher.Send(new ComponentPageContentRequest(id));
             }
             catch (Exception e)
             {
