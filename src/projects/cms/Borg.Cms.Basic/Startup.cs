@@ -116,19 +116,19 @@ namespace Borg.Cms.Basic
 
                 routeBuilder.MapRoute(
                     name: "menuroot",
-                    template: "{rootmenu}",
+                    template: "{rootmenu}/{page}",
                     defaults: new { controller = "Menus", action = "Root", area = "Presentation" , foo = new {name = "bar"} },
                     constraints: new { rootmenu = root });
 
                 routeBuilder.MapRoute(
                     name: "menuleaf",
-                    template: "{parentmenu}/{childmenu}",
+                    template: "{parentmenu}/{childmenu}/{page}",
                     defaults: new { controller = "Menus", action = "Leaf", area = "Presentation" },
                     constraints: new { parentmenu = parent, childmenu = child });
 
                 routeBuilder.MapRoute(
                     name: "siteroot",
-                    template: "",
+                    template: "{page}",
                     defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation" });
 
                 routeBuilder.MapRoute(

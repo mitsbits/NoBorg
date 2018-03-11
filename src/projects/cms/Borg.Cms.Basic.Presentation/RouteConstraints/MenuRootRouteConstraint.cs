@@ -45,8 +45,8 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
             foreach (var x in q)
             {
-                var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
-                var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
+                //var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
+                //var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
                 _bucket.Add((id: x.Id, slug: x.Path.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
             }
         }

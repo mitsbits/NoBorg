@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Borg
 {
-    internal static class NavigationItemRecordExtensions
+    public static class NavigationItemRecordExtensions
     {
         public static Tidings Trees(this IEnumerable<NavigationItemState> source)
         {

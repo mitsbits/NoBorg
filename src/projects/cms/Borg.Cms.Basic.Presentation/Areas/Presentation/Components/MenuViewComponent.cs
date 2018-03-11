@@ -5,8 +5,10 @@ using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-
+using Borg.Cms.Basic.Presentation.Services.Contracts;
+using Borg;
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
 {
     [PulgInViewComponent("Menu")]
@@ -14,20 +16,25 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
     {
         private readonly IMenuProvider _menuProvider;
 
-        private const string _groupKey = "group";
+    
         private readonly ILogger _logger;
 
-        public MenuViewComponent(IMenuProvider menuProvider, ILoggerFactory loggerFactory)
+        private readonly IEntityMemoryStore _memoryStore;
+
+        public MenuViewComponent(IMenuProvider menuProvider, ILoggerFactory loggerFactory, IEntityMemoryStore memoryStore)
         {
             _logger = loggerFactory.CreateLogger(GetType());
             _menuProvider = menuProvider;
+            _memoryStore = memoryStore;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(Tidings tidings)
         {
             try
             {
-                var tree = await _menuProvider.Tree(tidings[_groupKey]);
+                var set = _memoryStore.NavigationItems.Where(x =>
+                    x.GroupCode.ToUpper() == tidings[Tidings.DefinedKeys.Group].ToUpper()).ToArray();
+                var tree = set.Trees();
                 if (tidings.ContainsKey(Tidings.DefinedKeys.View) &&
                     !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]))
                     return View(tidings[Tidings.DefinedKeys.View], tree);
@@ -52,7 +59,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
             var result = new Tidings
             {
                 new Tiding(Tidings.DefinedKeys.AssemblyQualifiedName, typeof(MenuViewComponent).AssemblyQualifiedName),
-                new Tiding("group", ""),
+                new Tiding(Tidings.DefinedKeys.Group, ""),
                 new Tiding(Tidings.DefinedKeys.View, "")
             };
             return result;

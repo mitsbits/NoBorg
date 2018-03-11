@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Borg.Cms.Basic.Lib.Features.CMS.Services;
+using Borg.Cms.Basic.Presentation.Services.Contracts;
 using Borg.Infra;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks.Contracts;
@@ -24,6 +25,8 @@ namespace Borg.Cms.Basic.Presentation
         {
             services.AddScoped<HtmlMetaTagHelper>();
             services.AddScoped<IComponentPageDescriptorService<int>, ComponentPageDescriptorService>();
+
+            services.AddSingleton<IEntityMemoryStore, EntityMemoryStore>();
             return services;
         }
 

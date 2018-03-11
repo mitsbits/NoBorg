@@ -21,6 +21,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         [HttpGet("{id?}")]
         public async Task<IActionResult> Home(string id, int? row)
         {
+      
             SetPageTitle(string.IsNullOrWhiteSpace(id) ? "Navigational Menus" : $"Navigational Menus {id.ToUpper()}");
             Breadcrumbs(new BreadcrumbLink("Menus", Url.Action("Home", "Menus", new { id = "" })));
             if (!string.IsNullOrWhiteSpace(id))
@@ -48,6 +49,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Item(NavigationItemStateCreateOrUpdateCommand model)
         {
+            
             if (ModelState.IsValid)
             {
                 var result = await Dispatcher.Send(model);
