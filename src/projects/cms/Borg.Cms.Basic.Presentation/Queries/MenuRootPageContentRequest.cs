@@ -1,15 +1,14 @@
 ﻿using Borg.Infra.DAL;
-using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.CMS.Queries;
 
 namespace Borg.Cms.Basic.Presentation.Queries
 {
@@ -55,7 +54,4 @@ namespace Borg.Cms.Basic.Presentation.Queries
             }
         }
     }
-
-
-
 }

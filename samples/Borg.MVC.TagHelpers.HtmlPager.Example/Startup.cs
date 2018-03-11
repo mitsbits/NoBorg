@@ -1,3 +1,4 @@
+using Borg.Infra;
 using Borg.MVC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

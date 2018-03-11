@@ -1,14 +1,14 @@
-﻿using Borg.MVC.PlugIns.Decoration;
+﻿using Borg.Cms.Basic.Lib.Features.CMS.Queries;
+using Borg.Infra;
+using Borg.MVC.PlugIns.Decoration;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Borg.Cms.Basic.Presentation.Queries;
-using Borg.Infra;
-using MediatR;
 
 namespace Borg.Cms.Basic.Presentation.RouteConstraints
 {
@@ -29,7 +29,7 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
         public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            values.Add("foo", new { name = "bar" });
+        
             return _bucket.Any(x => x.slug == values[routeKey]?.ToString().ToLowerInvariant());
         }
 
@@ -43,18 +43,12 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
                     where l == null
                     select new { r.Id, r.Path };
 
-
-
-
             foreach (var x in q)
             {
-
                 var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
                 var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
                 _bucket.Add((id: x.Id, slug: x.Path.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
             }
-
-
         }
     }
 

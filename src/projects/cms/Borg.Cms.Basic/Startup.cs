@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.MVC.BuildingBlocks;
 using Borg.Platform.Azure.Storage.Blobs;
 using Microsoft.Extensions.FileProviders;
 
@@ -62,6 +63,13 @@ namespace Borg.Cms.Basic
             services.AddScoped<IRouteConstraint, MenuRootRouteConstraint>();
             services.AddScoped<IRouteConstraint, MenuLeafParentRouteConstraint>();
             services.AddScoped<IRouteConstraint, MenuLeafChildRouteConstraint>();
+
+            services.Configure<RouteOptions>(options =>
+            {
+                options.ConstraintMap.Add(MenuRootRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuRootRouteConstraint));
+                options.ConstraintMap.Add(MenuLeafParentRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuLeafParentRouteConstraint));
+                options.ConstraintMap.Add(MenuLeafChildRouteConstraint.ROUTE_IDENTIFIER, typeof(MenuLeafChildRouteConstraint));
+            });
             //services.AddScoped< MenuRootRouteConstraint>();
             //services.AddScoped<MenuLeafParentRouteConstraint>();
             //services.AddScoped<MenuLeafChildRouteConstraint>();
@@ -109,7 +117,7 @@ namespace Borg.Cms.Basic
                 routeBuilder.MapRoute(
                     name: "menuroot",
                     template: "{rootmenu}",
-                    defaults: new { controller = "Menus", action = "Root", area = "Presentation" },
+                    defaults: new { controller = "Menus", action = "Root", area = "Presentation" , foo = new {name = "bar"} },
                     constraints: new { rootmenu = root });
 
                 routeBuilder.MapRoute(

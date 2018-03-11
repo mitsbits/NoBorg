@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Borg.MVC.BuildingBlocks
 {
@@ -25,7 +25,6 @@ namespace Borg.MVC.BuildingBlocks
 
         private const string PageContentKey = "page";
         private const string DeviceKey = "device";
-
 
         private readonly string[] _definedRouteKeys = { ControllerKey, ActionKey, AreaKey };
 
@@ -92,7 +91,6 @@ namespace Borg.MVC.BuildingBlocks
 
         private bool _populated;
         public bool ContextAcquired => _populated;
-
 
         #endregion ICanContextualize
 

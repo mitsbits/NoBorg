@@ -39,6 +39,19 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             this.SetDevice(device);
             return device;
         }
+        [NonAction]
+        protected virtual void PageDevice(ComponentPageDescriptor<int> descr)
+        {
+            var device = this.GetDevice<Device>();
+            device.Layout = descr.Device.Layout;
+            device.RenderScheme = descr.Device.RenderScheme;
+
+            foreach (var payloadSection in descr.Device.Sections)
+            {
+                device.SectionAdd(payloadSection);
+            }
+            PageDevice(device);
+        }
 
         [NonAction]
         protected virtual void SetPageTitle(string title, string subtitle = "")

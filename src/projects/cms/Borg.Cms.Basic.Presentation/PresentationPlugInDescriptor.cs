@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Reflection;
+using Borg.Cms.Basic.Lib.Features.CMS.Services;
 using Borg.Infra;
 using Borg.Infra.DTO;
+using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
 using Borg.MVC.TagHelpers;
@@ -20,7 +22,9 @@ namespace Borg.Cms.Basic.Presentation
             IHostingEnvironment hostingEnvironment, IConfiguration Configuration, BorgSettings settings,
             Assembly[] assembliesToScan)
         {
-            return services.AddScoped<HtmlMetaTagHelper>();
+            services.AddScoped<HtmlMetaTagHelper>();
+            services.AddScoped<IComponentPageDescriptorService<int>, ComponentPageDescriptorService>();
+            return services;
         }
 
         public string[] Themes => new[] { "Bootstrap3" };

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Borg.MVC.BuildingBlocks;
+using Borg.MVC.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

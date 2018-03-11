@@ -9,6 +9,7 @@ namespace Borg.Infra.Comparers
         /// </summary>
         private const int Multiplier = 89;
 
+        /// <inheritdoc />
         /// <summary>
         /// Whether the two strings are equal
         /// </summary>
@@ -17,6 +18,7 @@ namespace Borg.Infra.Comparers
             return x.Replace(" ", string.Empty).ToLower() == y.Replace(" ", string.Empty).ToLower();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Return the hash code for this string.
         /// </summary>

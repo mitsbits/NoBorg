@@ -7,11 +7,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Presentation.Queries
+namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
     public class ComponentDeviceRequest : IRequest<QueryResult<IDeviceStructureInfo>>
     {
