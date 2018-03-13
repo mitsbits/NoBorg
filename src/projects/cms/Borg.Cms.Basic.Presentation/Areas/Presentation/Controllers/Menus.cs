@@ -37,7 +37,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             return View("Root");
         }
 
-        [Route("{rootmenu}")]
+  
         public async Task<IActionResult> Root(string rootmenu)
         {
    

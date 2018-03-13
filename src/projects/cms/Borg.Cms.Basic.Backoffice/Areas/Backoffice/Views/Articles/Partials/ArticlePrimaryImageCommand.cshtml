@@ -68,7 +68,7 @@
     </form>
 </div>
 
-<script device id="uploadavatarscript" weight="300">
+<script device id="articleprimaryimagescript" weight="300">
     $(function() {
 
         $("input[type=file]#file").click(function() {
@@ -91,7 +91,8 @@
     $(function() {
         var url = '@imageUrl';
         var usecache = "True";
-
+        var attemptcount = 150;
+        var counter = 0;
         var intervalId;
 
         function stopRequestingImage() {
@@ -101,15 +102,32 @@
 
         function requestImage() {
 
-            intervalId = setInterval(function() {
-                    $.ajax({
+            intervalId = setInterval(function () {
+
+                if (counter > attemptcount) {
+                    stopRequestingImage();
+                    alert("error getting inmage " + url);
+                }
+
+                    var request = $.ajax({
                         type: "HEAD",
                         async: true,
                         url: url,
-                    }).done(function(message, text, jqXHR) {
-                        stopRequestingImage();
-                        $("img#primaryimage").attr('src', url).show(300);
+                        cache: false
                     });
+
+                request.done(function () {
+           
+                    stopRequestingImage();
+                    $("img#primaryimage").attr('src', url).show(300);
+                    });
+ 
+                    request.fail(function( jqXHR, textStatus ) {
+                        console.log("Request failed: " + textStatus);
+                });
+
+                    counter = counter + 1;
+
                 },
                 300);
         }

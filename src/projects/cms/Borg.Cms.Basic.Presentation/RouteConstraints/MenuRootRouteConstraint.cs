@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Cms.Basic.Presentation.Services.Contracts;
 
 namespace Borg.Cms.Basic.Presentation.RouteConstraints
 {
@@ -18,12 +19,14 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly List<(int id, string slug)> _bucket = new List<(int id, string slug)>();
         private readonly IMediator _dispatcher;
+        private readonly IEntityMemoryStore _memoryStore;
         public const string ROUTE_IDENTIFIER = "rootmenu";
 
-        public MenuRootRouteConstraint(IUnitOfWork<CmsDbContext> uow, IMediator dispatcher)
+        public MenuRootRouteConstraint(IUnitOfWork<CmsDbContext> uow, IMediator dispatcher, IEntityMemoryStore memoryStore)
         {
             _uow = uow;
             _dispatcher = dispatcher;
+            _memoryStore = memoryStore;
             Populate();
         }
 
@@ -35,10 +38,9 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
         private void Populate()
         {
-            var roots = _uow.Context.NavigationItemStates.AsNoTracking()
-                .Where(x => x.Taxonomy.ParentId == 0);
+            var roots = _memoryStore.NavigationItems.Where(x => x.Taxonomy.ParentId == 0);
             var q = from r in roots
-                    join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
+                    join l in _memoryStore.NavigationItems on r.Id equals l.Taxonomy.ParentId into rls
                     from l in rls.DefaultIfEmpty()
                     where l == null
                     select new { r.Id, r.Path };
@@ -58,10 +60,11 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly List<string> _bucket = new List<string>();
         public const string ROUTE_IDENTIFIER = "parentmenu";
-
-        public MenuLeafParentRouteConstraint(IUnitOfWork<CmsDbContext> uow)
+        private readonly IEntityMemoryStore _memoryStore;
+        public MenuLeafParentRouteConstraint(IUnitOfWork<CmsDbContext> uow, IEntityMemoryStore memoryStore)
         {
             _uow = uow;
+            _memoryStore = memoryStore;
             Populate();
         }
 
@@ -73,9 +76,9 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
         private void Populate()
         {
-            var roots = _uow.Context.NavigationItemStates.AsNoTracking();
+            var roots = _memoryStore.NavigationItems;
             var q = from r in roots
-                    join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
+                    join l in _memoryStore.NavigationItems on r.Id equals l.Taxonomy.ParentId into rls
                     from l in rls.DefaultIfEmpty()
                     where l != null
                     select r.Path;
@@ -90,10 +93,12 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly List<string> _bucket = new List<string>();
         public const string ROUTE_IDENTIFIER = "childmenu";
+        private readonly IEntityMemoryStore _memoryStore;
 
-        public MenuLeafChildRouteConstraint(IUnitOfWork<CmsDbContext> uow)
+        public MenuLeafChildRouteConstraint(IUnitOfWork<CmsDbContext> uow, IEntityMemoryStore memoryStore)
         {
             _uow = uow;
+            _memoryStore = memoryStore;
             Populate();
         }
 
@@ -105,9 +110,9 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
         private void Populate()
         {
-            var roots = _uow.Context.NavigationItemStates.AsNoTracking();
+            var roots = _memoryStore.NavigationItems;
             var q = from r in roots
-                    join l in _uow.Context.NavigationItemStates.AsNoTracking() on r.Id equals l.Taxonomy.ParentId into rls
+                    join l in _memoryStore.NavigationItems on r.Id equals l.Taxonomy.ParentId into rls
                     from l in rls.DefaultIfEmpty()
                     where l != null
                     select l.Path;

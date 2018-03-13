@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 {
-    internal class ArticlePrimaryImageChangedEvent : MessageBase, INotification
+    public class ArticlePrimaryImageChangedEvent : MessageBase, INotification
     {
         public ArticlePrimaryImageChangedEvent(int recordId, (int documentId, int fileId) current, (int? documentId, int? fileId) prev)
         {

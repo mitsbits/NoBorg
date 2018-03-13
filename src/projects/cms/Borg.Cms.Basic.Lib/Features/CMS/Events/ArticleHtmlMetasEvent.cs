@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 {
+    //TODO: what is this doing?
     public class ArticleHtmlMetasEvent : MessageBase, INotification
     {
         public ArticleHtmlMetasEvent(int id, string metas)

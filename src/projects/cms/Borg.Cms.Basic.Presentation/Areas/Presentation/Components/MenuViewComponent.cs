@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Borg.Cms.Basic.Presentation.Services.Contracts;
 using Borg;
+using Borg.Cms.Basic.Lib.Features.Navigation.Services;
+
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
 {
     [PulgInViewComponent("Menu")]
@@ -38,7 +40,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Components
                 if (tidings.ContainsKey(Tidings.DefinedKeys.View) &&
                     !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]))
                     return View(tidings[Tidings.DefinedKeys.View], tree);
-                return View(tree);
+                return View(new MenuContainer{Trees  = tree, Group = tidings[Tidings.DefinedKeys.Group]});
             }
             catch (Exception ex)
             {
