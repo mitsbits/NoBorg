@@ -24,7 +24,7 @@ namespace Borg.Mvc.Example.Controllers
         protected void SetPageTitle(string title, string subtitle = "")
         {
             var content = this.GetContent<PageContent>();
-            content.SetTitle(title);
+            content.Title =title;
             content.Subtitle = subtitle;
             this.SetContent(content);
         }

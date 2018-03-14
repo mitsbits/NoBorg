@@ -1,11 +1,9 @@
-﻿namespace Borg.MVC.BuildingBlocks.Contracts
-{
-    public interface IPageContent : IHaveHtmlMetas, IHaveTags, IHaveComponentKey, ICanHaveADocumentAsPrimaryImage
-    {
-        string Title { get; }
-        string Subtitle { get; }
-        string[] Body { get; }
+﻿using Borg.CMS.Components.Contracts;
 
-        void SetTitle(string title);
+namespace Borg.MVC.BuildingBlocks.Contracts
+{
+    public interface IPageContent : IComponentPage<int>, ICanHaveADocumentAsPrimaryImage
+    {
+
     }
 }

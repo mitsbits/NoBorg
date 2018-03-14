@@ -1,6 +1,7 @@
 ﻿using Borg.Infra;
 using Borg.MVC.BuildingBlocks.Contracts;
 using System;
+using Borg.CMS.Components.Contracts;
 
 namespace Borg.MVC.Extensions
 {

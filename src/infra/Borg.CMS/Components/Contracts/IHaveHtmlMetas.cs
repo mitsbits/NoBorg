@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Borg.MVC.BuildingBlocks.Contracts
+﻿namespace Borg.CMS.Components.Contracts
 {
     public interface IHaveHtmlMetas
     {

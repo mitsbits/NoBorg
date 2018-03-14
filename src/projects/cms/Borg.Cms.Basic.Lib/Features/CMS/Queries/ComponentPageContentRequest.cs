@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Borg;
+using Borg.CMS.Components;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
@@ -54,10 +55,11 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
                 var result = new PageContent()
                 {
                     Title = hit.Title,
-                    Body = new[] { hit.Body },
+                    MainContent =  hit.Body ,
                 };
 
                 result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));
+                result.Id = message.RecordId;
                 result.ComponentKey = message.RecordId.ToString();
 
                 if (hit.PageMetadata != null)

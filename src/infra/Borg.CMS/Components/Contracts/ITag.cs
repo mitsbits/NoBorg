@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Borg.MVC.BuildingBlocks.Contracts
+namespace Borg.CMS.Components.Contracts
 {
     public interface ITag<out TKey> where TKey : IEquatable<TKey>
     {

@@ -12,6 +12,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.CMS.Components;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {

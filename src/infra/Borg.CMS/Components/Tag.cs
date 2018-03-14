@@ -1,10 +1,19 @@
-﻿using System;
+﻿using Borg.CMS.Components.Contracts;
+using Newtonsoft.Json;
 
 namespace Borg.CMS.Components
 {
-    public class Tag<TKey> : Component<TKey> where TKey : IEquatable<TKey>
+    public class Tag : ITag
     {
-        public override TKey Id { get; }
-        public string TagDisplay { get; }
+        public Tag() { }
+        public Tag(string tagDisplay, string tagSlug):this()
+        {
+            TagDisplay = tagDisplay;
+            TagSlug = tagSlug;
+        }
+        [JsonProperty]
+        public string TagDisplay { get; set; }
+        [JsonProperty]
+        public string TagSlug { get; set; }
     }
 }

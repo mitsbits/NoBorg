@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.Components
 {
     [JsonArray(false)]
-    public class TagSet : List<Tag>
+    public class HtmlMetaSet : List<HtmlMeta>
     {
-        
     }
 }

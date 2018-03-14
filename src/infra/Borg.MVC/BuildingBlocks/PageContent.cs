@@ -1,24 +1,38 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
 using System.Collections.Generic;
+using Borg.CMS.Components;
 
 namespace Borg.MVC.BuildingBlocks
 {
     public class PageContent : IPageContent
     {
-        public HtmlMetaSet Metas { get; } = new HtmlMetaSet();
-       
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-
-        public string[] Body { get; set; }
-
-        public void SetTitle(string title)
+        public int Id { get; set; }
+        public void Delete()
         {
-            Title = title.Trim();
+            throw new System.NotImplementedException();
         }
 
+        public bool IsDeleted { get; }
+        public bool IsPublished { get; private set; }
+        public void Publish()
+        {
+            IsPublished = true;
+        }
+
+        public void Suspend()
+        {
+            IsPublished = false;
+        }
+
+        public string Title { get; set; }
+        public string Slug { get; }
+        public string RelativePath { get; }
+        public string APrimaryImage { get; }
+        public HtmlMetaSet Metas { get; } = new HtmlMetaSet();
         public TagSet Tags { get; } = new TagSet();
+        public string MainContent { get; set; }
+        public string PrimaryImageFileId { get; set; }
+        public string Subtitle { get; set; }
         public string ComponentKey { get; set; }
-        public string PrimaryImageFileId { get; set; } = "";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Borg.CMS.Components;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
@@ -26,8 +27,8 @@ namespace Borg.MVC.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            ICanContextualizeExtensions.TryContextualize((ICanContextualize) _orchestrator, (ViewContext) ViewContext);
-            if (!Enumerable.Any<HtmlMeta>(_orchestrator.Page.Metas))
+            _orchestrator.TryContextualize(ViewContext);
+            if (!_orchestrator.Page.Metas.Any())
             {
                 output.SuppressOutput();
             }

@@ -40,7 +40,7 @@ namespace Borg.Cms.Basic.Lib.Features.Content.ViewComponents
                     command = new ContentItemCreateOrUpdateCommand(record.Title, record.Slug, record.Subtitle,
                         record.Body, record.PublisheDate, record.Author, record.LastRevisionDate, recordId);
                     _orchestrator.TryContextualize(ViewContext);
-                    _orchestrator.Page.SetTitle(record.Title);
+                    //_orchestrator.Page.Title=record.Title;
                 }
                 else
                 {

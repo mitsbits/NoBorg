@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using Borg.CMS.Components;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 {

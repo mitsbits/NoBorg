@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Borg.CMS.Components.Contracts;
 using Borg.Infra.Messaging;
 using Borg.MVC.BuildingBlocks.Contracts;
 using MediatR;

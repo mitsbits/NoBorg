@@ -1,4 +1,4 @@
-﻿namespace Borg.MVC.BuildingBlocks.Contracts
+﻿namespace Borg.CMS.Components.Contracts
 {
     public interface IHaveTags
     {

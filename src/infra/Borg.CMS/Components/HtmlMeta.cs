@@ -1,8 +1,8 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
+﻿using System;
+using Borg.CMS.Components.Contracts;
 using Newtonsoft.Json;
-using System;
 
-namespace Borg.MVC.BuildingBlocks
+namespace Borg.CMS.Components
 {
     public class HtmlMeta : IHtmlMeta
     {
