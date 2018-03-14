@@ -1,4 +1,5 @@
-﻿<!-- Control Sidebar -->
+﻿@inject BorgSettings _settings
+<!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-light">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -9,6 +10,8 @@
     <div class="tab-content">
         <!-- Home tab content -->
         <div class="tab-pane" id="control-sidebar-home-tab">
+        
+
             <h3 class="control-sidebar-heading">Recent Activity</h3>
             <ul class="control-sidebar-menu">
                 <li>
@@ -117,7 +120,19 @@
         <!-- /.tab-pane -->
         <!-- Settings tab content -->
         <div class="tab-pane active" id="control-sidebar-settings-tab">
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="@_settings.Tenant.Endpoint" class="btn btn-block btn-outline  btn-flat" target="_blank">
+                        <i class="menu-icon fa fa-home bg-black-gradient"></i>
 
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Preview Site</h4>
+
+                            <p>Click fo the site preview</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
             @await Component.InvokeAsync("UserSessionSettings")
         </div>
         <!-- /.tab-pane -->
