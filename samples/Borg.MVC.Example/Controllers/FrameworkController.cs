@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Borg.Mvc.Example.Controllers
 {
-    public class FrameworkController :Controller
+    public class FrameworkController : Controller
     {
-
         protected TContent PageContent<TContent>(TContent content = default(TContent)) where TContent : IPageContent
         {
             if (content == null || content.Equals(default(TContent))) return this.GetContent<TContent>();
@@ -24,7 +23,7 @@ namespace Borg.Mvc.Example.Controllers
         protected void SetPageTitle(string title, string subtitle = "")
         {
             var content = this.GetContent<PageContent>();
-            content.Title =title;
+            content.Title = title;
             content.Subtitle = subtitle;
             this.SetContent(content);
         }

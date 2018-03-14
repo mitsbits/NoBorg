@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg;
-using Borg.CMS.Components;
+﻿using Borg.CMS.Components;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
@@ -13,6 +9,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 //IPageContent
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
@@ -23,6 +22,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             RecordId = recordId;
         }
+
         public int RecordId { get; }
     }
 
@@ -41,8 +41,6 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
         {
             try
             {
-        
-
                 var q = from a in EntityFrameworkQueryableExtensions.Include<ArticleState, ComponentState>(_uow.Context.ArticleStates, x => x.Component)
                     .Include(x => x.PageMetadata)
                     .Include(x => x.ArticleTags).ThenInclude(x => x.Tag).ThenInclude(x => x.Component)
@@ -55,7 +53,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
                 var result = new PageContent()
                 {
                     Title = hit.Title,
-                    MainContent =  hit.Body ,
+                    MainContent = hit.Body,
                 };
 
                 result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));

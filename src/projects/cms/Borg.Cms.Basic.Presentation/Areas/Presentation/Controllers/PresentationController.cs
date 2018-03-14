@@ -39,6 +39,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             this.SetDevice(device);
             return device;
         }
+
         [NonAction]
         protected virtual void PageDevice(ComponentPageDescriptor<int> descr)
         {

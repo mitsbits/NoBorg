@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DAL;
+﻿using Borg.CMS.Components;
+using Borg.Infra.DAL;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Services.Editors;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using Borg.CMS.Components;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 {

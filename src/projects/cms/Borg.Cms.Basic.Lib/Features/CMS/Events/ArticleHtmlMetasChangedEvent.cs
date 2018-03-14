@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Borg.CMS.Components.Contracts;
+﻿using Borg.CMS.Components.Contracts;
 using Borg.Infra.Messaging;
-using Borg.MVC.BuildingBlocks.Contracts;
 using MediatR;
+using System.Collections.Generic;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Events
 {

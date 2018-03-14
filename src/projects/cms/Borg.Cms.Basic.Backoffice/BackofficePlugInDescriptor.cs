@@ -1,8 +1,10 @@
 ﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers;
+using Borg.Cms.Basic.Backoffice.BackgroundJobs;
 using Borg.Cms.Basic.Lib;
 using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Infra;
 using Borg.Infra.DTO;
+using Borg.Infra.Services;
 using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Borg.Infra.Services;
 
 namespace Borg.Cms.Basic.Backoffice
 {
@@ -51,6 +52,7 @@ namespace Borg.Cms.Basic.Backoffice
             services.RegisterAuth(settings, loggerFactory, hostingEnvironment);
             services.RegisterCommonFramework(settings, loggerFactory);
             services.RegisterBorg(settings, loggerFactory, hostingEnvironment, assembliesToScan);
+            services.AddTransient<ComponentPublishStateJob>();
             return services.RegisterDiscoveryServices(this);
         }
 

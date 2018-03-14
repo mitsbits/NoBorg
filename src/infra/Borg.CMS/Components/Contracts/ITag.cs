@@ -6,6 +6,7 @@ namespace Borg.CMS.Components.Contracts
     {
         TKey Id { get; }
     }
+
     public interface ITag
     {
         string TagDisplay { get; }

@@ -24,6 +24,8 @@ namespace Borg.Platform.EF.CMS
         internal virtual ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
 
         public bool OkToDisplay() => !IsDeleted && IsPublished;
+
+        internal virtual ICollection<ComponentJobScheduleState> ComponentJobSchedules { get; set; } = new HashSet<ComponentJobScheduleState>();
     }
 
     public class ComponentStateMap : EntityMap<ComponentState, CmsDbContext>

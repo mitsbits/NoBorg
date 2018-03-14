@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Borg.MVC.BuildingBlocks.Contracts
+﻿namespace Borg.MVC.BuildingBlocks.Contracts
 {
     public interface ICanHaveADocumentAsPrimaryImage
     {

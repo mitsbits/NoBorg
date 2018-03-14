@@ -1,6 +1,5 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Content.Commands;
 using Borg.Cms.Basic.Lib.Features.Content.Queries;
-using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Extensions;
 using MediatR;

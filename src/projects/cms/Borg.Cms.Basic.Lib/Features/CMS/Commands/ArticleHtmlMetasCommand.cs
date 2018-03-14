@@ -1,7 +1,7 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Events;
+using Borg.CMS.Components;
 using Borg.Infra.DAL;
 using Borg.Infra.Services.Slugs;
-using Borg.MVC.BuildingBlocks;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
@@ -12,7 +12,6 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Borg.CMS.Components;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {

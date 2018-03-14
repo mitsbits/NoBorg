@@ -4,10 +4,12 @@
     {
         string Title { get; }
     }
+
     public interface IHaveSubtitleTitle
     {
         string Subtitle { get; }
     }
+
     public interface IHaveASlug
     {
         string Slug { get; }

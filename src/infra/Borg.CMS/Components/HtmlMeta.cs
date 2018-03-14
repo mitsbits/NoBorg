@@ -1,6 +1,6 @@
-﻿using System;
-using Borg.CMS.Components.Contracts;
+﻿using Borg.CMS.Components.Contracts;
 using Newtonsoft.Json;
+using System;
 
 namespace Borg.CMS.Components
 {

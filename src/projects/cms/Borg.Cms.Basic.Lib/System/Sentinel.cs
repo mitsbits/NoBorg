@@ -49,7 +49,7 @@ namespace Borg.Cms.Basic.Lib.System
 
         #endregion IHostedService
 
-        public Task FireAndForget<TJob>(params string[] args) where TJob : IEnqueueJob
+        public Task<string> FireAndForget<TJob>(params string[] args) where TJob : IEnqueueJob
         {
             try
             {
@@ -59,11 +59,11 @@ namespace Borg.Cms.Basic.Lib.System
             catch (Exception e)
             {
                 _logger.Warn("Failed to run {job} with {@args} - reason: {exception}", typeof(TJob).Name, args, e.Message);
-                return Task.FromException(e);
+                return Task.FromResult(string.Empty);
             }
         }
 
-        public Task Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
+        public Task<string> Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
         {
             var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args).AnyContext(), executeAt);
             return Task.FromResult(jobHandle);

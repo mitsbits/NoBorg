@@ -1,12 +1,12 @@
-﻿using Borg.MVC.BuildingBlocks.Contracts;
-using System.Collections.Generic;
-using Borg.CMS.Components;
+﻿using Borg.CMS.Components;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {
     public class PageContent : IPageContent
     {
         public int Id { get; set; }
+
         public void Delete()
         {
             throw new System.NotImplementedException();
@@ -14,6 +14,7 @@ namespace Borg.MVC.BuildingBlocks
 
         public bool IsDeleted { get; }
         public bool IsPublished { get; private set; }
+
         public void Publish()
         {
             IsPublished = true;
