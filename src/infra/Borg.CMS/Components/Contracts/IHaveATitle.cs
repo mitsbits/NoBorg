@@ -1,4 +1,6 @@
-﻿namespace Borg.CMS.Components.Contracts
+﻿using System.Collections.Generic;
+
+namespace Borg.CMS.Components.Contracts
 {
     public interface IHaveTitle
     {
@@ -20,18 +22,18 @@
         string RelativePath { get; }
     }
 
-    public interface IHaveAPrimaryImage
+    public interface IHavePrimaryImage
     {
-        string APrimaryImage { get; }
+        IDictionary<string, string> PrimaryImages { get; }
     }
 
-    public interface IHaveAMainContent
+    public interface IHaveMainContent
     {
         string MainContent { get; }
     }
 
-    public interface IHaveAPAgedContent : IHaveAMainContent
+    public interface IHavePagedContent : IHaveMainContent
     {
-        string[] MainContent { get; }
+        string[] MainContentPages { get; }
     }
 }

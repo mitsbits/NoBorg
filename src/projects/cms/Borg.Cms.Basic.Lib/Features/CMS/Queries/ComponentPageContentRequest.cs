@@ -1,8 +1,10 @@
 ﻿using Borg.CMS.Components;
+using Borg.Infra;
 using Borg.Infra.DAL;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using MediatR;
@@ -10,10 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-//IPageContent
 namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 {
     public class ComponentPageContentRequest : IRequest<QueryResult<(int componentId, IPageContent content)>>
@@ -30,18 +32,20 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
     {
         private readonly ILogger _logger;
         private readonly IUnitOfWork<CmsDbContext> _uow;
+        private readonly IStaticImageCacheStore<int> _imageCacheStore;
 
-        public ComponentPageContentRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow)
+        public ComponentPageContentRequestHandler(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IStaticImageCacheStore<int> imageCacheStore)
         {
-            _logger = LoggerFactoryExtensions.CreateLogger(loggerFactory, GetType());
+            _logger = loggerFactory.CreateLogger(GetType());
             _uow = uow;
+            _imageCacheStore = imageCacheStore;
         }
 
         protected override async Task<QueryResult<(int componentId, IPageContent content)>> HandleCore(ComponentPageContentRequest message)
         {
             try
             {
-                var q = from a in EntityFrameworkQueryableExtensions.Include<ArticleState, ComponentState>(_uow.Context.ArticleStates, x => x.Component)
+                var q = from a in _uow.Context.ArticleStates.Include(x => x.Component)
                     .Include(x => x.PageMetadata)
                     .Include(x => x.ArticleTags).ThenInclude(x => x.Tag).ThenInclude(x => x.Component)
                     .AsNoTracking()
@@ -54,6 +58,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
                 {
                     Title = hit.Title,
                     MainContent = hit.Body,
+                    MainContentPages = new[] { hit.Body }
                 };
 
                 result.Tags.AddRange(hit.Tags.Where(x => x.Component.OkToDisplay()).Select(x => new Tag(x.Tag, x.TagSlug)));
@@ -68,13 +73,23 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
                     result.PrimaryImageFileId = hit.PageMetadata.PrimaryImageFileId.HasValue
                         ? hit.PageMetadata.PrimaryImageFileId.Value.ToString()
                         : string.Empty;
-                }
 
+                    if (!string.IsNullOrWhiteSpace(result.PrimaryImageFileId))
+                    {
+
+                        result.PrimaryImages = new Dictionary<string, string>();
+                        foreach (var size in VisualSize.GetMembers().Where(x => x != VisualSize.Undefined))
+                        {
+                            result.PrimaryImages.Add(size.Flavor, (await _imageCacheStore.PublicUrl(hit.PageMetadata.PrimaryImageFileId.Value, size)).AbsoluteUri);
+                        }
+
+                    }
+                }
                 return QueryResult<(int componentId, IPageContent content)>.Success((componentId: message.RecordId, content: result));
             }
             catch (Exception e)
             {
-                LoggerExtensions.Error(_logger, e);
+                _logger.Error(e, "Failed to retrive page content fod  {@message}", message);
                 return QueryResult<(int componentId, IPageContent content)>.Failure(e.Message);
             }
         }

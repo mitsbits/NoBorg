@@ -3,20 +3,15 @@
 @using Borg.Infra.Storage.Assets.Contracts
 @model Tidings
 @inject IStaticImageCacheStore<int> _cache
-@{
-    var size = VisualSize.Large;
-    VisualSize.TryParse(Model[Tidings.DefinedKeys.Size], out size);
-    var url = string.Empty;
-    if (int.TryParse(Orchestrator.Page.PrimaryImageFileId, out var fileId))
-    {
-        url = (await _cache.PublicUrl(fileId, size)).AbsoluteUri;
-    }
+@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
 
-}
-
-@if (!url.IsNullOrWhiteSpace())
+@if (!string.IsNullOrWhiteSpace(Orchestrator.Page.PrimaryImageFileId))
 {
     <figure>
-        <img class="img-responsive img" src="@url"/>
+        @*@foreach (var url in Orchestrator.Page.PrimaryImages)
+        {
+            <img class="img-responsive img" src="@url" />
+        }*@
+        <img class="img-responsive img" src="@Orchestrator.Page.PrimaryImages[VisualSize.Huge.Flavor]" />
     </figure>
 }

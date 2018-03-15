@@ -1,10 +1,12 @@
-﻿using Borg.CMS.Components;
+﻿using System.Collections.Generic;
+using Borg.CMS.Components;
 using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.BuildingBlocks
 {
     public class PageContent : IPageContent
     {
+
         public int Id { get; set; }
 
         public void Delete()
@@ -28,12 +30,15 @@ namespace Borg.MVC.BuildingBlocks
         public string Title { get; set; }
         public string Slug { get; }
         public string RelativePath { get; }
-        public string APrimaryImage { get; }
         public HtmlMetaSet Metas { get; } = new HtmlMetaSet();
         public TagSet Tags { get; } = new TagSet();
         public string MainContent { get; set; }
         public string PrimaryImageFileId { get; set; }
         public string Subtitle { get; set; }
         public string ComponentKey { get; set; }
+
+        public IDictionary<string, string> PrimaryImages { get; set; }
+
+        public string[] MainContentPages { get; set; }
     }
 }
