@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
-    public class ComponentSheduleViewComponent : TidingsViewComponentModule<Tidings>
+    public partial class ComponentSheduleViewComponent : TidingsViewComponentModule<Tidings>
     {
         private readonly IUnitOfWork<CmsDbContext> _uow;
         private readonly ISentinel _sentinel;
@@ -47,13 +47,8 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
                 var hit = await _sentinel.JobData(sc.ScheduleId.ToString());
                 bucket.Add((sc, hit.job, hit.state));
             }
-            var model = new ComponentSheduleViewModel {Records = bucket.ToArray()};
+            var model = new ViewModels.ComponentSheduleViewModel {Records = bucket.ToArray(), ComponentId = id};
             return tidings.ContainsKey(Tidings.DefinedKeys.View) && !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]) ? View(tidings[Tidings.DefinedKeys.View], model) : View(model);
-        }
-
-        public class ComponentSheduleViewModel
-        {
-            public (ComponentJobScheduleState row, JobData job, StateData state)[] Records { get; set; }
         }
     }
 }

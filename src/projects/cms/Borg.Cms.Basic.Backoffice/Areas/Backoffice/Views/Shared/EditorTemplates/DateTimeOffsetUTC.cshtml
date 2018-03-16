@@ -1,0 +1,10 @@
+﻿@model DateTimeOffset
+@{
+    var mdl = Model;
+    if (Model.Date.Kind != DateTimeKind.Utc)
+    {
+        mdl = Model.ToUniversalTime();
+    }
+
+    <input type="text" asp-for="@Model" value="@mdl.ToLocalTime()" />
+}

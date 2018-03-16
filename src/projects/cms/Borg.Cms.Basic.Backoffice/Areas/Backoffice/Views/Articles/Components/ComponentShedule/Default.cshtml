@@ -1,6 +1,9 @@
-﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
-@model ComponentSheduleViewComponent.ComponentSheduleViewModel
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+
+@model ComponentSheduleViewModel
 
 <h1>
     Compnent Schedule View Component
 </h1>
+
+@Html.Partial("Components/ComponentShedule/Partials/ComponentPublishOperationScheduleCommand", Model.AddPublishOperationScheduleCommand())

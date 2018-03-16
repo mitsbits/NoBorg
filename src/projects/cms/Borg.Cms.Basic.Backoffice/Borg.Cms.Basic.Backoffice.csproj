@@ -11,6 +11,8 @@
   <ItemGroup>
     <Content Remove="Areas\Backoffice\Views\Articles\Components\CategoryComponentAssociation\Default.cshtml" />
     <Content Remove="Areas\Backoffice\Views\Articles\Components\ComponentShedule\Default.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Components\ComponentShedule\Partials\ComponentPublishOperationScheduleCommand.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Shared\EditorTemplates\DateTimeOffsetUTC.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
