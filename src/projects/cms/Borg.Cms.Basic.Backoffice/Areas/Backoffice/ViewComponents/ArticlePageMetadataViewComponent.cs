@@ -1,4 +1,5 @@
-﻿using Borg.CMS.Components;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels;
+using Borg.CMS.Components;
 using Borg.Infra.DAL;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
@@ -58,11 +59,5 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
             if (tidings.ContainsKey(Tidings.DefinedKeys.View) && !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View])) return View(tidings[Tidings.DefinedKeys.View], model);
             return View(model);
         }
-    }
-
-    public class ArticlePageMetadataViewModel
-    {
-        public int RecordId { get; set; }
-        public JsonEditor HtmlMetas { get; set; }
     }
 }

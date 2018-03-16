@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
     [ViewComponent(Name = "ComponentDevice")]
     public class ComponentDeviceViewComponent : ViewComponent

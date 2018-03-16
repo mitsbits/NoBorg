@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
 using Borg.Cms.Basic.Lib.Features.CMS.Commands;
 using Borg.Infra.DAL;
 using Borg.Infra.DTO;
@@ -11,8 +9,12 @@ using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
     public class ArticleDocumentAssociationsViewComponent : ViewComponentModule<Tidings>
     {
@@ -22,7 +24,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
 
         public ArticleDocumentAssociationsViewComponent(ILoggerFactory loggerFactory, IUnitOfWork<CmsDbContext> uow, IAssetStoreDatabaseService<int> assetStoreDatabase)
         {
-            _logger = loggerFactory.CreateLogger(GetType());
+            _logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _uow = uow;
             _assetStoreDatabase = assetStoreDatabase;
         }

@@ -1,4 +1,5 @@
-﻿using Borg.Infra.DAL;
+﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
+using Borg.Infra.DAL;
 using Borg.Infra.DTO;
 using Borg.MVC.BuildingBlocks;
 using Borg.Platform.EF.CMS;
@@ -12,7 +13,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
     public class CategoryComponentAssociationViewComponent : ViewComponentModule<Tidings>
     {

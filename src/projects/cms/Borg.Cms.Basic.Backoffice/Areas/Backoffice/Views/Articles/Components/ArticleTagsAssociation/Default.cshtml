@@ -1,4 +1,5 @@
 ﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 @model ArticleTagsAssociationViewModel
 @{
     var existingtags = Model.Tags.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Tag });

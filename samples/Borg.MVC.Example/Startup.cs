@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Borg.Infra;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,7 +10,7 @@ namespace Borg.MVC.Example
 {
     public class Startup : BorgStartUp
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env, ILoggerFactory loggerFactory) :base(configuration, env, loggerFactory)
+        public Startup(IConfiguration configuration, IHostingEnvironment env, ILoggerFactory loggerFactory) :base(configuration, loggerFactory, env)
         {
            
         }
@@ -20,7 +22,7 @@ namespace Borg.MVC.Example
         {
             PopulateSettings(services);
             services.AddSession();
-            services.AddBorgFramework(HostingEnvironment, BorgSettings).AddMvc();
+            services.AddBorgFramework(Environment, Settings).AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

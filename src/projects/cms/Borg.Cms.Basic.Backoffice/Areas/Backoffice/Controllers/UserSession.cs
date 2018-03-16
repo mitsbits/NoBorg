@@ -1,4 +1,5 @@
 ﻿using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components;
+using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents;
 using Borg.MVC.Extensions;
 using Borg.MVC.Services.UserSession;
 using MediatR;

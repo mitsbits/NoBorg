@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents;
+using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {

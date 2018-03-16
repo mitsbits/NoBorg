@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Areas\Backoffice\Views\Articles\Components\CategoryComponentAssociation\Default.cshtml" />
+    <Content Remove="Areas\Backoffice\Views\Articles\Components\ComponentShedule\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

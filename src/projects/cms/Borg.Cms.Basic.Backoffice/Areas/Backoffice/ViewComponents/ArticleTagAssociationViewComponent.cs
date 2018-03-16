@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
     public class ArticleTagsAssociationViewComponent : ViewComponentModule<Tidings>
     {

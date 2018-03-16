@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
 {
     [ViewComponent(Name = "UserSessionSettings")]
     public class UserSessionSettingsViewComponent : ViewComponent

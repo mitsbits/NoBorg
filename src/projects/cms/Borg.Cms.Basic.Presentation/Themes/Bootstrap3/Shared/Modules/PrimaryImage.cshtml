@@ -5,6 +5,14 @@
 @inject IStaticImageCacheStore<int> _cache
 @inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
 
+@{
+    VisualSize size = VisualSize.Huge;
+    if (Model.ContainsKey(nameof(VisualSize)))
+    {
+        size = VisualSize.Parse(Model[nameof(VisualSize)]);
+    }
+}
+
 @if (!string.IsNullOrWhiteSpace(Orchestrator.Page.PrimaryImageFileId))
 {
     <figure>
@@ -12,6 +20,6 @@
         {
             <img class="img-responsive img" src="@url" />
         }*@
-        <img class="img-responsive img" src="@Orchestrator.Page.PrimaryImages[VisualSize.Huge.Flavor]" />
+        <img class="img-responsive img" src="@Orchestrator.Page.PrimaryImages[size.Flavor]" />
     </figure>
 }

@@ -1,4 +1,5 @@
 ﻿using Borg.Infra.Services.BackgroundServices;
+using Hangfire.Storage;
 using System;
 using System.Threading.Tasks;
 
@@ -11,5 +12,7 @@ namespace Borg.Cms.Basic.Lib.System
         Task<string> Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob;
 
         Task Recur<TJob>(string jobHandle, string cronExpression, TimeZoneInfo timeZoneInfo, params string[] args) where TJob : IEnqueueJob;
+
+        Task<(JobData job, StateData state)> JobData(string jobHandle);
     }
 }

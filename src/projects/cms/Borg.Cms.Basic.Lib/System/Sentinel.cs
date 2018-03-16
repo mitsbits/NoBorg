@@ -2,6 +2,7 @@
 using Borg.Infra.Services.BackgroundServices;
 using Borg.MVC.PlugIns.Contracts;
 using Hangfire;
+using Hangfire.Storage;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
@@ -73,6 +74,16 @@ namespace Borg.Cms.Basic.Lib.System
         {
             RecurringJob.AddOrUpdate<TJob>(jobHandle, j => j.Execute(args).AnyContext(), cronExpression, timeZoneInfo);
             return Task.CompletedTask;
+        }
+
+
+
+        public Task<(JobData job, StateData state)> JobData(string jobHandle)
+        {
+            IStorageConnection connection = JobStorage.Current.GetConnection();
+            var job = connection.GetJobData(jobHandle);
+            var state = connection.GetStateData(jobHandle);
+            return Task.FromResult((job: job, state: state));
         }
     }
 }
