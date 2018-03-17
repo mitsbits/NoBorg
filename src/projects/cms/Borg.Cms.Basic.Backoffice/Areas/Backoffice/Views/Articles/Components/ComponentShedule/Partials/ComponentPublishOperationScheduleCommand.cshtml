@@ -1,8 +1,21 @@
 ﻿@using Borg.Cms.Basic.Backoffice.BackgroundJobs
 @model ComponentPublishOperationScheduleCommand
-<h1>
-    Component Publish Operation Schedule Command
-</h1>
-<div>
-    @Html.EditorFor(m=>m.TriggerDateUTC)
-</div>
+@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
+
+
+<form asp-area="Backoffice" asp-controller="Components" asp-action="AssociateSchedule" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+  <input type="hidden" asp-for="ComponentId"/>
+    <div class="box-body">
+        <div class="form-control">
+            <label asp-for="Direction"></label>
+            <input asp-for="Direction" class="form-control"/>
+        </div>
+        <div class="form-control">
+            <label asp-for="TriggerDate"></label>
+            @Html.EditorFor(m=>m.TriggerDate)
+        </div>
+        <div class="form-control">
+            <button submit-form> </button>
+        </div>
+    </div>
+</form>

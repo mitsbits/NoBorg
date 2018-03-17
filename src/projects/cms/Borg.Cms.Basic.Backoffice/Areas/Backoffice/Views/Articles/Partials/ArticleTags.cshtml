@@ -2,7 +2,7 @@
 
 <script device id="tagsuggestionscript" weight="110" script-position="Bottom">
 
-    var ownersUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
+    var tagOptionsUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
 
     var pageSize = 30;
 
@@ -12,7 +12,7 @@
         tags: true,
         tokenSeparators: [",", " "],
         ajax: {
-            url: ownersUrl,
+            url: tagOptionsUrl,
             dataType: 'json',
             delay: 250,
             data: function (params) {

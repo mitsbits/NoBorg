@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents;
+using Borg.Cms.Basic.Backoffice.BackgroundJobs;
 
 namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 {
@@ -60,6 +61,20 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
 
         [HttpPost("DisassociateDocument")]
         public async Task<IActionResult> DisassociateDocument(RemoveDocumentFromComponentCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
+        [HttpPost("AssociateSchedule")]
+        public async Task<IActionResult> AssociateSchedule(ComponentPublishOperationScheduleCommand model, string redirecturl)
         {
             if (ModelState.IsValid)
             {

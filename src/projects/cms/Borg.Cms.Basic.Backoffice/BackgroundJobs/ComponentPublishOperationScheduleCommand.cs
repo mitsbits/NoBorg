@@ -16,8 +16,8 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
     public class ComponentPublishOperationScheduleCommand : CommandBase<CommandResult>
     {
         public int ComponentId { get; set; }
-        [UIHint("DateTimeOffsetUTC")]
-        public DateTimeOffset TriggerDateUTC { get; set; }
+        [UIHint("DateTimeOffset")]
+        public DateTimeOffset TriggerDate { get; set; }
         public ComponentPublishOperation.OperationDirection Direction { get; set; }
     }
 
@@ -44,7 +44,7 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
             try
             {
                 ComponentPublishOperationScheduleAddedEvent @event = null;
-                var jid = await _sentinel.Schedule<ComponentPublishStateJob>(message.TriggerDateUTC,
+                var jid = await _sentinel.Schedule<ComponentPublishStateJob>(message.TriggerDate,
                     new ComponentPublishOperation(message.ComponentId, message.Direction).JobArgs());
                 await _uow.ReadWriteRepo<ComponentJobScheduleState>().Create(new ComponentJobScheduleState()
                 {

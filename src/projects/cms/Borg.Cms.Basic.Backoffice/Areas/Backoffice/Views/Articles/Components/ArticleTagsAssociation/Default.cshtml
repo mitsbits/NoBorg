@@ -37,7 +37,7 @@
 
 <script device id="tagsuggestionscript" weight="110" script-position="Bottom">
 
-    var ownersUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
+    var tagOptionsUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
 
     var pageSize = 30;
 
@@ -48,7 +48,7 @@
         theme: "classic",
         tokenSeparators: [",", ";"],
         ajax: {
-            url: ownersUrl,
+            url: tagOptionsUrl,
             dataType: 'json',
             delay: 250,
             data: function (params) {
@@ -61,8 +61,6 @@
             },
             processResults: function (data, params) {
                 params.page = params.page || 1;
-                console.debug(JSON.stringify(data));
-                console.debug(JSON.stringify(params));
                 return {
                     results: data.results,
                     pagination: {

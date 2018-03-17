@@ -15,7 +15,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
             {
                 ComponentId = ComponentId,
                 Direction = ComponentPublishOperation.OperationDirection.Up,
-                TriggerDateUTC = DateTimeOffset.UtcNow.AddHours(1)
+                TriggerDate = DateTimeOffset.Now.AddHours(1)
             };
         }
 
