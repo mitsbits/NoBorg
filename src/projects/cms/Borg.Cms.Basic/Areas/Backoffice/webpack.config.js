@@ -46,6 +46,7 @@ module.exports = function (env) {
                 { from: 'node_modules/wookmark/wookmark.min.js', to: 'wookmark.js' },
                 { from: 'node_modules/ckeditor/', to: 'ckeditor/' },
                 { from: 'node_modules/eonasdan-bootstrap-datetimepicker/build/', to: 'bootstrap-datetimepicker/' },
+                { from: 'node_modules/daterangepicker/', to: 'daterangepicker/' },
                 { from: 'Areas/Backoffice/Static/assets/', to: 'assets/' },
                 { from: 'Areas/Backoffice/Static/ckeditor_4.8.0_full/ckeditor', to: 'ckeditor4/' },
             

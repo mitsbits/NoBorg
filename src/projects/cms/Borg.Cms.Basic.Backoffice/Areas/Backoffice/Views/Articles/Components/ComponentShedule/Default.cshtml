@@ -13,4 +13,26 @@
         </div>
     </div>
     @Html.Partial("Components/ComponentShedule/Partials/ComponentPublishOperationScheduleCommand", Model.AddPublishOperationScheduleCommand())
-</div>
+
+    <div class="box-body">
+        <table class="table table-condensed table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.Records)
+                {
+                <tr>
+                    <td>@o.row.ScheduleId</td>
+                    <td>@o.state.Name</td>
+                    <td>@o.job.</td>
+                </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -25,6 +25,7 @@
     "ckeditor": "^4.8.0",
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^2.1.1",
+    "daterangepicker": "^2.1.27",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "icheck": "^1.0.2",
     "ionicons": "^3.0.0",

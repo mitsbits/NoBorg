@@ -3,16 +3,38 @@
 
 
 
-<div class='input-group date' id='datetimepicker113'>
-    <input type='text' class="form-control" asp-for="@Model" />
-    <span class="input-group-addon">
-        <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-</div>
+    <input type='text' class="form-control" asp-for="@Model" id='datetimepicker113'/>
+
+
 
 
 <script device id="datetimepickereditor" type="text/javascript" wight="113">
+
     $(function () {
-        $('#datetimepicker113').datetimepicker();
+
+        var options = {
+            singleDatePicker: true,
+            timePicker: true,
+            timePickerIncrement: 15,
+            timePicker24Hour: false,
+            autoUpdateInput: true,
+            timePickerSeconds: false,
+            locale: {
+                format: 'DD/MM/YYYY h:mm A'
+            }};
+
+        $('#datetimepicker113').daterangepicker(
+            options, 
+            function(start, end, label) {
+              
+            });
+
+
     });
+    
+
+    @*$(function () {
+        $('#datetimepicker113').datetimepicker();
+        //$("#datetimepicker113").data("DateTimePicker").date(@Model.ToString());
+    });*@
 </script>

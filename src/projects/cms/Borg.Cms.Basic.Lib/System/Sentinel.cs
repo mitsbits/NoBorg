@@ -66,7 +66,7 @@ namespace Borg.Cms.Basic.Lib.System
 
         public Task<string> Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
         {
-            var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args).AnyContext(), executeAt);
+            var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args)  , executeAt.Date.Kind == DateTimeKind.Utc? executeAt: executeAt.ToUniversalTime());
             return Task.FromResult(jobHandle);
         }
 
