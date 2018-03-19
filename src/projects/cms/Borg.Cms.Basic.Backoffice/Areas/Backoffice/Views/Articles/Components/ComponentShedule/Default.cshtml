@@ -1,4 +1,7 @@
-﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+﻿@using System.Linq
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+@using Borg.Cms.Basic.Backoffice.BackgroundJobs
+@using Microsoft.AspNetCore.Mvc.Rendering
 
 @model ComponentSheduleViewModel
 
@@ -21,6 +24,9 @@
                     <th>#</th>
                     <th>#</th>
                     <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +35,17 @@
                 <tr>
                     <td>@o.row.ScheduleId</td>
                     <td>@o.state.Name</td>
-                    <td>@o.job.</td>
+                    <td>@o.job.Job.</td>
+                    <td><concat-text Data="@(o.job.Job.Args[0] as string[])"/></td>
+                    <td>
+                        @{
+                            if (o.state.Data.ContainsKey("ScheduledAt"))
+                            {
+                                <span>@o.state.Data["ScheduledAt"]</span>
+                            }
+                        }
+                    </td>
+                    <td>@Html.Partial("Components/ComponentShedule/Partials/ComponentPublishOperationDeleteScheduleCommand", new ComponentPublishOperationDeleteScheduleCommand(){ScheduleId = o.row.ScheduleId, ComponentId = o.row.ComponentId})</td>
                 </tr>
             }
                 </tbody>

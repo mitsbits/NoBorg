@@ -13,6 +13,9 @@ namespace Borg.Cms.Basic.Lib.System
 
         Task Recur<TJob>(string jobHandle, string cronExpression, TimeZoneInfo timeZoneInfo, params string[] args) where TJob : IEnqueueJob;
 
+        Task Delete(string jobHandle);
         Task<(JobData job, StateData state)> JobData(string jobHandle);
+
+
     }
 }

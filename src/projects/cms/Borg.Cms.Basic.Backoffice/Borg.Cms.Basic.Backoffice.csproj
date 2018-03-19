@@ -8,6 +8,9 @@
     <EmbeddedResource Include="Themes\**\*.cshtml" />
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Areas\Backoffice\Views\Articles\Components\ComponentShedule\Partials\ComponentPublishOperationDeleteScheduleCommand.cshtml" />
+  </ItemGroup>
 
 
   <ItemGroup>

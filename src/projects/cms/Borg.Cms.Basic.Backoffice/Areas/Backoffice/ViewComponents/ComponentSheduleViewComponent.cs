@@ -41,13 +41,26 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
             var sch = await _uow.QueryRepo<ComponentJobScheduleState>().Find(x => x.ComponentId == id,
                 SortBuilder.Get<ComponentJobScheduleState>(x => x.ScheduleId).Build(), CancellationToken.None);
 
-            var bucket = new   List<(ComponentJobScheduleState row, JobData job, StateData state)>();
+            var bucket = new List<(ComponentJobScheduleState row, JobData job, StateData state)>();
             foreach (var sc in sch)
             {
                 var hit = await _sentinel.JobData(sc.ScheduleId.ToString());
                 bucket.Add((sc, hit.job, hit.state));
             }
-            var model = new ViewModels.ComponentSheduleViewModel {Records = bucket.ToArray(), ComponentId = id};
+
+            var deletedrows = false;
+            foreach (var valueTuple in bucket)
+            {
+                if (valueTuple.job == null && valueTuple.state == null)
+                {
+                    await _uow.ReadWriteRepo<ComponentJobScheduleState>().Delete(x =>
+                         x.ComponentId == valueTuple.row.ComponentId && x.ScheduleId == valueTuple.row.ScheduleId);
+                    deletedrows = true;
+                }
+            }
+            if (deletedrows) await _uow.Save();
+
+            var model = new ViewModels.ComponentSheduleViewModel { Records = bucket.ToArray(), ComponentId = id };
             return tidings.ContainsKey(Tidings.DefinedKeys.View) && !string.IsNullOrWhiteSpace(tidings[Tidings.DefinedKeys.View]) ? View(tidings[Tidings.DefinedKeys.View], model) : View(model);
         }
     }

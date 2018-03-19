@@ -87,6 +87,20 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
             return RedirectToLocal(redirecturl);
         }
 
+        [HttpPost("DeleteScheduleAssociation")]
+        public async Task<IActionResult> DeleteScheduleAssociation(ComponentPublishOperationDeleteScheduleCommand model, string redirecturl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Dispatcher.Send(model);
+                if (!result.Succeded)
+                {
+                    AddErrors(result);
+                }
+            }
+            return RedirectToLocal(redirecturl);
+        }
+
         public class ToggleStateModel
         {
             public string operation { get; set; }

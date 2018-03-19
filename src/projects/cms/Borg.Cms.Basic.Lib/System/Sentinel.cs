@@ -66,7 +66,7 @@ namespace Borg.Cms.Basic.Lib.System
 
         public Task<string> Schedule<TJob>(DateTimeOffset executeAt, params string[] args) where TJob : IEnqueueJob
         {
-            var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args)  , executeAt.Date.Kind == DateTimeKind.Utc? executeAt: executeAt.ToUniversalTime());
+            var jobHandle = BackgroundJob.Schedule<TJob>(j => j.Execute(args), executeAt.Date.Kind == DateTimeKind.Utc ? executeAt : executeAt.ToUniversalTime());
             return Task.FromResult(jobHandle);
         }
 
@@ -76,6 +76,19 @@ namespace Borg.Cms.Basic.Lib.System
             return Task.CompletedTask;
         }
 
+        public Task Delete(string jobHandle)
+        {
+            try
+            {
+                var deletesucceded = BackgroundJob.Delete(jobHandle);
+                return Task.FromResult(deletesucceded);
+            }
+            catch (Exception e)
+            {
+                _logger.Warn("Failed to delete {job} - reason: {exception}", jobHandle, e.Message);
+                return Task.FromResult(string.Empty);
+            }
+        }
 
 
         public Task<(JobData job, StateData state)> JobData(string jobHandle)

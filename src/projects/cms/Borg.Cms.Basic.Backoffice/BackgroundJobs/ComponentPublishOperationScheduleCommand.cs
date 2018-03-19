@@ -16,8 +16,10 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
     public class ComponentPublishOperationScheduleCommand : CommandBase<CommandResult>
     {
         public int ComponentId { get; set; }
+
         [UIHint("DateTimeOffset")]
         public DateTimeOffset TriggerDate { get; set; }
+
         public ComponentPublishOperation.OperationDirection Direction { get; set; }
     }
 
@@ -52,7 +54,7 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
                     ScheduleId = int.Parse(jid)
                 });
                 await _uow.Save();
-                @event = new ComponentPublishOperationScheduleAddedEvent(message.ComponentId, jid );
+                @event = new ComponentPublishOperationScheduleAddedEvent(message.ComponentId, jid);
                 _dispatcher.Publish(@event);
                 return CommandResult.Success();
             }
