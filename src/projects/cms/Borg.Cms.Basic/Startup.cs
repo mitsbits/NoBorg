@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Borg.MVC.BuildingBlocks;
+using Borg.MVC.BuildingBlocks.Contracts;
+using Borg.MVC.Middlewares;
 using Borg.Platform.Azure.Storage.Blobs;
 using Microsoft.Extensions.FileProviders;
 
@@ -117,19 +119,19 @@ namespace Borg.Cms.Basic
                 routeBuilder.MapRoute(
                     name: "menuroot",
                     template: "{rootmenu}",
-                    defaults: new { controller = "Menus", action = "Root", area = "Presentation" , foo = new {name = "bar"} },
+                    defaults: new { controller = "Menus", action = "Root", area = "Presentation" , component = default(ComponentPageDescriptor<int>) },
                     constraints: new { rootmenu = root });
 
                 routeBuilder.MapRoute(
                     name: "menuleaf",
                     template: "{parentmenu}/{childmenu}",
-                    defaults: new { controller = "Menus", action = "Leaf", area = "Presentation" },
+                    defaults: new { controller = "Menus", action = "Leaf", area = "Presentation", component = default(ComponentPageDescriptor<int>) },
                     constraints: new { parentmenu = parent, childmenu = child });
 
                 routeBuilder.MapRoute(
                     name: "siteroot",
                     template: "",
-                    defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation" });
+                    defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation", rootmenu = "home", component = default(ComponentPageDescriptor<int>) });
 
                 routeBuilder.MapRoute(
                     name: "default",
@@ -138,8 +140,7 @@ namespace Borg.Cms.Basic
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
-            IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -178,7 +179,9 @@ namespace Borg.Cms.Basic
                 .UseActivator(new ContainerJobActivator(serviceProvider));
             app.UseHangfireServer();
             app.UseHangfireDashboard();
+  
             app.UseMvc(ConfigureRoutes);
+            app.UseMiddleware<RouteMiddleware>();
         }
     }
 }

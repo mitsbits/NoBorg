@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Borg.MVC.Services.Editors;
 
 namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
 {
@@ -20,7 +21,7 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
         [UIHint("DateTimeOffset")]
         public DateTimeOffset TriggerDate { get; set; }
 
-        public ComponentPublishOperation.OperationDirection Direction { get; set; }
+        public EnumDropDown Direction { get; set; } = new EnumDropDown(typeof(ComponentPublishOperation.OperationDirection), ComponentPublishOperation.OperationDirection.Up);
     }
 
     public class ComponentPublishOperationScheduleCommandHandler : AsyncRequestHandler<ComponentPublishOperationScheduleCommand, CommandResult>
@@ -46,8 +47,10 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
             try
             {
                 ComponentPublishOperationScheduleAddedEvent @event = null;
+                ComponentPublishOperation.OperationDirection dirct;
+                ComponentPublishOperation.OperationDirection.TryParse(message.Direction.Value, out dirct);
                 var jid = await _sentinel.Schedule<ComponentPublishStateJob>(message.TriggerDate,
-                    new ComponentPublishOperation(message.ComponentId, message.Direction).JobArgs());
+                    new ComponentPublishOperation(message.ComponentId, dirct).JobArgs());
                 await _uow.ReadWriteRepo<ComponentJobScheduleState>().Create(new ComponentJobScheduleState()
                 {
                     ComponentId = message.ComponentId,

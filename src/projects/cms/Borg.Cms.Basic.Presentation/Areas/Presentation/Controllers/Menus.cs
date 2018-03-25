@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Presentation.ActionFilters;
 using Borg.Cms.Basic.Presentation.Services.Contracts;
+using Borg.MVC.BuildingBlocks;
 
 namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
 {
@@ -24,7 +26,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             _menuProvider = menuProvider;
             _memoryStore = memoryStore;
         }
-
+        [PopulateComponentFromRouteActionFilter]
         public async Task<IActionResult> SiteRoot()
         {
             var rootmenu = "home";
@@ -37,28 +39,15 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
             return View("Root");
         }
 
-  
-        public async Task<IActionResult> Root(string rootmenu)
+        [PopulateComponentFromRouteActionFilter]
+        public IActionResult Root(string rootmenu)
         {
-   
-            var key = ComponentKey(rootmenu);
-            var descr = await _componentPageDescriptors.Get(key);
-            if (descr?.PageContent == null) return BadRequest($"no menu for path {rootmenu} was found");
-            if (descr.Device == null) return BadRequest($"no structure for path {rootmenu} was found");
-            PageContent(descr.PageContent);
-            PageDevice(descr);
             return View();
         }
-
-        public async Task<IActionResult> Leaf(string parentmenu, string childmenu)
+        [PopulateComponentFromRouteActionFilter]
+        public  IActionResult Leaf(string parentmenu, string childmenu)
         {
 
-            var key = ComponentKey(parentmenu, childmenu);
-            var descr = await _componentPageDescriptors.Get(key);
-            if (descr?.PageContent == null) return BadRequest($"no menu for path {parentmenu}/{childmenu} was found");
-            if (descr.Device == null) return BadRequest($"no structure for path {parentmenu}/{childmenu} was found");
-            PageContent(descr.PageContent);
-            PageDevice(descr);
             return View();
         }
 
@@ -67,7 +56,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
         {
 
             var trees = _memoryStore.NavigationItems.AsEnumerable();
-            return  trees.First(x => x.Path.ToLower().Trim('/') == rootmenu.ToLower()).Id;
+            return trees.First(x => x.Path.ToLower().Trim('/') == rootmenu.ToLower()).Id;
         }
         private int ComponentKey(string parentmenu, string childmenu)
         {
@@ -79,7 +68,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
                 return candidates.Single().Id;
             }
 
-            var parent =  _memoryStore.NavigationItems.Single(x => candidates.Select(c => c.Taxonomy.ParentId).Contains(x.Id) && x.Path.Trim('/').ToLower() == parentmenu.ToLower());
+            var parent = _memoryStore.NavigationItems.Single(x => candidates.Select(c => c.Taxonomy.ParentId).Contains(x.Id) && x.Path.Trim('/').ToLower() == parentmenu.ToLower());
             return candidates.Single(x => x.Taxonomy.ParentId == parent.Id).Id;
         }
     }

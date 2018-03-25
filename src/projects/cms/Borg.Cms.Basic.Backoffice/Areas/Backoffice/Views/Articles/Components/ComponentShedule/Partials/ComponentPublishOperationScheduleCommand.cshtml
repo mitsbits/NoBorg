@@ -4,19 +4,21 @@
 
 
 <form asp-area="Backoffice" asp-controller="Components" asp-action="AssociateSchedule" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
-  <input type="hidden" asp-for="ComponentId"/>
+    <input type="hidden" asp-for="ComponentId" />
     <div class="box-body">
-        <div class="form-group">
-            <label asp-for="Direction"></label>
-            <input asp-for="Direction" class="form-control"/>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.EditorFor(m => m.Direction)
+            </div>
+            <div class="form-group  col-md-7">
+                <label asp-for="TriggerDate"></label>
+                @Html.EditorFor(m => m.TriggerDate)
+            </div>
+            <div class="form-group  col-md-1">
+                <label >&nbsp;</label>
+                <button submit-form> </button>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="TriggerDate"></label>
-            @Html.EditorFor(m=>m.TriggerDate)
-        </div>
-        <dic>@Model.TriggerDate</dic>
     </div>
-    <div class="box-footer">
-        <button submit-form> </button>
-    </div>
+
 </form>

@@ -39,8 +39,8 @@ namespace Borg.MVC.Services.Editors
         [JsonIgnore]
         public string Value
         {
-            get => GetValue<string>(nameof(Value));
-            set => SetValue(nameof(Value), value);
+            get => GetValueRaw(nameof(Value));
+            set => SetValueRaw(nameof(Value), value);
         }
 
         [JsonIgnore]

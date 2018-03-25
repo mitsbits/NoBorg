@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Borg.Cms.Basic.Presentation.Services.Contracts;
+using Borg.MVC.BuildingBlocks;
+using Borg.MVC.BuildingBlocks.Contracts;
 
 namespace Borg.Cms.Basic.Presentation.RouteConstraints
 {
@@ -17,7 +19,7 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
     public class MenuRootRouteConstraint : IRouteConstraint
     {
         private readonly IUnitOfWork<CmsDbContext> _uow;
-        private readonly List<(int id, string slug)> _bucket = new List<(int id, string slug)>();
+        private readonly List<(int id, string slug, IPageContent page, IDeviceStructureInfo device)> _bucket = new List<(int id, string slug, IPageContent page, IDeviceStructureInfo device)>();
         private readonly IMediator _dispatcher;
         private readonly IEntityMemoryStore _memoryStore;
         public const string ROUTE_IDENTIFIER = "rootmenu";
@@ -32,8 +34,20 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
         public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
         {
-        
-            return _bucket.Any(x => x.slug == values[routeKey]?.ToString().ToLowerInvariant());
+        var hit = _bucket.FirstOrDefault(x => x.slug == values[routeKey]?.ToString().ToLowerInvariant());
+            var ismatch = hit.id > 0;
+            if (ismatch)
+            {
+                values["component"] = new ComponentPageDescriptor<int>()
+                {
+                    ComponentId = hit.id,
+                    PageContent = hit.page,
+                    Device = hit.device,
+                    Slug = hit.slug
+                };
+    
+            }
+            return ismatch;
         }
 
         private void Populate()
@@ -47,9 +61,10 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
 
             foreach (var x in q)
             {
-                //var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
-                //var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
-                _bucket.Add((id: x.Id, slug: x.Path.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
+                var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
+                var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
+                var brick = (id: x.Id, slug: x.Path.TrimStart('/').TrimEnd('/').ToLowerInvariant(), page.Payload.content, device.Payload);
+                _bucket.Add(brick);
             }
         }
     }
@@ -91,21 +106,35 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
     public class MenuLeafChildRouteConstraint : Microsoft.AspNetCore.Routing.IRouteConstraint
     {
         private readonly IUnitOfWork<CmsDbContext> _uow;
-        private readonly List<string> _bucket = new List<string>();
+        private readonly List<(int id, string slug, IPageContent page, IDeviceStructureInfo device)> _bucket = new List<(int id, string slug, IPageContent page, IDeviceStructureInfo device)>();
         public const string ROUTE_IDENTIFIER = "childmenu";
+        private readonly IMediator _dispatcher;
         private readonly IEntityMemoryStore _memoryStore;
 
-        public MenuLeafChildRouteConstraint(IUnitOfWork<CmsDbContext> uow, IEntityMemoryStore memoryStore)
+        public MenuLeafChildRouteConstraint(IUnitOfWork<CmsDbContext> uow, IEntityMemoryStore memoryStore, IMediator dispatcher)
         {
             _uow = uow;
             _memoryStore = memoryStore;
+            _dispatcher = dispatcher;
             Populate();
         }
 
-        public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values,
-            RouteDirection routeDirection)
+        public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            return _bucket.Contains(values[routeKey]?.ToString().ToLowerInvariant());
+            var hit = _bucket.FirstOrDefault(x => x.slug == values[routeKey]?.ToString().ToLowerInvariant());
+            var ismatch = hit.id > 0;
+            if (ismatch)
+            {
+                values["component"] = new ComponentPageDescriptor<int>()
+                {
+                    ComponentId = hit.id,
+                    PageContent = hit.page,
+                    Device = hit.device,
+                    Slug = hit.slug
+                };
+
+            }
+            return ismatch;
         }
 
         private void Populate()
@@ -115,9 +144,16 @@ namespace Borg.Cms.Basic.Presentation.RouteConstraints
                     join l in _memoryStore.NavigationItems on r.Id equals l.Taxonomy.ParentId into rls
                     from l in rls.DefaultIfEmpty()
                     where l != null
-                    select l.Path;
+                    select new{l.Id, l.Path};
 
-            _bucket.AddRange(q.ToList().Select(x => x.TrimStart('/').TrimEnd('/').ToLowerInvariant()));
+            foreach (var x in q)
+            {
+                var page = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentPageContentRequest(x.Id)));
+                var device = AsyncHelpers.RunSync(() => _dispatcher.Send(new ComponentDeviceRequest(x.Id)));
+                var brick = (id: x.Id, slug: x.Path.TrimStart('/').TrimEnd('/').ToLowerInvariant(), page.Payload.content, device.Payload);
+                _bucket.Add(brick);
+            }
+
         }
     }
 }

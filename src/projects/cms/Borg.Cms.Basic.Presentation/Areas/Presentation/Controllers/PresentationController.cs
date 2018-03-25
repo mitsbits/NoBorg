@@ -41,7 +41,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
         }
 
         [NonAction]
-        protected virtual void PageDevice(ComponentPageDescriptor<int> descr)
+        public virtual void PageDevice(ComponentPageDescriptor<int> descr)
         {
             var device = this.GetDevice<Device>();
             device.Layout = descr.Device.Layout;
@@ -66,7 +66,7 @@ namespace Borg.Cms.Basic.Presentation.Areas.Presentation.Controllers
         #endregion Page Content
     }
 
-    internal static class PresentationControllerExtensions
+    public static class PresentationControllerExtensions
     {
         public static TContent GetContent<TContent>(this PresentationController controller) where TContent : IPageContent
         {

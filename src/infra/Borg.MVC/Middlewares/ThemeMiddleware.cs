@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
 
 namespace Borg.MVC.Middlewares
 {
@@ -18,6 +20,24 @@ namespace Borg.MVC.Middlewares
         public Task Invoke(HttpContext context)
         {
             context.Request.HttpContext.Items["theme"] = _theme;
+            return _next(context);
+        }
+    }
+
+    public class RouteMiddleware
+    {
+   
+
+        private readonly RequestDelegate _next;
+
+        public RouteMiddleware(RequestDelegate next)
+        {
+            _next = next;
+
+        }
+
+        public Task Invoke(HttpContext context)
+        {
             return _next(context);
         }
     }

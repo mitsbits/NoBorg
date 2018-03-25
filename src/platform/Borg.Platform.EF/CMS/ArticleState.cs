@@ -30,7 +30,7 @@ namespace Borg.Platform.EF.CMS
             builder.Entity<ArticleState>().Property(x => x.Id).ValueGeneratedNever();
             builder.Entity<ArticleState>().Property(x => x.Title).IsRequired().HasMaxLength(1024).HasDefaultValue("").IsUnicode();
             builder.Entity<ArticleState>().Property(x => x.Slug).IsRequired().HasMaxLength(1024).HasDefaultValue("").IsUnicode(false);
-            builder.Entity<ArticleState>().Property(x => x.Slug).IsRequired().HasDefaultValue("").IsUnicode();
+            builder.Entity<ArticleState>().Property(x => x.Body).IsRequired().HasDefaultValue("").IsUnicode();
             builder.Entity<ArticleState>().HasIndex(x => x.Title).IsUnique(false).HasName("IX_Article_Title");
             builder.Entity<ArticleState>().HasOne(x => x.Component).WithOne(x => x.Article).HasForeignKey<ArticleState>(x => x.Id);
         }

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Borg.MVC.Middlewares;
 
 namespace Borg.Cms.Basic.Backoffice
 {
@@ -42,6 +43,7 @@ namespace Borg.Cms.Basic.Backoffice
         {
             path.UseAuthentication();
             path.UseSession();
+            path.UseMiddleware<RouteMiddleware>();
             path.UseMvc(routeHandler);
         };
 
