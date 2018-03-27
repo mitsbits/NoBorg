@@ -3,18 +3,21 @@ using System.Threading.Tasks;
 
 namespace Borg.Platform.EF.CMS.Data
 {
-    public class CmsDbSeed
+    public abstract class CmsDbSeedBase
     {
-        private readonly CmsDbContext _db;
+        protected readonly CmsDbContext _db;
+ 
 
-        public CmsDbSeed(CmsDbContext db)
+        protected CmsDbSeedBase(CmsDbContext db)
         {
             _db = db;
         }
 
-        public async Task EnsureUp()
+        public virtual async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
         }
     }
+
+
 }

@@ -7,6 +7,6 @@ namespace Borg.MVC.BuildingBlocks.Contracts
         string Area { get; }
         string Controller { get; }
         string Action { get; }
-        IDictionary<string, string[]> RouteValues { get; }
+        IDictionary<string, object[]> RouteValues { get; }
     }
 }

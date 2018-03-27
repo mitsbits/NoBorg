@@ -14,6 +14,7 @@ using Microsoft.WindowsAzure.Storage;
 using Serilog;
 using Serilog.Events;
 using System;
+using Borg.Cms.Basic.Lib.Features.CMS.Data;
 
 namespace Borg.Cms.Basic
 {

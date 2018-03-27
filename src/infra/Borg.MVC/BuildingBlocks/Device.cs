@@ -47,7 +47,7 @@ namespace Borg.MVC.BuildingBlocks
         public string Area { get; protected set; }
         public string Controller { get; protected set; }
         public string Action { get; protected set; }
-        public IDictionary<string, string[]> RouteValues { get; } = new Dictionary<string, string[]>();
+        public IDictionary<string, object[]> RouteValues { get; } = new Dictionary<string, object[]>();
 
         #endregion IHaveAController
 
@@ -132,14 +132,6 @@ namespace Borg.MVC.BuildingBlocks
             _populated = true;
         }
 
-        private void Populate(PageModel context)
-        {
-            if (ContextAcquired) return;
-
-            PopulateInternal(new ActionDescriptor(), context.HttpContext, context.ViewData, context.RouteData);
-
-            _populated = true;
-        }
 
         private void PopulateInternal(ActionDescriptor actionDescriptor, HttpContext httpContent, dynamic viewBag, RouteData routeData)
         {
@@ -156,7 +148,7 @@ namespace Borg.MVC.BuildingBlocks
             {
                 if (!_definedRouteKeys.Contains(item.Key.ToLower()))
                 {
-                    RouteValues.Add(item.Key.ToLower(), new[] { item.Value.ToString() });
+                    RouteValues.Add(item.Key.ToLower(), new[] { item.Value });
                 }
             }
             foreach (var q in httpContent.Request.Query)

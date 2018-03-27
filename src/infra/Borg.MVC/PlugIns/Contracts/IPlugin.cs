@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Borg.CMS.BuildingBlocks.Contracts;
 
 namespace Borg.MVC.PlugIns.Contracts
 {
@@ -51,8 +52,13 @@ namespace Borg.MVC.PlugIns.Contracts
     {
         string[] TagHelpers { get; }
     }
-    public interface IViewComponentslugIn : IPluginDescriptor
+    public interface IViewComponentsPlugIn : IPluginDescriptor
     {
         string[] ViewComponents { get; }
+    }
+
+    public interface IComponentBlockDescriptor : IPluginDescriptor
+    {
+        Type[] ConfigurationBlockTypes { get; }
     }
 }

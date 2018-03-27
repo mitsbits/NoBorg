@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Linq;
+using Borg.Cms.Basic.Lib;
 
 namespace Borg.Cms.Basic.Backoffice.TagHelpers
 {
@@ -10,7 +11,7 @@ namespace Borg.Cms.Basic.Backoffice.TagHelpers
     [HtmlTargetElement("button", Attributes = "submit-form")]
     public class SubmitFormButtonTagHelper : TagHelper
     {
-        public string IconClass { get; set; } = "fa fa-check";
+        public FontAwesomeEnum IconClass { get; set; } = FontAwesomeEnum.Check;
         public string ColourClass { get; set; } = "primary";
 
         public bool PullRight { get; set; } = true;
@@ -31,7 +32,7 @@ namespace Borg.Cms.Basic.Backoffice.TagHelpers
 
 
             var icon = new TagBuilder("i");
-            icon.AddCssClass(IconClass);
+            icon.AddCssClass($"fa {IconClass.ToString()}");
             output.Content.SetHtmlContent(icon);
 
         }

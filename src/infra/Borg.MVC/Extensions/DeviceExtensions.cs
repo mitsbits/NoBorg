@@ -22,7 +22,7 @@ namespace Borg
                 try
                 {
                     var converter = TypeDescriptor.GetConverter(typeof(T));
-                    return (T)converter.ConvertFromInvariantString(device.RouteValues[key][0]);
+                    return (T)converter.ConvertFrom(device.RouteValues[key][0]);
                 }
                 catch (Exception e)
                 {
