@@ -2,11 +2,12 @@
 
 namespace Borg.CMS
 {
-    public class ConfigurationBlock<TSetting> : IConfigurationBlock where TSetting : ISetting
+    public abstract class ConfigurationBlock<TSetting> : IConfigurationBlock where TSetting : ISetting
     {
-        public string Display { get; }
+        public virtual string Display { get; }
 
-        public string BlockType => typeof(ISetting).FullName;
-        public ISetting Setting { get; }
+        public abstract string SettingType { get; }
+        public virtual ISetting Setting { get; }
+
     }
 }

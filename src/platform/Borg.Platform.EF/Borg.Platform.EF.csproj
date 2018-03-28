@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\infra\Borg.Infra\Borg.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CMS\Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

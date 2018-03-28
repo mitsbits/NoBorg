@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace Borg.Platform.EF.CMS.Data.Migrations
+namespace Borg.Platform.EF.CMS.data.migrations
 {
     [DbContext(typeof(CmsDbContext))]
     partial class CmsDbContextModelSnapshot : ModelSnapshot
@@ -26,14 +26,17 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 {
                     b.Property<int>("Id");
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Body")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .IsUnicode(true);
 
                     b.Property<string>("Slug")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue("")
                         .HasMaxLength(1024)
-                        .IsUnicode(true);
+                        .IsUnicode(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -261,6 +264,36 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         .HasName("IX_HtmlSnippet_Code");
 
                     b.ToTable("HtmlSnippetStates","cms");
+                });
+
+            modelBuilder.Entity("Borg.Platform.EF.CMS.InstanceBlockState", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(2048);
+
+                    b.Property<string>("Display")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("IconClass")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("JsonText");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("Display")
+                        .HasName("IX_ConfigurationBlock_Display");
+
+                    b.ToTable("ConfigurationBlockStates","cms");
                 });
 
             modelBuilder.Entity("Borg.Platform.EF.CMS.NavigationItemState", b =>

@@ -57,8 +57,8 @@ namespace Borg.MVC.PlugIns.Contracts
         string[] ViewComponents { get; }
     }
 
-    public interface IComponentBlockDescriptor : IPluginDescriptor
+    public interface IConfigurationBlockDescriptor : IPluginDescriptor
     {
-        Type[] ConfigurationBlockTypes { get; }
+        Type[] ConfigurationBlocTypes { get; }
     }
 }

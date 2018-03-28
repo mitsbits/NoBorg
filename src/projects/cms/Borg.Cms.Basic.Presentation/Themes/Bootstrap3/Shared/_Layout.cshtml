@@ -7,7 +7,7 @@
 <html>
 <head>
     @Html.Partial("_headScripts")
-    @await RenderSectionAsync("head", required: true)
+    @await RenderSectionAsync("head", required: false)
 </head>
 
 <body>
@@ -22,15 +22,15 @@
                 </button>
                 <a class="navbar-brand" href="@_settings.Tenant.Endpoint">@_settings.Tenant.ServiceTag</a>
             </div>
-            @await RenderSectionAsync("menu", required: true)
+            @await RenderSectionAsync("menu", required: false)
         </div>
     </nav>
     <div class="container">
-        @await RenderSectionAsync("main", required: true)
+        @await RenderSectionAsync("main", required: false)
         @RenderBody()
     </div>
 
-    @await RenderSectionAsync("footer", required: true)
+    @await RenderSectionAsync("footer", required: false)
 
     @Html.Partial("_bottomScripts")
 </body>

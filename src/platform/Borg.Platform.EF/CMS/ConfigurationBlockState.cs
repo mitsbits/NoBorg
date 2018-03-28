@@ -6,8 +6,8 @@ namespace Borg.Platform.EF.CMS
 {
     public class InstanceBlockState : IEntity<string>
     {
-        public string Id { get; protected set; }
-        public string Display { get; protected set; }
+        public string Id { get;  set; }
+        public string Display { get;  set; }
         public string IconClass { get; set; }
         public string JsonText { get; set; }
     }

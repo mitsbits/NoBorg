@@ -8,6 +8,8 @@ namespace Borg.CMS.BuildingBlocks.Contracts
     {
         string Display { get; }
         ISetting Setting { get; }
+
+        string SettingType { get; }
     }
 
     public interface ISetting { }

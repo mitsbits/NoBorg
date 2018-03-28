@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Borg.Platform.EF.CMS.Data.Migrations
+namespace Borg.Platform.EF.CMS.data.migrations
 {
     public partial class cms1 : Migration
     {
@@ -32,6 +32,22 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConfigurationBlockStates",
+                schema: "cms",
+                columns: table => new
+                {
+                    Id = table.Column<string>(maxLength: 2048, nullable: false, defaultValue: ""),
+                    Display = table.Column<string>(maxLength: 512, nullable: false, defaultValue: ""),
+                    IconClass = table.Column<string>(maxLength: 512, nullable: false, defaultValue: ""),
+                    JsonText = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfigurationBlockStates", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceStates",
                 schema: "cms",
                 columns: table => new
@@ -55,8 +71,8 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    Body = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(maxLength: 1024, nullable: false, defaultValue: ""),
+                    Body = table.Column<string>(nullable: true, defaultValue: ""),
+                    Slug = table.Column<string>(unicode: false, maxLength: 1024, nullable: false, defaultValue: ""),
                     Title = table.Column<string>(maxLength: 1024, nullable: false, defaultValue: "")
                 },
                 constraints: table =>
@@ -69,7 +85,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,7 +106,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,7 +131,28 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ComponentJobScheduleState",
+                schema: "cms",
+                columns: table => new
+                {
+                    ComponentId = table.Column<int>(nullable: false),
+                    ScheduleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ComponentJobScheduleState", x => new { x.ComponentId, x.ScheduleId })
+                        .Annotation("SqlServer:Clustered", true);
+                    table.ForeignKey(
+                        name: "FK_Component_JobSchedules",
+                        column: x => x.ComponentId,
+                        principalSchema: "cms",
+                        principalTable: "ComponentStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,7 +174,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,7 +197,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,14 +218,14 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ComponentDeviceStates_DeviceStates_DeviceId",
                         column: x => x.DeviceId,
                         principalSchema: "cms",
                         principalTable: "DeviceStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,7 +250,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "DeviceStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,7 +273,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ArticleStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Components_PageMetadatas",
                         column: x => x.Id,
@@ -247,28 +284,28 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryStates",
+                name: "TaxonomyStates",
                 schema: "cms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    FriendlyName = table.Column<string>(nullable: true),
-                    GroupingId = table.Column<int>(nullable: false),
-                    Slug = table.Column<string>(unicode: false, maxLength: 1024, nullable: false, defaultValue: "")
+                    ArticleId = table.Column<int>(nullable: false),
+                    ParentId = table.Column<int>(nullable: false, defaultValue: 0),
+                    Weight = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryStates", x => x.Id)
+                    table.PrimaryKey("PK_TaxonomyStates", x => x.Id)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_CategoryGroupings_Categories",
-                        column: x => x.GroupingId,
+                        name: "FK_TaxonomyStates_ArticleStates_ArticleId",
+                        column: x => x.ArticleId,
                         principalSchema: "cms",
-                        principalTable: "CategoryGroupingStates",
+                        principalTable: "ArticleStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryStates_ComponentStates_Id",
+                        name: "FK_TaxonomyStates_ComponentStates_Id",
                         column: x => x.Id,
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
@@ -294,7 +331,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "ArticleStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tags_ArticleTags",
                         column: x => x.TagId,
@@ -328,42 +365,42 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "SectionStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaxonomyStates",
+                name: "CategoryStates",
                 schema: "cms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    ArticleId = table.Column<int>(nullable: false),
-                    ParentId = table.Column<int>(nullable: false, defaultValue: 0),
-                    Weight = table.Column<double>(nullable: false)
+                    FriendlyName = table.Column<string>(nullable: true),
+                    GroupingId = table.Column<int>(nullable: false),
+                    Slug = table.Column<string>(unicode: false, maxLength: 1024, nullable: false, defaultValue: "")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaxonomyStates", x => x.Id)
+                    table.PrimaryKey("PK_CategoryStates", x => x.Id)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_TaxonomyStates_ArticleStates_ArticleId",
-                        column: x => x.ArticleId,
+                        name: "FK_CategoryGroupings_Categories",
+                        column: x => x.GroupingId,
                         principalSchema: "cms",
-                        principalTable: "ArticleStates",
+                        principalTable: "CategoryGroupingStates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TaxonomyStates_CategoryStates_Id",
-                        column: x => x.Id,
-                        principalSchema: "cms",
-                        principalTable: "CategoryStates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_TaxonomyStates_ComponentStates_Id",
+                        name: "FK_CategoryStates_ComponentStates_Id",
                         column: x => x.Id,
                         principalSchema: "cms",
                         principalTable: "ComponentStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_CategoryStates_TaxonomyStates_Id",
+                        column: x => x.Id,
+                        principalSchema: "cms",
+                        principalTable: "TaxonomyStates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -389,6 +426,35 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                         principalSchema: "cms",
                         principalTable: "TaxonomyStates",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryComponentAssociationStates",
+                schema: "cms",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(nullable: false),
+                    ComponentId = table.Column<int>(nullable: false),
+                    IsPrimary = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryComponentAssociationStates", x => new { x.CategoryId, x.ComponentId })
+                        .Annotation("SqlServer:Clustered", true);
+                    table.ForeignKey(
+                        name: "FK_Categories_CategoryComponentAssociation",
+                        column: x => x.CategoryId,
+                        principalSchema: "cms",
+                        principalTable: "CategoryStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Components_CategoryComponentAssociation",
+                        column: x => x.ComponentId,
+                        principalSchema: "cms",
+                        principalTable: "ComponentStates",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
@@ -403,6 +469,12 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms",
                 table: "ArticleTagStates",
                 column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryComponentAssociationStates_ComponentId",
+                schema: "cms",
+                table: "CategoryComponentAssociationStates",
+                column: "ComponentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryStates_GroupingId",
@@ -433,6 +505,12 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms",
                 table: "ComponentDocumentAssociationStates",
                 column: "Version");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConfigurationBlock_Display",
+                schema: "cms",
+                table: "ConfigurationBlockStates",
+                column: "Display");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HtmlSnippet_Code",
@@ -518,11 +596,23 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms");
 
             migrationBuilder.DropTable(
+                name: "CategoryComponentAssociationStates",
+                schema: "cms");
+
+            migrationBuilder.DropTable(
                 name: "ComponentDeviceStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(
                 name: "ComponentDocumentAssociationStates",
+                schema: "cms");
+
+            migrationBuilder.DropTable(
+                name: "ComponentJobScheduleState",
+                schema: "cms");
+
+            migrationBuilder.DropTable(
+                name: "ConfigurationBlockStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(
@@ -546,7 +636,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms");
 
             migrationBuilder.DropTable(
-                name: "TaxonomyStates",
+                name: "CategoryStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(
@@ -554,11 +644,11 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms");
 
             migrationBuilder.DropTable(
-                name: "ArticleStates",
+                name: "CategoryGroupingStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(
-                name: "CategoryStates",
+                name: "TaxonomyStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(
@@ -566,7 +656,7 @@ namespace Borg.Platform.EF.CMS.Data.Migrations
                 schema: "cms");
 
             migrationBuilder.DropTable(
-                name: "CategoryGroupingStates",
+                name: "ArticleStates",
                 schema: "cms");
 
             migrationBuilder.DropTable(

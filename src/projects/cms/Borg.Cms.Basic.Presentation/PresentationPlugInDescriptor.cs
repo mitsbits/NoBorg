@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Borg.Cms.Basic.Presentation
 {
-    public sealed class PresentationPlugInDescriptor : IPluginDescriptor, IPlugInTheme, IPlugInArea, IPluginServiceRegistration, ITagHelpersPlugIn, IViewComponentsPlugIn, IComponentBlockDescriptor
+    public sealed class PresentationPlugInDescriptor : IPluginDescriptor, IPlugInTheme, IPlugInArea, IPluginServiceRegistration, ITagHelpersPlugIn, IViewComponentsPlugIn, IConfigurationBlockDescriptor
     {
         public string Title => "Presentation";
 
@@ -55,7 +55,7 @@ namespace Borg.Cms.Basic.Presentation
             }
         }
 
-        public Type[] ConfigurationBlockTypes => GetType().Assembly.GetTypes()
+        public Type[] ConfigurationBlocTypes => GetType().Assembly.GetTypes()
             .Where(t => t.ImplementsInterface(typeof(IConfigurationBlock)) && t.IsPublic && !t.IsAbstract).ToArray();
 
 

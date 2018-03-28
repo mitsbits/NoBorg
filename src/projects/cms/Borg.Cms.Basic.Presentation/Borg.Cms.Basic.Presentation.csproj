@@ -21,10 +21,6 @@
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
-
 
 
 </Project>
