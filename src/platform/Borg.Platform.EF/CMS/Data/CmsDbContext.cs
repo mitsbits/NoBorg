@@ -31,7 +31,7 @@ namespace Borg.Platform.EF.CMS.Data
         public DbSet<CategoryGroupingState> CategoryGroupingStates { get; set; }
         public DbSet<CategoryState> CategoryStates { get; set; }
         public DbSet<CategoryComponentAssociationState> CategoryComponentAssociationStates { get; set; }
-        public DbSet<InstanceBlockState> ConfigurationBlockStates { get; set; }
+        public DbSet<ConfigurationBlockState> ConfigurationBlockStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

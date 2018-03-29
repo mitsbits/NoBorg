@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CMS\ConfigurationBlocks\Queries\" />
     <Folder Include="Features\Content\Modules\" />
     <Folder Include="Features\Navigation\Modules\" />
     <Folder Include="System\ViewComponents\" />

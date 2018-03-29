@@ -1,0 +1,39 @@
+﻿@using Borg.Cms.Basic.Lib
+@using Borg.Platform.EF.CMS
+@model IEnumerable<Borg.Platform.EF.CMS.ConfigurationBlockState>
+@functions
+{
+
+    string IconClass(ConfigurationBlockState model)
+    {
+        FontAwesomeEnum iconclass;
+        var success = FontAwesomeEnum.TryParse(model.IconClass, true, out  iconclass);
+        return success ? $"fa fa-{iconclass.ToString().ToLower()}" : $"fa fa-{FontAwesomeEnum.Gears.ToString().ToLower()}";
+    }
+
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        @{
+            foreach (var block in Model)
+            {
+                <div class="col-md-2">
+                    <div class="box box-solid box-default">
+                        <div class="box-header with-border text-center">
+                            <h3 class="box-title">@block.Display</h3>
+                        </div>
+                        <div class="box-body text-center">
+                            <p>
+                                <a asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="Index" asp-route-id="@block.Id">
+                                    <i class="@IconClass(block)" style="font-size: xx-large"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
