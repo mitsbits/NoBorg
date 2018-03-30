@@ -1,0 +1,46 @@
+﻿@using Borg.Cms.Basic.Lib
+@using Borg.Cms.Basic.Lib.Features.CMS.ConfigurationBlocks.Commands
+@using Borg.Platform.EF.CMS
+@model IEnumerable<Borg.Platform.EF.CMS.ConfigurationBlockState>
+@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
+
+@{
+    var selection = Orchestrator.Device.RouteValue<string>("id");
+    var block = Model.First(x => x.Id == selection);
+}
+
+@functions
+{
+
+string IconClass(ConfigurationBlockState model)
+{
+    FontAwesomeEnum iconclass;
+    var success = FontAwesomeEnum.TryParse(model.IconClass, true, out iconclass);
+    return success ? iconclass.ToCssClass() : FontAwesomeEnum.Gears.ToCssClass();
+}
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.Partial("Partials/ConfigurationBlockIconCommand", new ConfigurationBlockIconCommand() { RecordId = block.Id, FontAwesome = block.IconClass })
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="box box-solid box-default">
+                <div class="box-header with-border text-center">
+                    <h3 class="box-title">
+                        @block.Display <span class="@IconClass(block)"></span>
+                </h3>
+            </div>
+            <div class="box-body text-center">
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>

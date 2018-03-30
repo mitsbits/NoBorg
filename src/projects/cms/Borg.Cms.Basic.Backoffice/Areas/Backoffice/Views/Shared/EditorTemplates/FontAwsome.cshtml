@@ -1,0 +1,31 @@
+﻿@using Borg.Cms.Basic.Lib
+@using Borg.Infra.Services
+@model FontAwesomeEnum
+@{
+    var htmlId = Randomize.String(16);
+}
+
+<select asp-for="@Model" id="input_@htmlId" style="width: 100%;">
+    @foreach (var item in EnumUtil.GetValues<FontAwesomeEnum>())
+    {
+        <option value="@item.ToString()">@item.ToString()</option>
+    }
+</select>
+
+<script device type="text/javascript" id="script_@htmlId" weight="115">
+    $(function() {
+
+        function formatState (state) {
+            if (!state.id) { return state.text; }
+            var $state = $(
+                '<span class="fa fa-' +  state.element.value.toLowerCase() +
+                '" ></span>&nbsp;<span> ' +state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $("#input_@htmlId").select2({
+            templateResult: formatState
+        });
+    });
+</script>

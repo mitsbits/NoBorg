@@ -1,5 +1,6 @@
 ﻿@using Borg.Cms.Basic.Lib
 @using Borg.Platform.EF.CMS
+@using Borg
 @model IEnumerable<Borg.Platform.EF.CMS.ConfigurationBlockState>
 @functions
 {
@@ -8,7 +9,7 @@
     {
         FontAwesomeEnum iconclass;
         var success = FontAwesomeEnum.TryParse(model.IconClass, true, out  iconclass);
-        return success ? $"fa fa-{iconclass.ToString().ToLower()}" : $"fa fa-{FontAwesomeEnum.Gears.ToString().ToLower()}";
+        return success ? iconclass.ToCssClass() : FontAwesomeEnum.Gears.ToCssClass();
     }
 
 }

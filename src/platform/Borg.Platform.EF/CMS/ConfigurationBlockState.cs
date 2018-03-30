@@ -8,6 +8,7 @@ namespace Borg.Platform.EF.CMS
     {
         public string Id { get;  set; }
         public string Display { get;  set; }
+
         public string IconClass { get; set; }
         public string JsonText { get; set; }
     }
