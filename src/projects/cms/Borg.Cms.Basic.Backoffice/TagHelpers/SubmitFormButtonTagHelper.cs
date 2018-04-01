@@ -32,7 +32,7 @@ namespace Borg.Cms.Basic.Backoffice.TagHelpers
 
 
             var icon = new TagBuilder("i");
-            icon.AddCssClass($"fa {IconClass.ToString()}");
+            icon.AddCssClass($"{IconClass.ToCssClass()}");
             output.Content.SetHtmlContent(icon);
 
         }

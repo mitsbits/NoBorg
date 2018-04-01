@@ -20,6 +20,8 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.5",
     "admin-lte": "^2.4.2",
     "bootstrap-treeview": "^1.2.0",
     "ckeditor": "^4.8.0",

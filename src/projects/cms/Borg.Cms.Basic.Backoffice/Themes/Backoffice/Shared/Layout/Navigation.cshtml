@@ -25,33 +25,33 @@
             <ul class="treeview-menu">
                 <li>
                     <a asp-area="Backoffice" asp-controller="Users" asp-action="Users">
-                        <i class="fa fa-users"></i> Users
+                        <i class="@FontAwesomeEnum.Users.ToCssClass()"></i> Users
                     </a>
                 </li>
                 <li>
                     <a asp-area="Backoffice" asp-controller="Menus" asp-action="Home" asp-route-id="">
-                        <i class="fa fa-anchor"></i> Menus
+                        <i class="@FontAwesomeEnum.Anchor"></i> Menus
                     </a>
                 </li>
                 <li>
                     <a asp-area="Backoffice" asp-controller="Devices" asp-action="Home" asp-route-id="">
-                        <i class="fa fa-building-o"></i> Devices
+                        <i class="@FontAwesomeEnum.Building.ToCssClass()"></i> Devices
                     </a>
                 </li>
                 <li>
                     <a asp-area="Backoffice" asp-controller="Categories" asp-action="Home" asp-route-id="">
-                        <i class="fa  fa-university"></i> Categories
+                        <i class="@FontAwesomeEnum.University.ToCssClass()"></i> Categories
                     </a>
                 </li>
                 <li>
                     <a asp-area="Backoffice" asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="">
-                        <i class="fa  fa-object-group"></i> Html Snippets
+                        <i class="@FontAwesomeEnum.ObjectGroup.ToCssClass()"></i> Html Snippets
                     </a>
                 </li>
                 
                 <li>
                     <a asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="Index" asp-route-id="">
-                        <i class="fa fa-@FontAwesomeEnum.Gears.ToString().ToLower()"></i> Configuration Blocks
+                        <i class="@FontAwesomeEnum.Cog.ToCssClass()"></i> Configuration Blocks
                     </a>
                 </li>
             </ul>

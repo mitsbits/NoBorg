@@ -1,0 +1,28 @@
+﻿@using Borg.CMS.BackOfficeInstructions
+@model object
+
+@{
+    var t = Model.GetType();
+    var tabs = new List<string>() { t.Name };
+    tabs.AddRange(EditorAttributeHelper.PropertyTabs(t));
+}
+<ul class="nav nav-tabs">
+    @for (var i = 0; i < tabs.Count; i++)
+    {
+        <li><a href="#tab_@i" data-toggle="tab">@tabs[i].SplitUpperCaseToString()</a></li>
+    }
+</ul>
+<div class="tab-content">
+
+    @for (var i = 0; i < tabs.Count; i++)
+    {
+        <div class="tab-pane" id="tab_@i">
+            @foreach (var pt in t.GetProperties())
+            {
+            <label>@pt.Name.SplitUpperCaseToString()</label>
+                @Html.Editor(pt.Name)
+            }
+        </div>
+    }
+
+</div>

@@ -1,12 +1,16 @@
 ﻿@using Borg.Cms.Basic.Lib
 @using Borg.Cms.Basic.Lib.Features.CMS.ConfigurationBlocks.Commands
+@using Borg.CMS.BackOfficeInstructions
 @using Borg.Platform.EF.CMS
+@using Newtonsoft.Json
 @model IEnumerable<Borg.Platform.EF.CMS.ConfigurationBlockState>
 @inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
 
 @{
     var selection = Orchestrator.Device.RouteValue<string>("id");
     var block = Model.First(x => x.Id == selection);
+    var t = Type.GetType(block.Id);
+    var jObject = JsonConvert.DeserializeObject(block.JsonText, t);
 }
 
 @functions
@@ -15,32 +19,32 @@
 string IconClass(ConfigurationBlockState model)
 {
     FontAwesomeEnum iconclass;
-    var success = FontAwesomeEnum.TryParse(model.IconClass, true, out iconclass);
-    return success ? iconclass.ToCssClass() : FontAwesomeEnum.Gears.ToCssClass();
+    var success = Enum.TryParse(model.IconClass, true, out iconclass);
+    return success ? iconclass.ToCssClass() : FontAwesomeEnum.Cog.ToCssClass();
 }
 
 }
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            @Html.Partial("Partials/ConfigurationBlockIconCommand", new ConfigurationBlockIconCommand() { RecordId = block.Id, FontAwesome = block.IconClass })
-        </div>
-    </div>
+
+
+    @Html.Partial("Partials/ConfigurationBlockIconCommand", new ConfigurationBlockIconCommand() { RecordId = block.Id, FontAwesome = block.IconClass })
+
+
     <div class="row">
 
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-solid box-default">
                 <div class="box-header with-border text-center">
                     <h3 class="box-title">
-                        @block.Display <span class="@IconClass(block)"></span>
-                </h3>
-            </div>
-            <div class="box-body text-center">
-
+                        @block.Display
+                    </h3>
+                </div>
+                <div class="box-body ">
+                    @Html.Partial("Partials/Block", jObject);
+                </div>
             </div>
         </div>
+
+
     </div>
-
-
-</div>
 </div>

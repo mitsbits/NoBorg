@@ -113,9 +113,14 @@ namespace Borg
             return source.IndexOfWhitespaceAgnostic(check) >= 0;
         }
 
-        public static IEnumerable<string> DistincetWhitespaceAgnostic(this IEnumerable<string> source, string check)
+        public static IEnumerable<string> DistinctWhitespaceAgnostic(this IEnumerable<string> source, string check)
         {
             return source.Distinct(new WhitespaceAgnosticComparer());
+        }
+
+        public static string SplitUpperCaseToString(this string text)
+        {
+          return Regex.Replace(text, "([A-Z])", " $1", RegexOptions.Compiled).Trim();
         }
     }
 }

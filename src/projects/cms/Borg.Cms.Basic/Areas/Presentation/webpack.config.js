@@ -34,7 +34,7 @@ module.exports = function (env) {
     
                 { from: 'node_modules/bootstrap/dist/', to: 'bootstrap/' },
 
-                { from: 'node_modules/font-awesome/', to: 'font-awesome/' },
+                { from: 'node_modules/@fortawesome/fontawesome-free-webfonts/', to: 'font-awesome/' },
                 { from: 'node_modules/ionicons/dist/', to: 'ionicons/' },
 
                 { from: 'node_modules/moment/min/moment-with-locales.min.js', to: 'moment.js' },

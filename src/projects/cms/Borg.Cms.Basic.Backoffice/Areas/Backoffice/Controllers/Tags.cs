@@ -39,7 +39,7 @@ namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
                     AddErrors(result);
                 }
             }
-            return RedirectPermanent(redirecturl);
+            return Redirect(redirecturl);
         }
     }
 }

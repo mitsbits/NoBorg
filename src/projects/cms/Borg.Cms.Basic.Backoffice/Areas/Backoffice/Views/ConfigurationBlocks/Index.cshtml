@@ -9,7 +9,7 @@
     {
         FontAwesomeEnum iconclass;
         var success = FontAwesomeEnum.TryParse(model.IconClass, true, out  iconclass);
-        return success ? iconclass.ToCssClass() : FontAwesomeEnum.Gears.ToCssClass();
+        return success ? iconclass.ToCssClass() : FontAwesomeEnum.Cog.ToCssClass();
     }
 
 }
@@ -28,7 +28,7 @@
                         <div class="box-body text-center">
                             <p>
                                 <a asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="Index" asp-route-id="@block.Id">
-                                    <i class="@IconClass(block)" style="font-size: xx-large"></i>
+                                    <i class="@IconClass(block) fa-5x" ></i>
                                 </a>
                             </p>
                         </div>
