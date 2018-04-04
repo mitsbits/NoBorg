@@ -8,10 +8,6 @@
     <EmbeddedResource Include="Themes\**\*.cshtml" />
     <EmbeddedResource Include="Areas\**\*.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Areas\Backoffice\Views\ConfigurationBlocks\Partials\Block.cshtml" />
-    <Content Remove="Areas\Backoffice\Views\Shared\EditorTemplates\String.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
@@ -20,6 +16,9 @@
     <ProjectReference Include="..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Backoffice\Views\" />
   </ItemGroup>
 
 
