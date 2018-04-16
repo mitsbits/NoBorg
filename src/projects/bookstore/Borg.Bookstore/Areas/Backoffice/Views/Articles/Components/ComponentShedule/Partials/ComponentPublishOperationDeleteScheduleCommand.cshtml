@@ -1,0 +1,8 @@
+﻿@using Borg.Cms.Basic.Backoffice.BackgroundJobs
+@model ComponentPublishOperationDeleteScheduleCommand
+
+<form asp-area="Backoffice" asp-controller="Components" asp-action="DeleteScheduleAssociation" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+    <input type="hidden" asp-for="ComponentId"/>
+    <input type="hidden" asp-for="ScheduleId"/>
+    <button submit-form icon-class="Remove"  colour-class="danger"/>
+</form>

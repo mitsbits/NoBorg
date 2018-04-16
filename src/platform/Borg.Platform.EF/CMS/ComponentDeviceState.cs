@@ -11,6 +11,11 @@ namespace Borg.Platform.EF.CMS
         public virtual DeviceState Device { get; set; }
     }
 
+    public partial class ComponentState
+    {
+        internal ComponentDeviceState ComponentDevice { get; set; }
+    }
+
     public class ComponentDeviceStateMap : EntityMap<ComponentDeviceState, CmsDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)

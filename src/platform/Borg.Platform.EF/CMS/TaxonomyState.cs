@@ -6,7 +6,7 @@ namespace Borg.Platform.EF.CMS
 {
     public class TaxonomyState : IEntity<int>
     {
-        public int Id { get;  set; }
+        public int Id { get; set; }
         public virtual ComponentState Component { get; set; }
         public int ParentId { get; set; } = 0;
         public int ArticleId { get; protected set; }
@@ -14,6 +14,11 @@ namespace Borg.Platform.EF.CMS
         public virtual ArticleState Article { get; set; }
         internal virtual NavigationItemState NavigationItem { get; set; }
         internal virtual CategoryState Category { get; set; }
+    }
+
+    public partial class ComponentState
+    {
+        internal TaxonomyState Taxonomy { get; set; }
     }
 
     public class TaxonomyStateMap : EntityMap<TaxonomyState, CmsDbContext>

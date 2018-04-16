@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -16,6 +16,11 @@ namespace Borg.Platform.EF.CMS
         public virtual TaxonomyState Taxonomy { get; set; }
         public virtual ArticleState Article => Taxonomy?.Article;
         internal virtual ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
+    }
+
+    public partial class ComponentState
+    {
+        internal CategoryState Category { get; set; }
     }
 
     public class CategoryStateeMap : EntityMap<CategoryState, CmsDbContext>

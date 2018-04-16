@@ -1,0 +1,19 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
+@model CategoryComponentAssociationViewModel
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    @foreach (var g in Model.CategoryGroups)
+    {
+        <li class="nav-item">
+            <a class="nav-link" id="g_@g.Id" data-toggle="tab" href="#t_@g.Id" role="tab" aria-controls="t_@g.Id">@g.FriendlyName</a>
+        </li>
+    }
+</ul>
+<div class="tab-content" id="myTabContent">
+@foreach (var g in Model.CategoryGroups)
+{
+    <div class="tab-pane fade" id="t_@g.Id" role="tabpanel" aria-labelledby="@g.Id">...</div>
+}
+
+</div>

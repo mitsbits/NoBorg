@@ -24,6 +24,11 @@ namespace Borg.Platform.EF.CMS
         public string Code { get; set; }
     }
 
+    public partial class ComponentState
+    {
+        internal HtmlSnippetState HtmlSnippet { get; set; }
+    }
+
     public class HtmlSnippetStateMap : EntityMap<HtmlSnippetState, CmsDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)

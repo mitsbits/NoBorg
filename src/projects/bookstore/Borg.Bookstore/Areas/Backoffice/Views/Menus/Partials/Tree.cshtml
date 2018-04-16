@@ -1,0 +1,18 @@
+﻿@model Borg.Infra.DTO.Tidings
+@{
+    var row = default(int?);
+    if (Orchestrator.Device.RouteValues.ContainsKey("row"))
+    {
+        row = int.Parse(Orchestrator.Device.RouteValues["row"][0]);
+    }
+}
+
+<div id="tree"></div>
+
+<script device id="menu-tree-script" script-position="Bottom" weight="100">
+    $(function () {
+        var jsonstring = '@Html.Raw(Model.ToBootstrapTree(Url, Orchestrator.Device.RouteValues["id"][0], row, (t, g, i) => Url.Action("Home", "Menus", new { id = g, row = t.Key })))';
+        var tree = (jsonstring);
+        $('#tree').treeview({ data: tree, enableLinks: true, levels: 6, selectable: false, showCheckbox : true, showTags: true });
+    });
+</script>

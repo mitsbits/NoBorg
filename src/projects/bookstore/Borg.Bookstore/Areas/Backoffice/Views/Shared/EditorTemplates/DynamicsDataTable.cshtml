@@ -1,0 +1,164 @@
+﻿@using System.Dynamic
+@using System.Linq.Expressions
+@using System.Reflection
+@using System.Security.Cryptography.X509Certificates
+@using Borg.Infra.Services
+@using System.Linq
+@using Borg.Cms.Basic.Lib
+@using Newtonsoft.Json
+@model IPagedResult<dynamic>
+@functions
+{
+
+public static string[] GetMemberNames(dynamic target)
+{
+
+    Type t = target.GetType();
+    PropertyInfo[] pi = t.GetProperties();
+    return pi.Select(x => x.Name).ToArray();
+}
+
+}
+@{
+    var props = GetMemberNames(Model[0]);
+    var htmlId = Randomize.Letters(7).ToLower();
+
+
+}
+<div class="container-fluid" id="@htmlId">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-default" data-toggle="modal" data-target="#modal_@htmlId">
+                <i class="@FontAwesomeEnum.Tree.ToCssClass()"></i>
+            </button>
+        </div>
+        <div class="col-md-12 table-responsive">
+            <table class="table table-condensed table-bordered table-striped">
+                <thead>
+                    <tr>
+                        @for (var i = 0; i < props.Length; i++)
+                        {
+                            var prop = props[i];
+                            <th id="td_@i" data-prop="td-@i" data-bind="css: showClass(@i)">@prop</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            @for (var i = 0; i < props.Length; i++)
+                            {
+                                var prop = props[i];
+                                <td class="td_@i" data-prop="td-@i">@obj?.GetType().GetProperty(prop)?.GetValue(obj, null)</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_@htmlId" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Default Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <ul data-bind="foreach: columns">
+                        <li>
+                            <input type="checkbox" data-bind="checked: selected" class="simple" /> <span data-bind="text: name"></span><span data-bind="text: id"></span><span data-bind="text: selected"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: setVisibility">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+<script device type="text/javascript" id="kknockout_@htmlId" weight="113" src="dist/knockout/knockout-latest.js"></script>
+<script device type="text/javascript" id="script_@htmlId" weight="114">
+    $(function () {
+        function column() {
+            this.selected = ko.observable(false);
+            this.name = ko.observable('');
+            this.id = ko.observable(0);
+        }
+        function lookupViewModel() {
+            var self = this;
+            self.columns = ko.observableArray([]);
+            self.add = function (elem) {
+                self.columns.push(elem);
+            }
+            //self.remove = function (id) {
+            //    self.notifications.remove(function (item) {
+            //        return item.id == id;
+            //    });
+            //}
+            self.clear = function () {
+                self.columns([]);
+            }
+
+            self.setVisibility = function() {
+                ko.utils.arrayForEach(self.columns(), function(column) {
+                    if (column.selected()) {
+                        $("th#td_" + column.id()).removeClass("hidden");
+                        $("td.td_" + column.id()).removeClass("hidden");
+                    } else {
+                        $("th#td_" + column.id()).addClass("hidden");
+                        $("td.td_" + column.id()).addClass("hidden");
+                    }
+                });
+            }
+            self.showClass = function (id) {
+
+                var match = ko.utils.arrayFirst(self.columns(),
+                    function(item) {
+                        return item.id() == id;
+
+                    });
+
+                if (match.selected) {
+                    return "";
+                } else {
+                    return "hidden";
+                }
+            }
+            //self.pinned = ko.computed(function () {
+            //    return ko.utils.arrayFilter(self.notifications(), function (itm) {
+            //        return itm.isPinned;
+            //    });
+            //});
+            //self.showPinned = ko.computed(function () {
+            //    return (self.pinned() != null && self.pinned() != "undefined" && self.pinned().length > 0);
+            //});
+
+        }
+
+
+        var props = @Html.Raw(JsonConvert.SerializeObject(props));
+
+        var app = new lookupViewModel();
+
+        $.each(props, function( index, value ) {
+            var c = new column();
+            c.id(index);
+            c.selected(true);
+            c.name(value);
+            app.add(c);
+        });
+
+        ko.applyBindings(app, document.getElementById('#@htmlId'));
+    });
+
+
+</script>

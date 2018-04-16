@@ -28,14 +28,14 @@ namespace Borg.Cms.Basic
             var appConfig = HostUtility.AppConfiguration(args);
             var settings = new BorgSettings();
             appConfig.GetSection("borg").Bind(settings);
-            var storage = CloudStorageAccount.Parse(settings.Storage.AzureStorageConnection);
+            //var storage = CloudStorageAccount.Parse(settings.Storage.AzureStorageConnection);
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Warning()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .WriteTo.ColoredConsole()
-                .WriteTo.AzureTableStorageWithProperties(storage, LogEventLevel.Warning, null, "borgerrorlog", true, TimeSpan.FromMinutes(1))
+                //.WriteTo.AzureTableStorageWithProperties(storage, LogEventLevel.Warning, null, "borgerrorlog", true, TimeSpan.FromMinutes(1))
                 .CreateLogger();
 
             ApplicationLogging.SetFactory(host.Services.GetRequiredService<ILoggerFactory>());

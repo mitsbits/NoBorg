@@ -1,5 +1,6 @@
 ﻿using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -8,6 +9,11 @@ namespace Borg.Platform.EF.CMS
         public int ComponentId { get; set; }
         public int ScheduleId { get; set; }
         internal virtual ComponentState Component { get; set; }
+    }
+
+    public partial class ComponentState
+    {
+        internal ICollection<ComponentJobScheduleState> ComponentJobSchedules { get; set; } = new HashSet<ComponentJobScheduleState>();
     }
 
     public class ComponentJobScheduleStateMap : EntityMap<ComponentJobScheduleState, CmsDbContext>

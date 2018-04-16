@@ -42,7 +42,14 @@ namespace Borg.Cms.Basic.Backoffice.BackgroundJobs
         {
             var ops = ComponentPublishOperation.FromArgs(args);
             var comp = await _uow.ReadWriteRepo<ComponentState>().Get(x => x.Id == ops.ComponentId);
-            comp.IsPublished = ops.Direction != ComponentPublishOperation.OperationDirection.Down;
+            if (ops.Direction != ComponentPublishOperation.OperationDirection.Down)
+            {
+                comp.Publish();
+            }
+            else
+            {
+                comp.Suspend();
+            }
             await _uow.ReadWriteRepo<ComponentState>().Update(comp);
             await _uow.Save();
         }

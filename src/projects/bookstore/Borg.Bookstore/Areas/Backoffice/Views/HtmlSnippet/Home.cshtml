@@ -1,0 +1,50 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Controllers
+@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@model HtmlSnippetHomeViewModel
+@{
+    var isTransient = Model.Snippet.Id == 0;
+    Orchestrator.Page.SetTitle(isTransient ? "New Snippet" : $"Snippet: {Model.Snippet.Code}");
+}
+
+<div class="box box-primary">
+
+    <div class="box-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <table class="table table-bordered table-condensed">
+                    <tbody>
+                        @{
+                            foreach (var htmlSnippetIndex in Model.Indices)
+                            {
+                                <tr>
+                                    <td>
+                                        <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                                            <input type="hidden" name="id" value="@htmlSnippetIndex.Id" />
+                                            <input type="hidden" name="operation" value="deleted" />
+                                            <button comp-deleted deleted-state="@htmlSnippetIndex.IsDeleted"></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form asp-controller="Components" asp-action="ToggleState" asp-area="Backoffice" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+                                            <input type="hidden" name="id" value="@htmlSnippetIndex.Id" />
+                                            <input type="hidden" name="operation" value="published" />
+                                            <button comp-published published-state="@htmlSnippetIndex.IsPublished"></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="@htmlSnippetIndex.Id">
+                                            <span>@htmlSnippetIndex.Code</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-9">
+                @Html.Partial("Partials/HtmlSnippetCommand", new AddOrUpdateHtmlSnippetCommand { Id = Model.Snippet.Id, Code = Model.Snippet.Code, Snippet = Model.Snippet.Snippet })
+            </div>
+        </div>
+    </div>
+</div>

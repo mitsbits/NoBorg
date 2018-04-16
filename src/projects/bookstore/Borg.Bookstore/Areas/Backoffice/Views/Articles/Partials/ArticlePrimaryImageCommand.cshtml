@@ -1,0 +1,142 @@
+﻿@using Borg.Infra.Storage.Assets
+@using Borg.Infra.Storage.Assets.Contracts
+@model Borg.Cms.Basic.Lib.Features.CMS.Commands.ArticlePrimaryImageCommand
+@inject IStaticImageCacheStore<int>  _static
+@{
+    var showImage = Model.ExistingFile.HasValue && Model.ExistingFile.Value > 0;
+
+    var imageUrl = "";
+    if (showImage)
+    {
+        imageUrl = (await _static.PublicUrl(Model.ExistingFile.Value, VisualSize.Medium)).AbsoluteUri;
+    }
+}
+
+<div class="box box-info box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Primary Image</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    @if (showImage)
+    {
+        <div class="box-body text-center">
+            <figure>
+                <img src="https://www.image.ie/images/no-image.png" class="img-responsive" id="primaryimage" />
+            </figure>
+        </div>
+    }
+    <form asp-controller="Articles" asp-action="SetPrimaryImage" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" enctype="multipart/form-data">
+        <input type="hidden" asp-for="RecordId" />
+        <input type="hidden" asp-for="CorrelationId" />
+        <input type="hidden" asp-for="Timestamp" />
+        <input type="hidden" asp-for="ExistingFile" />
+        <input type="hidden" asp-for="UserHandle" />
+        <div class="box-body">
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="btn btn-danger btn-block" title="Remove Primary Image">
+                            <input type="checkbox" autocomplete="off" asp-for="RemoveOperation">
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="btn btn-primary btn-file btn-flat btn-block">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Browse <input id="file" type="file" class="hidden" asp-for="File" />
+                        </label>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button id="clearfile" class="btn btn-warning  btn-flat btn-block" type="button" title="Clear file selection">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button submit-form   block="true"> </button>
+                    </div>
+                    <div class="col-md-12">
+                        <label id="filedisplay"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script device id="articleprimaryimagescript" weight="300">
+    $(function() {
+
+        $("input[type=file]#file").click(function() {
+            $(this).val("");
+        });
+
+        $("input[type=file]#file").change(function() {
+
+            $("#filedisplay").text($(this).val());
+            $("#filedisplay").attr('title', $(this).val());
+
+        });
+
+        $("button#clearfile").click(function() {
+            $("input[type=file]#file").val("");
+            $("#filedisplay").text("");
+        });
+    });
+
+    $(function() {
+        var url = '@imageUrl';
+        var usecache = "True";
+        var attemptcount = 150;
+        var counter = 0;
+        var intervalId;
+
+        function stopRequestingImage() {
+            clearInterval(intervalId);
+
+        }
+
+        function requestImage() {
+
+            intervalId = setInterval(function () {
+
+                if (counter > attemptcount) {
+                    stopRequestingImage();
+                    alert("error getting inmage " + url);
+                }
+
+                    var request = $.ajax({
+                        type: "HEAD",
+                        async: true,
+                        url: url,
+                        cache: false
+                    });
+
+                request.done(function () {
+           
+                    stopRequestingImage();
+                    $("img#primaryimage").attr('src', url).show(300);
+                    });
+ 
+                    request.fail(function( jqXHR, textStatus ) {
+                        console.log("Request failed: " + textStatus);
+                });
+
+                    counter = counter + 1;
+
+                },
+                300);
+        }
+        if ((url.length > 0)) {
+        if (usecache === "True") {
+            requestImage();
+        } else {
+            $("img#primaryimage").attr('src', url).show(300);
+        }
+        }
+    });
+</script>

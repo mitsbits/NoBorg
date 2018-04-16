@@ -16,7 +16,6 @@ namespace Borg.CMS.BackOfficeInstructions
         public string Tab { get; }
     }
 
-
     public static class EditorAttributeHelper
     {
         public static string[] PropertyTabs(Type type)

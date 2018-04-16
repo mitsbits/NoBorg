@@ -1,5 +1,4 @@
 ﻿using Borg.CMS.Components;
-using Borg.Infra;
 using Borg.Infra.DAL;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
@@ -76,13 +75,11 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Queries
 
                     if (!string.IsNullOrWhiteSpace(result.PrimaryImageFileId))
                     {
-
                         result.PrimaryImages = new Dictionary<string, string>();
                         foreach (var size in VisualSize.GetMembers().Where(x => x != VisualSize.Undefined))
                         {
                             result.PrimaryImages.Add(size.Flavor, (await _imageCacheStore.PublicUrl(hit.PageMetadata.PrimaryImageFileId.Value, size)).AbsoluteUri);
                         }
-
                     }
                 }
                 return QueryResult<(int componentId, IPageContent content)>.Success((componentId: message.RecordId, content: result));

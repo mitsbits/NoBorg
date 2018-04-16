@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Routing;
 
 namespace Borg.MVC.Middlewares
 {
@@ -26,14 +24,11 @@ namespace Borg.MVC.Middlewares
 
     public class RouteMiddleware
     {
-   
-
         private readonly RequestDelegate _next;
 
         public RouteMiddleware(RequestDelegate next)
         {
             _next = next;
-
         }
 
         public Task Invoke(HttpContext context)

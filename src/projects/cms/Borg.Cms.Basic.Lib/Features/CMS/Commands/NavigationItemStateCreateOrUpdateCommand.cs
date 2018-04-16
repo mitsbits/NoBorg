@@ -92,7 +92,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 var existing = set.FirstOrDefault(x => x.Id == message.RecordId);
                 if (existing == null)
                 {
-                    var comp = new ComponentState() { IsPublished = message.IsPublished };
+                    var comp = new ComponentState(message.IsPublished) ;
                     await _uow.ReadWriteRepo<ComponentState>().Create(comp);
                     var art = new ArticleState() { Component = comp, Title = message.Display };
                     await _uow.ReadWriteRepo<ArticleState>().Create(art);
@@ -124,7 +124,14 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                     existing.GroupCode = message.Group;
                     existing.Taxonomy.ParentId = message.ParentId;
                     existing.Taxonomy.Weight = message.Weight;
-                    existing.Taxonomy.Component.IsPublished = message.IsPublished;
+                    if (message.IsPublished)
+                    {
+                        existing.Taxonomy.Component.Publish();
+                    }
+                    else
+                    {
+                        existing.Taxonomy.Component.Suspend();
+                    }
                     existing.Path = message.Path;
                     existing.NavigationItemType = message.ItemType;
                     existing.Display = message.Display;

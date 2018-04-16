@@ -1,6 +1,4 @@
-﻿using System;
-using Borg.CMS;
-using Borg.CMS.BackOfficeInstructions;
+﻿using Borg.CMS;
 using Borg.CMS.BuildingBlocks.Contracts;
 
 namespace Borg.Cms.Basic.Presentation.Configuration
@@ -13,17 +11,6 @@ namespace Borg.Cms.Basic.Presentation.Configuration
 
     public class SiteSettings : ISetting
     {
-        public string SampleProperty1 { get; set; }
-        public int SampleProperty4 { get; set; }
-
-        [EditorTab("foo")]
-        public string SampleProperty2 { get; set; }
-
-        [EditorTab("bat")]
-        public DateTime SampleProperty3 { get; set; }
-
+        public string IndexPage { get; set; } = "home";
     }
-
-
-
 }

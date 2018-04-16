@@ -15,6 +15,11 @@ namespace Borg.Platform.EF.CMS
         internal virtual ArticleState Article { get; set; }
     }
 
+    public partial class ComponentState
+    {
+        internal PageMetadataState PageMetadata { get; set; }
+    }
+
     public class PageMetadataStateMap : EntityMap<PageMetadataState, CmsDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)

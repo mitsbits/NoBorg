@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Borg.Infra.Configuration.Contracts;
 
 namespace Borg.Infra
 {
-    public class BorgSettings
+    public class BorgSettings: ISettingsProvider<StorageSettings>
     {
         public IDictionary<string, string> ConnectionStrings { get; set; }
         public PaginationInfoStyle PaginationInfoStyle { get; set; }
@@ -10,9 +11,11 @@ namespace Borg.Infra
         public TenantSettings Tenant { get; set; }
         public AuthSettings Auth { get; set; }
         public VisualSettings Visual { get; set; }
+
+        StorageSettings ISettingsProvider<StorageSettings>.Config => Storage;
     }
 
-    public class StorageSettings
+    public class StorageSettings : ISettings
     {
         public string ImagesCacheEndpoint { get; set; } = "http://127.0.0.1:10000/devstoreaccount1";
         public string ImagesCacheFolder { get; set; } = "cache";
@@ -21,14 +24,14 @@ namespace Borg.Infra
         public string AzureStorageConnection { get; set; }
     }
 
-    public class TenantSettings
+    public class TenantSettings : ISettings
     {
         public string ServiceTag { get; set; }
         public string Endpoint { get; set; }
         public string GoogleAnalyticsTrackingId { get; set; }
     }
 
-    public class AuthSettings
+    public class AuthSettings : ISettings
     {
         public bool ActivateOnRegisterRequest { get; set; } = false;
         public string LoginPath { get; set; } = "/login";
@@ -36,7 +39,7 @@ namespace Borg.Infra
         public string AccessDeniedPath { get; set; } = "/denied";
         public DefaultUserSettings DefaultUser { get; set; } = new DefaultUserSettings();
 
-        public class DefaultUserSettings
+        public class DefaultUserSettings : ISettings
         {
             public string UserName { get; set; }
             public string Password { get; set; }
@@ -45,7 +48,7 @@ namespace Borg.Infra
         }
     }
 
-    public class VisualSettings
+    public class VisualSettings : ISettings
     {
         public Dictionary<string, int> SizePixels { get; set; } = new Dictionary<string, int>();
     }

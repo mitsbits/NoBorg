@@ -42,7 +42,14 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 if (comp == null) return CommandResult.Failure($"Component with id {message.Id} is not present");
                 var previous = comp.IsPublished;
                 var current = !previous;
-                comp.IsPublished = current;
+                if (current)
+                {
+                    comp.Publish();
+                }
+                else
+                {
+                    comp.Suspend();
+                }
                 await repo.Update(comp);
                 await _uow.Save();
                 _dispatcher.Publish(new ComponentPublishedStateChangedEvent(comp.Id, previous, current));

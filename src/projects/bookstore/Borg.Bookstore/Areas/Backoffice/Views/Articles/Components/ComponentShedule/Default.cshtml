@@ -1,0 +1,54 @@
+﻿@using System.Linq
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+@using Borg.Cms.Basic.Backoffice.BackgroundJobs
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model ComponentSheduleViewModel
+
+
+<div class="box  box-primary box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title"></h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    @Html.Partial("Components/ComponentShedule/Partials/ComponentPublishOperationScheduleCommand", Model.AddPublishOperationScheduleCommand())
+
+    <div class="box-body">
+        <table class="table table-condensed table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.Records)
+                {
+                <tr>
+                    <td>@o.row.ScheduleId</td>
+                    <td>@o.state.Name</td>
+                    <td>@o.job.Job.</td>
+                    <td><concat-text Data="@(o.job.Job.Args[0] as string[])"/></td>
+                    <td>
+                        @{
+                            if (o.state.Data.ContainsKey("ScheduledAt"))
+                            {
+                                <span>@o.state.Data["ScheduledAt"]</span>
+                            }
+                        }
+                    </td>
+                    <td>@Html.Partial("Components/ComponentShedule/Partials/ComponentPublishOperationDeleteScheduleCommand", new ComponentPublishOperationDeleteScheduleCommand(){ScheduleId = o.row.ScheduleId, ComponentId = o.row.ComponentId})</td>
+                </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+    </div>

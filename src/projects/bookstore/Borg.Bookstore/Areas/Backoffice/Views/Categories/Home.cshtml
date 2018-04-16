@@ -1,0 +1,49 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels
+@model CategoryGroupingIndexViewModel
+
+
+
+<div class="modal fade" id="categorygroupingstateindexmodal" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" aria-label="Close" asp-area="Backoffice" asp-controller="Home" asp-action="Home" asp-route-id="">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <h4 class="modal-title">Create or select a Category Grouping</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("Partials/AddOrUpdateCategoryGroupingCommand", Model.CreateCommand)
+            </div>
+
+            <div class="modal-body">
+               
+                    <ul class="list-inline">
+                        @foreach (var g in Model.Index.Records)
+                        {
+                            <li>
+                                <a asp-area="Backoffice" asp-controller="Categories" asp-action="Grouping" asp-route-id="@g.Id" class="btn btn-default">
+                                    @g.FriendlyName
+                                    <span comp-deleted deleted-state="@g.Component.IsDeleted"></span>
+                                    <span comp-published published-state="@g.Component.IsPublished"></span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+              
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script id="categorygroupingstateindex" device weight="120" script-position="Bottom" type="text/javascript">
+    $(function () {
+        $('#categorygroupingstateindexmodal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    });
+</script>

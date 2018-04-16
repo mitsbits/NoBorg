@@ -1,0 +1,16 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Device.Commands
+@using Borg.Cms.Basic.Lib.Features.Device.Queries
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model SlotViewModel
+@{
+    var command = new SlotCreateOrUpdateCommand(Model.State.IsEnabled, Model.State.Ordinal, Model.State.SectionId, Model.State.ModuleDecriptorJson, Model.State.ModuleTypeName, Model.State.ModuleGender, Model.State.Id);
+    ViewBag.Record = Model.State;
+}
+<div class="row">
+    <div class="col-lg-6">
+        @Html.Partial("Partials/DeviceTree", Model.DeviceState)
+    </div>
+    <div class="col-lg-6">
+        @Html.Partial("Partials/ModuleInfo", command)
+    </div>
+</div> 

@@ -42,7 +42,14 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 if (comp == null) return CommandResult.Failure($"Component with id {message.Id} is not present");
                 var previous = comp.IsDeleted;
                 var current = !previous;
-                comp.IsDeleted = current;
+                if (current)
+                {
+                    comp.Delete();
+                }
+                else
+                {
+                    comp.Recover();
+                }
                 await repo.Update(comp);
                 await _uow.Save();
                 _dispatcher.Publish(new ComponentDeletedStateChangedEvent(comp.Id, previous, current));

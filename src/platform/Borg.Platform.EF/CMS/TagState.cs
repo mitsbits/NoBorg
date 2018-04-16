@@ -9,15 +9,20 @@ namespace Borg.Platform.EF.CMS
 {
     public class TagState : IEntity<int>
     {
-        public int Id { get;  set; }
-        public virtual ComponentState Component { get;  set; }
-        public string Tag { get;  set; }
-        public string TagNormalized { get;  set; }
-        public string TagSlug { get;  set; }
+        public int Id { get; set; }
+        public virtual ComponentState Component { get; set; }
+        public string Tag { get; set; }
+        public string TagNormalized { get; set; }
+        public string TagSlug { get; set; }
         public virtual ICollection<ArticleTagState> ArticleTags { get; set; } = new List<ArticleTagState>();
 
         [NotMapped]
         public IEnumerable<ArticleState> Articles => ArticleTags.Select(e => e.Article);
+    }
+
+    public partial class ComponentState
+    {
+        internal TagState Tag { get; set; }
     }
 
     public class TagStateMap : EntityMap<TagState, CmsDbContext>

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = string.IsNullOrWhiteSpace(Orchestrator.Device.Layout) ? "_Layout" : Orchestrator.Device.Layout;
+
+}
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
+@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@using Borg.Infra.DTO
+
+@model Borg.Platform.EF.CMS.ArticleState
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 ">
+            <div class="row">
+                <div class="col-md-6">@Html.Partial("Partials/RenameArticleCommand", new RenameArticleCommand() { RecordId = Model.Id, NewTitle = Model.Title })</div>
+                <div class="col-md-6">@Html.Partial("Partials/SetArticleSlugCommand", new SetArticleSlugCommand() { RecordId = Model.Id, Slug = Model.Slug })</div>
+            </div>
+        </div>
+        <div class="col-xs-2 ">@Html.Partial("Partials/ComponentStateButtons", Model)</div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            @(await Component.InvokeAsync(typeof(ArticlePageMetadataViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+            @(await Component.InvokeAsync(typeof(ComponentSheduleViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+        </div>
+        <div class="col-md-6">
+            @(await Component.InvokeAsync(typeof(ArticleTagsAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+            @(await Component.InvokeAsync(typeof(CategoryComponentAssociationViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            @Html.Partial("Partials/ArticleBodyCommand", new ArticleBodyCommand() { RecordId = Model.Id, Body = Model.Body })
+        </div>
+        <div class="col-md-4">
+            @Html.Partial("Partials/ArticlePrimaryImageCommand", Model.ArticlePrimaryImageCommand(UserSession.UserName))
+            @(await Component.InvokeAsync(typeof(ArticleDocumentAssociationsViewComponent), new Tidings(new[] { new Tiding(Tidings.DefinedKeys.Id, Model.Id.ToString()), })))
+        </div>
+    </div>
+</div>

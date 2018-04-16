@@ -47,7 +47,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 foreach (var i in idstodelete)
                 {
                     var hit = await _uow.ReadWriteRepo<ComponentState>().Get(x => x.Id == i);
-                    hit.IsDeleted = true;
+                    hit.Delete();
                 }
                 await _uow.Save();
                 var tasks = idstodelete.Select(x =>

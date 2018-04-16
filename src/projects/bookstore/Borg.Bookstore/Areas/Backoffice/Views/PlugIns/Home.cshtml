@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Borg.MVC.PlugIns.Contracts.IPluginDescriptor>
+@{
+    //var parts = (Model.Count() / 4) + 1;
+    //var i = 0;
+    //var splits = from item in Model
+    //             group item by i++ % parts into part
+    //             select part.AsEnumerable();
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="container" class="tiles-wrap">
+                @foreach (var descriptor in Model)
+                {
+                    <li>
+                        @Html.Partial("Partials/Descriptor", descriptor)
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <script device id="puginsscript" type="text/javascript" script-position="Bottom" weight="100">
+        (function () {
+            function getWindowWidth() {
+                return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            }
+
+            var wookmark = new Wookmark('#container', {
+                itemWidth: 450, // Optional min width of a grid item
+                outerOffset: 20, // Optional the distance from grid to parent
+                flexibleWidth: function () {
+                    // Return a maximum width depending on the viewport
+                    return getWindowWidth() < 1024 ? '100%' : '50%';
+                }
+            });
+
+        })();
+    </script>

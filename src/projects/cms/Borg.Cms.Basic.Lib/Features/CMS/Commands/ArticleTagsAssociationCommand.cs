@@ -62,7 +62,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                             Tag = tag,
                             TagNormalized = tag.RemoveDiacritics().Replace("ς", "Σ").ToUpperInvariant(),
                             TagSlug = _slugifier.Slugify(tag, 1024),
-                            Component = new ComponentState() { IsDeleted = false, IsPublished = true }
+                            Component = new ComponentState(true)
                         };
                         hit = await _uow.ReadWriteRepo<TagState>().Create(hit);
                     }

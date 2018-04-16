@@ -1,0 +1,17 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.ConfigurationBlocks.Commands
+@model ConfigurationBlockIconCommand
+
+
+
+
+<div class="row">
+    <form asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="BlockIcon" asp-route-redirecturl="@Orchestrator.Device.RelativePath()" method="post">
+        <input type="hidden" asp-for="RecordId" />
+        <input type="hidden" asp-for="CorrelationId" />
+        <input type="hidden" asp-for="Timestamp" />
+        <div class="col-md-10"> @Html.EditorFor(m => m.FontAwesome)</div>
+        <div class="col-md-2">
+            <button submit-form icon-class="Check"></button>
+        </div>
+    </form>
+</div>

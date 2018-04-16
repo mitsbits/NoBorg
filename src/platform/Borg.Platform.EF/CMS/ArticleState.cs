@@ -22,6 +22,11 @@ namespace Borg.Platform.EF.CMS
         public virtual IEnumerable<TagState> Tags => ArticleTags.Select(e => e.Tag);
     }
 
+    public partial class ComponentState
+    {
+        internal ArticleState Article { get; set; }
+    }
+
     public class ArticleStateMap : EntityMap<ArticleState, CmsDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)

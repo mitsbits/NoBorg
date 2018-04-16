@@ -1,0 +1,23 @@
+﻿@model Borg.Cms.Basic.Lib.Features.CMS.Commands.ArticleBodyCommand
+
+<div class="box box-default box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Body</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <form asp-controller="Articles" asp-action="SetBody" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <input type="hidden" asp-for="RecordId" />
+        <input type="hidden" asp-for="CorrelationId" />
+        <input type="hidden" asp-for="Timestamp" />
+        <div class="box-body no-padding no-margin">
+            @Html.EditorFor(m => m.Body)
+        </div>
+        <div class="box-footer">
+            <button submit-form > </button>
+        </div>
+    </form>
+</div>

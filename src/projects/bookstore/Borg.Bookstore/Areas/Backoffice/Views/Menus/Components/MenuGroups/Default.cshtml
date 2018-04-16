@@ -1,0 +1,42 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Commands
+@using Borg.Cms.Basic.Lib.Features.Navigation
+@using Borg.CMS
+@model Borg.Cms.Basic.Lib.Features.Navigation.ViewModels.MenusDashboardViewModel
+@{
+    var command = new NavigationItemStateCreateOrUpdateCommand()
+    {
+
+        Display = "display",
+        IsPublished = false,
+        IsDeleted = false,
+        ParentId = 0,
+        RecordId = 0,
+        ItemType = NavigationItemType.Label,
+        Path = "/",
+        Weight = 0
+
+    };
+}
+<div class="box box-primary box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Menus</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    @Html.Partial("Components/MenuGroups/CommandForm", command)
+
+    <div class="box-body">
+        @if (Model.Groups.Any())
+        {
+            <div class="btn-group">
+                @foreach (var g in Model.Groups)
+                {
+                    <a asp-action="Home" asp-controller="Menus" asp-route-id="@g" class="btn btn-primary">@g</a>
+                }
+            </div>
+        }
+    </div>
+</div>

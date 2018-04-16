@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Borg
 {
-    public static class HtmlHelperExtensions
+    public static partial class HtmlHelperExtensions
     {
         public static async Task<IHtmlContent> RenderViewSection(this IHtmlHelper html, IViewComponentHelper componentHelper, ISection section, Action<Exception> handleException = null)
         {

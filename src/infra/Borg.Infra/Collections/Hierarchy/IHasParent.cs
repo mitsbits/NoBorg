@@ -3,12 +3,12 @@ using System;
 
 namespace Borg.Infra.Collections.Hierarchy
 {
-    public interface IHasParent<out TKey> : IHasParent, IEntity<TKey> where TKey : IEquatable<TKey>
+    public interface ITreeNode<out TKey> : ITreeNode, IEntity<TKey> where TKey : IEquatable<TKey>
     {
         TKey ParentId { get; }
     }
 
-    public interface IHasParent
+    public interface ITreeNode
     {
         int Depth { get; }
     }

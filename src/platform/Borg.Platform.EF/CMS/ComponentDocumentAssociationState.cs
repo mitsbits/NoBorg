@@ -1,5 +1,6 @@
 ﻿using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -12,6 +13,11 @@ namespace Borg.Platform.EF.CMS
         public string MimeType { get; set; }
         public string Uri { get; set; }
         public virtual ComponentState Component { get; set; }
+    }
+
+    public partial class ComponentState
+    {
+        internal ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations { get; set; } = new HashSet<ComponentDocumentAssociationState>();
     }
 
     public class ComponentDocumentAssociationStateMap : EntityMap<ComponentDocumentAssociationState, CmsDbContext>

@@ -41,6 +41,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -186,7 +187,8 @@ namespace Borg.Cms.Basic.Lib
                 p => new AssetService(loggerFactory,
                 p.GetRequiredService<IAssetDirectoryStrategy<int>>(),
                 p.GetRequiredService<IConflictingNamesResolver>(),
-                () => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
+                //() => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
+                    () => new FolderFileStorage(Path.Combine(environment.WebRootPath, settings.Storage.AssetStoreContainer), loggerFactory),
                 p.GetRequiredService<IAssetStoreDatabaseService<int>>()),
                 ServiceLifetime.Scoped));
 

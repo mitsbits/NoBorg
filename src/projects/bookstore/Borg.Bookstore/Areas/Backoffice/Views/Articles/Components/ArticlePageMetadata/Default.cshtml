@@ -1,0 +1,43 @@
+﻿
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+@model ArticlePageMetadataViewModel
+@{
+    var templ = new
+    {
+        text = "Html Meta",
+        title = "Html Meta",
+        className = "jsoneditor-type-object",
+        field = "HtmlMetaTemplate",
+        value = new
+        {
+            Content = "",
+            HttpEquiv = "",
+            Name = "",
+            Scheme = ""
+        }
+    };
+    Model.HtmlMetas.Template = templ;
+    Model.HtmlMetas.HideLabel = true;
+}
+
+<div class="box box-default box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Html Metas</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <form asp-controller="Articles" asp-action="SetHtmlMetas" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <input type="hidden" asp-for="RecordId" />
+        <div class="box-body no-padding no-margin">
+            @Html.EditorFor(m => m.HtmlMetas)
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-primary btn-flat pull-right" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,5 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
+@model ComponentDeviceViewModel
+
+    <input type="hidden" asp-for="ComponentId" />
+    @Html.EditorFor(m => m.DeviceId)

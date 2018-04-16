@@ -5,6 +5,7 @@
 <div class="form-group">
     <label asp-for="@Model"></label>
     <select id="@Model.HtmlId" class="form-control" asp-for="@Model.Value" asp-items="@Model.DropDownItems()" style="width: 100%;"></select>
+    <span asp-validation-for="@Model"></span>
 </div>
 <script type="text/javascript" device id="@(Model.HtmlId)_script" script-position="Bottom" weight="101">
     $(function() {

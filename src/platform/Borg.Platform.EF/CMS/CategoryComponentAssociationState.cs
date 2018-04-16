@@ -1,5 +1,6 @@
 ﻿using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
@@ -10,6 +11,11 @@ namespace Borg.Platform.EF.CMS
         public bool IsPrimary { get; set; }
         internal virtual ComponentState Component { get; set; }
         internal virtual CategoryState Category { get; set; }
+    }
+
+    public partial class ComponentState
+    {
+        internal ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
     }
 
     public class CategoryComponentAssociationStateMap : EntityMap<CategoryComponentAssociationState, CmsDbContext>

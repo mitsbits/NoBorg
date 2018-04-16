@@ -1,0 +1,68 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels
+@model CategoryEditViewModel
+@{
+    var transientcolour = (Model.IsTransient) ? "success" : "primary";
+    var transienttitle = (Model.IsTransient) ? "New Category" : Model.FriendlyName;
+    var parentOptions = Model.ParentOptions.Select(x => new SelectListItem()
+    {
+        Value = x.Key.Item1.ToString(),
+        Text = '-'.Repeat(x.Key.Item2) + x.Value.Value
+    }).ToList();
+    parentOptions.Insert(0, new SelectListItem() { Value = "0", Text = "..." });
+    var buttontooltip = Model.IsTransient ? "Create" : "Update";
+}
+<div class="box box-solid box-@transientcolour">
+    <div class="box-header with-border">
+        <h3 class="box-title">@transienttitle</h3>
+    </div>
+    <div class="box-body">
+        @if (!Model.IsTransient)
+        {
+            <div class="form-group">
+                @Html.Partial("Partials/ComponentStateButtons", Model.Component)
+            </div>
+        }
+    </div>
+    <form asp-area="Backoffice" asp-controller="Categories" asp-action="CategoryEdit" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <div class="box-body">
+            <input type="hidden" asp-for="GroupingId" />
+            <input type="hidden" asp-for="RecordId" />
+
+            <div class="form-group">
+                <label asp-for="FriendlyName"></label>
+                <div class="input-group input-group">
+                    <span class="input-group-addon" data-toggle="tooltip" title="Also set slug">
+                        <input type="checkbox" asp-for="AlsoSetSlug" class="">
+                    </span>
+                    <input type="text" class="form-control" asp-for="FriendlyName">
+                </div>
+                <span asp-validation-for="FriendlyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug"></label>
+                <input type="text" class="form-control" asp-for="Slug">
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight"></label>
+                <input type="text" class="form-control" asp-for="Weight">
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentId"></label>
+                <select asp-for="ParentId" asp-items="@parentOptions" class=" form-control select2"></select>
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="box-footer">
+            @if (!Model.IsTransient)
+            {
+                <a asp-area="Backoffice" asp-controller="Articles" asp-action="Item" asp-route-id="@Model.RecordId" asp-route-redirecturl="@Orchestrator.Device.RelativePath()"
+                   class="btn btn-success"><i class="fa fa-book"></i></a>
+   
+            }
+            <button submit-form colour-class="@transientcolour" tooltip="@buttontooltip"> </button>
+        </div>
+    </form>
+
+</div>

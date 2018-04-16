@@ -31,20 +31,15 @@ module.exports = function (env) {
                 { from: 'node_modules/jquery/dist/jquery.js' },
                 { from: 'node_modules/jquery-validation/dist/', to: 'jquery-validation/' },
                 { from: 'node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js' },
-    
                 { from: 'node_modules/bootstrap/dist/', to: 'bootstrap/' },
-
                 { from: 'node_modules/@fortawesome/fontawesome-free-webfonts/', to: 'font-awesome/' },
                 { from: 'node_modules/ionicons/dist/', to: 'ionicons/' },
-
                 { from: 'node_modules/moment/min/moment-with-locales.min.js', to: 'moment.js' },
 
                 { from: 'Areas/Presentation/Static/assets/', to: 'assets/' },
-
                 { from: 'Areas/Presentation/Static/js/site.js', to: 'site.js' },
-
                 { from: 'Areas/Presentation/Static/css/theme.css' },
-  
+
             ])
         ],
         module: {

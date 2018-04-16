@@ -1,0 +1,42 @@
+﻿@using Borg.Cms.Basic.Lib
+@using Borg.Infra.Services
+@model string
+@{
+    var htmlId = Randomize.String(16);
+}
+
+<select asp-for="@Model" id="input_@htmlId" style="width: 100%;">
+    @foreach (var item in EnumUtil.GetValues<FontAwesomeEnum>().OrderBy(x=>x.ToString()))
+    {
+        <option value="@item.ToString()" data-class="@item.ToCssClass()">@item</option>
+    }
+</select>
+
+<script device type="text/javascript" id="script_@htmlId" weight="115">
+    $(function() {
+
+        function formatState (state) {
+            if (!state.id) { return state.text; }
+            var cls = $(state.element).data('class');
+            var $state = $(
+                '<i class="' + cls +  //state.element.value.toLowerCase() +
+                '" ></i>&nbsp;<span> ' +state.text + '</span>'
+            );
+            return $state;
+        };
+        function formatStateSelection (state) {
+            if (!state.id) { return state.text; }
+            var cls = $(state.element).data('class');
+            var $state = $(
+                '<i class="' + cls +  //state.element.value.toLowerCase() +
+                '" ></i>&nbsp;<span> ' +state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $("#input_@htmlId").select2({
+            templateResult: formatState,
+            templateSelection: formatStateSelection
+        });
+    });
+</script>

@@ -1,0 +1,75 @@
+﻿@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.Components
+@using Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewComponents
+@model ArticleTagsAssociationViewModel
+@{
+    var existingtags = Model.Tags.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Tag });
+}
+<div class="box box-primary box-solid collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Tags</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <form asp-controller="Tags" asp-action="AssociateAtricleTags" asp-area="Backoffice" method="post" asp-route-redirecturl="@Orchestrator.Device.RelativePath()">
+        <div class="box-body">
+
+            <input type="hidden" asp-for="ArticleId" />
+            <div class="form-group">
+
+                <select id="tagsuggestions" asp-for="Selection" asp-items="@existingtags" class="form-control" style="width: 100%">
+                    @foreach (var select in Model.Selection)
+                    {
+                        <option selected="selected">@select</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-primary btn-flat pull-right" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script device id="tagsuggestionscript" weight="110" script-position="Bottom">
+
+    var tagOptionsUrl = '@Url.Action("TagOptions", "Tags", new {area="Backoffice"})';
+
+    var pageSize = 30;
+
+    $("select#tagsuggestions").select2({
+        allowClear: true,
+        multiple: true,
+        tags: true,
+        theme: "classic",
+        tokenSeparators: [",", ";"],
+        ajax: {
+            url: tagOptionsUrl,
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                console.debug(JSON.stringify(params));
+                return {
+                    searchTerm: params.term,
+                    pageNum: params.page || 1,
+                    pageSize: pageSize
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.results,
+                    pagination: {
+                        more: (params.page * pageSize) < data.total
+                    }
+                };
+            },
+            cache: false,
+            formatSelectionCssClass: function (data, container) { return "tag-item"; },
+        }
+    });
+</script>

@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "name": "borg.bookstore",
+  "private": true,
+  "scripts": {
+    "start": "webpack --config ./areas/backoffice/webpack.config.js --watch --progress --profile,webpack --config ./areas/presentation/webpack.config.js --watch --progress --profile",
+    "build": "webpack --config ./areas/backoffice/webpack.config.js --progress --profile",
+    "prod": "webpack --env.NODE_ENV=production --config ./areas/backoffice/webpack.config.js --progress",
+    "startfe": "webpack --config ./areas/presentation/webpack.config.js --watch --progress --profile"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.3.1",
+    "css-loader": "^0.28.7",
+    "expose-loader": "^0.7.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "imports-loader": "^0.7.1",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.5",
+    "admin-lte": "^2.4.2",
+    "bootstrap-treeview": "^1.2.0",
+    "ckeditor": "^4.8.0",
+    "datatables.net": "^1.10.15",
+    "datatables.net-bs": "^2.1.1",
+    "daterangepicker": "^2.1.27",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "icheck": "^1.0.2",
+    "ionicons": "^3.0.0",
+    "jquery": "^3.2.1",
+    "jquery-validation": "^1.17.0",
+    "jquery-validation-unobtrusive": "^3.2.9",
+    "jsoneditor": "^5.13.1",
+    "knockout": "^3.4.2",
+    "moment": "^2.20.1",
+    "select2": "^4.0.6-rc.1",
+    "wookmark": "^2.1.2"
+  }
+}

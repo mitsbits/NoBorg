@@ -29,7 +29,11 @@
         @await RenderSectionAsync("main", required: false)
         @RenderBody()
     </div>
-
+<div class="cookies" style="display:none;" data-plugin-cookie="">
+    <div class="inner">
+        HALLO
+    </div>
+</div>
     @await RenderSectionAsync("footer", required: false)
 
     @Html.Partial("_bottomScripts")

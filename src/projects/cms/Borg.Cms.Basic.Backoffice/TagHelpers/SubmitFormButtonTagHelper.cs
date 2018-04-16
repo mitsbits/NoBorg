@@ -1,9 +1,7 @@
-﻿using Borg.MVC.PlugIns.Decoration;
+﻿using Borg.Cms.Basic.Lib;
+using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Linq;
-using Borg.Cms.Basic.Lib;
 
 namespace Borg.Cms.Basic.Backoffice.TagHelpers
 {
@@ -22,19 +20,15 @@ namespace Borg.Cms.Basic.Backoffice.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
-
             output.Attributes.Clear();
             output.Attributes.SetAttribute("type", "submit");
 
-            output.Attributes.Add("class", $"btn btn-{ColourClass} {(PullRight ? "pull-right" : "")} {(Block?"btn-block":"")}");
+            output.Attributes.Add("class", $"btn btn-{ColourClass} {(PullRight ? "pull-right" : "")} {(Block ? "btn-block" : "")}");
             output.Attributes.SetAttribute("title", Tooltip);
-
 
             var icon = new TagBuilder("i");
             icon.AddCssClass($"{IconClass.ToCssClass()}");
             output.Content.SetHtmlContent(icon);
-
         }
     }
 }

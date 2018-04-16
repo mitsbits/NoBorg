@@ -1,31 +1,53 @@
-﻿using Borg.Infra.DDD.Contracts;
+﻿using Borg.CMS.Components.Contracts;
+using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Borg.Platform.EF.CMS
 {
-    public class ComponentState : IEntity<int>
+    public partial class ComponentState : IEntity<int>, ICanBeDeleted, ICanBePublished, ICanDeletedAndRecovered
     {
+        public ComponentState()
+        {
+            
+        }
+        public ComponentState(int id):this()
+        {
+            Id = id;
+        }
+        public ComponentState(int id, bool isPublished) : this(id)
+        {
+            IsPublished = isPublished;
+        }
+        public ComponentState( bool isPublished) : this()
+        {
+            IsPublished = isPublished;
+        }
         public int Id { get; protected set; }
-        public bool IsDeleted { get; set; }
-        public bool IsPublished { get; set; }
+        public bool IsDeleted { get;protected set; }
 
-        internal virtual TagState Tag { get; set; }
-        internal virtual HtmlSnippetState HtmlSnippet { get; set; }
-        internal virtual ArticleState Article { get; set; }
-        internal virtual TaxonomyState Taxonomy { get; set; }
-        internal virtual ComponentDeviceState ComponentDevice { get; set; }
-        internal virtual PageMetadataState PageMetadata { get; set; }
-        internal virtual CategoryGroupingState CategoryGrouping { get; set; }
-        internal virtual CategoryState Category { get; set; }
 
-        internal virtual ICollection<ComponentDocumentAssociationState> ComponentDocumentAssociations { get; set; } = new HashSet<ComponentDocumentAssociationState>();
-        internal virtual ICollection<CategoryComponentAssociationState> CategoryComponentAssociations { get; set; } = new HashSet<CategoryComponentAssociationState>();
+        public bool IsPublished { get; protected set; }
+        public void Publish()
+        {
+            if (!IsPublished) IsPublished = true;
+        }
 
+        public void Suspend()
+        {
+            if (IsPublished) IsPublished = false;
+        }
+
+        public void Delete()
+        {
+          if(!IsDeleted)  IsDeleted = true;
+        }
+        public void Recover()
+        {
+            if (IsDeleted) IsDeleted = false;
+        }
         public bool OkToDisplay() => !IsDeleted && IsPublished;
 
-        internal virtual ICollection<ComponentJobScheduleState> ComponentJobSchedules { get; set; } = new HashSet<ComponentJobScheduleState>();
     }
 
     public class ComponentStateMap : EntityMap<ComponentState, CmsDbContext>

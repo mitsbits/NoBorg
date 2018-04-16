@@ -7,14 +7,14 @@ namespace Borg.Infra.Collections.Hierarchy
 {
     public abstract class BaseHierarchy<TKey> : IHierarchicalEnumerable where TKey : IEquatable<TKey>
     {
-        private readonly ICollection<IHasParent<TKey>> _source;
+        private readonly ICollection<ITreeNode<TKey>> _source;
 
         protected BaseHierarchy()
         {
-            _source = new HashSet<IHasParent<TKey>>();
+            _source = new HashSet<ITreeNode<TKey>>();
         }
 
-        protected internal ICollection<IHasParent<TKey>> Source => _source;
+        protected internal ICollection<ITreeNode<TKey>> Source => _source;
 
         public virtual IEnumerator GetEnumerator()
         {

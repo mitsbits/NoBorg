@@ -33,6 +33,7 @@
     <Folder Include="Areas\Backoffice\Static\assets\" />
     <Folder Include="Areas\Documents\" />
     <Folder Include="Areas\BlogEngine\" />
+    <Folder Include="Areas\Presentation\Static\js\Plugins\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

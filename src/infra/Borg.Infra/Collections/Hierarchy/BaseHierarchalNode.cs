@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace Borg.Infra.Collections.Hierarchy
 {
-    public abstract class BaseHierarchalNode<TKey> : IHasParent<TKey>, IHierarchyData where TKey : IEquatable<TKey>
+    public abstract class BaseHierarchalNode<TKey> : ITreeNode<TKey>, IHierarchyData where TKey : IEquatable<TKey>
     {
-        private readonly List<IHasParent<TKey>> _source;
+        private readonly List<ITreeNode<TKey>> _source;
 
         public IHierarchicalEnumerable Container { get; set; }
 
-        protected BaseHierarchalNode(IEnumerable<IHasParent<TKey>> source)
+        protected BaseHierarchalNode(IEnumerable<ITreeNode<TKey>> source)
         {
-            _source = new List<IHasParent<TKey>>(source);
+            _source = new List<ITreeNode<TKey>>(source);
         }
 
         protected BaseHierarchalNode(BaseHierarchy<TKey> container)
         {
-            _source = new List<IHasParent<TKey>>(container.Source);
+            _source = new List<ITreeNode<TKey>>(container.Source);
             Container = container;
         }
 
@@ -50,6 +50,6 @@ namespace Borg.Infra.Collections.Hierarchy
             }
         }
 
-        protected virtual IEnumerable<IHasParent<TKey>> Source => _source;
+        protected virtual IEnumerable<ITreeNode<TKey>> Source => _source;
     }
 }

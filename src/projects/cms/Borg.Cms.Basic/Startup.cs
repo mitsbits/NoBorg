@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Cms.Basic.Lib.Discovery;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Middlewares;
@@ -45,12 +46,12 @@ namespace Borg.Cms.Basic
                 options.ConnectionString = Settings.ConnectionStrings["db"];
             });
             services.AddMediatR(AssembliesToScan);
-            services.AddDistributedMemoryCache();
+            //services.AddDistributedMemoryCache();
 
             var builder = AddBorgMvc(services);
             builder.AddApplicationPart(typeof(PresentationController).Assembly);
-            //builder.ConfigureApplicationPartManager(p =>
-            //    p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
+            builder.ConfigureApplicationPartManager(p =>
+                p.FeatureProviders.Add(new EntityControllerFeatureProvider(PlugInHost)));
 
             services.AddAuthorization(options =>
             {
@@ -149,10 +150,10 @@ namespace Borg.Cms.Basic
             app.UseStatusCodePagesWithReExecute("/error/page{0}");
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new CompositeFileProvider(
-                    new PhysicalFileProvider(env.WebRootPath),
-                    serviceProvider.GetRequiredService<AzureBlobStorageFileProvider>()
-                )
+                //FileProvider = new CompositeFileProvider(
+                //    new PhysicalFileProvider(env.WebRootPath)
+                //    //serviceProvider.GetRequiredService<AzureBlobStorageFileProvider>()
+                //)
             });
 
             BranchPlugins(app);

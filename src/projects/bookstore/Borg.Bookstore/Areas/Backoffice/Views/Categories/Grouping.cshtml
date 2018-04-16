@@ -1,0 +1,30 @@
+﻿@using Borg.Cms.Basic.Lib.Features.CMS.Categories.Commands
+@using Borg.Cms.Basic.Lib.Features.CMS.Categories.ViewModels
+@model CategoryGroupingViewModel
+
+<div class="container-fluid" style="margin-bottom: 1em;">
+    <div class="row">
+        <div class="col-xs-10 ">
+            <div class="row">
+                <div class="col-md-6">@Html.Partial("Partials/AddOrUpdateCategoryGroupingCommand", new AddOrUpdateCategoryGroupingCommand() { RecordId = Model.AggregateRoot.Id, FriendlyName = Model.AggregateRoot.FriendlyName })</div>
+                <div class="col-md-6">
+                    <a asp-area="Backoffice" asp-controller="Categories" asp-action="Grouping" asp-route-id="@Orchestrator.Device.RouteValues["id"][0]" asp-route-catid=""
+                       class="btn btn-success btn-flat" title="New Category">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 ">@Html.Partial("Partials/ComponentStateButtons", Model.AggregateRoot.Component)</div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Partial("Partials/Tree", Model.Trees())
+        </div>
+        <div class="col-md-6">
+            @Html.Partial("Partials/CategoryEdit", Model.CategoryEditViewModel())
+        </div>
+    </div>
+</div>

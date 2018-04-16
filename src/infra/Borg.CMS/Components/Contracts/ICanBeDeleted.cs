@@ -6,4 +6,11 @@
 
         bool IsDeleted { get; }
     }
+
+    public interface ICanDeletedAndRecovered: ICanBeDeleted
+    {
+        void Recover();
+
+
+    }
 }
