@@ -1,10 +1,11 @@
-﻿using Borg.Platform.EF;
+﻿using Borg.Infra.DDD.Contracts;
+using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Borg.Platform.Identity
+namespace Borg.Platform.Identity.Data.Entities
 {
-    public class RegistrationRequest
+    public class RegistrationRequest : IEntity<Guid>
     {
         public Guid Id { get; set; }
         public string Code { get; set; }
@@ -12,7 +13,7 @@ namespace Borg.Platform.Identity
         public DateTimeOffset SubmitedOn { get; set; }
     }
 
-    public class RegistrationRequestMap : EntityMap<RegistrationRequest, AuthDbContext>()
+    public class RegistrationRequestMap : EntityMap<RegistrationRequest, AuthDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)
         {

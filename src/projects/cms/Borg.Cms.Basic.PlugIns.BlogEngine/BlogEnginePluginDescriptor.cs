@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Borg.Cms.Basic.PlugIns.BlogEngine.Areas.BlogEngine.Controllers;
+using Borg.CMS;
 
 namespace Borg.Cms.Basic.PlugIns.BlogEngine
 {

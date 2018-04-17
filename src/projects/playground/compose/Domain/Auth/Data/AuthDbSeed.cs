@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Auth.Data
 {
-   public class AuthDbSeed
+    public class AuthDbSeed
     {
         private readonly AuthDbContext _db;
 
@@ -15,11 +12,9 @@ namespace Domain.Auth.Data
             _db = db;
         }
 
-
         public async Task Init()
         {
             await _db.Database.MigrateAsync();
-
         }
     }
 }

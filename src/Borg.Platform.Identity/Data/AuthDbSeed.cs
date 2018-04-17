@@ -1,5 +1,6 @@
 ﻿using Borg.Infra.Services;
 using Borg.Platform.EF.Contracts;
+using Borg.Platform.Identity.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,24 +8,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Infra.Configuration.Contracts;
 
-namespace Borg.Platform.Identity
+namespace Borg.Platform.Identity.Data
 {
-
-    public class IdentityConfig : ISettings
-    {
-        public string SqlConnectionString { get; set; }
-        public AuthDbSeedOptions DbSeedOptions { get; set; } = new AuthDbSeedOptions();
-        public bool ActivateOnRegisterRequest { get; set; } = false;
-        public string LoginPath { get; set; } = "/login";
-        public string LogoutPath { get; set; } = "/logout";
-        public string AccessDeniedPath { get; set; } = "/denied";
-        public double DaysUntilExpiration { get; set; } = 15;
-        public PasswordOptions PasswordOptions { get; set; } = new PasswordOptions();
-        public LockoutOptions LockoutOptions { get; set; } = new LockoutOptions();
-        public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromDays(15);
-    }
     public class AuthDbSeedOptions
     {
         public bool CreateSystemRoles { get; set; } = true;

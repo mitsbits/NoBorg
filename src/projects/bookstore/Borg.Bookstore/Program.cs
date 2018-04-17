@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Borg.Bookstore.Configuration;
-using Borg.Infra;
+﻿using Borg.Bookstore.Configuration;
 using Borg.MVC.Util;
-using Borg.Platform.EF.Assets.Data;
+using Borg.Platform.Identity.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using System;
 
 namespace Borg.Bookstore
 {
@@ -19,21 +13,20 @@ namespace Borg.Bookstore
     {
         public static void Main(string[] args)
         {
-
             var appConfig = HostUtility.AppConfiguration(args);
-            var settings = new SiteSettings();
+            var settings = new ApplicationConfig();
             appConfig.Bind(settings);
             Console.Title = settings.ApplicationName;
 
-
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            Seed(host);
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
-
 
         private static void Seed(IWebHost host)
         {
@@ -42,10 +35,7 @@ namespace Borg.Bookstore
             {
                 var authseed = scope.ServiceProvider.GetRequiredService<AuthDbSeed>();
                 authseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
-
             }
         }
     }
-
-
 }

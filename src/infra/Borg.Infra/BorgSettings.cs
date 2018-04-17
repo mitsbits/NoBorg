@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.Configuration.Contracts;
+﻿using Borg.Infra.Configuration.Contracts;
+using System.Collections.Generic;
 
 namespace Borg.Infra
 {
-    public class BorgSettings: ISettingsProvider<StorageSettings>
+    public class BorgSettings : ISettingsProvider<StorageSettings>, ISettingsProvider<TenantSettings>, ISettingsProvider<PaginationInfoStyle>
     {
         public IDictionary<string, string> ConnectionStrings { get; set; }
-        public PaginationInfoStyle PaginationInfoStyle { get; set; }
-        public StorageSettings Storage { get; set; }
-        public TenantSettings Tenant { get; set; }
-        public AuthSettings Auth { get; set; }
+        public PaginationInfoStyle PaginationInfoStyle { get; set; } = new PaginationInfoStyle();
+        public StorageSettings Storage { get; set; } = new StorageSettings();
+        public TenantSettings Tenant { get; set; } = new TenantSettings();
+
+        //public AuthSettings Auth { get; set; }
         public VisualSettings Visual { get; set; }
 
         StorageSettings ISettingsProvider<StorageSettings>.Config => Storage;
+
+        TenantSettings ISettingsProvider<TenantSettings>.Config => Tenant;
+
+        PaginationInfoStyle ISettingsProvider<PaginationInfoStyle>.Config => PaginationInfoStyle;
     }
 
     public class StorageSettings : ISettings

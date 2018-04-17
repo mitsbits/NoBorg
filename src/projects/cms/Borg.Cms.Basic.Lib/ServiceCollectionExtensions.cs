@@ -1,6 +1,7 @@
 ﻿using Borg.Cms.Basic.Lib.Discovery.Data;
 using Borg.Cms.Basic.Lib.Features.Auth;
 using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Cms.Basic.Lib.Features.CMS.Data;
 using Borg.Cms.Basic.Lib.Features.Content.Services;
 using Borg.Cms.Basic.Lib.Features.Device.Services;
 using Borg.Cms.Basic.Lib.Features.Navigation.Contracts;
@@ -23,7 +24,6 @@ using Borg.MVC.Services;
 using Borg.MVC.Services.Editors;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
-using Borg.Platform.Azure.Storage.Blobs;
 using Borg.Platform.EF.Assets.Data;
 using Borg.Platform.EF.Assets.Services;
 using Borg.Platform.EF.CMS.Data;
@@ -45,7 +45,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Borg.Cms.Basic.Lib.Features.CMS.Data;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -119,10 +118,10 @@ namespace Borg.Cms.Basic.Lib
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = settings.Auth.LoginPath;
-                options.ExpireTimeSpan = TimeSpan.FromDays(15);
-                options.LogoutPath = settings.Auth.LogoutPath;
-                options.AccessDeniedPath = settings.Auth.AccessDeniedPath;
+                //options.LoginPath = settings.Auth.LoginPath;
+                //options.ExpireTimeSpan = TimeSpan.FromDays(15);
+                //options.LogoutPath = settings.Auth.LogoutPath;
+                //options.AccessDeniedPath = settings.Auth.AccessDeniedPath;
 
                 options.Cookie.Name = "Borg.Auth";
                 options.Cookie.HttpOnly = true;

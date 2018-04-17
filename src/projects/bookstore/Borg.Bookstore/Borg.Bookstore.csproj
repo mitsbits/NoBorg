@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Borg.Platform.Identity\Borg.Platform.Identity.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.CMS\Borg.CMS.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />

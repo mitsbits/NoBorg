@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Borg.CMS;
 using Borg.MVC.Middlewares;
 
 namespace Borg.Cms.Basic.Backoffice

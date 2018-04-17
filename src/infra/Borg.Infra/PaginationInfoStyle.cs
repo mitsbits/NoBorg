@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Borg.Infra.Configuration.Contracts;
+using System.ComponentModel;
 
 namespace Borg.Infra
 {
     //TODO: this is in the wrong assembly
-    public class PaginationInfoStyle : IPaginationInfoStyle
+    public class PaginationInfoStyle : IPaginationInfoStyle, ISettings
     {
         private string _ItemSliceAndTotalFormat = "{0} to {1} of {2}";
         private string _PageCountAndLocationFormat = "{0} of {1}";

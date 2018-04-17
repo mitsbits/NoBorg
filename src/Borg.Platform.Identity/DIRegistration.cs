@@ -1,12 +1,14 @@
 ﻿using Borg.Infra.Configuration.Contracts;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
+using Borg.Platform.Identity.Configuration;
+using Borg.Platform.Identity.Data;
+using Borg.Platform.Identity.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace Borg.Platform.Identity
@@ -30,15 +32,13 @@ namespace Borg.Platform.Identity
 
             services.Configure<IdentityOptions>(options =>
             {
-
                 options.Password = settings.PasswordOptions;
 
-
-            // Lockout settings
+                // Lockout settings
                 options.Lockout = settings.LockoutOptions;
 
-            // User settings
-            options.User.RequireUniqueEmail = true;
+                // User settings
+                options.User.RequireUniqueEmail = true;
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -53,15 +53,15 @@ namespace Borg.Platform.Identity
 
                 options.Events.OnValidatePrincipal = context =>
                 {
-                //var c = context;
-                return Task.CompletedTask;
+                    //var c = context;
+                    return Task.CompletedTask;
                 };
                 options.Events.OnSignedIn = context =>
                 {
-                //var lf = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
-                //var log = lf.CreateLogger("signin");
-                //log.Info("{user} signed in", context.Principal.Identity.Name);
-                return Task.CompletedTask;
+                    //var lf = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                    //var log = lf.CreateLogger("signin");
+                    //log.Info("{user} signed in", context.Principal.Identity.Name);
+                    return Task.CompletedTask;
                 };
             });
 
@@ -71,7 +71,9 @@ namespace Borg.Platform.Identity
             //});
             //services.AddSingleton<IClaimTypeDisplayProvider, ClaimTypeDisplayProvider>();
             services.AddScoped<IUnitOfWork<AuthDbContext>, UnitOfWork<AuthDbContext>>();
-            services.AddScoped<IDbSeed, AuthDbSeed>();
+            services.AddScoped<IDbSeed, AuthDbSeed>(); 
+            services.AddScoped<AuthDbSeedOptions>();
+            services.AddScoped< AuthDbSeed>();
             return services;
         }
     }

@@ -4,6 +4,5 @@ namespace Borg.CMS
 {
     public abstract class SettingBase : ISetting
     {
-      
     }
 }

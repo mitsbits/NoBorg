@@ -1,20 +1,18 @@
 ﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
+using Borg.Cms.Basic.Lib.Features.CMS.Data;
 using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra;
 using Borg.Infra.Services;
 using Borg.MVC.Util;
 using Borg.Platform.EF.Assets.Data;
-using Borg.Platform.EF.CMS.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
 using Serilog;
 using Serilog.Events;
 using System;
-using Borg.Cms.Basic.Lib.Features.CMS.Data;
 
 namespace Borg.Cms.Basic
 {

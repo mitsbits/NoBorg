@@ -60,36 +60,36 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Data
 
         private async Task EnsureDefaultUser()
         {
-            if (_settings?.Auth?.DefaultUser?.UserName?.Trim().Length > 3)
-            {
-                try
-                {
-                    var user = await _userManager.FindByNameAsync(_settings.Auth.DefaultUser.UserName);
-                    if (user != null)
-                    {
-                        var passwordValid = await _userManager.CheckPasswordAsync(user, _settings.Auth.DefaultUser.Password);
-                        if (!passwordValid)
-                        {
-                            _logger.Info("Reseting default user because of passworg mismatch");
-                            await _userManager.DeleteAsync(user);
-                            user = null;
-                        }
-                    }
-                    if (user == null)
-                    {
-                        user = new CmsUser() { UserName = _settings.Auth.DefaultUser.UserName, Email = _settings.Auth.DefaultUser.Email };
-                        await _userManager.CreateAsync(user, _settings.Auth.DefaultUser.Password);
-                        await _userManager.AddToRolesAsync(user, _settings.Auth.DefaultUser.Roles);
-                        await _userManager.SetLockoutEnabledAsync(user, false);
-                        _logger.Info("Created default user {user}", _settings.Auth.DefaultUser.UserName);
-                    }
-                }
-                catch (Exception e)
-                {
-                    _logger.Warn("Failed to created default user - reason: {reason}", e.ToString());
-                    _logger.Error(e);
-                }
-            }
+            //if (_settings?.Auth?.DefaultUser?.UserName?.Trim().Length > 3)
+            //{
+            //    try
+            //    {
+            //        var user = await _userManager.FindByNameAsync(_settings.Auth.DefaultUser.UserName);
+            //        if (user != null)
+            //        {
+            //            var passwordValid = await _userManager.CheckPasswordAsync(user, _settings.Auth.DefaultUser.Password);
+            //            if (!passwordValid)
+            //            {
+            //                _logger.Info("Reseting default user because of passworg mismatch");
+            //                await _userManager.DeleteAsync(user);
+            //                user = null;
+            //            }
+            //        }
+            //        if (user == null)
+            //        {
+            //            user = new CmsUser() { UserName = _settings.Auth.DefaultUser.UserName, Email = _settings.Auth.DefaultUser.Email };
+            //            await _userManager.CreateAsync(user, _settings.Auth.DefaultUser.Password);
+            //            await _userManager.AddToRolesAsync(user, _settings.Auth.DefaultUser.Roles);
+            //            await _userManager.SetLockoutEnabledAsync(user, false);
+            //            _logger.Info("Created default user {user}", _settings.Auth.DefaultUser.UserName);
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        _logger.Warn("Failed to created default user - reason: {reason}", e.ToString());
+            //        _logger.Error(e);
+            //    }
+            //}
         }
     }
 }

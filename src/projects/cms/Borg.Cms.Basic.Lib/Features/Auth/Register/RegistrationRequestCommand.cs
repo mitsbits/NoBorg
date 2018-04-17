@@ -77,56 +77,57 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Register
         {
             try
             {
-                if (!_settings.Auth.ActivateOnRegisterRequest)
-                {
-                    var existingUser = await _manager.FindByEmailAsync(message.Email);
-                    if (existingUser != null)
-                    {
-                        return CommandResult<RegistrationRequest>.FailureWithEmptyPayload(
-                            $"User {message.Email.ToLower()} exists");
-                    }
+                //if (!_settings.Auth.ActivateOnRegisterRequest)
+                //{
+                //    var existingUser = await _manager.FindByEmailAsync(message.Email);
+                //    if (existingUser != null)
+                //    {
+                //        return CommandResult<RegistrationRequest>.FailureWithEmptyPayload(
+                //            $"User {message.Email.ToLower()} exists");
+                //    }
 
-                    var repo = _uow.ReadWriteRepo<RegistrationRequest>();
+                //    var repo = _uow.ReadWriteRepo<RegistrationRequest>();
 
-                    var existingRequests = await repo.Find(x => x.Email == message.Email && x.Id == message.Id, null,
-                        CancellationToken.None);
-                    var registrationRequests =
-                        existingRequests.Records as RegistrationRequest[] ?? existingRequests.ToArray();
-                    if (registrationRequests.Any())
-                    {
-                        if (registrationRequests.Count() > 1)
-                        {
-                            var todelete = registrationRequests.OrderByDescending(x => x.SubmitedOn).Skip(1).ToList();
-                            foreach (var registrationRequest in todelete)
-                            {
-                                await repo.Delete(x =>
-                                    x.Id == registrationRequest.Id && x.Email == registrationRequest.Email);
-                            }
-                        }
-                        var hit = registrationRequests.OrderByDescending(x => x.SubmitedOn).First();
-                        return CommandResult<RegistrationRequest>.Success(hit);
-                    }
+                //    var existingRequests = await repo.Find(x => x.Email == message.Email && x.Id == message.Id, null,
+                //        CancellationToken.None);
+                //    var registrationRequests =
+                //        existingRequests.Records as RegistrationRequest[] ?? existingRequests.ToArray();
+                //    if (registrationRequests.Any())
+                //    {
+                //        if (registrationRequests.Count() > 1)
+                //        {
+                //            var todelete = registrationRequests.OrderByDescending(x => x.SubmitedOn).Skip(1).ToList();
+                //            foreach (var registrationRequest in todelete)
+                //            {
+                //                await repo.Delete(x =>
+                //                    x.Id == registrationRequest.Id && x.Email == registrationRequest.Email);
+                //            }
+                //        }
+                //        var hit = registrationRequests.OrderByDescending(x => x.SubmitedOn).First();
+                //        return CommandResult<RegistrationRequest>.Success(hit);
+                //    }
 
-                    var request = new RegistrationRequest()
-                    {
-                        Email = message.Email.ToLower(),
-                        SubmitedOn = DateTimeOffset.UtcNow
-                    };
-                    await repo.Create(request);
-                    await _uow.Save();
+                //    var request = new RegistrationRequest()
+                //    {
+                //        Email = message.Email.ToLower(),
+                //        SubmitedOn = DateTimeOffset.UtcNow
+                //    };
+                //    await repo.Create(request);
+                //    await _uow.Save();
 
-                    var user = await CreateUser(message);
+                //    var user = await CreateUser(message);
 
-                    return CommandResult<RegistrationRequest>.Success(request);
-                }
-                else
-                {
-                    var user = await CreateUser(message);
-                    var activatetionResult = await _manager.SetLockoutEnabledAsync(user, false);
-                    if (!activatetionResult.Succeeded) CommandResult<RegistrationRequest>.FailureWithEmptyPayload(activatetionResult.Errors.Select(x => x.Description).ToArray());
-                    var outcome = new RegistrationRequest() { Email = user.Email };
-                    return CommandResult<RegistrationRequest>.Success(outcome);
-                }
+                //    return CommandResult<RegistrationRequest>.Success(request);
+                //}
+                //else
+                //{
+                //    var user = await CreateUser(message);
+                //    var activatetionResult = await _manager.SetLockoutEnabledAsync(user, false);
+                //    if (!activatetionResult.Succeeded) CommandResult<RegistrationRequest>.FailureWithEmptyPayload(activatetionResult.Errors.Select(x => x.Description).ToArray());
+                //    var outcome = new RegistrationRequest() { Email = user.Email };
+                //    return CommandResult<RegistrationRequest>.Success(outcome);
+                //}
+                return CommandResult<RegistrationRequest>.Success(new RegistrationRequest());
             }
             catch (Exception ex)
             {

@@ -158,24 +158,24 @@ namespace Borg.Cms.Basic
 
             BranchPlugins(app);
 
-            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LoginPath), path =>
-            {
-                path.UseAuthentication();
-                path.UseSession();
-                path.UseMvc(ConfigureRoutes);
-            });
-            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LogoutPath), path =>
-            {
-                path.UseAuthentication();
-                path.UseSession();
-                path.UseMvc(ConfigureRoutes);
-            });
-            app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.AccessDeniedPath), path =>
-            {
-                path.UseAuthentication();
-                path.UseSession();
-                path.UseMvc(ConfigureRoutes);
-            });
+            //app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LoginPath), path =>
+            //{
+            //    path.UseAuthentication();
+            //    path.UseSession();
+            //    path.UseMvc(ConfigureRoutes);
+            //});
+            //app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.LogoutPath), path =>
+            //{
+            //    path.UseAuthentication();
+            //    path.UseSession();
+            //    path.UseMvc(ConfigureRoutes);
+            //});
+            //app.MapWhen(c => c.Request.Path.StartsWithSegments(Settings.Auth.AccessDeniedPath), path =>
+            //{
+            //    path.UseAuthentication();
+            //    path.UseSession();
+            //    path.UseMvc(ConfigureRoutes);
+            //});
             GlobalConfiguration.Configuration
                 .UseActivator(new ContainerJobActivator(serviceProvider));
             app.UseHangfireServer();

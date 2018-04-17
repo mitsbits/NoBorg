@@ -126,29 +126,30 @@ namespace Borg.Cms.Basic.Presentation.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegistrationRequestCommand model, string returnurl)
         {
-            if (!_settings.Auth.ActivateOnRegisterRequest)
-            {
-                if (ModelState.IsValid)
-                {
-                    var commadresult = await _dispatcher.Send(model);
-                    if (commadresult.Succeded)
-                    {
-                        var hit = commadresult.Payload.CompositeKey;
+            //if (!_settings.Auth.ActivateOnRegisterRequest)
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        var commadresult = await _dispatcher.Send(model);
+            //        if (commadresult.Succeded)
+            //        {
+            //            var hit = commadresult.Payload.CompositeKey;
 
-                        await _dispatcher.Publish(new RegistrationRequestEvent(hit));
-                        return RedirectToAction("RegistrationVerification", "Account", new { email = hit.Partition });
-                    }
-                    AddErrors(commadresult);
-                }
-                return View(model);
-            }
-            {
-                var commadresult = await _dispatcher.Send(model);
-                if (commadresult.Succeded) return RedirectToLocal(returnurl);
+            //            await _dispatcher.Publish(new RegistrationRequestEvent(hit));
+            //            return RedirectToAction("RegistrationVerification", "Account", new { email = hit.Partition });
+            //        }
+            //        AddErrors(commadresult);
+            //    }
+               // return View(model);
+            //}
+            //{
+            //    var commadresult = await _dispatcher.Send(model);
+            //    if (commadresult.Succeded) return RedirectToLocal(returnurl);
 
-                AddErrors(commadresult);
-                return View(model);
-            }
+            //    AddErrors(commadresult);
+            //    return View(model);
+            //}
+            return View();
         }
 
         [AllowAnonymous]
