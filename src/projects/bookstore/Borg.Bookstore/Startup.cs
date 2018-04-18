@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Borg.Bookstore.Configuration;
+using Borg.Bookstore.Features.Users.Policies;
 using Borg.Infra;
+using Borg.MVC.BuildingBlocks;
 using Borg.Platform.Identity;
 using Borg.Platform.Identity.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +34,7 @@ namespace Borg.Bookstore
         {
             services.Config(Configuration, () => Settings);
 
-            services.RegisterAuth(LoggerFactory, Environment, Settings);
+            services.RegisterAuth(LoggerFactory, Environment, Settings, BackofficePolicies.GetPolicies());
 
         }
         protected IConfiguration Configuration { get; }
@@ -47,10 +51,48 @@ namespace Borg.Bookstore
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseMvc(ConfigureRoutes);
+        }
+
+
+        protected void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            //var scope = ServiceProvider.CreateScope();
+            //using (scope)
+            //{
+            //var provider = scope.ServiceProvider;
+
+            //var provs = provider.GetRequiredService<IEnumerable<IRouteConstraint>>();
+
+            //var root = provs.First(x => x.GetType() == typeof(MenuRootRouteConstraint));
+            //var parent = provs.First(x => x.GetType() == typeof(MenuLeafParentRouteConstraint));
+            //var child = provs.First(x => x.GetType() == typeof(MenuLeafChildRouteConstraint));
+
+            routeBuilder.MapRoute(
+                name: "areaRoute",
+                template: "{area:exists}/{controller=Home}/{action=Home}/{id?}");
+
+            //routeBuilder.MapRoute(
+            //    name: "menuroot",
+            //    template: "{rootmenu}",
+            //    defaults: new { controller = "Menus", action = "Root", area = "Presentation", component = default(ComponentPageDescriptor<int>) },
+            //    constraints: new { rootmenu = root });
+
+            //routeBuilder.MapRoute(
+            //    name: "menuleaf",
+            //    template: "{parentmenu}/{childmenu}",
+            //    defaults: new { controller = "Menus", action = "Leaf", area = "Presentation", component = default(ComponentPageDescriptor<int>) },
+            //    constraints: new { parentmenu = parent, childmenu = child });
+
+            //routeBuilder.MapRoute(
+            //    name: "siteroot",
+            //    template: "",
+            //    defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation", rootmenu = "home", component = default(ComponentPageDescriptor<int>) });
+
+            //routeBuilder.MapRoute(
+            //    name: "default",
+            //    template: "{controller=Home}/{action=Home}/{id?}");
         }
     }
 }
+

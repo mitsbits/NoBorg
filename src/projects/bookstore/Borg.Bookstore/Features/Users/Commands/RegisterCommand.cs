@@ -1,23 +1,36 @@
-﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
-using Borg.Infra.DAL;
-using Borg.Platform.EF.Contracts;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Cms.Basic.Lib.Features.Auth.Register;
+using Borg.Infra.DAL;
+using Borg.Platform.EF.Contracts;
+using Borg.Platform.Identity.Data;
+using Borg.Platform.Identity.Data.Entities;
+using Borg.Platform.MediatR;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
-namespace Borg.Cms.Basic.Lib.Features.Auth.Register
+
+namespace Borg.Bookstore.Features.Users.Commands
 {
+    public class RegisterCommand : CommandBase<CommandResult>, IRequest<CommandResult>
+    {
+        public RegisterCommand(RegisterViewModel model)
+        {
+            Model = model;
+        }
+
+        public RegisterViewModel Model { get; }
+    }
     public class RegisterCommandHandler : AsyncRequestHandler<RegisterCommand, CommandResult>
     {
         private readonly ILogger _logger;
-        private readonly UserManager<CmsUser> _userManager;
+        private readonly UserManager<GenericUser> _userManager;
         private readonly IUnitOfWork<AuthDbContext> _uow;
 
-        public RegisterCommandHandler(ILoggerFactory loggerFactory, UserManager<CmsUser> userManager, IUnitOfWork<AuthDbContext> uow)
+        public RegisterCommandHandler(ILoggerFactory loggerFactory, UserManager<GenericUser> userManager, IUnitOfWork<AuthDbContext> uow)
         {
             _logger = loggerFactory.CreateLogger(typeof(RegisterCommandHandler));
             _userManager = userManager;

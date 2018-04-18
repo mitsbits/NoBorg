@@ -1,4 +1,6 @@
-﻿using Borg.Infra.Configuration.Contracts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Borg.Infra.Configuration.Contracts;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
 using Borg.Platform.Identity.Configuration;
@@ -10,12 +12,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Borg.Platform.Identity
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection RegisterAuth(this IServiceCollection services, ILoggerFactory loggerFactory, IHostingEnvironment environment, ISettingsProvider<IdentityConfig> settingsProvider)
+        public static IServiceCollection RegisterAuth(this IServiceCollection services, ILoggerFactory loggerFactory, 
+            IHostingEnvironment environment, ISettingsProvider<IdentityConfig> settingsProvider,
+            IDictionary<string, AuthorizationPolicy> policies)
         {
             var settings = settingsProvider.Config;
             //services.AddScoped<IContextAwareUserSession, BorgUserSession>();
@@ -64,11 +69,22 @@ namespace Borg.Platform.Identity
                     return Task.CompletedTask;
                 };
             });
+            if (policies != null && policies.Any())
+            {
+                foreach (var policyname in policies.Keys)
+                {
 
-            //services.AddAuthorization(options =>
-            //{
-            //    //options.AddPolicy("Backoffice", policy => policy.RequireRole(CmsRoles.Backoffice.ToString(), SystemRoles.Admin.ToString()));
-            //});
+                }
+            }
+            services.AddAuthorization(options =>
+            {
+                if (policies == null || !policies.Any()) return;
+                foreach (var policyname in policies.Keys)
+                {
+                    options.AddPolicy(policyname, policies[policyname]);
+                }
+                //options.AddPolicy("Backoffice", policy => policy.RequireRole(CmsRoles.Backoffice.ToString(), SystemRoles.Admin.ToString()));
+            });
             //services.AddSingleton<IClaimTypeDisplayProvider, ClaimTypeDisplayProvider>();
             services.AddScoped<IUnitOfWork<AuthDbContext>, UnitOfWork<AuthDbContext>>();
             services.AddScoped<IDbSeed, AuthDbSeed>(); 

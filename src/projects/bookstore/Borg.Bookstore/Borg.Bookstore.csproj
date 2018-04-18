@@ -6,14 +6,13 @@
 
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Controllers\" />
-    <Folder Include="Areas\Backoffice\Data\" />
-    <Folder Include="Areas\Backoffice\Models\" />
     <Folder Include="Areas\Backoffice\Views\" />
     <Folder Include="Data\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
@@ -25,6 +24,7 @@
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.EF\Borg.Platform.EF.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.ImageSharp\Borg.Platform.ImageSharp.csproj" />
+    <ProjectReference Include="..\..\..\platform\Borg.Platform.MediatR\Borg.Platform.MediatR.csproj" />
   </ItemGroup>
 
 </Project>

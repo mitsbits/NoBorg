@@ -9,8 +9,7 @@ namespace Borg.Platform.Identity.Data
 {
     public class AuthDbContext : IdentityDbContext<GenericUser>
     {
-        public AuthDbContext(DbContextOptions<AuthDbContext> options)
-            : base(options)
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
 

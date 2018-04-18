@@ -1,5 +1,4 @@
-﻿@using Borg.Cms.Basic.Lib.Features.Auth.Management.Users
-@model UserRowViewModel
+﻿@model UserRowViewModel
 @{
     var headerText = (Model.LockedOut) ? "Disabled" : "Enabled";
     var statusClass = (Model.LockedOut) ? "danger" : "success";
