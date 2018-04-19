@@ -1,0 +1,25 @@
+﻿@using Borg.Infra.DTO
+@using Borg.Infra.Storage.Assets
+@using Borg.Infra.Storage.Assets.Contracts
+@model Tidings
+@inject IStaticImageCacheStore<int> _cache
+@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
+
+@{
+    VisualSize size = VisualSize.Huge;
+    if (Model.ContainsKey(nameof(VisualSize)))
+    {
+        size = VisualSize.Parse(Model[nameof(VisualSize)]);
+    }
+}
+
+@if (!string.IsNullOrWhiteSpace(Orchestrator.Page.PrimaryImageFileId))
+{
+    <figure>
+        @*@foreach (var url in Orchestrator.Page.PrimaryImages)
+        {
+            <img class="img-responsive img" src="@url" />
+        }*@
+        <img class="img-responsive img" src="@Orchestrator.Page.PrimaryImages[size.Flavor]" />
+    </figure>
+}

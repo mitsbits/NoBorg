@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Borg.Bookstore.Configuration;
@@ -9,6 +10,7 @@ using Borg.Infra;
 using Borg.MVC.BuildingBlocks;
 using Borg.Platform.Identity;
 using Borg.Platform.Identity.Data;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +36,21 @@ namespace Borg.Bookstore
         {
             services.Config(Configuration, () => Settings);
 
+            var configProviders = typeof(ApplicationConfig).GetInterfaces();
+            foreach (var contract in configProviders)
+            {
+                services.Add(new ServiceDescriptor(contract, Settings));
+            }
+
+            var assebliesToScan = services.FireUpAssemblyScanners(LoggerFactory);
+
             services.RegisterAuth(LoggerFactory, Environment, Settings, BackofficePolicies.GetPolicies());
+
+            services.AddBorgFramework(Environment, Settings);
+
+            services.AddMediatR(assebliesToScan);
+
+            services.AddMvc();
 
         }
         protected IConfiguration Configuration { get; }
@@ -89,9 +105,9 @@ namespace Borg.Bookstore
             //    template: "",
             //    defaults: new { controller = "Menus", action = "SiteRoot", area = "Presentation", rootmenu = "home", component = default(ComponentPageDescriptor<int>) });
 
-            //routeBuilder.MapRoute(
-            //    name: "default",
-            //    template: "{controller=Home}/{action=Home}/{id?}");
+            routeBuilder.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Home}/{id?}");
         }
     }
 }

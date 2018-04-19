@@ -1,4 +1,5 @@
-﻿using Borg.Infra;
+﻿using System;
+using Borg.Infra;
 using Borg.Infra.Storage;
 using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
@@ -9,6 +10,10 @@ using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using Borg.Infra.Services.AssemblyProvider;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -41,6 +46,18 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserSession, BorgUserSession>();
             services.AddScoped<IContextAwareUserSession, BorgUserSession>();
             return services;
+        }
+
+
+        public static Assembly[] FireUpAssemblyScanners(this IServiceCollection services, ILoggerFactory loggerFactory, Func<Assembly, bool> predicate = null)
+        {
+            var depedencyAssemblyProvider = new DepedencyAssemblyProvider(loggerFactory);
+            var referenceAssemblyProvider = new ReferenceAssemblyProvider(loggerFactory);
+
+            services.AddSingleton<IAssemblyProvider>(provider => depedencyAssemblyProvider);
+            services.AddSingleton<IAssemblyProvider>(provider => referenceAssemblyProvider);
+            var query = depedencyAssemblyProvider.GetAssemblies().Union(referenceAssemblyProvider.GetAssemblies());
+            return predicate == null ? query.Distinct().ToArray() : query.Where(predicate).Distinct().ToArray();
         }
     }
 }

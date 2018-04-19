@@ -1,6 +1,6 @@
 ﻿using Borg.MVC.Services.Editors;
 
-namespace Borg.Cms.Basic.Backoffice.Areas.Backoffice.ViewModels
+namespace Borg.Bookstore.Areas.Backoffice.ViewModels
 {
     public class ArticlePageMetadataViewModel
     {

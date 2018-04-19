@@ -1,0 +1,2 @@
+﻿@inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
+@Html.Raw(Orchestrator.Page.MainContentPages.Any() ? Orchestrator.Page.MainContentPages[0] : "")

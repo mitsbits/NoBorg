@@ -18,6 +18,8 @@ using Borg.Bookstore.Features.Users.Commands;
 using Borg.Bookstore.Features.Users.Events;
 using Borg.Bookstore.Features.Users.ViewModels;
 using Borg.Cms.Basic.Lib.Features.Auth.Register;
+using Borg.Infra.Configuration.Contracts;
+using Borg.Platform.Identity.Configuration;
 
 namespace Borg.Bookstore.Controllers
 {
@@ -31,9 +33,9 @@ namespace Borg.Bookstore.Controllers
         private readonly SignInManager<GenericUser> _signInManager;
         private readonly UserManager<GenericUser> _userManager;
         private readonly IUnitOfWork<AuthDbContext> _uow;
-        private readonly BorgSettings _settings;
+        private readonly ISettingsProvider<IdentityConfig> _settings;
 
-        public AccountController(ILoggerFactory loggerFactory, IMediator dispatcher, SignInManager<GenericUser> signInManager, UserManager<GenericUser> userManager, IUnitOfWork<AuthDbContext> uow, BorgSettings settings)
+        public AccountController(ILoggerFactory loggerFactory, IMediator dispatcher, SignInManager<GenericUser> signInManager, UserManager<GenericUser> userManager, IUnitOfWork<AuthDbContext> uow, ISettingsProvider<IdentityConfig> settings)
             : base(loggerFactory)
         {
             _logger = loggerFactory.CreateLogger(GetType());
@@ -127,29 +129,29 @@ namespace Borg.Bookstore.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegistrationRequestCommand model, string returnurl)
         {
-            //if (!_settings.Auth.ActivateOnRegisterRequest)
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        var commadresult = await _dispatcher.Send(model);
-            //        if (commadresult.Succeded)
-            //        {
-            //            var hit = commadresult.Payload.CompositeKey;
+            if (!_settings.Config.ActivateOnRegisterRequest)
+            {
+                if (ModelState.IsValid)
+                {
+                    var commadresult = await _dispatcher.Send(model);
+                    if (commadresult.Succeded)
+                    {
+                        var hit = commadresult.Payload.Email;
 
-            //            await _dispatcher.Publish(new RegistrationRequestEvent(hit));
-            //            return RedirectToAction("RegistrationVerification", "Account", new { email = hit.Partition });
-            //        }
-            //        AddErrors(commadresult);
-            //    }
-            // return View(model);
-            //}
-            //{
-            //    var commadresult = await _dispatcher.Send(model);
-            //    if (commadresult.Succeded) return RedirectToLocal(returnurl);
+                        await _dispatcher.Publish(new RegistrationRequestEvent(hit));
+                        return RedirectToAction("RegistrationVerification", "Account", new { email = hit });
+                    }
+                    AddErrors(commadresult);
+                }
+                return View(model);
+            }
+            {
+                var commadresult = await _dispatcher.Send(model);
+                if (commadresult.Succeded) return RedirectToLocal(returnurl);
 
-            //    AddErrors(commadresult);
-            //    return View(model);
-            //}
+                AddErrors(commadresult);
+                return View(model);
+            }
             return View();
         }
 

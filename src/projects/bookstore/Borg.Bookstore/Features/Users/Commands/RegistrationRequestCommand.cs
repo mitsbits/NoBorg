@@ -1,12 +1,16 @@
-﻿using Borg.Cms.Basic.Lib.Features.Auth.Data;
-using Borg.Infra;
+﻿using Borg.Infra.Configuration.Contracts;
 using Borg.Infra.DAL;
 using Borg.Infra.DDD;
 using Borg.Infra.Services;
 using Borg.Platform.EF.Contracts;
+using Borg.Platform.Identity.Configuration;
+using Borg.Platform.Identity.Data;
+using Borg.Platform.Identity.Data.Entities;
+using Borg.Platform.MediatR;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,9 +19,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Borg.Bookstore.Features.Users.Requests;
 
-namespace Borg.Cms.Basic.Lib.Features.Auth.Register
+namespace Borg.Bookstore.Features.Users.Commands
 {
     public class RegistrationRequestCommand : CommandBase<CommandResult<RegistrationRequest>>
     {
@@ -62,13 +65,13 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Register
     public class RegistrationRequestCommandHandler : AsyncRequestHandler<RegistrationRequestCommand, CommandResult<RegistrationRequest>>
     {
         private readonly ILogger _logger;
-        private readonly UserManager<CmsUser> _manager;
+        private readonly UserManager<GenericUser> _manager;
         private readonly IUnitOfWork<AuthDbContext> _uow;
-        private readonly BorgSettings _settings;
+        private readonly ISettingsProvider<IdentityConfig> _settings;
 
-        public RegistrationRequestCommandHandler(ILoggerFactory loggerFactory, UserManager<CmsUser> manager, IUnitOfWork<AuthDbContext> uow, BorgSettings settings)
+        public RegistrationRequestCommandHandler(ILoggerFactory loggerFactory, UserManager<GenericUser> manager, IUnitOfWork<AuthDbContext> uow, ISettingsProvider<IdentityConfig> settings)
         {
-            _logger = loggerFactory.CreateLogger(GetType());
+            _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _manager = manager;
             _uow = uow;
             _settings = settings;
@@ -78,57 +81,56 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Register
         {
             try
             {
-                //if (!_settings.Auth.ActivateOnRegisterRequest)
-                //{
-                //    var existingUser = await _manager.FindByEmailAsync(message.Email);
-                //    if (existingUser != null)
-                //    {
-                //        return CommandResult<RegistrationRequest>.FailureWithEmptyPayload(
-                //            $"User {message.Email.ToLower()} exists");
-                //    }
+                if (!_settings.Config.ActivateOnRegisterRequest)
+                {
+                    var existingUser = await _manager.FindByEmailAsync(message.Email);
+                    if (existingUser != null)
+                    {
+                        return CommandResult<RegistrationRequest>.FailureWithEmptyPayload(
+                            $"User {message.Email.ToLower()} exists");
+                    }
 
-                //    var repo = _uow.ReadWriteRepo<RegistrationRequest>();
+                    var repo = _uow.ReadWriteRepo<RegistrationRequest>();
 
-                //    var existingRequests = await repo.Find(x => x.Email == message.Email && x.Id == message.Id, null,
-                //        CancellationToken.None);
-                //    var registrationRequests =
-                //        existingRequests.Records as RegistrationRequest[] ?? existingRequests.ToArray();
-                //    if (registrationRequests.Any())
-                //    {
-                //        if (registrationRequests.Count() > 1)
-                //        {
-                //            var todelete = registrationRequests.OrderByDescending(x => x.SubmitedOn).Skip(1).ToList();
-                //            foreach (var registrationRequest in todelete)
-                //            {
-                //                await repo.Delete(x =>
-                //                    x.Id == registrationRequest.Id && x.Email == registrationRequest.Email);
-                //            }
-                //        }
-                //        var hit = registrationRequests.OrderByDescending(x => x.SubmitedOn).First();
-                //        return CommandResult<RegistrationRequest>.Success(hit);
-                //    }
+                    var existingRequests = await repo.Find(x => x.Email == message.Email, null,
+                        CancellationToken.None);
+                    var registrationRequests =
+                        existingRequests.Records as RegistrationRequest[] ?? existingRequests.ToArray();
+                    if (registrationRequests.Any())
+                    {
+                        if (registrationRequests.Count() > 1)
+                        {
+                            var todelete = registrationRequests.OrderByDescending(x => x.SubmitedOn).Skip(1).ToList();
+                            foreach (var registrationRequest in todelete)
+                            {
+                                await repo.Delete(x =>
+                                    x.Id == registrationRequest.Id && x.Email == registrationRequest.Email);
+                            }
+                        }
+                        var hit = registrationRequests.OrderByDescending(x => x.SubmitedOn).First();
+                        return CommandResult<RegistrationRequest>.Success(hit);
+                    }
 
-                //    var request = new RegistrationRequest()
-                //    {
-                //        Email = message.Email.ToLower(),
-                //        SubmitedOn = DateTimeOffset.UtcNow
-                //    };
-                //    await repo.Create(request);
-                //    await _uow.Save();
+                    var request = new RegistrationRequest()
+                    {
+                        Email = message.Email.ToLower(),
+                        SubmitedOn = DateTimeOffset.UtcNow
+                    };
+                    await repo.Create(request);
+                    await _uow.Save();
 
-                //    var user = await CreateUser(message);
+                    var user = await CreateUser(message);
 
-                //    return CommandResult<RegistrationRequest>.Success(request);
-                //}
-                //else
-                //{
-                //    var user = await CreateUser(message);
-                //    var activatetionResult = await _manager.SetLockoutEnabledAsync(user, false);
-                //    if (!activatetionResult.Succeeded) CommandResult<RegistrationRequest>.FailureWithEmptyPayload(activatetionResult.Errors.Select(x => x.Description).ToArray());
-                //    var outcome = new RegistrationRequest() { Email = user.Email };
-                //    return CommandResult<RegistrationRequest>.Success(outcome);
-                //}
-                return CommandResult<RegistrationRequest>.Success(new RegistrationRequest());
+                    return CommandResult<RegistrationRequest>.Success(request);
+                }
+                else
+                {
+                    var user = await CreateUser(message);
+                    var activatetionResult = await _manager.SetLockoutEnabledAsync(user, false);
+                    if (!activatetionResult.Succeeded) CommandResult<RegistrationRequest>.FailureWithEmptyPayload(activatetionResult.Errors.Select(x => x.Description).ToArray());
+                    var outcome = new RegistrationRequest() { Email = user.Email };
+                    return CommandResult<RegistrationRequest>.Success(outcome);
+                }
             }
             catch (Exception ex)
             {
@@ -137,9 +139,9 @@ namespace Borg.Cms.Basic.Lib.Features.Auth.Register
             }
         }
 
-        private async Task<CmsUser> CreateUser(RegistrationRequestCommand message)
+        private async Task<GenericUser> CreateUser(RegistrationRequestCommand message)
         {
-            var user = new CmsUser() { UserName = message.Email, Email = message.Email };
+            var user = new GenericUser() { UserName = message.Email, Email = message.Email };
             var result = await _manager.CreateAsync(user, message.Password);
             if (!result.Succeeded) return user;
             var results = new List<IdentityResult>

@@ -1,0 +1,19 @@
+﻿@{
+    var tags = Orchestrator.Page.Tags.OrderBy(x=>x.TagDisplay).ToArray();
+}
+@{
+    if (tags.Any())
+    {
+        <ul class="list-inline">
+            @foreach (var tag in tags)
+            {
+                <li>
+                    <a href="@(_settings.Tenant.Endpoint + "/tag/" + tag.TagSlug)">
+                        @tag.TagDisplay
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+}
+

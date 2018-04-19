@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\infra\Borg.Infra\Borg.Infra.csproj" />
-    <ProjectReference Include="..\platform\Borg.Platform.EF\Borg.Platform.EF.csproj" />
+    <ProjectReference Include="..\Borg.Platform.EF\Borg.Platform.EF.csproj" />
   </ItemGroup>
 
 </Project>

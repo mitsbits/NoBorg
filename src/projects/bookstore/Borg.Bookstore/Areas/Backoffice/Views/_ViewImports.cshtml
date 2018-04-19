@@ -2,13 +2,13 @@
 @using Borg.MVC.BuildingBlocks
 @using Borg.MVC.BuildingBlocks.Contracts
 @using Borg.MVC.Services.UserSession
-@using Borg.Infra.Collections 
+@using Borg.Infra.Collections
 @using Borg.MVC.Extensions
 @using Borg
 @inject IPageOrchestrator<IPageContent, IDevice> Orchestrator
 @inject IContextAwareUserSession UserSession
-@inject IClaimTypeDisplayProvider ClaimTypeDisplayProvider
+
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Borg.MVC
-@addTagHelper *, Borg.Cms.Basic.Backoffice
+@addTagHelper *, Borg.Bookstore

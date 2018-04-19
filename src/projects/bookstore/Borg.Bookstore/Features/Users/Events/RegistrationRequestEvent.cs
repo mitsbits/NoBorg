@@ -1,18 +1,24 @@
-﻿using Borg.Infra.DDD;
+﻿using System;
+using System.Net.Http;
+using Borg.Infra.DDD;
 using Borg.Infra.Messaging;
 using MediatR;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Logging;
 
 namespace Borg.Bookstore.Features.Users.Events
 {
     public class RegistrationRequestEvent : MessageBase, INotification
     {
-        public RegistrationRequestEvent(CompositeKey<string> key)
+        public RegistrationRequestEvent(string email)
         {
-            Key = key;
+            Email = email;
         }
 
-        public CompositeKey<string> Key { get; }
+        public string Email { get; }
     }
 
     public class SendConfirmationCodeForRegistration : AsyncNotificationHandler<RegistrationRequestEvent>
@@ -54,9 +60,10 @@ namespace Borg.Bookstore.Features.Users.Events
         //        throw;
         //    }
         //}
+
         protected override async Task HandleCore(RegistrationRequestEvent notification)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO : fix this
         }
     }
 }

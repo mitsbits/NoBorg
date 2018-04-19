@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Borg.Bookstore.Features.Users.Commands
 {
-    public class RegisterCommand : CommandBase<CommandResult>, IRequest<CommandResult>
+    public class RegisterCommand : CommandBase<CommandResult>
     {
         public RegisterCommand(RegisterViewModel model)
         {
@@ -46,7 +46,7 @@ namespace Borg.Bookstore.Features.Users.Commands
                 var requests = await repo.Find(x => x.Email == message.Model.Email, null);
                 if (!requests.Any()) return CommandResult.Failure($"Could not find verification code for {message.Model.Email}");
                 var hit = requests.OrderByDescending(x => x.SubmitedOn).First();
-                if (hit.Id != message.Model.VerificationCode) return CommandResult.Failure($"Wrong verification code for {message.Model.Email}");
+                if (hit.Code != message.Model.VerificationCode) return CommandResult.Failure($"Wrong verification code for {message.Model.Email}");
 
                 var model = message.Model;
                 var user = await _userManager.FindByEmailAsync(model.Email);

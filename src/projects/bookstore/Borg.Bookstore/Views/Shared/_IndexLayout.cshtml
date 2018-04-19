@@ -1,0 +1,54 @@
+﻿@using Borg.Cms.Basic.Lib.Features.Navigation
+@using Borg.Infra.DTO
+@using Borg.MVC
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Html.Partial("_headScripts")
+    @await RenderSectionAsync("head", required: true)
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@_settings.Tenant.Endpoint">@_settings.Tenant.ServiceTag</a>
+            </div>
+            @await RenderSectionAsync("menu", required: true)
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">        @await RenderSectionAsync("main-upper-left", required: true)</div>
+            <div class="col-md-3">@await RenderSectionAsync("main-upper-right", required: true)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await RenderSectionAsync("main-middle-left", required: true)
+            </div>
+            <div class="col-md-3">
+                @await RenderSectionAsync("main-middle-middle", required: true)
+            </div>
+            <div class="col-md-3">    @await RenderSectionAsync("main-middle-right", required: true)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @await RenderSectionAsync("main-bottom", required: true)
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+    @await RenderSectionAsync("footer", required: true)
+
+    @Html.Partial("_bottomScripts")
+</body>
+</html>
