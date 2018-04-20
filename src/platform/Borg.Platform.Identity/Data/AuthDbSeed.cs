@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Borg.Infra.Configuration.Contracts;
+using Borg.Platform.Identity.Configuration;
 
 namespace Borg.Platform.Identity.Data
 {
@@ -26,9 +28,9 @@ namespace Borg.Platform.Identity.Data
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<GenericUser> _userManager;
         private readonly ILogger _logger;
-        private readonly AuthDbSeedOptions _options;
+        private readonly ISettingsProvider<IdentityConfig> _options;
 
-        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, RoleManager<IdentityRole> roleManager, UserManager<GenericUser> userManager, AuthDbSeedOptions options)
+        public AuthDbSeed(ILoggerFactory loggerFactory, AuthDbContext db, RoleManager<IdentityRole> roleManager, UserManager<GenericUser> userManager, ISettingsProvider<IdentityConfig> options)
         {
             _logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _db = db;
@@ -40,8 +42,8 @@ namespace Borg.Platform.Identity.Data
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
-            if (_options.CreateSystemRoles) await EnsurPlugInRoles();
-            if (_options.CreateDefaultAdmin) await EnsureDefaultUser();
+            if (_options.Config.DbSeedOptions.CreateSystemRoles) await EnsurPlugInRoles();
+            if (_options.Config.DbSeedOptions.CreateDefaultAdmin) await EnsureDefaultUser();
         }
 
         private async Task EnsurPlugInRoles()
@@ -67,10 +69,10 @@ namespace Borg.Platform.Identity.Data
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(_options.DefaultAdminName);
+                var user = await _userManager.FindByNameAsync(_options.Config.DbSeedOptions.DefaultAdminName);
                 if (user != null)
                 {
-                    var passwordValid = await _userManager.CheckPasswordAsync(user, _options.DefaultAdminPassword);
+                    var passwordValid = await _userManager.CheckPasswordAsync(user, _options.Config.DbSeedOptions.DefaultAdminPassword);
                     if (!passwordValid)
                     {
                         _logger.Info("Reseting default user because of passworg mismatch");
@@ -80,11 +82,11 @@ namespace Borg.Platform.Identity.Data
                 }
                 if (user == null)
                 {
-                    user = new GenericUser() { UserName = _options.DefaultAdminName, Email = _options.DefaultAdminName };
-                    await _userManager.CreateAsync(user, _options.DefaultAdminPassword);
-                    await _userManager.AddToRolesAsync(user, _options.DefaultAdminRoles);
+                    user = new GenericUser() { UserName = _options.Config.DbSeedOptions.DefaultAdminName, Email = _options.Config.DbSeedOptions.DefaultAdminName };
+                    await _userManager.CreateAsync(user, _options.Config.DbSeedOptions.DefaultAdminPassword);
+                    await _userManager.AddToRolesAsync(user, _options.Config.DbSeedOptions.DefaultAdminRoles);
                     await _userManager.SetLockoutEnabledAsync(user, false);
-                    _logger.Info("Created default user {user}", _options.DefaultAdminName);
+                    _logger.Info("Created default user {user}", _options.Config.DbSeedOptions.DefaultAdminName);
                 }
             }
             catch (Exception e)

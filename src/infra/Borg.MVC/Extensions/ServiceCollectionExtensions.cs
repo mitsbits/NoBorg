@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
+using Borg.Infra.Configuration.Contracts;
 using Borg.Infra.Services.AssemblyProvider;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddBorgFramework(this IServiceCollection services, IHostingEnvironment env, BorgSettings settings)
+        public static IServiceCollection AddBorgFramework(this IServiceCollection services, IHostingEnvironment env, ISettingsProvider<StorageSettings> settings)
         {
             services.AddSingleton<ISerializer, JsonNetSerializer>();
 
@@ -27,21 +27,20 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IPageOrchestrator, PageOrchestrator>();
             services.AddScoped<IDeviceAccessor<IDevice>, PageOrchestrator>();
             services.AddScoped<IPageContentAccessor<IPageContent>, PageOrchestrator>();
-
             services.AddBorgUserSession();
 
             services.AddBorgDefaultSlugifier();
 
             services.AddScoped<DeviceLayoutFilter>();
 
-            services.AddScoped<IFileStorage>((s) => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Storage.Folder), s.GetService<ILoggerFactory>()));
+            services.AddScoped<IFileStorage>((s) => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Config.Folder), s.GetService<ILoggerFactory>()));
 
             return services;
         }
 
         private static IServiceCollection AddBorgUserSession(this IServiceCollection services)
         {
-            //services.AddScoped<ISessionServerResponseProvider, HttpSessionServerResponseProvider>();
+           
             services.AddScoped<ISessionServerResponseProvider, TempDataResponseProvider>();
             services.AddScoped<IUserSession, BorgUserSession>();
             services.AddScoped<IContextAwareUserSession, BorgUserSession>();
@@ -49,15 +48,15 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
 
-        public static Assembly[] FireUpAssemblyScanners(this IServiceCollection services, ILoggerFactory loggerFactory, Func<Assembly, bool> predicate = null)
+        public static Assembly[] FireUpAssemblyScanners(this IServiceCollection services, ILoggerFactory loggerFactory, Func<Assembly, bool> filter = null)
         {
             var depedencyAssemblyProvider = new DepedencyAssemblyProvider(loggerFactory);
             var referenceAssemblyProvider = new ReferenceAssemblyProvider(loggerFactory);
+            services.Add(new ServiceDescriptor(typeof(IAssemblyProvider), depedencyAssemblyProvider));
+            services.Add(new ServiceDescriptor(typeof(IAssemblyProvider), referenceAssemblyProvider));
 
-            services.AddSingleton<IAssemblyProvider>(provider => depedencyAssemblyProvider);
-            services.AddSingleton<IAssemblyProvider>(provider => referenceAssemblyProvider);
-            var query = depedencyAssemblyProvider.GetAssemblies().Union(referenceAssemblyProvider.GetAssemblies());
-            return predicate == null ? query.Distinct().ToArray() : query.Where(predicate).Distinct().ToArray();
+            var query = depedencyAssemblyProvider.GetAssemblies().Union(referenceAssemblyProvider.GetAssemblies()).Distinct();
+            return filter == null ? query.ToArray() : query.Where(filter).ToArray();
         }
     }
 }

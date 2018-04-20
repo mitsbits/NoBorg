@@ -36,13 +36,13 @@ namespace Borg.Bookstore
         {
             services.Config(Configuration, () => Settings);
 
-            var configProviders = typeof(ApplicationConfig).GetInterfaces();
+            var configProviders = typeof(ApplicationConfig).GetInterfaces().Union(typeof(ApplicationConfig).GetBaseTypes().SelectMany(x=>x.GetInterfaces())).Distinct();
             foreach (var contract in configProviders)
             {
                 services.Add(new ServiceDescriptor(contract, Settings));
             }
 
-            var assebliesToScan = services.FireUpAssemblyScanners(LoggerFactory);
+            var assebliesToScan = services.FireUpAssemblyScanners(LoggerFactory, x=>x.FullName.StartsWith("Borg"));
 
             services.RegisterAuth(LoggerFactory, Environment, Settings, BackofficePolicies.GetPolicies());
 
@@ -50,7 +50,8 @@ namespace Borg.Bookstore
 
             services.AddMediatR(assebliesToScan);
 
-            services.AddMvc();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
 
         }
         protected IConfiguration Configuration { get; }
@@ -66,7 +67,7 @@ namespace Borg.Bookstore
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSession();
             app.UseMvc(ConfigureRoutes);
         }
 

@@ -4,7 +4,7 @@ using Borg.MVC.Services.ServerResponses;
 
 namespace Borg.MVC.Services.UserSession
 {
-    public interface IContextAwareUserSession : IUserSession, ICanContextualize, ICanContextualizeFromController, ISessionServerResponseProvider, IUserSessionStorage
+    public interface IContextAwareUserSession : IUserSession, ICanContextualize, ICanContextualizeFromController, ISessionServerResponseProvider//, IUserSessionStorage
     {
     }
 }

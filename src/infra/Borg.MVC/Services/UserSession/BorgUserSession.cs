@@ -18,14 +18,14 @@ namespace Borg.MVC.Services.UserSession
     public class BorgUserSession : UserSession, ISessionServerResponseProvider, ICanContextualize, ICanContextualizeFromController, IContextAwareUserSession
     {
         private readonly ISessionServerResponseProvider _srprovider;
-        private readonly Func<string, IFileStorage> _storageFactory;
+        //private readonly Func<string, IFileStorage> _storageFactory;
 
-        public BorgUserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer, ISessionServerResponseProvider srprovider, Func<string, IFileStorage> storageFactory) : base(httpContextAccessor, serializer)
+        public BorgUserSession(IHttpContextAccessor httpContextAccessor, ISerializer serializer, ISessionServerResponseProvider srprovider/*, Func<string, IFileStorage> storageFactory*/) : base(httpContextAccessor, serializer)
         {
             Preconditions.NotNull(srprovider, nameof(srprovider));
-            Preconditions.NotNull(storageFactory, nameof(storageFactory));
+            //Preconditions.NotNull(storageFactory, nameof(storageFactory));
             _srprovider = srprovider;
-            _storageFactory = storageFactory;
+            //_storageFactory = storageFactory;
         }
 
         #region IServerResponseProvider
@@ -44,22 +44,22 @@ namespace Borg.MVC.Services.UserSession
 
         #endregion IServerResponseProvider
 
-        #region IUserSessionStorage
+        //#region IUserSessionStorage
 
-        private IScopedFileStorage _userStorage = null;
+        //private IScopedFileStorage _userStorage = null;
 
-        public IScopedFileStorage UserStorage
-        {
-            get
-            {
-                if (_userStorage != null) return _userStorage;
-                var prefix = IsAuthenticated() ? $"sessions/{SessionId}" : "sessions/_public";
-                _userStorage = _storageFactory.Invoke("temp").Scope(prefix) as IScopedFileStorage;
-                return _userStorage;
-            }
-        }
+        //public IScopedFileStorage UserStorage
+        //{
+        //    get
+        //    {
+        //        if (_userStorage != null) return _userStorage;
+        //        var prefix = IsAuthenticated() ? $"sessions/{SessionId}" : "sessions/_public";
+        //        _userStorage = _storageFactory.Invoke("temp").Scope(prefix) as IScopedFileStorage;
+        //        return _userStorage;
+        //    }
+        //}
 
-        #endregion IUserSessionStorage
+        //#endregion IUserSessionStorage
 
         #region ICanContextualize
 
@@ -77,49 +77,49 @@ namespace Borg.MVC.Services.UserSession
 
         #endregion ICanContextualizeFromController
 
-        #region IFileStorage
+        //#region IFileStorage
 
-        public Task<Stream> GetFileStream(string path, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.GetFileStream(path, cancellationToken);
-        }
+        //public Task<Stream> GetFileStream(string path, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.GetFileStream(path, cancellationToken);
+        //}
 
-        public Task<IFileSpec> GetFileInfo(string path, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.GetFileInfo(path, cancellationToken);
-        }
+        //public Task<IFileSpec> GetFileInfo(string path, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.GetFileInfo(path, cancellationToken);
+        //}
 
-        public Task<bool> Exists(string path, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.Exists(path, cancellationToken);
-        }
+        //public Task<bool> Exists(string path, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.Exists(path, cancellationToken);
+        //}
 
-        public Task<bool> SaveFile(string path, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.SaveFile(path, stream, cancellationToken);
-        }
+        //public Task<bool> SaveFile(string path, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.SaveFile(path, stream, cancellationToken);
+        //}
 
-        public Task<bool> RenameFile(string path, string newpath, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.RenameFile(path, newpath, cancellationToken);
-        }
+        //public Task<bool> RenameFile(string path, string newpath, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.RenameFile(path, newpath, cancellationToken);
+        //}
 
-        public Task<bool> CopyFile(string path, string targetpath, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.CopyFile(path, targetpath, cancellationToken);
-        }
+        //public Task<bool> CopyFile(string path, string targetpath, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.CopyFile(path, targetpath, cancellationToken);
+        //}
 
-        public Task<bool> DeleteFile(string path, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.DeleteFile(path, cancellationToken);
-        }
+        //public Task<bool> DeleteFile(string path, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.DeleteFile(path, cancellationToken);
+        //}
 
-        public Task<IEnumerable<IFileSpec>> GetFileList(string searchPattern = null, int? limit = null, int? skip = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return UserStorage.GetFileList(searchPattern, limit, skip, cancellationToken);
-        }
+        //public Task<IEnumerable<IFileSpec>> GetFileList(string searchPattern = null, int? limit = null, int? skip = null, CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    return UserStorage.GetFileList(searchPattern, limit, skip, cancellationToken);
+        //}
 
-        #endregion IFileStorage
+        //#endregion IFileStorage
 
         #region IDisposable Support
 
@@ -131,7 +131,7 @@ namespace Borg.MVC.Services.UserSession
             {
                 if (disposing)
                 {
-                    UserStorage.Dispose();
+                    //UserStorage.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

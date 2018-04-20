@@ -285,5 +285,7 @@ namespace Borg
         {
             return type.IsValueType || type.GetConstructor(Type.EmptyTypes) != null;
         }
+
+
     }
 }

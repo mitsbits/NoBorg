@@ -4,13 +4,16 @@ using Borg.MVC.Conventions;
 using Borg.MVC.PlugIns.Decoration;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
-    [PlugInEntryPointController("Backoffice")]
-    [Authorize(policy:BackofficePolicies.Backoffice)]
+    //[PlugInEntryPointController("Backoffice")]
+    //[Authorize(policy:BackofficePolicies.Backoffice)]
     //[ControllerTheme("Backoffice")]
+    [Area("Backoffice")]
+    //[Authorize]
     public abstract class BackofficeController : BorgController
     {
         protected readonly IMediator Dispatcher;
