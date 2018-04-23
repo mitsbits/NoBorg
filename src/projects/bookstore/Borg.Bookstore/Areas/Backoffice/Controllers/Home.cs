@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
-    [Area("Backoffice")]
+    
     public class HomeController : BackofficeController
     {
         private readonly ICacheStore _cache;

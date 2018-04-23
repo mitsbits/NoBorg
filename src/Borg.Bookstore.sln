@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Bookstore", "projects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Platform.Identity", "platform\Borg.Platform.Identity\Borg.Platform.Identity.csproj", "{2862F541-7F01-4D45-89B9-2037FACB8AF2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borg.Platform.Documents", "platform\Borg.Platform.Documents\Borg.Platform.Documents.csproj", "{4CE3AFEB-165D-4383-A2F0-38EC29945FAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{2862F541-7F01-4D45-89B9-2037FACB8AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2862F541-7F01-4D45-89B9-2037FACB8AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2862F541-7F01-4D45-89B9-2037FACB8AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE3AFEB-165D-4383-A2F0-38EC29945FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE3AFEB-165D-4383-A2F0-38EC29945FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE3AFEB-165D-4383-A2F0-38EC29945FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE3AFEB-165D-4383-A2F0-38EC29945FAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{163630BF-9075-4BE5-9124-DA98AFAD8509} = {7C021ADA-BACD-4F78-98B9-4D04A6AB51F1}
 		{8D2E0B8E-B605-4110-B186-8AA60A35BBEE} = {7C021ADA-BACD-4F78-98B9-4D04A6AB51F1}
 		{2862F541-7F01-4D45-89B9-2037FACB8AF2} = {7C021ADA-BACD-4F78-98B9-4D04A6AB51F1}
+		{4CE3AFEB-165D-4383-A2F0-38EC29945FAF} = {7C021ADA-BACD-4F78-98B9-4D04A6AB51F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A230440-947C-4A76-8F44-0276A83A9B7A}

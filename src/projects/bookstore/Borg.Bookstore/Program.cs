@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Borg.Bookstore.Data;
 
 namespace Borg.Bookstore
 {
@@ -16,7 +17,7 @@ namespace Borg.Bookstore
             var appConfig = HostUtility.AppConfiguration(args);
             var settings = new ApplicationConfig();
             appConfig.Bind(settings);
-            Console.Title = settings.ApplicationName;
+            Console.Title = settings.Tenant.ServiceTag;
 
             var host = BuildWebHost(args);
             Seed(host);
@@ -35,6 +36,8 @@ namespace Borg.Bookstore
             {
                 var authseed = scope.ServiceProvider.GetRequiredService<AuthDbSeed>();
                 authseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                var bookstoreseed = scope.ServiceProvider.GetRequiredService<BookstoreDbSeed>();
+                bookstoreseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
             }
         }
     }

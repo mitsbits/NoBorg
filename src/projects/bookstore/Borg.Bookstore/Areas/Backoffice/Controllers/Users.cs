@@ -11,12 +11,13 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using Borg.Bookstore.Features.Users.Commands;
+using Borg.Bookstore.Features.Users.Policies;
 using Borg.Bookstore.Features.Users.Requests;
 using Borg.Bookstore.Features.Users.ViewModels;
 
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
-    [Route("[area]/Users")]
+    [Route("[area]/Users")]//[Authorize(policy: BackofficePolicies.UserManagement)]
     public class UsersController : BackofficeController
     {
         public UsersController(ILoggerFactory loggerFactory, IMediator dispatcher) : base(loggerFactory, dispatcher)
@@ -48,7 +49,7 @@ namespace Borg.Bookstore.Areas.Backoffice.Controllers
 
         [HttpGet]
         [Route("email/{email}")]
-        [Authorize(Policy = "UserManagement")]
+        //[Authorize(Policy = BackofficePolicies.UserManagement)]
         public async Task<IActionResult> Item([FromServices] RoleManager<IdentityRole> manager, string email)
         {
             var result = await Dispatcher.Send(new UserRequest(email));

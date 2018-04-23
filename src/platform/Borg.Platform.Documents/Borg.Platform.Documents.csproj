@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\infra\Borg.Infra\Borg.Infra.csproj" />
+    <ProjectReference Include="..\Borg.Platform.EF\Borg.Platform.EF.csproj" />
+  </ItemGroup>
+
+</Project>

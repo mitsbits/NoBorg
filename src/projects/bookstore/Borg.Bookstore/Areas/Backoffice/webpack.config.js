@@ -30,7 +30,7 @@ module.exports = function (env) {
 
                 { from: 'node_modules/jquery/dist/jquery.js' },
                 { from: 'node_modules/jquery-validation/dist/', to: 'jquery-validation/' },
-                { from: 'node_modules/jquery-validation-unobtrusive/dist/', to: 'jquery-validation-unobtrusive' },
+                { from: 'node_modules/jquery-validation-unobtrusive/dist/', to: 'jquery-validation-unobtrusive/' },
                 { from: 'node_modules/admin-lte/dist/', to: 'adminlte/' },
                 { from: 'node_modules/bootstrap/dist/', to: 'bootstrap/' },
                 { from: 'node_modules/icheck/', to: 'icheck' },

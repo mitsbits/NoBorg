@@ -1,6 +1,7 @@
-﻿@using Borg.Cms.Basic.Lib
+﻿@using Borg.Bookstore
+@using Borg.Cms.Basic.Lib
 @using Borg.MVC.PlugIns.Contracts
-@inject IPlugInHost _host;
+
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -56,7 +57,7 @@
                 </li>
             </ul>
         </li>
-        @{
+        @*@{
             foreach (IPlugInArea pa in _host.PlugInAreas())
             {
                 if (pa.Area != "Backoffice")
@@ -68,7 +69,7 @@
                     </li>
                 }
             }
-        }
+        }*@
         @*<li class="treeview">
                 <a asp-controller="Scenarios" asp-action="Home">
                     <i class="fa fa-th"></i><span> Scenarios</span>

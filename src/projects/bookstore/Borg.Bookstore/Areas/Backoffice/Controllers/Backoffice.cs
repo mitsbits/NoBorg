@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
     //[PlugInEntryPointController("Backoffice")]
-    //[Authorize(policy:BackofficePolicies.Backoffice)]
+    [Authorize(policy:BackofficePolicies.Backoffice)]
     //[ControllerTheme("Backoffice")]
     [Area("Backoffice")]
     //[Authorize]

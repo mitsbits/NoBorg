@@ -7,7 +7,7 @@
   <ItemGroup>
     <Folder Include="Areas\Backoffice\Controllers\" />
     <Folder Include="Areas\Backoffice\Views\" />
-    <Folder Include="Data\" />
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

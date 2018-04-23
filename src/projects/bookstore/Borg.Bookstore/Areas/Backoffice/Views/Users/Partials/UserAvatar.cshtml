@@ -1,7 +1,10 @@
-﻿@using Borg.Bookstore.Areas.Backoffice.Commands
-@model Borg.Bookstore.Areas.Backoffice.Commands.UserAvatarCommand
+﻿
+@using Borg.Bookstore.Features.Users.Commands
+@using Borg.Infra
+@using SQLitePCL
+@model Borg.Bookstore.Features.Users.Commands.UserAvatarCommand
 @{
-    var useStaticImageCache = Model.ClaimValue.StartsWith(Settings.Storage.ImagesCacheEndpoint);
+    var useStaticImageCache = Model.ClaimValue.StartsWith(Config.Storage.ImagesCacheEndpoint);
 }
 <div class="box box-default box-solid">
     <div class="box-header with-border">

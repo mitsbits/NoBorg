@@ -72,7 +72,7 @@ namespace Borg.MVC
 
         protected Assembly[] PopulateAssemblyProviders(IServiceCollection services)
         {
-            var assembliesToScan = services.GetRefAssembliesAndRegsiterDefaultProviders(LoggerFactory);
+            var assembliesToScan = services.FireUpAssemblyScanners(LoggerFactory);
             PlugInHost = new PlugInHost(LoggerFactory, assembliesToScan);
             return assembliesToScan;
         }
@@ -97,16 +97,5 @@ namespace Borg.MVC
         }
     }
 
-    internal static class Ext
-    {
-        internal static Assembly[] GetRefAssembliesAndRegsiterDefaultProviders(this IServiceCollection services, ILoggerFactory loggerFactory)
-        {
-            services.AddScoped<IAssemblyProvider, DepedencyAssemblyProvider>();
-            services.AddScoped<IAssemblyProvider, ReferenceAssemblyProvider>();
-            var p1 = new DepedencyAssemblyProvider(loggerFactory);
-            var p2 = new ReferenceAssemblyProvider(loggerFactory);
-            var asmbls = p1.GetAssemblies().Union(p2.GetAssemblies()).Where(x => !x.FullName.StartsWith("Microsoft")).Distinct();
-            return asmbls.ToArray();
-        }
-    }
+
 }

@@ -88,7 +88,7 @@ namespace Borg.Platform.Identity
             //services.AddSingleton<IClaimTypeDisplayProvider, ClaimTypeDisplayProvider>();
             services.AddScoped<IUnitOfWork<AuthDbContext>, UnitOfWork<AuthDbContext>>();
             services.AddScoped<IDbSeed, AuthDbSeed>(); 
-            services.AddScoped<AuthDbSeedOptions>();
+   
             services.AddScoped< AuthDbSeed>();
             return services;
         }

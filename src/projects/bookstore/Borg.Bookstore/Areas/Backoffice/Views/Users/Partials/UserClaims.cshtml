@@ -1,10 +1,11 @@
-﻿@model UserViewModel
+﻿@using Borg.Bookstore.Features.Users.Requests
+@model UserViewModel
 
 @foreach (var c in Model.UserClaims)
 {
     <p>
         ID: @c.Id
-        Type: @ClaimTypeDisplayProvider.Display(c.ClaimType)
+        Type: @c.ClaimType
         Value: @c.ClaimValue
     </p>
 }

@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-
-using Borg.Bookstore.Configuration;
+﻿using Borg.Bookstore.Configuration;
+using Borg.Bookstore.Data;
 using Borg.Bookstore.Features.Users.Policies;
-using Borg.Infra;
-using Borg.MVC.BuildingBlocks;
+using Borg.Infra.Caching;
+using Borg.Infra.Caching.Contracts;
+using Borg.Platform.EF.Contracts;
 using Borg.Platform.Identity;
-using Borg.Platform.Identity.Data;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
+using Borg.Platform.Identity.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Bookstore
 {
@@ -30,36 +27,57 @@ namespace Borg.Bookstore
             LoggerFactory = loggerFactory;
             Environment = environment;
         }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.Config(Configuration, () => Settings);
 
-            var configProviders = typeof(ApplicationConfig).GetInterfaces().Union(typeof(ApplicationConfig).GetBaseTypes().SelectMany(x=>x.GetInterfaces())).Distinct();
+            var configProviders = typeof(ApplicationConfig).GetInterfaces().Union(typeof(ApplicationConfig).GetBaseTypes().SelectMany(x => x.GetInterfaces())).Distinct();
             foreach (var contract in configProviders)
             {
                 services.Add(new ServiceDescriptor(contract, Settings));
             }
 
-            var assebliesToScan = services.FireUpAssemblyScanners(LoggerFactory, x=>x.FullName.StartsWith("Borg"));
+            var assebliesToScan = services.FireUpAssemblyScanners(LoggerFactory, x => x.FullName.StartsWith("Borg"));
 
             services.RegisterAuth(LoggerFactory, Environment, Settings, BackofficePolicies.GetPolicies());
 
             services.AddBorgFramework(Environment, Settings);
 
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.SchemaName = "cache";
+                options.TableName = "Store";
+                options.ConnectionString = Settings.ConnectionStrings["db"];
+            });
+        
+
+            services.AddSingleton<ICacheStore, CacheStore>();
+
+            services.AddDbContext<BookstoreDbContext>(options =>
+            {
+                options.UseSqlServer(Settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "bookstore"));
+                options.EnableSensitiveDataLogging(Environment.IsDevelopment());
+            });
+
+            services.AddScoped<IDbSeed, BookstoreDbSeed>();
+            services.AddScoped<BookstoreDbSeed>();
+
             services.AddMediatR(assebliesToScan);
 
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
-
         }
+
         protected IConfiguration Configuration { get; }
         protected ILoggerFactory LoggerFactory { get; }
 
         protected IHostingEnvironment Environment { get; }
 
         protected ApplicationConfig Settings { get; set; } = new ApplicationConfig();
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -67,10 +85,12 @@ namespace Borg.Bookstore
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseSession();
             app.UseMvc(ConfigureRoutes);
         }
-
 
         protected void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
@@ -112,4 +132,3 @@ namespace Borg.Bookstore
         }
     }
 }
-
