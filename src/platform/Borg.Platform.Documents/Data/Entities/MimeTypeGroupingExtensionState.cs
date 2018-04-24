@@ -1,7 +1,7 @@
 ﻿using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
 
-namespace Borg.Platform.Documents.Data
+namespace Borg.Platform.Documents.Data.Entities
 {
     public class MimeTypeGroupingExtensionState
     {

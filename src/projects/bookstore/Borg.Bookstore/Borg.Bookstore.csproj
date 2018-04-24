@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\..\infra\Borg.CMS\Borg.CMS.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.Infra\Borg.Infra.csproj" />
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\..\..\platform\Borg.Platform.Documents\Borg.Platform.Documents.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.EF\Borg.Platform.EF.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.Identity\Borg.Platform.Identity.csproj" />
     <ProjectReference Include="..\..\..\platform\Borg.Platform.ImageSharp\Borg.Platform.ImageSharp.csproj" />

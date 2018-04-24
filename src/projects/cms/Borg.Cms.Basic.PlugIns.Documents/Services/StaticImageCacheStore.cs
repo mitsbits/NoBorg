@@ -61,7 +61,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
             {
                 foreach (var v in VisualSize.GetMembers().Where(x => x.ToString() != VisualSize.Undefined.ToString()))
                 {
-                    var pixels = _settings.Visual.SizePixels[v.ToString()];
+                    var pixels = _settings.Visual.WidthPixels[v.ToString()];
                     using (var local = new MemoryStream())
                     {
                         file.file.Seek(0, 0);

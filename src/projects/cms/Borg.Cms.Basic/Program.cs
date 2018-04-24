@@ -4,7 +4,6 @@ using Borg.Cms.Basic.PlugIns.Documents.Data;
 using Borg.Infra;
 using Borg.Infra.Services;
 using Borg.MVC.Util;
-using Borg.Platform.EF.Assets.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

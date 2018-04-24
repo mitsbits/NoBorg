@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
-namespace Borg.Platform.Documents.Data
+namespace Borg.Platform.Documents.Data.Entities
 {
     public class DocumentState : IEntity<int>
     {
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsPublished { get; set; }
-        internal virtual ICollection<DocumentOwnerState> Owners { get; set; }
-        internal virtual ICollection<DocumentCheckOutState> CheckOuts { get; set; }
+        internal virtual ICollection<DocumentOwnerState> Owners { get; set; } = new HashSet<DocumentOwnerState>();
+        internal virtual ICollection<DocumentCheckOutState> CheckOuts { get; set; } = new HashSet<DocumentCheckOutState>();
     }
 
     public class DocumentStateMap : EntityMap<DocumentState, DocumentsDbContext>

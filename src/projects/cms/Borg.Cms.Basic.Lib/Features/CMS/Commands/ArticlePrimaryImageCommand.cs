@@ -88,7 +88,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         await message.File.CopyToAsync(stream);
                         stream.Seek(0, 0);
                         var result = await _documents.StoreUserDocument(stream.ToArray(), filename, message.UserHandle);
-                        current = (documentId: result.docid, fileId: result.fileid);
+                        current = (documentId: result.docid, fileId: result.fieldid);
                         @event = new ArticlePrimaryImageChangedEvent(message.RecordId, current, prev);
                         article.PageMetadata.PrimaryImageDocumentId = current.documentId;
                         article.PageMetadata.PrimaryImageFileId = current.fileId;

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Platform.Documents.Data;
 using Borg.Platform.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,6 +65,16 @@ namespace Borg.Bookstore
 
             services.AddScoped<IDbSeed, BookstoreDbSeed>();
             services.AddScoped<BookstoreDbSeed>();
+
+
+            services.AddDbContext<DocumentsDbContext>(options =>
+            {
+                options.UseSqlServer(Settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "documents"));
+                options.EnableSensitiveDataLogging(Environment.IsDevelopment());
+            });
+
+            services.AddScoped<IDbSeed, DocumentsDbSeed>();
+            services.AddScoped<DocumentsDbSeed>();
 
             services.AddMediatR(assebliesToScan);
 

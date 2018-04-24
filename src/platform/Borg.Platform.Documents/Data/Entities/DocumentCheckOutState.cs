@@ -1,9 +1,9 @@
-﻿using System;
-using Borg.Platform.EF;
+﻿using Borg.Platform.EF;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace Borg.Platform.Documents.Data
+namespace Borg.Platform.Documents.Data.Entities
 {
     public class DocumentCheckOutState
     {

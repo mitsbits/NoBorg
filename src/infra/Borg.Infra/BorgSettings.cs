@@ -3,7 +3,10 @@ using System.Collections.Generic;
 
 namespace Borg.Infra
 {
-    public class BorgSettings : ISettingsProvider<StorageSettings>, ISettingsProvider<TenantSettings>, ISettingsProvider<PaginationInfoStyle>
+    public class BorgSettings : ISettingsProvider<StorageSettings>, 
+        ISettingsProvider<TenantSettings>, 
+        ISettingsProvider<PaginationInfoStyle>,
+        ISettingsProvider<VisualSettings>
     {
         public IDictionary<string, string> ConnectionStrings { get; set; }
         public PaginationInfoStyle PaginationInfoStyle { get; set; } = new PaginationInfoStyle();
@@ -18,6 +21,8 @@ namespace Borg.Infra
         TenantSettings ISettingsProvider<TenantSettings>.Config => Tenant;
 
         PaginationInfoStyle ISettingsProvider<PaginationInfoStyle>.Config => PaginationInfoStyle;
+
+        VisualSettings ISettingsProvider<VisualSettings>.Config => Visual;
     }
 
     public class StorageSettings : ISettings
@@ -55,6 +60,6 @@ namespace Borg.Infra
 
     public class VisualSettings : ISettings
     {
-        public Dictionary<string, int> SizePixels { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> WidthPixels { get; set; } = new Dictionary<string, int>();
     }
 }

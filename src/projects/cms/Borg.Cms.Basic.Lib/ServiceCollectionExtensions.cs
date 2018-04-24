@@ -24,8 +24,7 @@ using Borg.MVC.Services;
 using Borg.MVC.Services.Editors;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
-using Borg.Platform.EF.Assets.Data;
-using Borg.Platform.EF.Assets.Services;
+using Borg.Platform.Documents.Assets.Services;
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
@@ -45,6 +44,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Borg.Platform.Documents.Data;
+using Borg.Platform.Documents.Services;
 
 namespace Borg.Cms.Basic.Lib
 {
@@ -161,9 +162,9 @@ namespace Borg.Cms.Basic.Lib
             services.AddScoped<BorgDbSeed>();
             services.AddScoped<IMenuProvider, MenuProvider>();
 
-            services.AddDbContext<AssetsDbContext>(options =>
+            services.AddDbContext<DocumentsDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "assets")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
+                options.UseSqlServer(settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "documents")).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
             services.AddDbContext<DiscoveryDbContext>(options =>
@@ -172,7 +173,7 @@ namespace Borg.Cms.Basic.Lib
                 options.EnableSensitiveDataLogging(environment.IsDevelopment() || environment.EnvironmentName.EndsWith("local"));
             });
 
-            services.AddScoped<AssetsDbSeed>();
+            services.AddScoped<DocumentsDbSeed>();
             services.AddScoped<CmsDbSeed>();
 
             services.AddDbContext<CmsDbContext>(options =>

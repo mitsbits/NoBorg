@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Borg.Platform.EF.Assets.Services
+namespace Borg.Platform.Documents.Services
 {
     public abstract class EFAssetsDatabaseService<TKey> : IAssetStoreDatabaseService<TKey> where TKey : IEquatable<TKey>
     {
@@ -34,11 +34,13 @@ namespace Borg.Platform.EF.Assets.Services
         public abstract Task<bool> TryAdd(IMimeTypeSpec mimeType);
 
         public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes();
-        public abstract  Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions);
+
+        public abstract Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions);
 
         public abstract Task<IMimeTypeSpec> GetFromExtension(string extension);
 
         public abstract Task<IEnumerable<IVersionInfo>> AssetVersions(TKey assetId);
+
         public abstract Task<IFileSpec<TKey>> Spec(TKey fileId);
     }
 }

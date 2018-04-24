@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Borg.Infra.DDD.Contracts;
+﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
-namespace Borg.Platform.Documents.Data
+namespace Borg.Platform.Documents.Data.Entities
 {
     public class MimeTypeGroupingState : IEntity<int>
     {

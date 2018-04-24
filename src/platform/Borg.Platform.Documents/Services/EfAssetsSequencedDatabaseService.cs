@@ -4,7 +4,8 @@ using Borg.Infra.Storage;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
-using Borg.Platform.EF.Assets.Data;
+using Borg.Platform.Documents.Data;
+using Borg.Platform.Documents.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -15,16 +16,16 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Borg.Platform.EF.Assets.Services
+namespace Borg.Platform.Documents.Services
 {
     public class EfAssetsSequencedDatabaseService : EFAssetsDatabaseService<int>
     {
         protected readonly ILogger _logger;
-        protected readonly AssetsDbContext _db;
+        protected readonly DocumentsDbContext _db;
 
-        public EfAssetsSequencedDatabaseService(ILoggerFactory loggerFactory, AssetsDbContext db)
+        public EfAssetsSequencedDatabaseService(ILoggerFactory loggerFactory, DocumentsDbContext db)
         {
-            _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
+            _logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             Preconditions.NotNull(db, nameof(db));
             _db = db;
         }
@@ -41,7 +42,7 @@ namespace Borg.Platform.EF.Assets.Services
 
         public override async Task<IPagedResult<AssetInfoDefinition<int>>> Find(IEnumerable<int> ids)
         {
-            var sts = await _db.AssetRecords.Include(x => x.Versions).ThenInclude(x => x.FileRecord)
+            var sts = await _db.AssetRecords.Include(x => x.Versions).ThenInclude(x => x.FileState)
                 .AsNoTracking().Where(x => ids.Contains(x.Id)).ToListAsync();
 
             var assets = sts.Select(x => new AssetInfoDefinition<int>(x.Id, x.Name, x.DocumentBehaviourState)).ToArray();
@@ -49,7 +50,7 @@ namespace Borg.Platform.EF.Assets.Services
             foreach (var assetInfoDefinition in assets)
             {
                 var r = sts.Single(x => x.Id == assetInfoDefinition.Id);
-                assetInfoDefinition.CurrentFile = new VersionInfoDefinition(r.CurrentVersion, r.Versions.Single(v => v.Version == r.CurrentVersion).FileRecord);
+                assetInfoDefinition.CurrentFile = new VersionInfoDefinition(r.CurrentVersion, Enumerable.Single(r.Versions, v => v.Version == r.CurrentVersion).FileState);
             }
             return new PagedResult<AssetInfoDefinition<int>>(assets, 1, assets.Length, assets.Length);
         }
@@ -58,13 +59,13 @@ namespace Borg.Platform.EF.Assets.Services
         {
             try
             {
-                var assetRecotd = new AssetRecord() { Id = asset.Id, Name = asset.Name, CurrentVersion = 1 };
-                assetRecotd.Versions.Add(new VersionRecord()
+                var assetRecotd = new AssetState() { Id = asset.Id, Name = asset.Name, CurrentVersion = 1 };
+                assetRecotd.Versions.Add(new VersionState()
                 {
                     Id = await SequnceInternal("assets.VersionsSQC"),
                     AssetRecordId = asset.Id,
                     Version = 1,
-                    FileRecord = new FileRecord()
+                    FileState = new FileState()
                     {
                         Id = ((IFileSpec<int>)asset.CurrentFile.FileSpec).Id,
                         CreationDate = asset.CurrentFile.FileSpec.CreationDate,
@@ -115,7 +116,7 @@ namespace Borg.Platform.EF.Assets.Services
                 //};
                 //_db.FileRecords.Add(newFileRecord);
 
-                var checkoutversion = new VersionRecord()
+                var checkoutversion = new VersionState()
                 {
                     Version = currentVersion.Version + 1,
                     AssetRecordId = id,
@@ -152,7 +153,7 @@ namespace Borg.Platform.EF.Assets.Services
                     throw new InvalidOperationException($"{nameof(currentVersion)} - {nameof(checkinVersion)}");
                 }
                 var currentFile = await _db.FileRecords.AsNoTracking().FirstAsync(x => x.Id == currentVersion.FileRecordId);
-                var newFileRecord = new FileRecord()
+                var newFileRecord = new FileState()
                 {
                     CreationDate = fileSpec.CreationDate,
                     FullPath = fileSpec.FullPath,
@@ -186,7 +187,7 @@ namespace Borg.Platform.EF.Assets.Services
             var q = from f in _db.FileRecords
                     join v in _db.VersionRecords on f.Id equals v.FileRecordId
                     join a in _db.AssetRecords on v.AssetRecordId equals a.Id
-                    where f.VersionRecord.AssetRecordId == id && f.VersionRecord.Version == a.CurrentVersion
+                    where f.VersionState.AssetRecordId == id && f.VersionState.Version == a.CurrentVersion
                     select f;
 
             var file = await q.FirstAsync();
@@ -199,7 +200,7 @@ namespace Borg.Platform.EF.Assets.Services
             var q = from f in _db.FileRecords
                     join v in _db.VersionRecords on f.Id equals v.FileRecordId
                     join a in _db.AssetRecords on v.AssetRecordId equals a.Id
-                    where f.VersionRecord.AssetRecordId == id && f.VersionRecord.Version == version
+                    where f.VersionState.AssetRecordId == id && f.VersionState.Version == version
                     select f;
 
             var file = await q.FirstAsync();
@@ -221,10 +222,10 @@ namespace Borg.Platform.EF.Assets.Services
         public override async Task<AssetInfoDefinition<int>> AddVersion(AssetInfoDefinition<int> hit, FileSpecDefinition<int> fileSpec, VersionInfoDefinition versionSpec)
         {
             var asset = await _db.AssetRecords.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Id == hit.Id);
-            asset.Versions.Add(new VersionRecord()
+            asset.Versions.Add(new VersionState()
             {
                 Version = versionSpec.Version,
-                FileRecord = new FileRecord()
+                FileState = new FileState()
                 {
                     Id = fileSpec.Id,
                     CreationDate = fileSpec.CreationDate,
@@ -248,10 +249,10 @@ namespace Borg.Platform.EF.Assets.Services
         public override async Task<bool> TryAdd(IMimeTypeSpec mimeType)
         {
             var hit = await _db.MimeTypeRecords.SingleAsync(x => x.Extension.ToLower() == mimeType.Extension.ToLower());
-            MimeTypeRecord newrecord = null;
+            MimeTypeState newrecord = null;
             if (hit == null)
             {
-                newrecord = new MimeTypeRecord()
+                newrecord = new MimeTypeState()
                 {
                     Extension = mimeType.Extension,
                     MimeType = mimeType.MimeType
@@ -260,7 +261,7 @@ namespace Borg.Platform.EF.Assets.Services
             }
             await _db.SaveChangesAsync();
             var added = newrecord != null;
-            if (added) _logger.Info("Added new mimetype to db {@mime}", newrecord);
+            if (added) LoggerExtensions.Info(_logger, "Added new mimetype to db {@mime}", newrecord);
             return added;
         }
 
@@ -273,7 +274,7 @@ namespace Borg.Platform.EF.Assets.Services
         public override async Task<IEnumerable<IMimeTypeSpec>> MimeTypes(params string[] extensions)
         {
             var q = from m in _db.MimeTypeRecords join extension in extensions on m.Extension equals extension select m;
-            return (await q.ToArrayAsync()).Select(x => new MimeTypeSpec(x.Extension, x.MimeType));
+            return Enumerable.Select((await q.ToArrayAsync()), x => new MimeTypeSpec(x.Extension, x.MimeType));
         }
 
         public override async Task<IMimeTypeSpec> GetFromExtension(string extension)
@@ -285,10 +286,9 @@ namespace Borg.Platform.EF.Assets.Services
 
         public override async Task<IEnumerable<IVersionInfo>> AssetVersions(int assetId)
         {
-            var hits = await _db.VersionRecords.Include(v => v.FileRecord).AsNoTracking()
-                .Where(v => v.AssetRecordId == assetId).ToArrayAsync();
+            var hits = await Queryable.Where(_db.VersionRecords.Include(v => v.FileState).AsNoTracking(), v => v.AssetRecordId == assetId).ToArrayAsync();
             return hits.Select(x => new VersionInfoDefinition(x.Version,
-                new FileSpecDefinition(x.FileRecord.FullPath, x.FileRecord.Name, x.FileRecord.CreationDate, x.FileRecord.LastWrite, x.FileRecord.LastRead, x.FileRecord.SizeInBytes, x.FileRecord.MimeType)));
+                new FileSpecDefinition(x.FileState.FullPath, x.FileState.Name, x.FileState.CreationDate, x.FileState.LastWrite, x.FileState.LastRead, x.FileState.SizeInBytes, x.FileState.MimeType)));
         }
 
         public override async Task<IFileSpec<int>> Spec(int fileId)

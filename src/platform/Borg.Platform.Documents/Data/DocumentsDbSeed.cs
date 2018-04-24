@@ -1,18 +1,24 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Borg.Infra.Storage.Assets;
+﻿using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Platform.Documents.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using System.Linq;
+using System.Threading.Tasks;
+using Borg.Platform.EF.Contracts;
 
 namespace Borg.Platform.Documents.Data
 {
-    public class DocumentsDbSeed
+    public class DocumentsDbSeed : IDbSeed
     {
         private readonly DocumentsDbContext _db;
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
+        private readonly ILogger _logger;
 
-        public DocumentsDbSeed(DocumentsDbContext db, IAssetStore<AssetInfoDefinition<int>, int> assetStore)
+        public DocumentsDbSeed(ILoggerFactory loggerFactory, DocumentsDbContext db, IAssetStore<AssetInfoDefinition<int>, int> assetStore)
         {
+            _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _db = db;
             _assetStore = assetStore;
         }
@@ -46,6 +52,25 @@ namespace Borg.Platform.Documents.Data
                     hit.Extensions.Add(new MimeTypeGroupingExtensionState() { Extension = mimeTypeSpec.Extension });
                 }
                 _db.Entry(hit).State = EntityState.Modified;
+            }
+            await _db.SaveChangesAsync();
+        }
+
+        private async Task EnsureDefaultMimeTypes()
+        {
+            var mappings = FileStorageExtensions._mappings;
+            var persisted = await _db.MimeTypeRecords.AsNoTracking().ToListAsync();
+            foreach (var mappingsKey in mappings.Keys)
+            {
+                if (persisted.All(x => x.Extension.ToLower() != mappingsKey.ToLower()))
+                {
+                    await _db.MimeTypeRecords.AddAsync(new MimeTypeState()
+                    {
+                        Extension = mappingsKey,
+                        MimeType = mappings[mappingsKey]
+                    });
+                    _logger.Info("Adding {mimetype} with extension {ext} to database", mappings[mappingsKey], mappingsKey);
+                }
             }
             await _db.SaveChangesAsync();
         }
