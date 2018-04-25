@@ -35,6 +35,10 @@ namespace Borg
             public string MimeType => throw new NotImplementedException();
 
             public string Extension => throw new NotImplementedException();
+            public IFileSpec<TKey> Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

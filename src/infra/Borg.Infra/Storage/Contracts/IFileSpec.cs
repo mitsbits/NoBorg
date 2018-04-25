@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Borg.Infra.DTO;
+using System;
 
 namespace Borg.Infra.Storage.Contracts
 {
-    public interface IFileSpec<out TKey> : IFileSpec where TKey : IEquatable<TKey>
+    public interface IFileSpec<out TKey> : IFileSpec, ICloneable<IFileSpec<TKey>> where TKey : IEquatable<TKey>
     {
         TKey Id { get; }
     }

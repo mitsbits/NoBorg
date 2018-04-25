@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Borg.Platform.Documents.Services
 {
-    public class EfAssetsSequencedDatabaseService : EFAssetsDatabaseService<int>
+    public class EfAssetsSequencedDatabaseService : EFAssetsDatabaseService<int>, IAssetStoreDatabaseService<int>
     {
         protected readonly ILogger _logger;
         protected readonly DocumentsDbContext _db;
@@ -50,7 +50,7 @@ namespace Borg.Platform.Documents.Services
             foreach (var assetInfoDefinition in assets)
             {
                 var r = sts.Single(x => x.Id == assetInfoDefinition.Id);
-                assetInfoDefinition.CurrentFile = new VersionInfoDefinition(r.CurrentVersion, Enumerable.Single(r.Versions, v => v.Version == r.CurrentVersion).FileState);
+                assetInfoDefinition.CurrentFile = new VersionInfoDefinition<int>(r.CurrentVersion, r.Versions.Single(v => v.Version == r.CurrentVersion).FileState);
             }
             return new PagedResult<AssetInfoDefinition<int>>(assets, 1, assets.Length, assets.Length);
         }
@@ -242,7 +242,7 @@ namespace Borg.Platform.Documents.Services
             await _db.SaveChangesAsync();
             return new AssetInfoDefinition<int>(asset.Id, asset.Name)
             {
-                CurrentFile = new VersionInfoDefinition(versionSpec.Version, fileSpec)
+                CurrentFile = new VersionInfoDefinition<int>(asset.CurrentVersion, fileSpec )
             };
         }
 

@@ -1,4 +1,8 @@
-﻿using Borg.Infra.Collections;
+﻿using Borg.Bookstore.Features.Users.Commands;
+using Borg.Bookstore.Features.Users.Policies;
+using Borg.Bookstore.Features.Users.Requests;
+using Borg.Bookstore.Features.Users.ViewModels;
+using Borg.Infra.Collections;
 using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.Services.Breadcrumbs;
@@ -10,10 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Bookstore.Features.Users.Commands;
-using Borg.Bookstore.Features.Users.Policies;
-using Borg.Bookstore.Features.Users.Requests;
-using Borg.Bookstore.Features.Users.ViewModels;
 
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
@@ -49,7 +49,7 @@ namespace Borg.Bookstore.Areas.Backoffice.Controllers
 
         [HttpGet]
         [Route("email/{email}")]
-        //[Authorize(Policy = BackofficePolicies.UserManagement)]
+        [Authorize(policy: BackofficePolicies.UserManagement)]
         public async Task<IActionResult> Item([FromServices] RoleManager<IdentityRole> manager, string email)
         {
             var result = await Dispatcher.Send(new UserRequest(email));

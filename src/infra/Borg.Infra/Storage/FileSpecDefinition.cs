@@ -19,6 +19,11 @@ namespace Borg.Infra.Storage
         }
 
         public TKey Id { get; internal set; }
+
+        public IFileSpec<TKey> Clone()
+        {
+            return (IFileSpec<TKey>) this.MemberwiseClone();
+        }
     }
 
     public class FileSpecDefinition : IFileSpec

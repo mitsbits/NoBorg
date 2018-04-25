@@ -5,6 +5,7 @@ namespace Borg.Infra.Storage.Assets.Contracts
 {
     public interface IAssetInfo<out TKey> : IAssetInfo, IDocumentBehaviour, IEntity<TKey> where TKey : IEquatable<TKey>
     {
+        new IVersionInfo<TKey> CurrentFile { get; }
     }
 
     public interface IAssetInfo

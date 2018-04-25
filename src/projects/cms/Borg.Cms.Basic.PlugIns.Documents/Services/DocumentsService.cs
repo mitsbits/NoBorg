@@ -1,5 +1,7 @@
 ﻿using Borg.Cms.Basic.PlugIns.Documents.Commands;
-using Borg.CMS.Documents.Contracts;
+using Borg.Infra.Storage;
+using Borg.Infra.Storage.Contracts;
+using Borg.Infra.Storage.Documents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,18 +20,20 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Services
             _dispatcher = dispatcher;
         }
 
-        public async Task<(int docid, int fileid)> StoreUserDocument(byte[] data, string filename, string userHandle)
+        public event FileCreatedEventHandler<int> FileCreated;
+
+        public async Task<(int docid, IFileSpec<int> file)> StoreUserDocument(byte[] data, string filename, string userHandle)
         {
             try
             {
                 var command = new StoreUserDocumentCommand(userHandle, filename, data);
                 var result = await _dispatcher.Send(command);
-                return result.Succeded ? result.Payload : (docid: -1, fileid: -1);
+                return result.Succeded ? result.Payload : (docid: -1, file: default(FileSpecDefinition<int>));
             }
             catch (Exception ex)
             {
                 _logger.LogError(1, ex, "Error creating document from {message} - {exception}", filename, ex.ToString());
-                return (docid: -1, fileid: -1);
+                return (docid: -1, file: default(FileSpecDefinition<int>));
             }
         }
     }

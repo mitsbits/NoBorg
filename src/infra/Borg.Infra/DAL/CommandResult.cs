@@ -1,6 +1,6 @@
 ﻿using Borg.Infra.Messaging;
-using System;
 using JetBrains.Annotations;
+using System;
 
 namespace Borg.Infra.DAL
 {

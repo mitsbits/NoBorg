@@ -19,6 +19,12 @@ namespace Borg.Platform.Documents.Data.Entities
         public string Extension { get; set; }
         public virtual VersionState VersionState { get; set; }
         internal virtual MimeTypeState MimeTypeState { get; set; }
+
+        public IFileSpec<int> Clone()
+        {
+            var clone = (IFileSpec<int>)this.MemberwiseClone();
+            return clone;
+        }
     }
 
     public class FileStateMap : EntityMap<FileState, DocumentsDbContext>

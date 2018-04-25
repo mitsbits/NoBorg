@@ -1,10 +1,10 @@
-﻿using Borg.Infra.Storage.Assets;
+﻿using System;
+using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
 using Microsoft.Extensions.Logging;
-using System;
 
-namespace Borg.Cms.Basic.Lib.Features.Content.Services
+namespace Borg.Platform.Documents.Services
 {
     public class AssetService : AssetStoreBase<int>
     {
@@ -13,10 +13,5 @@ namespace Borg.Cms.Basic.Lib.Features.Content.Services
         }
     }
 
-    public class AssetInfoDefinition : AssetInfoDefinition<int>
-    {
-        public AssetInfoDefinition(int id, string name) : base(id, name)
-        {
-        }
-    }
+
 }

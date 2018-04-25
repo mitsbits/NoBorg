@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Documents;
 
 namespace Borg.Infra.Storage.Assets
 {
@@ -67,7 +68,7 @@ namespace Borg.Infra.Storage.Assets
             handler?.Invoke(e);
         }
 
-        protected virtual void OnFileCreated(FileCreatedEventArgs<TKey> e)
+        protected virtual void OnFileCreated(IFileSpec<TKey> e)
         {
             var handler = FileCreated;
             handler?.Invoke(e);
@@ -143,7 +144,7 @@ namespace Borg.Infra.Storage.Assets
                 fileSpec = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, fileName, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
                 await _assetStoreDatabaseService.CheckIn(id, fileSpec);
                 var asset = await _assetStoreDatabaseService.Get(id);
-                OnFileCreated(new FileCreatedEventArgs<TKey>(fileId, fileSpec.MimeType));
+                OnFileCreated( fileSpec);
                 return new VersionInfoDefinition(asset.CurrentFile.Version, asset.CurrentFile.FileSpec);
             }
             catch (Exception e)
@@ -277,7 +278,7 @@ namespace Borg.Infra.Storage.Assets
             var result = await _assetStoreDatabaseService.AddVersion(hit, fileSpec, versionSpec);
 
             OnVersionCreated(new VersionCreatedEventArgs<TKey>(id, versionSpec.Version));
-            OnFileCreated(new FileCreatedEventArgs<TKey>(fileId, fileSpec.MimeType));
+            OnFileCreated( fileSpec);
 
             return result;
         }
@@ -313,14 +314,14 @@ namespace Borg.Infra.Storage.Assets
 
             //persist to database
             var filespc = new FileSpecDefinition<TKey>(fileId, uploaded.FullPath, fileName, uploaded.CreationDate, uploaded.LastWrite, uploaded.LastRead, uploaded.SizeInBytes, fileName.GetMimeType());
-            var versionspc = new VersionInfoDefinition(1, filespc);
+            var versionspc = new VersionInfoDefinition<TKey>(1, filespc);
             definition.CurrentFile = versionspc;
             await _assetStoreDatabaseService.Create(definition);
 
             //raise events
             OnAssetCreated(new AssetCreatedEventArgs<TKey>(id));
             OnVersionCreated(new VersionCreatedEventArgs<TKey>(id, 1));
-            OnFileCreated(new FileCreatedEventArgs<TKey>(fileSpec.Id, filespc.MimeType));
+            OnFileCreated( filespc);
             //retuen
             return definition;
         }

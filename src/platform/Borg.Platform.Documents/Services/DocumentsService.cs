@@ -1,8 +1,8 @@
-﻿using Borg.CMS.Documents.Contracts;
-using Borg.Infra;
+﻿using Borg.Infra;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
+using Borg.Infra.Storage.Documents;
 using Borg.Platform.Documents.Data;
 using Borg.Platform.Documents.Data.Entities;
 using Borg.Platform.EF.Contracts;
@@ -23,7 +23,7 @@ namespace Borg.Platform.Documents.Services
 
         public DocumentsService(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore, IAssetStoreDatabaseService<int> assetStoreDatabase, IUnitOfWork<DocumentsDbContext> uow)
         {
-            _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
+            _logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             Preconditions.NotNull(assetStore, nameof(assetStore));
             Preconditions.NotNull(assetStoreDatabase, nameof(assetStoreDatabase));
             Preconditions.NotNull(uow, nameof(uow));
@@ -32,35 +32,53 @@ namespace Borg.Platform.Documents.Services
             _uow = uow;
         }
 
-        public async Task<(int docid, int fileid)> StoreUserDocument(byte[] data, string filename, string userHandle)
-        {
-            var definition = await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), data, filename);
-            if (definition == null) throw new ApplicationException($"Could not create document from {filename}");
+        public event FileCreatedEventHandler<int> FileCreated;
 
-            var clock = DateTimeOffset.UtcNow;
-            var document = new DocumentState() { IsDeleted = false, IsPublished = false, Id = definition.Id };
-            await _uow.ReadWriteRepo<DocumentState>().Create(document);
-            var association = new DocumentOwnerState
+        public async Task<(int docid, IFileSpec<int> file)> StoreUserDocument(byte[] data, string filename, string userHandle)
+        {
+            try
             {
-                AssociatedOn = clock,
-                Owner = userHandle,
-                Document = document
-            };
-            await _uow.ReadWriteRepo<DocumentOwnerState>().Create(association);
-            var checkout = new DocumentCheckOutState
+                var definition = await _assetStore.Create(Path.GetFileNameWithoutExtension(filename), data, filename);
+                if (definition == null) throw new ApplicationException($"Could not create document from {filename}");
+
+                var clock = DateTimeOffset.UtcNow;
+                var document = new DocumentState() { IsDeleted = false, IsPublished = false, Id = definition.Id };
+                await _uow.ReadWriteRepo<DocumentState>().Create(document);
+                var association = new DocumentOwnerState
+                {
+                    AssociatedOn = clock,
+                    Owner = userHandle,
+                    Document = document
+                };
+                await _uow.ReadWriteRepo<DocumentOwnerState>().Create(association);
+                var checkout = new DocumentCheckOutState
+                {
+                    CheckOutVersion = 1,
+                    CheckedIn = true,
+                    CheckedInBy = userHandle,
+                    CheckedOutBy = userHandle,
+                    CheckedOutOn = clock,
+                    CheckedinOn = clock,
+                    Document = document
+                };
+                await _uow.ReadWriteRepo<DocumentCheckOutState>().Create(checkout);
+                await _uow.Save();
+                var filespec = definition.CurrentFile.FileSpec.Clone();
+                var result = (docid: definition.Id, file: filespec);
+                OnFileCreated(filespec);
+                return result;
+            }
+            catch (Exception e)
             {
-                CheckOutVersion = 1,
-                CheckedIn = true,
-                CheckedInBy = userHandle,
-                CheckedOutBy = userHandle,
-                CheckedOutOn = clock,
-                CheckedinOn = clock,
-                Document = document
-            };
-            await _uow.ReadWriteRepo<DocumentCheckOutState>().Create(checkout);
-            await _uow.Save();
-            var result = (docid: definition.Id, fieldid: ((IFileSpec<int>)definition.CurrentFile.FileSpec).Id);
-            return result;
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        protected virtual Task OnFileCreated(IFileSpec<int> file)
+        {
+            var handler = FileCreated;
+            return handler?.Invoke(file);
         }
     }
 }

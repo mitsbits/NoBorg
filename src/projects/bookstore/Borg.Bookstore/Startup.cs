@@ -3,20 +3,26 @@ using Borg.Bookstore.Data;
 using Borg.Bookstore.Features.Users.Policies;
 using Borg.Infra.Caching;
 using Borg.Infra.Caching.Contracts;
+using Borg.Platform.Documents.Data;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Borg.Platform.Documents.Data;
-using Borg.Platform.Identity.Data;
-using Microsoft.EntityFrameworkCore;
+using Borg.Infra.Storage;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Documents;
+using Borg.Platform.Documents.Services;
+using Borg.Platform.ImageSharp;
 
 namespace Borg.Bookstore
 {
@@ -53,7 +59,6 @@ namespace Borg.Bookstore
                 options.TableName = "Store";
                 options.ConnectionString = Settings.ConnectionStrings["db"];
             });
-        
 
             services.AddSingleton<ICacheStore, CacheStore>();
 
@@ -66,7 +71,6 @@ namespace Borg.Bookstore
             services.AddScoped<IDbSeed, BookstoreDbSeed>();
             services.AddScoped<BookstoreDbSeed>();
 
-
             services.AddDbContext<DocumentsDbContext>(options =>
             {
                 options.UseSqlServer(Settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "documents"));
@@ -74,6 +78,35 @@ namespace Borg.Bookstore
             });
 
             services.AddScoped<IDbSeed, DocumentsDbSeed>();
+            services.AddScoped<IStaticImageCacheStore<int>>(provider =>
+            {
+                return new StaticImageCacheStore(LoggerFactory,
+                    provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
+                    () => new FolderFileStorage(Settings.Storage.ImagesCacheFolder, LoggerFactory),
+                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), Settings,
+                    provider.GetRequiredService<IImageResizer>());
+            });
+            services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
+                p => new AssetService(LoggerFactory,
+                    p.GetRequiredService<IAssetDirectoryStrategy<int>>(),
+                    p.GetRequiredService<IConflictingNamesResolver>(),
+                    //() => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
+                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.AssetStoreContainer), LoggerFactory),
+                    p.GetRequiredService<IAssetStoreDatabaseService<int>>()),
+                ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IAssetDirectoryStrategy<int>),
+                p => new RoundUpAssetDirectoryStrategy(10, 50), ServiceLifetime.Scoped));
+            services.AddScoped<IConflictingNamesResolver, DefaultConflictingNamesResolver>();
+            services.AddScoped<IAssetStoreDatabaseService<int>, EfAssetsSequencedDatabaseService>();
+            //services.AddScoped<AzureBlobStorageFileProvider>(provider => new AzureBlobStorageFileProvider(
+            //    new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.ImagesCacheFolder), "img"));
+            //services.AddScoped<AzureBlobStorageFileProvider>(provider => new PhysicalFileProvider( settings.Storage.ImagesCacheFolder));
+
+            services.AddScoped<IImageResizer, ImageResizer>();
+            services.AddScoped<IDocumentsService<int>, DocumentsService>();
+            //services.AddScoped<CacheStaticImagesForWeb>();
+
+
             services.AddScoped<DocumentsDbSeed>();
 
             services.AddMediatR(assebliesToScan);

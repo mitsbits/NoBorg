@@ -4,14 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Documents;
 
 namespace Borg.Infra.Storage.Assets.Contracts
 {
     public delegate Task AssetCreatedEventHandler<TKey>(AssetCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
     public delegate Task VersionCreatedEventHandler<TKey>(VersionCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
-
-    public delegate Task FileCreatedEventHandler<TKey>(FileCreatedEventArgs<TKey> args) where TKey : IEquatable<TKey>;
 
     public interface IAssetStore<TAsset, TKey> : IVersionStoreDatabaseService<TKey>, IMimeTypeStoreDatabaseService, IFileStore<TKey> where TKey : IEquatable<TKey> where TAsset : IAssetInfo<TKey>
     {

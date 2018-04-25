@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Borg.Infra\Borg.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Documents\Contracts\" />
+  </ItemGroup>
+
 </Project>

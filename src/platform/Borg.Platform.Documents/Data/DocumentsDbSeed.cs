@@ -1,12 +1,12 @@
 ﻿using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Platform.Documents.Data.Entities;
+using Borg.Platform.EF.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
-using Borg.Platform.EF.Contracts;
 
 namespace Borg.Platform.Documents.Data
 {

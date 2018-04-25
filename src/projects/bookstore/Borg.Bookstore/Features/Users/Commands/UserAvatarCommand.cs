@@ -1,7 +1,7 @@
-﻿using Borg.CMS.Documents.Contracts;
-using Borg.Infra.DAL;
+﻿using Borg.Infra.DAL;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Documents;
 using Borg.Platform.MediatR;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -75,7 +75,7 @@ namespace Borg.Bookstore.Features.Users.Commands
                     await message.File.CopyToAsync(stream);
                     stream.Seek(0, 0);
                     var docId = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);
-                    var avatarUrl = await _cacheStore.PublicUrl(docId.fileid, VisualSize.Medium);
+                    var avatarUrl = await _cacheStore.PublicUrl(docId.file.Id, VisualSize.Medium);
                     return await _dispatcher.Send(new UserClaimCommand(message.Email, message.ClaimType, avatarUrl.AbsoluteUri));
                 }
             }
