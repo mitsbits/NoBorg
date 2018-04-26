@@ -67,7 +67,7 @@ namespace Borg.Platform.Documents.Services
                     Version = 1,
                     FileState = new FileState()
                     {
-                        Id = ((IFileSpec<int>)asset.CurrentFile.FileSpec).Id,
+                        Id = asset.CurrentFile.FileSpec.Id,
                         CreationDate = asset.CurrentFile.FileSpec.CreationDate,
                         FullPath = asset.CurrentFile.FileSpec.FullPath,
                         LastRead = asset.CurrentFile.FileSpec.LastRead,

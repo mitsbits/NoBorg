@@ -29,10 +29,10 @@ namespace Borg.Mvc.Example.Controllers
             usersession.TryContextualize(this);
             var m = usersession.Messages;
             var bytes = new byte[] { 1, 25, 124, 66, 55, 1 };
-            var saved = await usersession.SaveFile("object.json", new MemoryStream(bytes));
-            var retrived = await usersession.GetFileInfo("object.json");
-            var exitsts = await usersession.Exists("object.json");
-            var deleted = await usersession.DeleteFile("object.json");
+            //var saved = await usersession.SaveFile("object.json", new MemoryStream(bytes));
+            //var retrived = await usersession.GetFileInfo("object.json");
+            //var exitsts = await usersession.Exists("object.json");
+            //var deleted = await usersession.DeleteFile("object.json");
             return View();
         }
 

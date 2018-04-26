@@ -29,7 +29,7 @@ namespace Borg.Infra
     {
         public string ImagesCacheEndpoint { get; set; } = "http://127.0.0.1:10000/devstoreaccount1";
         public string ImagesCacheFolder { get; set; } = "cache";
-        public string Folder { get; set; }
+        public string Folder { get; set; } = "assets";
         public string AssetStoreContainer { get; set; }
         public string AzureStorageConnection { get; set; }
     }

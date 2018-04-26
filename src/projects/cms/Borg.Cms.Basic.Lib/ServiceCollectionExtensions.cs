@@ -23,7 +23,7 @@ using Borg.MVC.Services;
 using Borg.MVC.Services.Editors;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
-using Borg.Platform.Documents.Assets.Services;
+
 using Borg.Platform.EF.CMS.Data;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;

@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\infra\Borg.MVC\Borg.MVC.csproj" />
+    <ProjectReference Include="..\..\..\platform\Borg.Platform.Identity\Borg.Platform.Identity.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Backoffice\Borg.Cms.Basic.Backoffice.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.Lib\Borg.Cms.Basic.Lib.csproj" />
     <ProjectReference Include="..\Borg.Cms.Basic.PlugIns.BlogEngine\Borg.Cms.Basic.PlugIns.BlogEngine.csproj" />

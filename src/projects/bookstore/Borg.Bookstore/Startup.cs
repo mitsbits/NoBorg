@@ -22,6 +22,8 @@ using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Documents;
 using Borg.Platform.Documents.Services;
+using Borg.Platform.EF.DAL;
+using Borg.Platform.Identity.Data;
 using Borg.Platform.ImageSharp;
 
 namespace Borg.Bookstore
@@ -91,7 +93,7 @@ namespace Borg.Bookstore
                     p.GetRequiredService<IAssetDirectoryStrategy<int>>(),
                     p.GetRequiredService<IConflictingNamesResolver>(),
                     //() => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
-                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.AssetStoreContainer), LoggerFactory),
+                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.Folder), LoggerFactory),
                     p.GetRequiredService<IAssetStoreDatabaseService<int>>()),
                 ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAssetDirectoryStrategy<int>),
@@ -106,6 +108,8 @@ namespace Borg.Bookstore
             services.AddScoped<IDocumentsService<int>, DocumentsService>();
             //services.AddScoped<CacheStaticImagesForWeb>();
 
+
+            services.AddScoped<IUnitOfWork<DocumentsDbContext>, UnitOfWork<DocumentsDbContext>>();
 
             services.AddScoped<DocumentsDbSeed>();
 

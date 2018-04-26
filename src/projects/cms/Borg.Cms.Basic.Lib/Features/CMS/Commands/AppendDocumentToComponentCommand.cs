@@ -1,5 +1,5 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Events;
-using Borg.CMS.Documents.Contracts;
+
 using Borg.Infra.DAL;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Platform.EF.CMS;
@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Documents;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
@@ -67,7 +68,8 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                 {
                     await message.File.CopyToAsync(stream);
                     stream.Seek(0, 0);
-                    definition = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);
+                    var storeddoc = await _documents.StoreUserDocument(stream.ToArray(), filename, message.Email);
+                    definition = (docid: storeddoc.docid, fileid: storeddoc.file.Id);
                 }
                 if (definition.docid <= 0) return CommandResult<ComponentDocumentAssociationState>.FailureWithEmptyPayload($"Could not created document {filename} for Component with id {message.ComponentId} was not found");
 

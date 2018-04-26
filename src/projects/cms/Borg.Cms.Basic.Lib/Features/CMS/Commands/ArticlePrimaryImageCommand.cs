@@ -1,5 +1,5 @@
 ﻿using Borg.Cms.Basic.Lib.Features.CMS.Events;
-using Borg.CMS.Documents.Contracts;
+
 using Borg.Infra.DAL;
 using Borg.Platform.EF.CMS;
 using Borg.Platform.EF.CMS.Data;
@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Documents;
 
 namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
 {
@@ -88,7 +89,7 @@ namespace Borg.Cms.Basic.Lib.Features.CMS.Commands
                         await message.File.CopyToAsync(stream);
                         stream.Seek(0, 0);
                         var result = await _documents.StoreUserDocument(stream.ToArray(), filename, message.UserHandle);
-                        current = (documentId: result.docid, fileId: result.fieldid);
+                        current = (documentId: result.docid, fileId: result.file.Id);
                         @event = new ArticlePrimaryImageChangedEvent(message.RecordId, current, prev);
                         article.PageMetadata.PrimaryImageDocumentId = current.documentId;
                         article.PageMetadata.PrimaryImageFileId = current.fileId;

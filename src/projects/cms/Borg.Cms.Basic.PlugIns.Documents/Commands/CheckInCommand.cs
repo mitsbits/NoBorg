@@ -46,7 +46,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents.Commands
             _dispatcher = dispatcher;
             _assetStore = assetStore;
             _logger = loggerFactory.CreateLogger(GetType());
-            _assetStore.FileCreated += (args) => _dispatcher.Publish(new FileCreatedEvent(args.RecordId, args.MimeType));
+            _assetStore.FileCreated += (args) => _dispatcher.Publish(new FileCreatedEvent(args.Id, args.MimeType));
         }
 
         protected override async Task<CommandResult> HandleCore(CheckInCommand message)
