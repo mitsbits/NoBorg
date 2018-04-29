@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Borg.Infra;
+using Borg.Infra.Configuration.Contracts;
 using Borg.Infra.Storage.Assets;
 using Borg.Infra.Storage.Assets.Contracts;
 using Borg.Infra.Storage.Contracts;
@@ -18,10 +19,11 @@ namespace Borg.Platform.Documents.Services
         private readonly IAssetStore<AssetInfoDefinition<int>, int> _assetStore;
         private readonly Func<IFileStorage> _storageFactory;
         private readonly IAssetDirectoryStrategy<int> _assetDirectoryStrategy;
-        private readonly BorgSettings _settings;
+        private readonly ISettingsProvider<VisualSettings> _settings;
+        private readonly ISettingsProvider<StorageSettings> _strsettings;
         private readonly IImageResizer _resizer;
 
-        public StaticImageCacheStore(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore, Func<IFileStorage> storageFactory, IAssetDirectoryStrategy<int> assetDirectoryStrategy, BorgSettings settings, IImageResizer resizer)
+        public StaticImageCacheStore(ILoggerFactory loggerFactory, IAssetStore<AssetInfoDefinition<int>, int> assetStore, Func<IFileStorage> storageFactory, IAssetDirectoryStrategy<int> assetDirectoryStrategy, ISettingsProvider<VisualSettings> settings, ISettingsProvider<StorageSettings> strsettings, IImageResizer resizer)
         {
             _logger = loggerFactory == null ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
             _assetStore = assetStore;
@@ -29,6 +31,7 @@ namespace Borg.Platform.Documents.Services
             _assetDirectoryStrategy = assetDirectoryStrategy;
             _settings = settings;
             _resizer = resizer;
+            _strsettings = strsettings;
         }
 
         public async Task<IEnumerable<IFileSpec>> PrepareSizes(int fileId)
@@ -61,7 +64,7 @@ namespace Borg.Platform.Documents.Services
             {
                 foreach (var v in VisualSize.GetMembers().Where(x => x.ToString() != VisualSize.Undefined.ToString()))
                 {
-                    var pixels = _settings.Visual.WidthPixels[v.ToString()];
+                    var pixels = _settings.Config.WidthPixels[v.ToString()];
                     using (var local = new MemoryStream())
                     {
                         file.file.Seek(0, 0);
@@ -88,10 +91,10 @@ namespace Borg.Platform.Documents.Services
 
         public async Task<Uri> PublicUrl(int fileId, VisualSize size)
         {
-            var domain = _settings.Storage.ImagesCacheEndpoint;
+            var domain = _strsettings.Config.ImagesCacheEndpoint;
             var parentDirectory = await _assetDirectoryStrategy.ParentFolder(fileId);
             var fileName = $"{fileId}_{size}.jpg";
-            return new Uri(Path.Combine(domain, _settings.Storage.ImagesCacheFolder, parentDirectory, fileName));
+            return new Uri(Path.Combine(domain, _strsettings.Config.ImagesCacheFolder, parentDirectory, fileName));
         }
     }
 }

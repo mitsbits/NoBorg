@@ -26,6 +26,7 @@ namespace Borg.Platform.Documents.Data
         public async Task EnsureUp()
         {
             await _db.Database.MigrateAsync();
+            await EnsureDefaultMimeTypes();
             await EnsureImageGrouping();
         }
 

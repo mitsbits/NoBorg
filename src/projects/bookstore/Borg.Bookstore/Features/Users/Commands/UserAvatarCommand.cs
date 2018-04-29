@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
+using Borg.Infra.Storage.Contracts;
 
 namespace Borg.Bookstore.Features.Users.Commands
 {
@@ -55,6 +56,12 @@ namespace Borg.Bookstore.Features.Users.Commands
             _dispatcher = dispatcher;
             _cacheStore = cacheStore;
             _documents = documents;
+            _documents.FileCreated += DocumentsOnFileCreated;
+        }
+
+        private Task DocumentsOnFileCreated(IFileSpec<int> file)
+        {
+            return _cacheStore.PrepareSizes(file.Id);
         }
 
         protected override async Task<CommandResult> HandleCore(UserAvatarCommand message)

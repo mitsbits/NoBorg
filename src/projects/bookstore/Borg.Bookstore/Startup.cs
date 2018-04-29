@@ -25,6 +25,8 @@ using Borg.Platform.Documents.Services;
 using Borg.Platform.EF.DAL;
 using Borg.Platform.Identity.Data;
 using Borg.Platform.ImageSharp;
+using Hangfire.SqlServer;
+using Hangfire;
 
 namespace Borg.Bookstore
 {
@@ -84,8 +86,8 @@ namespace Borg.Bookstore
             {
                 return new StaticImageCacheStore(LoggerFactory,
                     provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
-                    () => new FolderFileStorage(Settings.Storage.ImagesCacheFolder, LoggerFactory),
-                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), Settings,
+                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.ImagesCacheFolder) , LoggerFactory),
+                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), Settings, Settings,
                     provider.GetRequiredService<IImageResizer>());
             });
             services.Add(new ServiceDescriptor(typeof(IAssetStore<AssetInfoDefinition<int>, int>),
@@ -115,6 +117,8 @@ namespace Borg.Bookstore
 
             services.AddMediatR(assebliesToScan);
 
+            services.AddHangfire(x => x.UseSqlServerStorage(Settings.ConnectionStrings["db"], new SqlServerStorageOptions() { SchemaName = "hangfire" }));
+
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
         }
@@ -137,6 +141,8 @@ namespace Borg.Bookstore
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession();
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
             app.UseMvc(ConfigureRoutes);
         }
 
