@@ -38,8 +38,4 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Collections\Hierarchy\" />
-  </ItemGroup>
-
 </Project>

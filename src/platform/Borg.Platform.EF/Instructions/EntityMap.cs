@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Borg.Platform.EF
+namespace Borg.Platform.EF.Instructions
 {
     public interface IEntityMap
     {

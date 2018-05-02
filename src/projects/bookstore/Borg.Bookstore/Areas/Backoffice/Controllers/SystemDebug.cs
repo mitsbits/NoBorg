@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Borg.Infra.Collections;
+﻿using Borg.Infra.Collections;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Borg.Bookstore.Areas.Backoffice.Controllers
 {
@@ -34,6 +34,7 @@ namespace Borg.Bookstore.Areas.Backoffice.Controllers
             }).ToList();
             return Ok(routes);
         }
+
         [HttpGet("RoutesView")]
         public IActionResult RoutesView()
         {
@@ -50,7 +51,7 @@ namespace Borg.Bookstore.Areas.Backoffice.Controllers
             }).ToList();
             SetPageTitle("Routes");
 
-            return View( new PagedResult<dynamic>(routes, 1, routes.Count, routes.Count));
+            return View(new PagedResult<dynamic>(routes, 1, routes.Count, routes.Count));
         }
     }
 }

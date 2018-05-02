@@ -1,6 +1,7 @@
 ﻿using Borg.CMS;
 using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF.CMS.Data;
+using Borg.Platform.EF.Instructions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EF.CMS

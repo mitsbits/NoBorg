@@ -1,6 +1,7 @@
 ﻿using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.EF.CMS
 {

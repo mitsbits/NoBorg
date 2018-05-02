@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Data
 {

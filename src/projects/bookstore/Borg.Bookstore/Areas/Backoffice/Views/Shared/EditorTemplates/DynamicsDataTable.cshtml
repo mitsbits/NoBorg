@@ -4,6 +4,7 @@
 @using System.Security.Cryptography.X509Certificates
 @using Borg.Infra.Services
 @using System.Linq
+@using Borg.Bookstore
 @using Borg.Cms.Basic.Lib
 @using Newtonsoft.Json
 @model IPagedResult<dynamic>
@@ -22,7 +23,6 @@ public static string[] GetMemberNames(dynamic target)
 @{
     var props = GetMemberNames(Model[0]);
     var htmlId = Randomize.Letters(7).ToLower();
-
 
 }
 <div class="container-fluid" id="@htmlId">
@@ -144,7 +144,6 @@ public static string[] GetMemberNames(dynamic target)
 
         }
 
-
         var props = @Html.Raw(JsonConvert.SerializeObject(props));
 
         var app = new lookupViewModel();
@@ -159,6 +158,4 @@ public static string[] GetMemberNames(dynamic target)
 
         ko.applyBindings(app, document.getElementById('#@htmlId'));
     });
-
-
 </script>

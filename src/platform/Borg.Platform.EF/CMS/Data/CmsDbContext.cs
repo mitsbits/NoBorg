@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.EF.CMS.Data
 {

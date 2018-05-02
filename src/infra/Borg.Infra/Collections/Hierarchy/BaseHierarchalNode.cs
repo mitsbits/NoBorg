@@ -23,6 +23,7 @@ namespace Borg.Infra.Collections.Hierarchy
 
         public TKey Id { get; protected set; } = default(TKey);
         public TKey ParentId { get; protected set; } = default(TKey);
+        public TKey[] HierarchyKeys { get; }
         public int Depth { get; protected set; } = default(int);
 
         public bool HasChildren

@@ -2,6 +2,7 @@
 using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.Documents.Data.Entities
 {

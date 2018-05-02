@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Borg.Bookstore.Data;
 using Borg.Platform.Documents.Data;
+using Borg.Platform.EStore.Data;
 
 namespace Borg.Bookstore
 {
@@ -41,6 +42,8 @@ namespace Borg.Bookstore
                 documentsseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
                 var bookstoreseed = scope.ServiceProvider.GetRequiredService<BookstoreDbSeed>();
                 bookstoreseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
+                var estoreseed = scope.ServiceProvider.GetRequiredService<EStoreDbSeed>();
+                estoreseed.EnsureUp().Wait(TimeSpan.FromMinutes(1));
             }
         }
     }

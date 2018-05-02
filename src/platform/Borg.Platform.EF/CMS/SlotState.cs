@@ -4,6 +4,7 @@ using Borg.Platform.EF.CMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.EF.CMS
 {

@@ -1,5 +1,6 @@
 ﻿using Borg.Infra.DDD.Contracts;
 using Borg.Platform.EF;
+using Borg.Platform.EF.Instructions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.Documents.Data.Entities

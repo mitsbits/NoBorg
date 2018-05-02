@@ -3,9 +3,18 @@ using Borg.Bookstore.Data;
 using Borg.Bookstore.Features.Users.Policies;
 using Borg.Infra.Caching;
 using Borg.Infra.Caching.Contracts;
+using Borg.Infra.Storage;
+using Borg.Infra.Storage.Assets;
+using Borg.Infra.Storage.Assets.Contracts;
+using Borg.Infra.Storage.Documents;
 using Borg.Platform.Documents.Data;
+using Borg.Platform.Documents.Services;
 using Borg.Platform.EF.Contracts;
+using Borg.Platform.EF.DAL;
 using Borg.Platform.Identity;
+using Borg.Platform.ImageSharp;
+using Hangfire;
+using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,16 +26,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Borg.Infra.Storage;
-using Borg.Infra.Storage.Assets;
-using Borg.Infra.Storage.Assets.Contracts;
-using Borg.Infra.Storage.Documents;
-using Borg.Platform.Documents.Services;
-using Borg.Platform.EF.DAL;
-using Borg.Platform.Identity.Data;
-using Borg.Platform.ImageSharp;
-using Hangfire.SqlServer;
-using Hangfire;
+using Borg.Platform.EStore.Data;
 
 namespace Borg.Bookstore
 {
@@ -64,6 +64,15 @@ namespace Borg.Bookstore
                 options.ConnectionString = Settings.ConnectionStrings["db"];
             });
 
+            services.AddDbContext<EStoreDbContext>(options =>
+            {
+                options.UseSqlServer(Settings.ConnectionStrings["db"], x => x.MigrationsHistoryTable("__MigrationsHistory", "estore"));
+                options.EnableSensitiveDataLogging(Environment.IsDevelopment());
+            });
+
+            services.AddScoped<IDbSeed, EStoreDbSeed>();
+            services.AddScoped<EStoreDbSeed>();
+
             services.AddSingleton<ICacheStore, CacheStore>();
 
             services.AddDbContext<BookstoreDbContext>(options =>
@@ -86,7 +95,7 @@ namespace Borg.Bookstore
             {
                 return new StaticImageCacheStore(LoggerFactory,
                     provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
-                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.ImagesCacheFolder) , LoggerFactory),
+                    () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.ImagesCacheFolder), LoggerFactory),
                     provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), Settings, Settings,
                     provider.GetRequiredService<IImageResizer>());
             });
@@ -94,7 +103,6 @@ namespace Borg.Bookstore
                 p => new AssetService(LoggerFactory,
                     p.GetRequiredService<IAssetDirectoryStrategy<int>>(),
                     p.GetRequiredService<IConflictingNamesResolver>(),
-                    //() => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.AssetStoreContainer),
                     () => new FolderFileStorage(Path.Combine(Environment.WebRootPath, Settings.Storage.Folder), LoggerFactory),
                     p.GetRequiredService<IAssetStoreDatabaseService<int>>()),
                 ServiceLifetime.Scoped));
@@ -102,14 +110,10 @@ namespace Borg.Bookstore
                 p => new RoundUpAssetDirectoryStrategy(10, 50), ServiceLifetime.Scoped));
             services.AddScoped<IConflictingNamesResolver, DefaultConflictingNamesResolver>();
             services.AddScoped<IAssetStoreDatabaseService<int>, EfAssetsSequencedDatabaseService>();
-            //services.AddScoped<AzureBlobStorageFileProvider>(provider => new AzureBlobStorageFileProvider(
-            //    new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.ImagesCacheFolder), "img"));
-            //services.AddScoped<AzureBlobStorageFileProvider>(provider => new PhysicalFileProvider( settings.Storage.ImagesCacheFolder));
 
             services.AddScoped<IImageResizer, ImageResizer>();
             services.AddScoped<IDocumentsService<int>, DocumentsService>();
             //services.AddScoped<CacheStaticImagesForWeb>();
-
 
             services.AddScoped<IUnitOfWork<DocumentsDbContext>, UnitOfWork<DocumentsDbContext>>();
 

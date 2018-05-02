@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.EF.CMS
 {

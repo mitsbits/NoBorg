@@ -4,6 +4,8 @@ using Borg.Platform.Identity.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Borg.Platform.EF.Instructions;
+using Borg.Platform.EF.Instructions.Attributes;
 
 namespace Borg.Platform.Identity.Data
 {
@@ -12,6 +14,7 @@ namespace Borg.Platform.Identity.Data
         public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
+        protected virtual string SchemaName => GetType().Name.Replace("DbContext", string.Empty).Slugify();
 
         public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
 
@@ -26,7 +29,25 @@ namespace Borg.Platform.Identity.Data
             }
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
-                entityType.Relational().Schema = "auth";
+                var t = entityType.ClrType;
+                if (t != null)
+                {
+                    var atts = t.GetCustomAttributesData();
+                    var attr = t.GetCustomAttribute<TableSchemaDefinitionAttribute>();
+                    if (attr != null)
+                    {
+                        entityType.Relational().Schema = attr.Schema.Slugify();
+                    }
+                    else
+                    {
+                        entityType.Relational().Schema = SchemaName;
+                    }
+                }
+                else
+                {
+                    entityType.Relational().Schema = SchemaName;
+                }
+               
             }
         }
     }

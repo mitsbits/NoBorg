@@ -2,6 +2,7 @@
 using Borg.Platform.EF;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.Identity.Data.Entities
 {

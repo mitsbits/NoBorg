@@ -1,4 +1,5 @@
 ﻿using Borg.Platform.EF;
+using Borg.Platform.EF.Instructions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Cms.Basic.PlugIns.Documents.Data

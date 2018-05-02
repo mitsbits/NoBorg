@@ -54,7 +54,7 @@ namespace Borg.Cms.Basic.PlugIns.Documents
                     provider.GetService<IAssetStore<AssetInfoDefinition<int>, int>>(),
                     () => new FolderFileStorage(settings.Storage.ImagesCacheFolder, loggerFactory),
                     //() => new AzureFileStorage(settings.Storage.AzureStorageConnection, settings.Storage.ImagesCacheFolder),
-                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings,
+                    provider.GetRequiredService<IAssetDirectoryStrategy<int>>(), settings, settings,
                     provider.GetRequiredService<IImageResizer>());
             });
 

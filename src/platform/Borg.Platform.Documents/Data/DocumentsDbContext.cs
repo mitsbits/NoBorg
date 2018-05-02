@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Borg.Platform.EF.Instructions;
 
 namespace Borg.Platform.Documents.Data
 {
-    public class DocumentsDbContext : DbContext
+    public class DocumentsDbContext : BorgDbContext
     {
         private readonly Dictionary<Type, object> _cache;
 
@@ -26,25 +27,6 @@ namespace Borg.Platform.Documents.Data
         public DbSet<AssetState> AssetRecords { get; set; }
         public DbSet<MimeTypeState> MimeTypeRecords { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            var maptype = typeof(EntityMap<,>);
 
-            var maps = GetType().Assembly.GetTypes().Where(t => t.IsSubclassOfRawGeneric(maptype) && !t.IsAbstract && t.BaseType.GenericTypeArguments[1] == GetType());
-
-            foreach (var map in maps)
-            {
-                if (!_cache.ContainsKey(map))
-                {
-                    _cache.Add(map, Activator.CreateInstance(map) as IEntityMap);
-                }
-                ((IEntityMap)_cache[map]).OnModelCreating(builder);
-            }
-
-            foreach (var entityType in builder.Model.GetEntityTypes())
-            {
-                entityType.Relational().Schema = "documents";
-            }
-        }
     }
 }

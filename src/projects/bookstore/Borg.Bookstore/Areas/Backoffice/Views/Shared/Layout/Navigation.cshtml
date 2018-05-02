@@ -1,7 +1,7 @@
 ﻿@using Borg.Bookstore
 @using Borg.Cms.Basic.Lib
 @using Borg.MVC.PlugIns.Contracts
-
+@inject IPlugInHost _host
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -11,14 +11,14 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
-        <li>
-            <a asp-area="backoffice" asp-controller="PlugIns" asp-action="Home" asp-route-id="">
-                <i class="fa fa-plug"></i> <span>Plug Ins</span>
-            </a>
-        </li>
+        @*<li>
+                <a asp-area="backoffice" asp-controller="PlugIns" asp-action="Home" asp-route-id="">
+                    <i class="fa fa-plug"></i> <span>Plug Ins</span>
+                </a>
+            </li>*@
         <li class="treeview">
-            <a asp-area="Backoffice" asp-controller="Home" asp-action="Home">
-                <i class="fa fa-edit"></i> <span>Administration</span>
+            <a>
+                <i class="@FontAwesomeEnum.Users.ToCssClass()"></i> <span>Users</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -26,50 +26,65 @@
             <ul class="treeview-menu">
                 <li>
                     <a asp-area="Backoffice" asp-controller="Users" asp-action="Users">
-                        <i class="@FontAwesomeEnum.Users.ToCssClass()"></i> Users
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="Backoffice" asp-controller="Menus" asp-action="Home" asp-route-id="">
-                        <i class="@FontAwesomeEnum.Anchor.ToCssClass()"></i> Menus
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="Backoffice" asp-controller="Devices" asp-action="Home" asp-route-id="">
-                        <i class="@FontAwesomeEnum.Building.ToCssClass()"></i> Devices
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="Backoffice" asp-controller="Categories" asp-action="Home" asp-route-id="">
-                        <i class="@FontAwesomeEnum.University.ToCssClass()"></i> Categories
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="Backoffice" asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="">
-                        <i class="@FontAwesomeEnum.ObjectGroup.ToCssClass()"></i> Html Snippets
-                    </a>
-                </li>
-                
-                <li>
-                    <a asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="Index" asp-route-id="">
-                        <i class="@FontAwesomeEnum.Cog.ToCssClass()"></i> Configuration Blocks
+                        <i class="@FontAwesomeEnum.Edit.ToCssClass()"></i> Edit Users
                     </a>
                 </li>
             </ul>
         </li>
-        @*@{
-            foreach (IPlugInArea pa in _host.PlugInAreas())
-            {
-                if (pa.Area != "Backoffice")
-                {
+        @*<li class="treeview">
+                <a asp-area="Backoffice" asp-controller="Home" asp-action="Home">
+                    <i class="fa fa-edit"></i> <span>Administration</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
                     <li>
-                        <a asp-area="@pa.Area" asp-controller="@pa.BackofficeEntryPointAction["asp-controller"]" asp-action="@pa.BackofficeEntryPointAction["asp-action"]" asp-route-id="@pa.BackofficeEntryPointAction["asp-route-id"]">
-                            <i class="@pa.BackofficeEntryPointAction["icon-class"]"></i> <span>@pa.Title</span>
+                        <a asp-area="Backoffice" asp-controller="Users" asp-action="Users">
+                            <i class="@FontAwesomeEnum.Users.ToCssClass()"></i> Users
                         </a>
                     </li>
+                    <li>
+                        <a asp-area="Backoffice" asp-controller="Menus" asp-action="Home" asp-route-id="">
+                            <i class="@FontAwesomeEnum.Anchor.ToCssClass()"></i> Menus
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="Backoffice" asp-controller="Devices" asp-action="Home" asp-route-id="">
+                            <i class="@FontAwesomeEnum.Building.ToCssClass()"></i> Devices
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="Backoffice" asp-controller="Categories" asp-action="Home" asp-route-id="">
+                            <i class="@FontAwesomeEnum.University.ToCssClass()"></i> Categories
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="Backoffice" asp-controller="HtmlSnippet" asp-action="Home" asp-route-id="">
+                            <i class="@FontAwesomeEnum.ObjectGroup.ToCssClass()"></i> Html Snippets
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-area="Backoffice" asp-controller="ConfigurationBlocks" asp-action="Index" asp-route-id="">
+                            <i class="@FontAwesomeEnum.Cog.ToCssClass()"></i> Configuration Blocks
+                        </a>
+                    </li>
+                </ul>
+            </li>*@
+        @{
+                foreach (IPlugInArea pa in _host.PlugInAreas())
+                {
+                    if (pa.Area != "Backoffice")
+                    {
+                        <li>
+                            <a asp-area="@pa.Area" asp-controller="@pa.BackofficeEntryPointAction["asp-controller"]" asp-action="@pa.BackofficeEntryPointAction["asp-action"]" asp-route-id="@pa.BackofficeEntryPointAction["asp-route-id"]">
+                                <i class="@pa.BackofficeEntryPointAction["icon-class"]"></i> <span>@pa.Title</span>
+                            </a>
+                        </li>
+                    }
                 }
             }
-        }*@
         @*<li class="treeview">
                 <a asp-controller="Scenarios" asp-action="Home">
                     <i class="fa fa-th"></i><span> Scenarios</span>
@@ -91,6 +106,6 @@
                 </ul>
             </li>*@
     </ul>
-    </section>
+    @*</section>*@
     <!-- /.sidebar -->
 </aside>

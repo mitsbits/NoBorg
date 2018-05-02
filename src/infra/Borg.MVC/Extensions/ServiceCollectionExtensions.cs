@@ -1,5 +1,6 @@
-﻿using System;
-using Borg.Infra;
+﻿using Borg.Infra;
+using Borg.Infra.Configuration.Contracts;
+using Borg.Infra.Services.AssemblyProvider;
 using Borg.Infra.Storage;
 using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
@@ -9,11 +10,10 @@ using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Borg.Infra.Configuration.Contracts;
-using Borg.Infra.Services.AssemblyProvider;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -33,20 +33,18 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<DeviceLayoutFilter>();
 
-            services.AddScoped<IFileStorage>((s) => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Config.Folder), s.GetService<ILoggerFactory>()));
+            services.AddScoped<IFileStorage>(s => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Config.Folder), s.GetService<ILoggerFactory>()));
 
             return services;
         }
 
         private static IServiceCollection AddBorgUserSession(this IServiceCollection services)
         {
-           
             services.AddScoped<ISessionServerResponseProvider, TempDataResponseProvider>();
             services.AddScoped<IUserSession, BorgUserSession>();
             services.AddScoped<IContextAwareUserSession, BorgUserSession>();
             return services;
         }
-
 
         public static Assembly[] FireUpAssemblyScanners(this IServiceCollection services, ILoggerFactory loggerFactory, Func<Assembly, bool> filter = null)
         {

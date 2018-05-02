@@ -13,11 +13,24 @@ namespace Borg.Infra.Services.Slugs
     {
         private readonly ILogger _logger;
         private readonly IEnumerable<InternationalCharacterToASCIIService> _internationalCharacterMappers;
+        private static ISlugifierService _default;
 
         public Slugifier(ILoggerFactory loggerFactory, IEnumerable<InternationalCharacterToASCIIService> internationalCharacterMappers)
         {
             _logger = (loggerFactory == null) ? NullLogger.Instance : loggerFactory.CreateLogger(GetType());
-            _internationalCharacterMappers = internationalCharacterMappers ?? throw new ArgumentNullException(nameof(internationalCharacterMappers));
+            _internationalCharacterMappers = internationalCharacterMappers ??
+                                             new[] {NullInternationalCharacterToASCIIService.Instance};
+        }
+
+        private Slugifier()
+        {
+            _logger = NullLogger.Instance;
+            _internationalCharacterMappers = new[] { NullInternationalCharacterToASCIIService.Instance };
+        }
+
+        public static ISlugifierService CreateDefault()
+        {
+            return _default ?? (_default = new Slugifier());
         }
 
         #region IStringSlugifierService
@@ -35,10 +48,18 @@ namespace Borg.Infra.Services.Slugs
             source = InterceptSource(source);
             source = source.RemoveDiacritics();
 
-            foreach (var nternationalCharacterToAsciiService in _internationalCharacterMappers)
+            if (maxlength == -1)
             {
-                source = nternationalCharacterToAsciiService.Special(source, maxlength);
+                //whaaaaaat?
             }
+            else
+            {
+                foreach (var internationalCharacterToAsciiService in _internationalCharacterMappers)
+                {
+                    source = internationalCharacterToAsciiService.Special(source, maxlength);
+                }
+            }
+
 
             int len = source.Length;
             bool prevdash = false;
