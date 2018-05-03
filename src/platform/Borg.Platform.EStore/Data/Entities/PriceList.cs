@@ -16,18 +16,16 @@ namespace Borg.Platform.EStore.Data.Entities
 
     }
 
-    public partial class ComponentState
+    public partial class ComponentState 
     {
-        internal PriceListState PriceList { get; set; }
+       internal virtual PriceListState PriceListState { get; set; }
     }
-
-
     public class PriceListMap : EntityMap<PriceListState, EStoreDbContext>
     {
         public override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<PriceListState>().HasKey(x => new { x.Id, x.LanguageCode }).ForSqlServerIsClustered();
-            builder.Entity<PriceListState>().HasOne(x => x.ComponentState).WithOne(x => x.PriceList).HasForeignKey<PriceListState>(x=>x.Id);
+            builder.Entity<PriceListState>().HasOne(x => x.ComponentState).WithOne(x => x.PriceListState).HasForeignKey<PriceListState>(x=>x.Id);
         }
     }
 }

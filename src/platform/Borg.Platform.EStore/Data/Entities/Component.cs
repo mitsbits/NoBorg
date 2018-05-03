@@ -1,33 +1,14 @@
-﻿using Borg.CMS.Components.Contracts;
+﻿using Borg.CMS;
 using Borg.Platform.EF.Instructions;
+using Borg.Platform.EF.Instructions.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace Borg.Platform.EStore.Data.Entities
 {
-    public partial class ComponentState : IComponent<int>
+    [TableSchemaDefinition("borg")]
+    public partial class ComponentState :ComponentBase<int>
     {
-        public int Id { get; set; }
-
-        public void Delete()
-        {
-            if (IsDeleted) return;
-            IsDeleted = true;
-        }
-
-        public bool IsDeleted { get; protected set; }
-        public bool IsPublished { get; protected set; }
-
-        public void Publish()
-        {
-            if (IsPublished) return;
-            IsPublished = true;
-        }
-
-        public void Suspend()
-        {
-            if (!IsPublished) return;
-            IsPublished = false;
-        }
+        public override int Id { get; protected set; }
     }
 
     public class ComponentMap : EntityMap<ComponentState, EStoreDbContext>

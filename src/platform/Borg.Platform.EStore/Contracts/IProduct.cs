@@ -13,4 +13,15 @@ namespace Borg.Platform.EStore.Contracts
         ITaxonomy<TKey> Category { get; }
         IEnumerable<IAssetInfo<TKey>> Assets { get; }
     }
+
+    public abstract class Product<TKey> : IProduct<TKey> where TKey : IEquatable<TKey>
+    {
+        public virtual string ComponentKey => Component.Id.ToString();
+        public abstract IComponent<TKey> Component { get; }
+        public virtual string SKU { get; protected set; }
+        public abstract IEnumerable<IPriceList> PriceLists { get; }
+        public abstract IEnumerable<IProductAttributeValue<TKey>> Attributes { get; }
+        public abstract ITaxonomy<TKey> Category { get; }
+        public abstract IEnumerable<IAssetInfo<TKey>> Assets { get; }
+    }
 }
