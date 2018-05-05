@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Borg.CMS.Components.Contracts;
+﻿using Borg.CMS.Components.Contracts;
+using System.Collections.Generic;
 
 namespace Borg.Platform.EStore.Contracts
 {

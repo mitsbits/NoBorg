@@ -15,7 +15,7 @@ namespace Borg.Platform.EStore.Data.Entities
         public override IComponent<int> Component => ComponentState;
         public override string LanguageCode { get; protected set; }
 
-        public  ComponentState ComponentState { get; protected set; }
+        public ComponentState ComponentState { get; protected set; }
     }
 
     public partial class ComponentState

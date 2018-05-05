@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Borg.Platform.EStore.Data.Entities
 {
     [TableSchemaDefinition("borg")]
-    public partial class ComponentState :ComponentBase<int>
+    public partial class ComponentState : ComponentBase<int>
     {
         public override int Id { get; protected set; }
     }
