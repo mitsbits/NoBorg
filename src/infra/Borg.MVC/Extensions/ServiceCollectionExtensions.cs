@@ -14,6 +14,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Borg.MVC.PlugIns;
+using Borg.MVC.PlugIns.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -34,6 +36,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<DeviceLayoutFilter>();
 
             services.AddScoped<IFileStorage>(s => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Config.Folder), s.GetService<ILoggerFactory>()));
+
+       
+            services.Add(new ServiceDescriptor(typeof(IPlugInHost),
+                provider => new PlugInHost(provider.GetRequiredService<ILoggerFactory>(), provider.GetServices<IAssemblyProvider>()), 
+                ServiceLifetime.Singleton));
 
             return services;
         }

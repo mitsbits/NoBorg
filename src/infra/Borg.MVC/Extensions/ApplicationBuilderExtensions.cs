@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Borg.MVC.Extensions
+namespace Borg
 {
     public static class ApplicationBuilderExtensions
     {

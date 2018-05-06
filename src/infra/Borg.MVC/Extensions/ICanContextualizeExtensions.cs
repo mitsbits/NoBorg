@@ -3,7 +3,7 @@ using Borg.MVC.BuildingBlocks.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Borg.MVC.Extensions
+namespace Borg
 {
     public static class ICanContextualizeExtensions
     {

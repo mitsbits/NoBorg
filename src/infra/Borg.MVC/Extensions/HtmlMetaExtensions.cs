@@ -2,7 +2,7 @@
 using Borg.Infra;
 using System;
 
-namespace Borg.MVC.Extensions
+namespace Borg
 {
     public static class HtmlMetaExtensions
     {

@@ -1,7 +1,8 @@
-﻿using Borg.MVC.BuildingBlocks;
+﻿using Borg.MVC;
+using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 
-namespace Borg.MVC
+namespace Borg
 {
     internal static class BorgControllerExtensions
     {

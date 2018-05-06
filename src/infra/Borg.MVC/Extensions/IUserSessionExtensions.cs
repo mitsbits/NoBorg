@@ -1,7 +1,7 @@
 ﻿using Borg.MVC.Services.UserSession;
 using System;
 
-namespace Borg.MVC.Extensions
+namespace Borg
 {
     public static class IUserSessionExtensions
     {

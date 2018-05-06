@@ -21,7 +21,7 @@ namespace Borg.MVC.PlugIns
                 .Where(x => x.ImplementsInterface(typeof(IPluginDescriptor)) && x.IsSealed)
                 .Distinct().ToList();
 
-            _logger.Info("Found {count} plug ins", plugintypes.Count());
+            _logger.Info("Found {count} plug ins", plugintypes.Count);
 
             foreach (var pluginDescriptor in plugintypes)
             {
