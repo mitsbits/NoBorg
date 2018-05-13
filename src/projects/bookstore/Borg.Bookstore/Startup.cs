@@ -11,7 +11,7 @@ using Borg.Platform.Documents.Data;
 using Borg.Platform.Documents.Services;
 using Borg.Platform.EF.Contracts;
 using Borg.Platform.EF.DAL;
-using Borg.Platform.Identity;
+using Borg.Platform.EStore.Data;
 using Borg.Platform.ImageSharp;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -26,7 +26,6 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Borg.Platform.EStore.Data;
 
 namespace Borg.Bookstore
 {

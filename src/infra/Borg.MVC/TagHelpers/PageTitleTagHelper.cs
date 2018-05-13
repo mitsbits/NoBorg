@@ -1,5 +1,5 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.MVC.Extensions;
+
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -24,7 +24,7 @@ namespace Borg.MVC.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            ICanContextualizeExtensions.TryContextualize((ICanContextualize) _orchestrator, (ViewContext) ViewContext);
+            ICanContextualizeExtensions.TryContextualize((ICanContextualize)_orchestrator, (ViewContext)ViewContext);
 
             output.Attributes.Clear();
             output.TagName = "title";

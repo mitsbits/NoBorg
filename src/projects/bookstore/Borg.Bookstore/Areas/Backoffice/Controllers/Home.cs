@@ -2,7 +2,7 @@
 using Borg.Infra;
 using Borg.Infra.Caching.Contracts;
 using Borg.Infra.DTO;
-using Borg.MVC.Extensions;
+
 using Borg.MVC.Services.UserSession;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,7 @@
 ﻿using Borg.Infra.DAL;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.MVC.Extensions;
+
 using Borg.MVC.Services.Breadcrumbs;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Identity;

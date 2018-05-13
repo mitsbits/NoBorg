@@ -1,5 +1,5 @@
 ﻿using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.MVC.Extensions;
+
 using Borg.MVC.PlugIns.Decoration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;

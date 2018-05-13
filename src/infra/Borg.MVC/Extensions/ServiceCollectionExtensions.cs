@@ -6,6 +6,8 @@ using Borg.Infra.Storage.Contracts;
 using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
 using Borg.MVC.Filters;
+using Borg.MVC.PlugIns;
+using Borg.MVC.PlugIns.Contracts;
 using Borg.MVC.Services.ServerResponses;
 using Borg.MVC.Services.UserSession;
 using Microsoft.AspNetCore.Hosting;
@@ -14,8 +16,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Borg.MVC.PlugIns;
-using Borg.MVC.PlugIns.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -37,9 +37,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IFileStorage>(s => new FolderFileStorage(Path.Combine(env.WebRootPath, settings.Config.Folder), s.GetService<ILoggerFactory>()));
 
-       
             services.Add(new ServiceDescriptor(typeof(IPlugInHost),
-                provider => new PlugInHost(provider.GetRequiredService<ILoggerFactory>(), provider.GetServices<IAssemblyProvider>()), 
+                provider => new PlugInHost(provider.GetRequiredService<ILoggerFactory>(), provider.GetServices<IAssemblyProvider>()),
                 ServiceLifetime.Singleton));
 
             return services;

@@ -18,7 +18,22 @@
             </li>*@
         <li class="treeview">
             <a>
-                <i class="@FontAwesomeEnum.Users.ToCssClass()"></i> <span>Users</span>
+                <i class="@FontAwesomeClass.DollarSign"></i> <span>E Store</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a asp-area="Backoffice" asp-controller="Prices" asp-action="Pricelists">
+                        <i class="@FontAwesomeClass.List"></i> Price Lists
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a>
+                <i class="@FontAwesomeClass.Users"></i> <span>Users</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -26,8 +41,36 @@
             <ul class="treeview-menu">
                 <li>
                     <a asp-area="Backoffice" asp-controller="Users" asp-action="Users">
-                        <i class="@FontAwesomeEnum.Edit.ToCssClass()"></i> Edit Users
+                        <i class="@FontAwesomeClass.Edit"></i> Edit Users
                     </a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a>
+                <i class="@FontAwesomeClass.ShoePrints"></i> <span>General</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="treeview">
+                    <a>
+                        <i class="@FontAwesomeClass.AppStore"></i> <span>Settings</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a>
+                                <i class="@FontAwesomeClass.Wheelchair"></i> <span>General</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>

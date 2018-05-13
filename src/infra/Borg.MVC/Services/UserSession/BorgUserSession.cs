@@ -1,17 +1,11 @@
 ﻿using Borg.Infra;
 using Borg.Infra.DTO;
-using Borg.Infra.Storage.Contracts;
-using Borg.MVC.BuildingBlocks;
 using Borg.MVC.BuildingBlocks.Contracts;
-using Borg.MVC.Extensions;
+
 using Borg.MVC.Services.ServerResponses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Borg.MVC.Services.UserSession
 {

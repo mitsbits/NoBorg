@@ -1,6 +1,6 @@
 ﻿using Borg.Bookstore.Areas.Backoffice.ViewComponents;
 
-using Borg.MVC.Extensions;
+
 using Borg.MVC.Services.UserSession;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
