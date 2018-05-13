@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Borg.Infra.Services.Factory;
+﻿using Borg.Infra.Services.Factory;
 using Borg.Platform.EF.Instructions;
 using Borg.Platform.EF.Instructions.Attributes;
+using EntityFrameworkCore.Triggers;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Borg.Platform.EF
 {
-   public abstract class BorgDbContext : DbContext
+    public abstract class BorgDbContext : DbContext
     {
-        protected BorgDbContext([NotNull] DbContextOptions options) : base(options) { }
+        protected BorgDbContext([NotNull] DbContextOptions options) : base(options)
+        {
+        }
+
         protected virtual string SchemaName => GetType().Name.Replace("DbContext", string.Empty).Slugify();
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -37,5 +42,29 @@ namespace Borg.Platform.EF
                 }
             }
         }
+
+        #region If you're targeting EF Core
+
+        public override Int32 SaveChanges()
+        {
+            return this.SaveChangesWithTriggers(base.SaveChanges, acceptAllChangesOnSuccess: true);
+        }
+
+        public override Int32 SaveChanges(Boolean acceptAllChangesOnSuccess)
+        {
+            return this.SaveChangesWithTriggers(base.SaveChanges, acceptAllChangesOnSuccess);
+        }
+
+        public override Task<Int32> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return this.SaveChangesWithTriggersAsync(base.SaveChangesAsync, acceptAllChangesOnSuccess: true, cancellationToken: cancellationToken);
+        }
+
+        public override Task<Int32> SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return this.SaveChangesWithTriggersAsync(base.SaveChangesAsync, acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        #endregion If you're targeting EF Core
     }
 }

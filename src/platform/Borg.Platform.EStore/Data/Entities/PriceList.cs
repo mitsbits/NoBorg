@@ -4,6 +4,7 @@ using Borg.Platform.EStore.Abstraction;
 using Borg.Platform.EStore.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using EntityFrameworkCore.Triggers;
 
 namespace Borg.Platform.EStore.Data.Entities
 {
@@ -28,6 +29,7 @@ namespace Borg.Platform.EStore.Data.Entities
         {
             builder.Entity<PriceListState>().HasKey(x =>  x.Id ).ForSqlServerIsClustered();
             builder.Entity<PriceListState>().HasOne(x => x.ComponentState).WithOne(x => x.PriceListState).HasForeignKey<PriceListState>(x => x.Id);
+
         }
     }
 }
